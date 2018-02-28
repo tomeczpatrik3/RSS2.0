@@ -1,53 +1,3 @@
-Adatbázis: MongDB
-
---tut: https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/
---set relative db path in cmd: "C:\Program Files\MongoDB\Server\3.6\bin\mongod.exe" --dbpath C:\Users\range\Desktop\Szakdolgozat\Databse --auth
-
-
---spring app properties example:
-	#mongodb
-    spring.data.mongodb.host=localhost
-    spring.data.mongodb.port=27017
-    spring.data.mongodb.database=RoomReservationDB
-    spring.data.mongodb.repositories.enabled=true # if spring data repository support is enabled
-	#Autentikáció:
-	spring.data.mongodb.username=tomeczpatrik # Login user of the mongo server.
-	spring.data.mongodb.password=elteSzakdoga # Login password of the mongo server.
-	
---autentikacio (mongodb szerver):
-	
-	1) mongod --port 27017 --dbpath /data/db1
-	2) mongo --port 27017
-	3) 	use admin
-		db.createUser(
-		  {
-			user: "tomeczpatrik3",
-			pwd: "elteSzakdoga",
-			roles: [ { role: "root", db: "admin" } ]
-		  }
-		);
-		
-	--vagy:
-		use admin
-		db.createUser(
-		  {
-			user: "admin12",
-			pwd: "admin12",
-			roles:
-			[
-			  {
-				role: "userAdminAnyDatabase",
-				db: "admin"
-			  }
-			]
-		  }
-		)	
-	4) --auth indításnál
-	
---referencia:
-	https://docs.mongodb.com/manual/reference/database-references/
-	
-	
 Lombok:
 
 --@Data is a convenient shortcut annotation that bundles the features of @ToString, @EqualsAndHashCode, @Getter / @Setter and @RequiredArgsConstructor together:
@@ -55,7 +5,7 @@ Lombok:
 Postman:
 --Api Servicek unit teszteléséhez
 
-MySqlConnector 
+MySqlConnector :
 
 SQLyog: Kapcsolatok generálásara
 -- Netbeansben: new --> other --> persistence --> entity class from db
@@ -139,8 +89,8 @@ To fix org.hibernate.LazyInitializationException Error:
 
 Filter esetén Service inicializálása:
 --https://stackoverflow.com/questions/32494398/unable-to-autowire-the-service-inside-my-authentication-filter-in-spring
-            if (userService == null) {
-                ServletContext servletContext = req.getServletContext();
-                WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(servletContext);
-                userService = webApplicationContext.getBean(UserServiceImpl.class);
-            }
+    if (userService == null) {
+        ServletContext servletContext = req.getServletContext();
+        WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(servletContext);
+        userService = webApplicationContext.getBean(UserServiceImpl.class);
+    }
