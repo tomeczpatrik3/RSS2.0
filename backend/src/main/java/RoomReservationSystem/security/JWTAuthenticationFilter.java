@@ -25,6 +25,7 @@ import static RoomReservationSystem.security.SecurityConstants.TOKEN_PREFIX;
 
 import RoomReservationSystem.service.impl.UserServiceImpl;
 import io.jsonwebtoken.Claims;
+import java.util.stream.Collectors;
 import javax.servlet.ServletContext;
 
 import org.springframework.web.context.WebApplicationContext;
@@ -75,7 +76,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         User user = (User)auth.getPrincipal();
         Claims claims = Jwts.claims().setSubject(user.getUsername());
-        //claims.put("roles", user.getAuthorities().stream().map(s -> s.toString()).collect(Collectors.toList()));
+        //Az angular szamara:
+        claims.put("roles", user.getAuthorities().stream().map(s -> s.toString()).collect(Collectors.toList()));
         
         String token = Jwts.builder()
                 .setSubject(user.getUsername())
