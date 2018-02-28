@@ -1,0 +1,40 @@
+<h2>Termek:</h2>
+<div>
+  <mat-table [dataSource]="classroomData">
+    
+    <ng-container matColumnDef="building">
+      <mat-header-cell *matHeaderCellDef> Épület </mat-header-cell>
+      <mat-cell *matCellDef="let classroom"> {{classroom.building}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="roomName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Terem </mat-header-cell>
+      <mat-cell *matCellDef="let classroom"> {{classroom.roomName}} </mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="pc">
+      <mat-header-cell *matHeaderCellDef> PC </mat-header-cell>
+      <mat-cell *matCellDef="let classroom">
+        <div *ngIf = "classroom.hasPC"> Van </div>
+        <div *ngIf = "!classroom.hasPC"> Nincs </div>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="projector">
+      <mat-header-cell *matHeaderCellDef> Projektor </mat-header-cell>
+      <mat-cell *matCellDef="let classroom">
+        <div *ngIf = "classroom.hasProjector"> Van </div>
+        <div *ngIf = "!classroom.hasProjector"> Nincs </div>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="chairs">
+      <mat-header-cell *matHeaderCellDef> Székek száma </mat-header-cell>
+      <mat-cell *matCellDef="let classroom"> {{classroom.chairs}} </mat-cell>
+    </ng-container>
+  
+    <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+    <mat-row *matRowDef="let rows; columns: columnsToDisplay"></mat-row>
+
+  </mat-table>
+</div>

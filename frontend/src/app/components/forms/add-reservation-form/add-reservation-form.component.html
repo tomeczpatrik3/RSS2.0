@@ -1,0 +1,151 @@
+<div class="card">
+  <div class="card-header">
+    Foglalás hozzáadása:
+  </div>
+  <div class="card-block">
+    <form [formGroup]="reservationForm" (ngSubmit)="addReservation()"> 
+      <div class="form-group row">
+        <label for="subjectName" class="col-sm-4 col-form-label">Tantárgy neve*</label>
+        <div class="col-sm-8">
+          <select class="form-control" id="subjectName" [formControl]="subjectName">
+            <option> --- </option>
+            <option *ngFor="let name of subjectNames"> {{name}} </option>
+          </select>
+
+          <div [hidden]="subjectName.valid || subjectName.untouched" class="alert alert-danger">
+            <div>
+              Probléma a tantárgy kiválasztása során:
+            </div>
+            <div [hidden]="!subjectName.hasError('required')">
+              A tantárgy nevét meg kell adni.
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="roomName" class="col-sm-4 col-form-label">Tanterem neve*</label>
+        <div class="col-sm-8">
+          <select class="form-control" id="roomName" [formControl]="roomName">
+            <option> --- </option>
+            <option *ngFor="let name of roomNames"> {{name}} </option>
+          </select>
+
+          <div [hidden]="roomName.valid || roomName.untouched" class="alert alert-danger">
+            <div>
+              Probléma a tanterem kiválasztása során:
+            </div>
+            <div [hidden]="!roomName.hasError('required')">
+              A tanterem nevét meg kell adni.
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="startDate" class="col-4 col-form-label">A foglalás kezdetének dátuma*</label>
+        <div class="col-8">
+          <input class="form-control" type="date" id="startDate" [formControl]="startDate">
+
+          <div [hidden]="startDate.valid || startDate.untouched" class="alert alert-danger">
+            <div>
+              Probléma a foglalás kezdetének kiválasztása során:
+            </div>
+            <div [hidden]="!startDate.hasError('required')">
+              A foglalás kezdetét meg kell adni.
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="endDate" class="col-4 col-form-label">A foglalás végének dátuma*</label>
+        <div class="col-8">
+          <input class="form-control" type="date" id="endDate" [formControl]="endDate">
+
+          <div [hidden]="endDate.valid || endDate.untouched" class="alert alert-danger">
+            <div>
+              Probléma a foglalás végének kiválasztása során:
+            </div>
+            <div [hidden]="!endDate.hasError('required')">
+              A foglalás végét meg kell adni.
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="day" class="col-sm-4 col-form-label">Nap*</label>
+        <div class="col-sm-8">
+          <select class="form-control" id="day" [formControl]="day">
+            <option> --- </option>
+            <option *ngFor="let day of days"> {{day}} </option>
+          </select>
+
+          <div [hidden]="day.valid || day.untouched" class="alert alert-danger">
+            <div>
+              Probléma a nap kiválasztása során:
+            </div>
+            <div [hidden]="!day.hasError('required')">
+              A napot meg kell adni.
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="startTime" class="col-4 col-form-label">Kezdési idő*</label>
+        <div class="col-8">
+          <input class="form-control" type="text" id="startTime" [formControl]="startTime">
+
+          <div [hidden]="startTime.valid || startTime.untouched" class="alert alert-danger">
+            <div>
+              Probléma a kezdési idővel:
+            </div>
+            <div [hidden]="!startTime.hasError('required')">
+              A kezdési időt meg kell adni.
+            </div>
+            <div [hidden]="!startTime.hasError('notTime')">
+              Hibás formátum (óó:pp).
+            </div>
+            <div [hidden]="!startTime.hasError('minlength') && !startTime.hasError('maxlength')">
+              Az időnek 5 karakterből kell állnia.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="endTime" class="col-4 col-form-label">Befejezési idő*</label>
+        <div class="col-8">
+          <input class="form-control" type="text" id="endTime" [formControl]="endTime">
+
+          <div [hidden]="endTime.valid || endTime.untouched" class="alert alert-danger">
+            <div>
+              Probléma a befejezési idővel:
+            </div>
+            <div [hidden]="!endTime.hasError('required')">
+              A befejezési időt meg kell adni.
+            </div>
+            <div [hidden]="!endTime.hasError('notTime')">
+              Hibás formátum (óó:pp).
+            </div>
+            <div [hidden]="!endTime.hasError('minlength') && !endTime.hasError('maxlength')">
+              Az időnek 5 karakterből kell állnia.
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="btn-padding">
+        <button type="submit" class="btn btn-primary" [disabled]="!reservationForm.valid">Hozzáadás</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,100 @@
+<div class="card">
+  <div class="card-header">
+    Terem hozzáadása:
+  </div>
+  <div class="card-block">
+    <form [formGroup]="classroomForm" (ngSubmit)="addClassroom()">
+      <div class="form-group row">
+        <label for="building" class="col-sm-2 col-form-label">Épület*</label>
+        <div class="col-sm-10">
+          <select class="form-control" id="building" [formControl]="building">
+            <option> --- </option>
+            <option *ngFor="let building of buildings"> {{building}} </option>
+          </select>
+
+          <div [hidden]="building.valid || building.untouched" class="alert alert-danger">
+            <div>
+              Probléma az épület nevével:
+            </div>
+            <div [hidden]="!building.hasError('minlength')">
+              Az épület nevének legalább 3 karakterből kell állnia.
+            </div>
+            <div [hidden]="!building.hasError('required')">
+              Az épület nevét meg kell adni.
+            </div>
+            <div [hidden]="!building.hasError('maxlength')">
+              Az épület neve maximum 15 karakterből állhat.
+            </div>
+          </div>
+
+        </div>
+      </div>
+      
+      <div class="form-group row">
+        <label for="roomName" class="col-sm-2 col-form-label">Terem neve*</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="roomName" [formControl]="roomName">
+
+          <div [hidden]="roomName.valid || roomName.untouched" class="alert alert-danger">
+            <div>
+              Probléma a terem nevével:
+            </div>
+            <div [hidden]="!roomName.hasError('minlength')">
+              A terem nevének legalább 3 karakterből kell állnia.
+            </div>
+            <div [hidden]="!roomName.hasError('required')">
+              A terem nevét meg kell adni.
+            </div>
+            <div [hidden]="!roomName.hasError('maxlength')">
+              A terem neve maximum 30 karakterből állhat.
+            </div>
+          </div>
+
+        </div>
+      </div>
+      
+      <div class="form-group row">
+        <label for="chairs" class="col-sm-2 col-form-label">Székek száma*</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="chairs" [formControl]="chairs">
+
+          <div [hidden]="chairs.valid || chairs.untouched" class="alert alert-danger">
+            <div>
+              Probléma a székek számával:
+            </div>
+            <div [hidden]="!chairs.hasError('required')">
+              A székek számát meg kell adni.
+            </div>
+            <div [hidden]="!chairs.hasError('notNumeric')">
+              Hibás formátum.
+            </div>
+          </div>
+
+        </div>
+      </div>
+      
+      <div class="form-group row">
+        <div class="col-sm-10">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" id="pc" [formControl]="pc"> PC
+            </label>
+          </div>
+        </div>
+        <div class="col-sm-10">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" id="projector" [formControl]="projector"> Projektor
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-padding">
+        <button type="submit" class="btn btn-primary" [disabled]="!classroomForm.valid">Hozzáadás</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+

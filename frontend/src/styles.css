@@ -1,0 +1,66 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+body {
+    background-image: url("./assets/bg2.jpg");
+} 
+
+.card {
+    margin: auto;
+    width: 50%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    padding-top: 7px;
+    padding-right: 30px;
+    padding-left: 10px;
+}
+
+.btn-padding {
+    padding-top: 10px;
+    padding-right: 30px;
+    padding-left: 10px;   
+    padding-bottom: 10px; 
+}
+
+/*
+body {
+    margin: auto;
+    width: 70%;
+}
+*/
+
+h2 {
+    padding-top: 15px;  
+    margin: auto;
+    width: 70%;
+}
+
+/* Táblázatok: */
+.mat-table {
+    margin: auto;
+    width: 70%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 1px solid black;
+}
+
+.mat-header-cell {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.table {
+    margin: auto;
+    width: 70%;
+    margin-top: 20px;
+    margin-bottom: 20px;    
+}
+
+/* Hibaüzenet: */
+.alert {
+    margin-top: 10px;
+}

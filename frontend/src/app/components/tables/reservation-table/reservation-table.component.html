@@ -1,0 +1,49 @@
+<h2>Foglalások:</h2>
+<div>
+  <mat-table [dataSource]="reservationData">
+    
+    <ng-container matColumnDef="subject">
+      <mat-header-cell *matHeaderCellDef> Tantárgy </mat-header-cell>
+      <mat-cell *matCellDef="let reservation"> {{reservation.subjectName}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="teacher">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Tanár </mat-header-cell>
+      <mat-cell *matCellDef="let reservation"> {{reservation.username}} </mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="classroom">
+      <mat-header-cell *matHeaderCellDef> Terem </mat-header-cell>
+      <mat-cell *matCellDef="let reservation"> {{reservation.roomName}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="startDate">
+      <mat-header-cell *matHeaderCellDef> Foglalás kezdetének dátuma </mat-header-cell>
+      <mat-cell *matCellDef="let reservation"> {{reservation.startDate | date:'yyyy-MM-dd'}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="endDate">
+      <mat-header-cell *matHeaderCellDef> Foglalás végének dátuma </mat-header-cell>
+      <mat-cell *matCellDef="let reservation"> {{reservation.endDate | date:'yyyy-MM-dd'}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="day">
+      <mat-header-cell *matHeaderCellDef> Nap </mat-header-cell>
+      <mat-cell *matCellDef="let reservation"> {{reservation.day}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="startTime">
+      <mat-header-cell *matHeaderCellDef> Kezdési idő </mat-header-cell>
+      <mat-cell *matCellDef="let reservation"> {{reservation.startTime}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="endTime">
+      <mat-header-cell *matHeaderCellDef> Befejezési idő </mat-header-cell>
+      <mat-cell *matCellDef="let reservation"> {{reservation.endTime}} </mat-cell>
+    </ng-container>
+  
+    <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+    <mat-row *matRowDef="let rows; columns: columnsToDisplay"></mat-row>
+
+  </mat-table>
+</div>

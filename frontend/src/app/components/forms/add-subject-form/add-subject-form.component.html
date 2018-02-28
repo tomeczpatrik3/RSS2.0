@@ -1,0 +1,39 @@
+<div class="card">
+  <div class="card-header">
+    Tantárgy hozzáadása:
+  </div>
+  <div class="card-block">
+    <form [formGroup]="subjectForm" (ngSubmit)="addSubject()"> 
+
+      <div class="form-group row">
+        <label for="subjectName" class="col-2 col-form-label">Tantárgy neve*</label>
+        <div class="col-10">
+          <input 
+            class="form-control" 
+            type="text" 
+            id="subjectName"
+            [formControl]="subjectName">
+
+          <div [hidden]="subjectName.valid || subjectName.untouched" class="alert alert-danger">
+            <div>
+              Probléma a tantárgy nevével:
+            </div>
+            <div [hidden]="!subjectName.hasError('minlength')">
+              A tantárgy nevének legalább 5 karakterből kell állnia.
+            </div>
+            <div [hidden]="!subjectName.hasError('required')">
+              A tantárgy nevét meg kell adni.
+            </div>
+            <div [hidden]="!subjectName.hasError('maxlength')">
+              A tantárgy neve maximum 30 karakterből állhat.
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="btn-padding">
+        <button type="submit" class="btn btn-primary" [disabled]="!subjectForm.valid">Hozzáadás</button>
+      </div>
+    </form>
+  </div>
+</div>
