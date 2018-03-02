@@ -8,6 +8,7 @@ public interface BuildingService {
     void deleteByName(String name);
     Building save(Building building);
     Building findByName(String name);
+    Building findById(int id);
     Iterable<Building> findAll();
-    List<String> getBuildingNames();
+    List<String> getNames();
 }

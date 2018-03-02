@@ -7,6 +7,7 @@ import { ReservationService } from '../../../services/reservation.service';
 import { MatDialog } from '@angular/material';
 import { InfoDialogComponent } from '../../dialogs/info-dialog/info-dialog.component';
 import { ValidatorService } from '../../../services/validator.service';
+import { DialogService } from '../../../services/dialog.service';
 
 @Component({
   selector: 'app-add-reservation-form',
@@ -71,7 +72,7 @@ export class AddReservationFormComponent implements OnInit {
     private subjectService: SubjectService,
     private reservationService: ReservationService,
     private builder: FormBuilder,
-    private dialog: MatDialog,
+    private dialogService: DialogService,
     private validatorService: ValidatorService,
   ) { }
 
@@ -113,30 +114,9 @@ export class AddReservationFormComponent implements OnInit {
   addReservation() {
     this.reservationService.createRes(this.formToReservation()).subscribe(
       res => console.log(res),
-      error => this.openDialog("Foglalás hozzáadása:", "Hiba történt"),
-      () => this.openDialog("Foglalás hozzáadása:", "Foglalás sikeresen rögítve")
+      error => this.dialogService.openDialog("Foglalás hozzáadása:", "Hiba történt", InfoDialogComponent),
+      () => this.dialogService.openDialog("Foglalás hozzáadása:", "Foglalás sikeresen rögítve", InfoDialogComponent)
     );
     
-  }
-
-  /*
-    Dialog megjelenítése, valamint adatok átadása:
-    title: a dialog címe
-    text: a dialogban közölt üzenet
-
-    Dialog bezárása után reseteljük a formot!
-  */
-  openDialog(title_: string, text_: string) {
-    let dialogRef = this.dialog.open(InfoDialogComponent, {
-      width: '600px',
-      data: {
-        title: title_,
-        text: text_
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.reservationForm.reset();
-    })
   }
 }

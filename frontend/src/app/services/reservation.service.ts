@@ -9,27 +9,27 @@ import { Observable } from 'rxjs/Observable';
 export class ReservationService {
 
   constructor(
-    private http: HttpService
+    private http: HttpClient
   ) { }
 
   getAll(): Observable<Reservation[]> {
-    return <Observable<Reservation[]>>this.http.get(Routes.RESERVATION);
+    return <Observable<Reservation[]>>this.http.get(Routes.getUrl(Routes.RESERVATION));
   }
 
   findByUsername(username: string): Observable<Reservation[]> {
-    return <Observable<Reservation[]>>this.http.get(Routes.RESERVATION_FIND_BY_USERNAME, username);
+    return <Observable<Reservation[]>>this.http.get(Routes.getUrl(Routes.RESERVATION_FIND_BY_USERNAME) + "/" + username);
   }
 
   findByName(name: string): Observable<Reservation[]> {
-    return <Observable<Reservation[]>>this.http.get(Routes.RESERVATION_FIND_BY_NAME, name);
+    return <Observable<Reservation[]>>this.http.get(Routes.getUrl(Routes.RESERVATION_FIND_BY_NAME) + "/" + name);
   }
 
   findByRoomName(roomName: string): Observable<Reservation[]> {
-    return <Observable<Reservation[]>>this.http.get(Routes.RESERVATION_FIND_BY_ROOM_NAME, roomName);
+    return <Observable<Reservation[]>>this.http.get(Routes.getUrl(Routes.RESERVATION_FIND_BY_ROOM_NAME) + "/" + roomName);
   }
 
   createRes(res: Reservation) {
-    return <Observable<Reservation[]>>this.http.post(Routes.RESERVATION_CREATE_RES, res);
+    return <Observable<Reservation[]>>this.http.post(Routes.getUrl(Routes.RESERVATION_CREATE_RES), res);
   }
 
 }

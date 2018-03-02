@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { RoutingModule } from './routing/routing.module';
 
@@ -15,12 +16,13 @@ import { SubjectTableComponent } from './components/tables/subject-table/subject
 import { AddSubjectFormComponent } from './components/forms/add-subject-form/add-subject-form.component';
 import { FilterReservationFormComponent } from './components/forms/filter-reservation-form/filter-reservation-form.component';
 import { ValidatorService } from './services/validator.service';
-import { HttpService } from './services/http.service';
 import { MaterialModule } from './modules/material.module';
 import { InfoDialogComponent } from './components/dialogs/info-dialog/info-dialog.component';
 import { TablesModule } from './modules/tables.module';
 import { AddFormsModule } from './modules/add-forms.module';
-import { AuthService } from './services/auth.service';
+import { AuthService } from './authentication/auth.service';
+import { AuthInterceptor } from './authentication/auth-interceptor';
+import { DialogService } from './services/dialog.service';
 
 @NgModule({
   declarations: [
@@ -42,8 +44,13 @@ import { AuthService } from './services/auth.service';
   ],
   providers: [
     ValidatorService,
-    HttpService,
-    AuthService
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    DialogService
   ],
   entryComponents: [
     InfoDialogComponent

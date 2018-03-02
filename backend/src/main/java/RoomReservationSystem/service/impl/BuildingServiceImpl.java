@@ -34,12 +34,18 @@ public class BuildingServiceImpl implements BuildingService {
     }
     
     @Override
+    public Building findById(int id) {
+        return buildingRepository.findById(id);
+    }
+
+    
+    @Override
     public Iterable<Building> findAll() {
         return buildingRepository.findAll();
     }
     
     @Override
-    public List<String> getBuildingNames() {
+    public List<String> getNames() {
         Iterable<Building> buildings = this.findAll();
         List<String> buildingNames = new ArrayList<>();
         

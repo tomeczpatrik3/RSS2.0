@@ -9,4 +9,8 @@ public interface BuildingRepository extends JpaRepository<Building, Integer> {
     void deleteByName(String name);
     
     Building findByName(String name);
+    
+    Building findById(int id);
+    
+
 }

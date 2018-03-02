@@ -30,9 +30,9 @@ public class ClassroomApiController {
         return classroomService.findAll();
     }
     
-    @GetMapping("/getRoomNames")
-    public List<String> getRoomNames(){
-        return classroomService.getRoomNames();
+    @GetMapping("/getNames")
+    public List<String> getNames(){
+        return classroomService.getNames();
     }  
     
     @GetMapping("/findByName/{name}")

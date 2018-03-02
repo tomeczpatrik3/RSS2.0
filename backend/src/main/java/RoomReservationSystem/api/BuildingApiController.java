@@ -26,14 +26,19 @@ public class BuildingApiController {
         return buildingService.findAll();
     }
     
-    @GetMapping("/getBuildingNames")
-    public List<String> getBuildingNames(){
-        return buildingService.getBuildingNames();
+    @GetMapping("/getNames")
+    public List<String> getNames(){
+        return buildingService.getNames();
     }  
     
     @GetMapping("/findByName/{name}")
     public Building findByName(@PathVariable String name){
 	return buildingService.findByName(name);
+    }
+    
+    @GetMapping("/findById/{id}")
+    public Building findById(@PathVariable int id){
+	return buildingService.findById(id);
     }
     
     @PostMapping("/deleteByName/{name}")

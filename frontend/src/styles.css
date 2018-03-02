@@ -36,7 +36,11 @@ body {
 h2 {
     padding-top: 15px;  
     margin: auto;
-    width: 70%;
+}
+
+/* Hibaüzenet: */
+.alert {
+    margin-top: 10px;
 }
 
 /* Táblázatok: */
@@ -55,12 +59,7 @@ h2 {
 
 .table {
     margin: auto;
-    width: 70%;
     margin-top: 20px;
-    margin-bottom: 20px;    
-}
-
-/* Hibaüzenet: */
-.alert {
-    margin-top: 10px;
+    margin-bottom: 20px;  
+    border: 2px solid black;  
 }

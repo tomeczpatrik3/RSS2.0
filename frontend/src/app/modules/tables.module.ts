@@ -7,6 +7,7 @@ import { ClassroomService } from '../services/classroom.service';
 import { UserService } from '../services/user.service';
 import { ReservationService } from '../services/reservation.service';
 import { SubjectService } from '../services/subject.service';
+import { BuildingService } from '../services/building.service';
 
 import { ClassroomTableComponent } from '../components/tables/classroom-table/classroom-table.component';
 import { UserTableComponent } from '../components/tables/user-table/user-table.component';
@@ -28,7 +29,8 @@ import { SubjectTableComponent } from '../components/tables/subject-table/subjec
       ClassroomService,
       UserService,
       ReservationService,
-      SubjectService
+      SubjectService,
+      BuildingService
   ], //Service(s)
   exports: [
     ClassroomTableComponent,

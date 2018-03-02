@@ -11,8 +11,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class ReservationTableComponent implements OnInit {
 
-  reservationData = new ReservationDataSource(this.reservationService);
-  columnsToDisplay = ['teacher', 'subject', 'classroom', 'startDate', 'endDate', 'day', 'startTime', 'endTime'];
+  reservations: Reservation[];
 
   constructor(
     private reservationService: ReservationService
@@ -20,21 +19,8 @@ export class ReservationTableComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.reservationService.getAll().subscribe(
+      res => this.reservations = res
+    )
   }
-
-}
-
-export class ReservationDataSource extends DataSource<any> {
-
-  constructor (
-    private reservationService: ReservationService
-  ) {
-    super();
-  }
-
-  connect(): Observable<Reservation[]> {
-    return this.reservationService.getAll();
-  }
-
-  disconnect() {}
 }

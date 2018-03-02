@@ -11,8 +11,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class UserTableComponent implements OnInit {
 
-  userData = new UserDataSource(this.userService);
-  columnsToDisplay = ['username', 'name', 'email', 'role'];
+  users: User[];
 
   constructor(
     private userService: UserService
@@ -20,21 +19,9 @@ export class UserTableComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.userService.getAll().subscribe(
+      res => this.users = res
+    )
   }
 
-}
-
-export class UserDataSource extends DataSource<any> {
-
-  constructor (
-    private userService: UserService
-  ) {
-    super();
-  }
-
-  connect(): Observable<User[]> {
-    return this.userService.getAll();
-  }
-
-  disconnect() {}
 }

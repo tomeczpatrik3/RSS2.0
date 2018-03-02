@@ -5,6 +5,7 @@ import { SubjectService } from '../../../services/subject.service';
 import { Subject } from '../../../models/Subject';
 import { MatDialog } from '@angular/material';
 import { InfoDialogComponent } from '../../dialogs/info-dialog/info-dialog.component';
+import { DialogService } from '../../../services/dialog.service';
 
 @Component({
   selector: 'app-add-subject-form',
@@ -26,7 +27,7 @@ export class AddSubjectFormComponent implements OnInit {
   constructor(
     private builder: FormBuilder,
     private subjectService: SubjectService,
-    private dialog: MatDialog
+    private dialogService: DialogService
   ) { }
 
   ngOnInit() {
@@ -46,31 +47,9 @@ export class AddSubjectFormComponent implements OnInit {
   addSubject() {
     this.subjectService.createSubject(this.formToSubject()).subscribe(
       res => console.log(res),
-      error => this.openDialog("Tantárgy hozzáadása:", "Hiba történt"),
-      () => this.openDialog("Tantárgy hozzáadása:", "Tantárgy sikeresen rögítve")
+      error => this.dialogService.openDialog("Tantárgy hozzáadása:", "Hiba történt", InfoDialogComponent),
+      () => this.dialogService.openDialog("Tantárgy hozzáadása:", "Tantárgy sikeresen rögítve", InfoDialogComponent)
     );
     this.subjectForm.reset();
   }
-
-  /*
-    Dialog megjelenítése, valamint adatok átadása:
-    title: a dialog címe
-    text: a dialogban közölt üzenet
-
-    Dialog bezárása után reseteljük a formot!
-  */
-  openDialog(title_: string, text_: string) {
-    let dialogRef = this.dialog.open(InfoDialogComponent, {
-      width: '600px',
-      data: {
-        title: title_,
-        text: text_
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.subjectForm.reset();
-    })
-  }
-
 }

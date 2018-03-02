@@ -6,6 +6,8 @@ import { Classroom } from '../../../models/Classroom';
 import { SnackbarService } from '../../../services/snackbar.service';
 import { MatDialog } from '@angular/material';
 import { InfoDialogComponent } from '../../dialogs/info-dialog/info-dialog.component';
+import { DialogService } from '../../../services/dialog.service';
+import { BuildingService } from '../../../services/building.service';
 
 @Component({
   selector: 'app-add-classroom-form',
@@ -49,7 +51,8 @@ export class AddClassroomFormComponent implements OnInit {
     private builder: FormBuilder,
     private validatorService: ValidatorService,
     private classroomService: ClassroomService,
-    private dialog: MatDialog
+    private buildingService: BuildingService,
+    private dialogService: DialogService
   ) { }
 
   ngOnInit() {
@@ -57,7 +60,7 @@ export class AddClassroomFormComponent implements OnInit {
   }
 
   loadBuildings() {
-    this.classroomService.getBuildings().subscribe(
+    this.buildingService.getNames().subscribe(
       res => this.buildings = res
     );
   }
@@ -80,31 +83,10 @@ export class AddClassroomFormComponent implements OnInit {
   addClassroom() {
     this.classroomService.createClassroom(this.formToClassroom()).subscribe(
       res => console.log(res),
-      error => this.openDialog("Tanterem hozzáadása:", "Hiba történt"),
-      () => this.openDialog("Tanterem hozzáadása:", "Tanterem sikeresen rögítve")
+      error => this.dialogService.openDialog("Tanterem hozzáadása:", "Hiba történt", InfoDialogComponent),
+      () => this.dialogService.openDialog("Tanterem hozzáadása:", "Tanterem sikeresen rögítve", InfoDialogComponent)
     );
+    this.classroomForm.reset();
     this.loadBuildings();
   }
-
-  /*
-    Dialog megjelenítése, valamint adatok átadása:
-    title: a dialog címe
-    text: a dialogban közölt üzenet
-
-    Dialog bezárása után reseteljük a formot!
-  */
-  openDialog(title_: string, text_: string) {
-    let dialogRef = this.dialog.open(InfoDialogComponent, {
-      width: '600px',
-      data: {
-        title: title_,
-        text: text_
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.classroomForm.reset();
-    })
-  }
-
 }

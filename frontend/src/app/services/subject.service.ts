@@ -9,18 +9,18 @@ import { Observable } from 'rxjs/Observable';
 export class SubjectService {
 
   constructor(
-    private http: HttpService
+    private http: HttpClient
   ) { }
 
   getAll(): Observable<Subject[]> {
-    return <Observable<Subject[]>>this.http.get(Routes.SUBJECT);
+    return <Observable<Subject[]>>this.http.get(Routes.getUrl(Routes.SUBJECT));
   }
 
   getSubjectNames(): Observable<string[]> {
-    return <Observable<string[]>>this.http.get(Routes.SUBJECT_GET_SUBJECT_NAMES);
+    return <Observable<string[]>>this.http.get(Routes.getUrl(Routes.SUBJECT_GET_SUBJECT_NAMES));
   }
 
   createSubject(subject: Subject): Observable<Subject> {
-    return <Observable<Subject>>this.http.post(Routes.SUBJECT_CREATE_SUBJECT, subject);
+    return <Observable<Subject>>this.http.post(Routes.getUrl(Routes.SUBJECT_CREATE_SUBJECT), subject);
   }
 }

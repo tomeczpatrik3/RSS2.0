@@ -3,6 +3,9 @@ import { Classroom } from '../../../models/Classroom';
 import { ClassroomService } from '../../../services/classroom.service';
 import { Observable } from 'rxjs/Observable';
 import { DataSource } from '@angular/cdk/collections';
+import { BuildingService } from '../../../services/building.service';
+import { DialogService } from '../../../services/dialog.service';
+import { InfoDialogComponent } from '../../dialogs/info-dialog/info-dialog.component';
 
 @Component({
   selector: 'app-classroom-table',
@@ -11,35 +14,28 @@ import { DataSource } from '@angular/cdk/collections';
 })
 export class ClassroomTableComponent implements OnInit {
 
-  classroomData = new ClassroomDataSource(this.classroomService);
-  columnsToDisplay = ['building', 'roomName', 'pc', 'projector', 'chairs'];
+  rooms: Classroom[];
+  selectedRoom: Classroom[];
 
   constructor(
-    private classroomService: ClassroomService
+    private classroomService: ClassroomService,
+    private dialogService: DialogService
   ) {
   }
 
   ngOnInit() {
+    this.classroomService.getAll().subscribe(
+      res => this.rooms = res
+    )
   }
 
-  clicked(target) {
-    console.log(target);
-    console.log(target.innerText);
+  convertToString(value: boolean): string {
+    return value ? 'Nincs' : 'Van';
   }
 
-}
-
-export class ClassroomDataSource extends DataSource<any> {
-
-  constructor (
-    private classroomService: ClassroomService
-  ) {
-    super();
+  onSelect(room) {
+    this.selectedRoom = room;
+    this.dialogService.openDialog("Tanterem adatai:", room, InfoDialogComponent);
   }
 
-  connect(): Observable<Classroom[]> {
-    return this.classroomService.getAll();
-  }
-
-  disconnect() {}
 }

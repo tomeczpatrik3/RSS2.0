@@ -11,8 +11,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class SubjectTableComponent implements OnInit {
 
-  subjectData = new SubjectDataSource(this.subjectService);
-  columnsToDisplay = ['name'];
+  subjects: Subject[];
 
   constructor(
     private subjectService: SubjectService
@@ -20,21 +19,9 @@ export class SubjectTableComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.subjectService.getAll().subscribe(
+      res => this.subjects = res
+    )
   }
 
-}
-
-export class SubjectDataSource extends DataSource<any> {
-
-  constructor (
-    private subjectService: SubjectService
-  ) {
-    super();
-  }
-
-  connect(): Observable<Subject[]> {
-    return this.subjectService.getAll();
-  }
-
-  disconnect() {}
 }

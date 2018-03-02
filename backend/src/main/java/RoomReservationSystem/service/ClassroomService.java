@@ -15,5 +15,5 @@ public interface ClassroomService {
     List<Classroom> findByChairsLessThan(int num);
     List<Classroom> findByChairsGreaterThan(int num);
     List<Classroom> findByChairsBetween(int from, int to);
-    List<String> getRoomNames();
+    List<String> getNames();
 }

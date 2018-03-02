@@ -5,6 +5,7 @@ import { User } from '../../../models/User';
 import { SnackbarService } from '../../../services/snackbar.service';
 import { MatDialog } from '@angular/material';
 import { InfoDialogComponent } from '../../dialogs/info-dialog/info-dialog.component';
+import { DialogService } from '../../../services/dialog.service';
 
 @Component({
   selector: 'app-add-user-form',
@@ -55,7 +56,7 @@ export class AddUserFormComponent implements OnInit {
     private builder: FormBuilder,
     private userService: UserService,
     private snackBarService: SnackbarService,
-    private dialog: MatDialog
+    private dialogService: DialogService
   ) { }
 
   ngOnInit() {
@@ -67,7 +68,6 @@ export class AddUserFormComponent implements OnInit {
       this.userForm.value.password,
       this.userForm.value.name,
       this.userForm.value.email,
-      "USER"
     );
   }
 
@@ -78,36 +78,15 @@ export class AddUserFormComponent implements OnInit {
   */
   addUser() {
     if (this.userForm.value.password != this.userForm.value.passwordAgain) {
-      this.openDialog("Felhasználó hozzáadása:", "Hiba történt, a jelszavak nem egyeznek!")
+      this.dialogService.openDialog("Felhasználó hozzáadása:", "Hiba történt, a jelszavak nem egyeznek!", InfoDialogComponent)
     }
     else {
       this.userService.createUser(this.formToUser()).subscribe(
         res => console.log(res),
-        error => this.openDialog("Felhasználó hozzáadása:", "Hiba történt"),
-        () => this.openDialog("Felhasználó hozzáadása:", "Felhasználó sikeresen rögítve")
+        error => this.dialogService.openDialog("Felhasználó hozzáadása:", "Hiba történt", InfoDialogComponent),
+        () => this.dialogService.openDialog("Felhasználó hozzáadása:", "Felhasználó sikeresen rögítve", InfoDialogComponent)
       );      
     }
     this.userForm.reset();
-  }
-
-  /*
-    Dialog megjelenítése, valamint adatok átadása:
-    title: a dialog címe
-    text: a dialogban közölt üzenet
-
-    Dialog bezárása után reseteljük a formot!
-  */
-  openDialog(title_: string, text_: string) {
-    let dialogRef = this.dialog.open(InfoDialogComponent, {
-      width: '600px',
-      data: {
-        title: title_,
-        text: text_
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.userForm.reset();
-    })
   }
 }

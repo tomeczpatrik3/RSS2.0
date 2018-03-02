@@ -1,14 +1,18 @@
-<h2>Tantárgyak:</h2>
-<div>
-  <mat-table [dataSource]="subjectData">
-    
-    <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef> Tantárgy neve </mat-header-cell>
-      <mat-cell *matCellDef="let subject"> {{subject.name}} </mat-cell>
-    </ng-container>
-  
-    <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
-    <mat-row *matRowDef="let rows; columns: columnsToDisplay"></mat-row>
-
-  </mat-table>
+<div class="container">
+    <h2>Tantárgyak:</h2>
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Tantárgy neve</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let subject of subjects">
+          <th scope="row">{{subject.id}}</th>
+          <td>{{subject.name}}</td>
+        </tr>
+      </tbody>
+    </table>
 </div>
+

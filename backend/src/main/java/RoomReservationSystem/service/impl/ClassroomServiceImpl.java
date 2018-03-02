@@ -69,7 +69,7 @@ public class ClassroomServiceImpl implements ClassroomService{
     }
     
     @Override
-    public List<String> getRoomNames() {
+    public List<String> getNames() {
         Iterable<Classroom> rooms = this.findAll();
         List<String> roomNames = new ArrayList<>();
         

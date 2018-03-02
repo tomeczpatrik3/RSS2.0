@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormControl, FormBuilder } from '@angular/forms';
-import { UserService } from '../../../services/user.service';
 import { AccountCredentials } from '../../../models/AccountCredentials';
+import { AuthService } from '../../../authentication/auth.service';
 
 @Component({
   selector: 'app-login-form',
@@ -29,14 +29,14 @@ export class LoginFormComponent implements OnInit {
 
   constructor(
     private builder: FormBuilder,
-    private userService: UserService
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
   }
 
   login() {
-    this.userService.login(new AccountCredentials(this.loginForm.value.username, this.loginForm.value.password));
+    this.authService.login(new AccountCredentials(this.loginForm.value.username, this.loginForm.value.password));
 
     this.loginForm.reset();
   }

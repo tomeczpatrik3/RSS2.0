@@ -1,7 +1,7 @@
 export class Routes {
-    static USER: 							                string = 'user';
-    static USER_LOGIN: 							                string = 'user/login';
-    static USER_GET_NAMES: 						            string = 'user/getNames';
+    static USER: 							                      string = 'user';
+    static USER_LOGIN: 							                      string = 'user/login';
+    static USER_GET_NAMES: 						              string = 'user/getNames';
     static USER_FIND_BY_USERNAME:			                string = 'user/findByUsername';
     static USER_FIND_BY_NAME:			                    string = 'user/findByName';
     static USER_FIND_BY_ROLE: 					            string = 'user/findByRole';
@@ -19,7 +19,7 @@ export class Routes {
     static RESERVATION_FIND_BY_ROOM_NAME: 		            string = "reservation/findByRoomName";
                                                   
     static CLASSROOM: 			                            string = "classroom";
-    static CLASSROOM_GET_ROOM_NAMES: 			            string = "classroom/getRoomNames";
+    static CLASSROOM_GET_NAMES: 			            string = "classroom/getNames";
     static CLASSROOM_FIND_BY_BUILDING: 			            string = "classroom/findByBuilding";
     static CLASSROOM_FIND_BY_NAME: 			                string = "classroom/findByName";
     static CLASSROOM_FIND_BY_HAS_PC: 			            string = "classroom/findByHasPC";
@@ -30,14 +30,15 @@ export class Routes {
     static CLASSROOM_DELETE_BY_ROOM_NAME: 			        string = "classroom/deleteByRoomName";
     static CLASSROOM_CREATE_CLASSROOM: 			            string = "classroom/createClassroom";
     static CLASSROOM_GET_BUILDINGS:                         string = "classroom/getBuildings";
-}
 
-export class Server {
-  private static address: 					          string = 'localhost';
-  private static port: 						          string = '8080';
-  private static prefix: 					          string = 'api';
+    static BUILDING:  string = "building";
+    static BUILDING_GET_NAMES: string = "building/getNames";
+    static BUILDING_FIND_BY_ID: string = "building/findById";
+    static BUILDING_FIND_BY_NAME: string = "building/findByName";
+    static BUILDING_CREATE_BUILDING: string = "building/createBuilding";
+    static BUILDING_DELETE_BY_NAME: string = "building/deleteByName";
 
-  static routeTo(route: string) {
-    return `http://${Server.address}:${Server.port}/${Server.prefix}/${route}`
-  }
+    static getUrl(route: string): string {
+      return `http://localhost:8080/api/${route}`;
+    }
 }
