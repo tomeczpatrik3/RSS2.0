@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from "@angular/material";
+import { AuthService } from '../../authentication/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,13 +10,8 @@ import { MatSnackBar, MatSnackBarConfig } from "@angular/material";
 export class DashboardComponent implements OnInit {
 
   constructor(
-    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
-  }
-
-  open() {
-    this.snackBar.open("aSD", "OK");
   }
 }

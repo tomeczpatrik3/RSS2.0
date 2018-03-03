@@ -14,6 +14,11 @@ import { SubjectTableComponent } from '../components/tables/subject-table/subjec
 import { AddSubjectFormComponent } from '../components/forms/add-subject-form/add-subject-form.component';
 import { FilterReservationFormComponent } from '../components/forms/filter-reservation-form/filter-reservation-form.component';
 
+import { AuthGuardService as AuthGuard } from '../guards/auth-guard.service';
+import { RoleGuardService as RoleGuard } from '../guards/role-guard.service';
+
+import { Authorities } from '../config/authoritites.config';
+
 const routes: Routes = [
   {
     path: '',
@@ -30,35 +35,46 @@ const routes: Routes = [
   },
   {
     path: 'users',
-    component: UserTableComponent
+    component: UserTableComponent,
+    canActivate: [AuthGuard]
   },  
   {
     path: 'classrooms',
-    component: ClassroomTableComponent
+    component: ClassroomTableComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'reservations',
-    component: ReservationTableComponent
+    component: ReservationTableComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'subjects',
-    component: SubjectTableComponent
+    component: SubjectTableComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'addUser',
-    component: AddUserFormComponent
+    component: AddUserFormComponent,
+    canActivate: [RoleGuard], 
+    data: { 
+      authority: Authorities.ROLE_ADMIN
+    } 
   },
   {
     path: 'addClassroom',
-    component: AddClassroomFormComponent
+    component: AddClassroomFormComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'addReservation',
-    component: AddReservationFormComponent
+    component: AddReservationFormComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'addSubject',
-    component: AddSubjectFormComponent
+    component: AddSubjectFormComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'filterReservations',

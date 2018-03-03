@@ -5,17 +5,16 @@ import { Routes } from '../config/routes.config';
 import { AccountCredentials } from '../models/AccountCredentials';
 import { HttpResponse } from '@angular/common/http';
 
-//Aktuális pillanat:
-import * as moment from 'moment';
-//Token dekódolás:
-import * as jwt_decode from "jwt-decode";
+//JWT Helper:
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 
 @Injectable()
 export class AuthService {
 
     constructor(
-        private userService: UserService
+        private userService: UserService,
+        private jwtHelper: JwtHelperService
     ) {
 
     }
@@ -24,7 +23,6 @@ export class AuthService {
         return this.userService.login(accountCredentials).subscribe(
             (response:HttpResponse<any>) =>  {
                 this.setSession(response);
-                console.log(this.getDecodedAccesToken(response.headers.get('Authorization')))
             }
         );
     }
@@ -34,7 +32,7 @@ export class AuthService {
     */
     private getDecodedAccesToken(token) {
         try{
-            return jwt_decode(token);
+            return this.jwtHelper.decodeToken(token);
         }
         catch(Error){
             return null;
@@ -50,10 +48,7 @@ export class AuthService {
         localStorage.setItem('user', token.sub);
         localStorage.setItem('authorities', token.authorities);
         localStorage.setItem('expires_at', token.exp);
-        localStorage.setItem('token', response.headers.get('Authorization'))
-
-        console.log(moment().isBefore(localStorage.getItem('expires_at')));
-        console.log(JSON.parse(localStorage.getItem('expires_at')));
+        localStorage.setItem('token', response.headers.get('Authorization'));
     }
 
     /*
@@ -66,22 +61,38 @@ export class AuthService {
         localStorage.removeItem("token");
     }
 
-    public isLoggedIn() {
-        return moment().isBefore(this.getExpiration());
+    /*
+        
+    */
+    isLoggedIn() {
+        const token = localStorage.getItem('token');
+        if (token) {
+            return !this.jwtHelper.isTokenExpired(localStorage.getItem('token'));
+        }
+        else {
+            return false;
+        }
+        
     }
 
     isLoggedOut() {
         return !this.isLoggedIn();
     }
 
-    getExpiration() {
-        const expiration = localStorage.getItem("expires_at");
-        const expiresAt = JSON.parse(expiration);
-        return moment(expiresAt);
-    }    
+    getAuthorities(): string[] {
+        return localStorage.getItem('authorities').split(',');
+    }
 
-    //
-    getToken() {
-        return "";
+    /*
+        Speciális engedély meglétének lekérdezése:
+    */
+    hasAuthority(authority: string): boolean {
+        const authorities = localStorage.getItem('authorities');
+        if (authorities != null && authorities.length == 1)
+            return (authorities == authority);
+        else if (authorities != null)
+            return (authorities.split(',').indexOf(authority) != -1);
+        else
+            return false;
     }
 }

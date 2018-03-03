@@ -5,39 +5,8 @@
   </a>
 
   <ul class="navbar-nav">
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">Főoldal</a>
-    </li>    
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/login" routerLinkActive="active">Bejelentkezés</a>
+    <li class="nav-item" *ngFor="let menuItem of menuItems">
+      <a class="nav-link" routerLink="{{menuItem.routerLink}}" routerLinkActive="active">{{menuItem.name}}</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/classrooms" routerLinkActive="active">Termek</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/users" routerLinkActive="active">Felhasználók</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/reservations" routerLinkActive="active">Foglalások</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/subjects" routerLinkActive="active">Tantárgyak</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/addUser" routerLinkActive="active">Új felhasználó</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/addClassroom" routerLinkActive="active">Új tanterem</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/addReservation" routerLinkActive="active">Új foglalás</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" routerLink="/addSubject" routerLinkActive="active">Új tantárgy</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/filterReservations" routerLinkActive="active">Foglalások szűrése</a>
-    </li>
-
   </ul>
 </nav>

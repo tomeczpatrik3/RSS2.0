@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { AccountCredentials } from '../../../models/AccountCredentials';
 import { AuthService } from '../../../authentication/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-form',
@@ -29,7 +30,8 @@ export class LoginFormComponent implements OnInit {
 
   constructor(
     private builder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -39,5 +41,7 @@ export class LoginFormComponent implements OnInit {
     this.authService.login(new AccountCredentials(this.loginForm.value.username, this.loginForm.value.password));
 
     this.loginForm.reset();
+
+    this.router.navigate(['dashboard']);
   }
 }

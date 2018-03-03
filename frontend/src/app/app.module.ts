@@ -21,8 +21,13 @@ import { InfoDialogComponent } from './components/dialogs/info-dialog/info-dialo
 import { TablesModule } from './modules/tables.module';
 import { AddFormsModule } from './modules/add-forms.module';
 import { AuthService } from './authentication/auth.service';
-import { AuthInterceptor } from './authentication/auth-interceptor';
 import { DialogService } from './services/dialog.service';
+
+import { AuthGuardService } from './guards/auth-guard.service';
+import { RoleGuardService } from './guards/role-guard.service';
+import { NavigationService } from './services/navigation.service';
+
+import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -40,17 +45,25 @@ import { DialogService } from './services/dialog.service';
     RoutingModule,
     MaterialModule,
     TablesModule,
-    AddFormsModule
+    AddFormsModule,
+    //Minden get esetén csatolja a tokent:
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem('token');
+        },
+        whitelistedDomains: ['localhost:8080']
+      }
+    })
   ],
   providers: [
     ValidatorService,
+    DialogService,
+    JwtHelperService,
     AuthService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    },
-    DialogService
+    AuthGuardService,
+    RoleGuardService,
+    NavigationService
   ],
   entryComponents: [
     InfoDialogComponent
