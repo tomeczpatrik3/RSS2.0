@@ -10,6 +10,14 @@ export class NavigationService {
     menuItems: MenuItem[] = [
         new MenuItem("Főoldal", "/dashboard", "ROLE_USER"),
         new MenuItem("Bejelentkezés", "/login"),
+        new MenuItem("Felhasználók", "/users", "ROLE_USER"),
+        new MenuItem("Tantermek", "/classrooms", "ROLE_USER"),
+        new MenuItem("Foglalások", "/reservations", "ROLE_USER"),
+        new MenuItem("Tantárgyak", "/subjects", "ROLE_USER"),
+        new MenuItem("Új felhasználó", "/addUser", "ROLE_ADMIN"),
+        new MenuItem("Új tanterem", "/addClassroom", "ROLE_ADMIN"),
+        new MenuItem("Új foglalás", "/addReservation", "ROLE_ADMIN"),
+        new MenuItem("Új tantárgy", "/addSubject", "ROLE_ADMIN"),
     ];
 
     constructor(

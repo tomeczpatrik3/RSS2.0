@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavigationService } from '../../services/navigation.service';
 import { MenuItem } from '../../models/MenuItem';
 
@@ -13,14 +13,7 @@ export class NavbarComponent {
 
   constructor(
     private navigationService: NavigationService
-  ) { }
-
-  ngOnInit() {
-    this.menuItems = this.navigationService.getMenu();
-    console.log(this.menuItems);
-  }
-
-  ngOnChanges() {
+  ) {
     this.menuItems = this.navigationService.getMenu();
   }
 

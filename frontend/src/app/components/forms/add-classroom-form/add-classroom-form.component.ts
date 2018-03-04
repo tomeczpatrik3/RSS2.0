@@ -89,4 +89,8 @@ export class AddClassroomFormComponent implements OnInit {
     this.classroomForm.reset();
     this.loadBuildings();
   }
+
+  isUntouched(): boolean {
+    return this.classroomForm.untouched;
+  }
 }

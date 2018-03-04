@@ -17,7 +17,6 @@ import { AddSubjectFormComponent } from './components/forms/add-subject-form/add
 import { FilterReservationFormComponent } from './components/forms/filter-reservation-form/filter-reservation-form.component';
 import { ValidatorService } from './services/validator.service';
 import { MaterialModule } from './modules/material.module';
-import { InfoDialogComponent } from './components/dialogs/info-dialog/info-dialog.component';
 import { TablesModule } from './modules/tables.module';
 import { AddFormsModule } from './modules/add-forms.module';
 import { AuthService } from './authentication/auth.service';
@@ -25,9 +24,13 @@ import { DialogService } from './services/dialog.service';
 
 import { AuthGuardService } from './guards/auth-guard.service';
 import { RoleGuardService } from './guards/role-guard.service';
+import { FormGuardService } from './guards/form-guard.service';
 import { NavigationService } from './services/navigation.service';
 
 import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
+
+import { QuestionDialogComponent } from './components/dialogs/question-dialog/question-dialog.component';
+import { InfoDialogComponent } from './components/dialogs/info-dialog/info-dialog.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +40,7 @@ import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
     LoginFormComponent,
     FilterReservationFormComponent,
     InfoDialogComponent,
+    QuestionDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,10 +67,12 @@ import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
     AuthService,
     AuthGuardService,
     RoleGuardService,
-    NavigationService
+    FormGuardService,
+    NavigationService,
   ],
   entryComponents: [
-    InfoDialogComponent
+    InfoDialogComponent,
+    QuestionDialogComponent
   ],
   bootstrap: [AppComponent]
 })

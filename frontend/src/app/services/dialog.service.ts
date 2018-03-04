@@ -5,6 +5,8 @@ import { InfoDialogComponent } from '../components/dialogs/info-dialog/info-dial
 @Injectable()
 export class DialogService {
 
+  return_value: boolean;
+
   constructor(
     private dialog: MatDialog
   ) { }
@@ -16,7 +18,7 @@ export class DialogService {
 
     Dialog bezárása után reseteljük a formot!
   */
-  openDialog(title_: string, text_: string, dialogComponent) {
+  openDialog(title_: string, text_: string, dialogComponent): boolean {
     let dialogRef = this.dialog.open(dialogComponent, {
       width: '600px',
       data: {
@@ -26,8 +28,10 @@ export class DialogService {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      //Bezáródás utáni cselekvés
+      this.return_value = ( result == 'Confirm' ? true : false );
     })
+
+    return this.return_value;
   }
 
 }

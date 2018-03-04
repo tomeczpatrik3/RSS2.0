@@ -16,8 +16,10 @@ import { FilterReservationFormComponent } from '../components/forms/filter-reser
 
 import { AuthGuardService as AuthGuard } from '../guards/auth-guard.service';
 import { RoleGuardService as RoleGuard } from '../guards/role-guard.service';
+import { FormGuardService as FormGuard } from '../guards/form-guard.service';
 
 import { Authorities } from '../config/authoritites.config';
+
 
 const routes: Routes = [
   {
@@ -64,7 +66,8 @@ const routes: Routes = [
   {
     path: 'addClassroom',
     component: AddClassroomFormComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    canDeactivate:[FormGuard] 
   },
   {
     path: 'addReservation',

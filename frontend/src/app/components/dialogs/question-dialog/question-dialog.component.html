@@ -1,0 +1,17 @@
+<div>
+  <h2 mat-dialog-title>{{data.title}}</h2>
+  <hr>
+  <mat-dialog-content>
+    <strong>{{data.text}}</strong>
+  </mat-dialog-content>
+  <hr>
+  <mat-dialog-actions>
+    <div class="btn-padding">
+      <button class="btn btn-primary" (click)="onCloseConfirm()">Igen</button>
+    </div>
+    
+    <div class="btn-padding">
+      <button class="btn btn-primary" (click)="onCloseCancel()">Nem</button>
+    </div>
+  </mat-dialog-actions>
+</div>
