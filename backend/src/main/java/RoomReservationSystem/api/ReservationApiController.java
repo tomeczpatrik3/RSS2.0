@@ -1,6 +1,6 @@
 package RoomReservationSystem.api;
 
-import static RoomReservationSystem.config.ApiErrorMessageConstants.ERROR_RESERVATION_CREATE;
+import static RoomReservationSystem.config.ValidationErrorMessageConstants.concatErrors;
 import RoomReservationSystem.dto.ReservationDTO;
 import RoomReservationSystem.model.Reservation;
 import RoomReservationSystem.service.impl.ReservationServiceImpl;
@@ -41,7 +41,7 @@ public class ReservationApiController {
             return ResponseEntity.status(HttpStatus.CREATED).body(saved);           
         }
         else {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ERROR_RESERVATION_CREATE);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
         }
         
     }

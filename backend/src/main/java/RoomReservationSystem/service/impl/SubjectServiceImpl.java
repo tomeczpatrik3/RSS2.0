@@ -1,9 +1,11 @@
 package RoomReservationSystem.service.impl;
 
+import RoomReservationSystem.dto.SubjectDTO;
 import RoomReservationSystem.model.Subject;
 import java.util.ArrayList;
 import RoomReservationSystem.repository.SubjectRepository;
 import RoomReservationSystem.service.SubjectService;
+import java.util.Collections;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,8 +16,11 @@ public class SubjectServiceImpl implements SubjectService{
     private SubjectRepository subjectRepository;
     
     @Override
-    public Subject save(Subject subject){       
-        return subjectRepository.save(subject);
+    public Subject save(SubjectDTO subject){       
+        return subjectRepository.save(new Subject(
+                subject.getName(),
+                Collections.emptyList()
+        ));
     }
     
     @Override

@@ -46,7 +46,7 @@ import { UpperCasePipe } from '@angular/common';
     FilterReservationFormComponent,
     InfoDialogComponent,
     QuestionDialogComponent,
-    LogoutComponent
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,

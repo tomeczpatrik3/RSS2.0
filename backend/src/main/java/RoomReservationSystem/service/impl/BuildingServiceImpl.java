@@ -1,9 +1,11 @@
 package RoomReservationSystem.service.impl;
 
+import RoomReservationSystem.dto.BuildingDTO;
 import RoomReservationSystem.model.Building;
 import RoomReservationSystem.repository.BuildingRepository;
 import RoomReservationSystem.service.BuildingService;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,8 +26,11 @@ public class BuildingServiceImpl implements BuildingService {
     }
 
     @Override
-    public Building save(Building building) {
-        return buildingRepository.save(building);
+    public Building save(BuildingDTO building) {
+        return buildingRepository.save(new Building(
+                building.getName(),
+                Collections.emptyList()
+        ));
     }
 
     @Override

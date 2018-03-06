@@ -20,6 +20,7 @@ import { FormGuardService as FormGuard } from '../guards/form-guard.service';
 
 import { Authorities } from '../config/authoritites.config';
 import { LogoutComponent } from '../components/logout/logout.component';
+import { AddBuildingFormComponent } from '../components/forms/add-building-form/add-building-form.component';
 
 
 const routes: Routes = [
@@ -104,6 +105,14 @@ const routes: Routes = [
   {
     path: 'addSubject',
     component: AddSubjectFormComponent,
+    canActivate: [RoleGuard], 
+    data: { 
+      authority: Authorities.ROLE_ADMIN
+    },
+  },
+  {
+    path: 'addBuilding',
+    component: AddBuildingFormComponent,
     canActivate: [RoleGuard], 
     data: { 
       authority: Authorities.ROLE_ADMIN

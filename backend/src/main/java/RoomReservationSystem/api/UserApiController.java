@@ -1,8 +1,8 @@
 package RoomReservationSystem.api;
 
-import static RoomReservationSystem.config.ApiErrorMessageConstants.ERROR_USER_CREATE;
-import static RoomReservationSystem.config.ApiErrorMessageConstants.ERROR_USER_DELETE;
-import static RoomReservationSystem.config.ApiErrorMessageConstants.ERROR_USER_UPDATE;
+import static RoomReservationSystem.config.ValidationErrorMessageConstants.USER_NOT_EXISTS;
+import static RoomReservationSystem.config.ValidationErrorMessageConstants.concatErrors;
+import RoomReservationSystem.dto.UserDTO;
 import RoomReservationSystem.model.User;
 import RoomReservationSystem.service.impl.UserServiceImpl;
 import RoomReservationSystem.validation.UserValidator;
@@ -56,20 +56,20 @@ public class UserApiController {
     
     
     @PostMapping("/createUser")
-    public ResponseEntity createUser(@RequestBody User user, BindingResult bindingResult) {
+    public ResponseEntity createUser(@RequestBody UserDTO user, BindingResult bindingResult) {
         userValidator.validate(user, bindingResult);
         if (!bindingResult.hasErrors()) {
             User registered = userService.register(user);
             return ResponseEntity.status(HttpStatus.CREATED).body(registered);
         }
         else {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ERROR_USER_CREATE);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
         }
     }
     
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/updateUser")
-    public ResponseEntity updateUser(@RequestBody User user, BindingResult bindingResult) {
+    public ResponseEntity updateUser(@RequestBody UserDTO user, BindingResult bindingResult) {
         userValidator.validate(user, bindingResult);
         if (!bindingResult.hasErrors()) {
             userService.delete( userService.findByUsername(user.getName()) );
@@ -77,7 +77,7 @@ public class UserApiController {
             return ResponseEntity.status(HttpStatus.CREATED).body(saved);           
         }
         else {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ERROR_USER_UPDATE);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
         }
     }
     
@@ -89,7 +89,7 @@ public class UserApiController {
             return new ResponseEntity(HttpStatus.OK);           
         }
         else {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ERROR_USER_DELETE);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(USER_NOT_EXISTS);
         }
     }   
 }

@@ -1,5 +1,6 @@
 package RoomReservationSystem.api;
 
+import static RoomReservationSystem.config.ValidationErrorMessageConstants.CLASSROOM_NOT_EXISTS;
 import static RoomReservationSystem.config.ValidationErrorMessageConstants.concatErrors;
 import RoomReservationSystem.dto.ClassroomDTO;
 import RoomReservationSystem.model.Classroom;
@@ -84,9 +85,15 @@ public class ClassroomApiController {
     
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/deleteByRoomName/{name}")
-    public ResponseEntity<Classroom> deleteByRoomName(@PathVariable String name){
-	classroomService.deleteByName(name);
-        return new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity deleteByRoomName(@PathVariable String name){
+	if (classroomService.findByName(name) != null) {
+            classroomService.deleteByName(name);
+            return new ResponseEntity(HttpStatus.OK);            
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(CLASSROOM_NOT_EXISTS);
+        }
+
     }
     
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")

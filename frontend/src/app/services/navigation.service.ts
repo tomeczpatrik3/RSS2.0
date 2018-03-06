@@ -23,6 +23,7 @@ export class NavigationService {
             new MenuItem("Simple", "Új felhasználó", "/addUser", "ROLE_ADMIN"),
             new MenuItem("Simple", "Új tanterem", "/addClassroom", "ROLE_ADMIN"),
             new MenuItem("Simple", "Új tantárgy", "/addSubject", "ROLE_ADMIN"),
+            new MenuItem("Simple", "Új épület", "/addBuilding", "ROLE_ADMIN")
         ])
     ];
 

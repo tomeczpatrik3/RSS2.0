@@ -1,9 +1,7 @@
 export class Building {
-    id: number;
     name: string;
 
-    public constructor (id: number, name: string) {
-        this.id = id;
+    public constructor (name: string) {
         this.name = name;
     }
 }

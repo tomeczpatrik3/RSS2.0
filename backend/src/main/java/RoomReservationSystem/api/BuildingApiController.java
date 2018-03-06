@@ -1,7 +1,11 @@
 package RoomReservationSystem.api;
 
+import static RoomReservationSystem.config.ValidationErrorMessageConstants.BUILDING_NOT_EXISTS;
+import static RoomReservationSystem.config.ValidationErrorMessageConstants.concatErrors;
+import RoomReservationSystem.dto.BuildingDTO;
 import RoomReservationSystem.model.Building;
 import RoomReservationSystem.service.impl.BuildingServiceImpl;
+import RoomReservationSystem.validation.BuildingValidator;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +25,9 @@ public class BuildingApiController {
     
     @Autowired
     BuildingServiceImpl buildingService;
+    
+    @Autowired
+    BuildingValidator buildingValidator;
     
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping
@@ -48,16 +55,27 @@ public class BuildingApiController {
     
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/deleteByName/{name}")
-    public ResponseEntity<Building> deleteByName(@PathVariable String name){
-	buildingService.deleteByName(name);
-        return new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity deleteByName(@PathVariable String name){
+	if ( buildingService.findByName( name ) != null ) {
+            buildingService.deleteByName(name);
+            return new ResponseEntity(HttpStatus.OK);            
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(BUILDING_NOT_EXISTS);
+        }
     }
     
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/createBuilding")
-    public ResponseEntity<Building> createClassroom(@RequestBody Building building, BindingResult bindingResult) {
-        Building saved = buildingService.save(building);
-        return ResponseEntity.status(HttpStatus.CREATED).body(saved);             
+    public ResponseEntity createClassroom(@RequestBody BuildingDTO building, BindingResult bindingResult) {
+        buildingValidator.validate(building, bindingResult);
+        if ( !bindingResult.hasErrors() ) {
+            Building saved = buildingService.save(building);
+            return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
+        }
     }
     
     /*

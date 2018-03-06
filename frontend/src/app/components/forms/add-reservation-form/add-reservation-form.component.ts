@@ -10,6 +10,7 @@ import { ValidatorService } from '../../../services/validator.service';
 import { DialogService } from '../../../services/dialog.service';
 import { AuthService } from '../../../authentication/auth.service';
 import { BuildingService } from '../../../services/building.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-reservation-form',
@@ -82,6 +83,7 @@ export class AddReservationFormComponent implements OnInit {
     private builder: FormBuilder,
     private dialogService: DialogService,
     private validatorService: ValidatorService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -133,6 +135,5 @@ export class AddReservationFormComponent implements OnInit {
       error => this.dialogService.openDialog("Foglalás hozzáadása:", error.error, InfoDialogComponent),
       () => this.dialogService.openDialog("Foglalás hozzáadása:", "Foglalás sikeresen rögítve", InfoDialogComponent)
     );
-    
   }
 }
