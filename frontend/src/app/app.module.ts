@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 import { RoutingModule } from './routing/routing.module';
 
 import { AppComponent } from './components/app/app.component';
@@ -33,6 +35,8 @@ import { QuestionDialogComponent } from './components/dialogs/question-dialog/qu
 import { InfoDialogComponent } from './components/dialogs/info-dialog/info-dialog.component';
 import { LogoutComponent } from './components/logout/logout.component';
 
+import { UpperCasePipe } from '@angular/common';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +46,7 @@ import { LogoutComponent } from './components/logout/logout.component';
     FilterReservationFormComponent,
     InfoDialogComponent,
     QuestionDialogComponent,
-    LogoutComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +56,7 @@ import { LogoutComponent } from './components/logout/logout.component';
     MaterialModule,
     TablesModule,
     AddFormsModule,
+    
     //Minden get esetén csatolja a tokent:
     JwtModule.forRoot({
       config: {
@@ -60,7 +65,10 @@ import { LogoutComponent } from './components/logout/logout.component';
         },
         whitelistedDomains: ['localhost:8080']
       }
-    })
+    }),
+
+    //Dropdown-hoz:
+    NgbModule.forRoot()
   ],
   providers: [
     ValidatorService,

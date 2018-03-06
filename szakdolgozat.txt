@@ -94,3 +94,8 @@ Filter esetén Service inicializálása:
         WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(servletContext);
         userService = webApplicationContext.getBean(UserServiceImpl.class);
     }
+	
+
+//TODO:
+
+--> Validation + error messages + sending back error msg

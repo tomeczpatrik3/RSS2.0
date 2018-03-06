@@ -3,11 +3,13 @@ export class MenuItem {
     name: string;
     routerLink: string;
     authorityRequired: string;
+    menuItems: MenuItem[];
 
-    public constructor(type: string, name: string, routerLink: string, authorityRequired?: string) {
+    public constructor(type: string, name: string, routerLink?: string, authorityRequired?: string, menuItems?: MenuItem[]) {
         this.type = type;
         this.name = name;
-        this.routerLink = routerLink;
+        this.routerLink = routerLink || "";
         this.authorityRequired = authorityRequired || "";
+        this.menuItems = menuItems || [];
     }
 }

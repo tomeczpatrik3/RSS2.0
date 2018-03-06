@@ -25,7 +25,7 @@ import { LogoutComponent } from '../components/logout/logout.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/login',
+    redirectTo: '/dashboard',
     pathMatch: 'full'
   },
   {
@@ -44,15 +44,23 @@ const routes: Routes = [
       authority: Authorities.ROLE_USER
     } 
   },
+  //-------
+  //Tables:
   {
     path: 'users',
     component: UserTableComponent,
-    canActivate: [AuthGuard]
+    canActivate: [RoleGuard], 
+    data: { 
+      authority: Authorities.ROLE_ADMIN
+    } 
   },  
   {
     path: 'classrooms',
     component: ClassroomTableComponent,
-    canActivate: [AuthGuard]
+    canActivate: [RoleGuard], 
+    data: { 
+      authority: Authorities.ROLE_ADMIN
+    } 
   },
   {
     path: 'reservations',
@@ -61,8 +69,13 @@ const routes: Routes = [
   {
     path: 'subjects',
     component: SubjectTableComponent,
-    canActivate: [AuthGuard]
+    canActivate: [RoleGuard], 
+    data: { 
+      authority: Authorities.ROLE_ADMIN
+    } 
   },
+  //--------
+  //Forms:
   {
     path: 'addUser',
     component: AddUserFormComponent,
@@ -74,39 +87,32 @@ const routes: Routes = [
   {
     path: 'addClassroom',
     component: AddClassroomFormComponent,
-    canActivate: [AuthGuard],
+    canActivate: [RoleGuard], 
+    data: { 
+      authority: Authorities.ROLE_ADMIN
+    },
     canDeactivate:[FormGuard] 
   },
   {
     path: 'addReservation',
     component: AddReservationFormComponent,
-    canActivate: [AuthGuard]
+    canActivate: [RoleGuard], 
+    data: { 
+      authority: Authorities.ROLE_USER
+    },
   },
   {
     path: 'addSubject',
     component: AddSubjectFormComponent,
-    canActivate: [AuthGuard]
+    canActivate: [RoleGuard], 
+    data: { 
+      authority: Authorities.ROLE_ADMIN
+    },
   },
   {
     path: 'filterReservations',
     component: FilterReservationFormComponent
   },
-  
-
-  /*
-  {
-    path: 'issues',
-    component: IssueListComponent
-  },
-  */
-//   {
-//     path: 'issues/add',
-//     component: IssueFormComponent
-//   },
-//   {
-//     path: 'issues/:id',
-//     component: IssueDetailComponent
-//   },
 ];
 
 @NgModule({

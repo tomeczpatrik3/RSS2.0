@@ -1,5 +1,6 @@
 package RoomReservationSystem.api;
 
+import static RoomReservationSystem.config.ApiErrorMessageConstants.ERROR_RESERVATION_CREATE;
 import RoomReservationSystem.dto.ReservationDTO;
 import RoomReservationSystem.model.Reservation;
 import RoomReservationSystem.service.impl.ReservationServiceImpl;
@@ -8,12 +9,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -31,15 +32,16 @@ public class ReservationApiController {
         return reservationService.getAll();
     }
     
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     @PostMapping("/createRes")
-    public ResponseEntity<Reservation> createRes(@RequestBody ReservationDTO res, BindingResult bindingResult) {
+    public ResponseEntity createRes(@RequestBody ReservationDTO res, BindingResult bindingResult) {
         reservationValidator.validate(res, bindingResult);
         if (!bindingResult.hasErrors()) {
             Reservation saved = reservationService.save(res);
-            return ResponseEntity.ok(saved);            
+            return ResponseEntity.status(HttpStatus.CREATED).body(saved);           
         }
         else {
-            return new ResponseEntity(HttpStatus.FORBIDDEN);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ERROR_RESERVATION_CREATE);
         }
         
     }

@@ -1,5 +1,6 @@
 package RoomReservationSystem.service;
 
+import RoomReservationSystem.dto.ClassroomDTO;
 import RoomReservationSystem.model.Building;
 import RoomReservationSystem.model.Classroom;
 import java.util.List;
@@ -8,8 +9,8 @@ public interface ClassroomService {
     void delete(Classroom classroom);
     void deleteByName(String name);
     void deleteAll();
-    Classroom save(Classroom classroom);
-    Iterable<Classroom> findAll();
+    Classroom save(ClassroomDTO classroom);
+    List<ClassroomDTO> findAll();
     Classroom findByName(String name);
     Classroom findById(int id);
     List<Classroom> findByHasPc(boolean hasPC);

@@ -103,8 +103,6 @@ export class AuthService {
             return (authorities == authority);
         else if (authorities != null)
             return (authorities.split(',').indexOf(authority) != -1);
-        else if (authority == "")
-            return true;
         else
             return false;
     }

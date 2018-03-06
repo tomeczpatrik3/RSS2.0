@@ -8,17 +8,22 @@ export class NavigationService {
         Menu:
     */
     menuItems: MenuItem[] = [
-        new MenuItem("Simple", "Főoldal", "/dashboard", "ROLE_USER"),
+        new MenuItem("Simple", "Főoldal", "/dashboard", "ANY"),
 
-        new MenuItem("Dropwdown", "Foglalások", "/reservations", "ANY"),
+        new MenuItem("Simple", "Foglalások", "/reservations", "ANY"),
 
-        new MenuItem("Simple", "Felhasználók", "/users", "ROLE_ADMIN"),
-        new MenuItem("Simple", "Tantermek", "/classrooms", "ROLE_ADMIN"),
-        new MenuItem("Simple", "Tantárgyak", "/subjects", "ROLE_ADMIN"),
-        new MenuItem("Simple", "Új felhasználó", "/addUser", "ROLE_ADMIN"),
-        new MenuItem("Simple", "Új tanterem", "/addClassroom", "ROLE_ADMIN"),
-        new MenuItem("Simple", "Új foglalás", "/addReservation", "ROLE_ADMIN"),
-        new MenuItem("Simple", "Új tantárgy", "/addSubject", "ROLE_ADMIN"),
+        new MenuItem("Dropdown", "Táblázatok", "", "ROLE_ADMIN", [
+            new MenuItem("Simple", "Felhasználók", "/users", "ROLE_ADMIN"),
+            new MenuItem("Simple", "Tantermek", "/classrooms", "ROLE_ADMIN"),
+            new MenuItem("Simple", "Tantárgyak", "/subjects", "ROLE_ADMIN"),
+        ]),
+
+        new MenuItem("Dropdown", "Űrlapok", "", "ROLE_USER", [
+            new MenuItem("Simple", "Új foglalás", "/addReservation", "ROLE_USER"),
+            new MenuItem("Simple", "Új felhasználó", "/addUser", "ROLE_ADMIN"),
+            new MenuItem("Simple", "Új tanterem", "/addClassroom", "ROLE_ADMIN"),
+            new MenuItem("Simple", "Új tantárgy", "/addSubject", "ROLE_ADMIN"),
+        ])
     ];
 
     constructor(
@@ -27,14 +32,38 @@ export class NavigationService {
 
     /*
         Menu lekérdezése:
-        -- ha nem szükséges hozzá engedély: a menüpontot továbbadjuk
-        -- ha szükséges hozzá engedély: megnézzük, hogy az aktuális user rendelkezik-e vele
     */
     getMenu(): MenuItem[] {
-        return this.menuItems.filter(
-            element => {
-                return this.authService.hasAuthority(element.authorityRequired)
-           }
+        return this.filterMenuItems(this.menuItems);
+    }
+
+    /*
+        Menü szűrése az engedélyeknek megfelelően:
+        //USER LOGIN --> ADMIN LOGIN --> BUGOS ŰRLAP MENU
+    */
+    filterMenuItems(menuItems: MenuItem[]): MenuItem[] {
+        return menuItems.filter(
+            menuItem => {
+                //Ha sima menüpontról van szó:
+                if (menuItem.type == "Simple") {
+                    return this.authService.hasAuthority(menuItem.authorityRequired);
+                }
+
+                //Ha legördülő menüről van szó:
+                else if (menuItem.type == "Dropdown") {
+                    //Rendelkezünk-e a megfelelő engedélyekkel?
+                    //-->igen:
+                    if (this.authService.hasAuthority(menuItem.authorityRequired)) {
+                        menuItem.menuItems = this.filterMenuItems(menuItem.menuItems);
+                        return true;
+                    }
+                    //-->nem:
+                    else {
+                        return false;
+                    }
+
+                }
+            }
         )
-    }  
+    }
 }

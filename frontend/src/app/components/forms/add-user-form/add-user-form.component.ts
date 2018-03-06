@@ -83,7 +83,7 @@ export class AddUserFormComponent implements OnInit {
     else {
       this.userService.createUser(this.formToUser()).subscribe(
         res => console.log(res),
-        error => this.dialogService.openDialog("Felhasználó hozzáadása:", "Hiba történt", InfoDialogComponent),
+        error => this.dialogService.openDialog("Felhasználó hozzáadása:", error.error, InfoDialogComponent),
         () => this.dialogService.openDialog("Felhasználó hozzáadása:", "Felhasználó sikeresen rögítve", InfoDialogComponent)
       );      
     }

@@ -47,7 +47,7 @@ export class AddSubjectFormComponent implements OnInit {
   addSubject() {
     this.subjectService.createSubject(this.formToSubject()).subscribe(
       res => console.log(res),
-      error => this.dialogService.openDialog("Tantárgy hozzáadása:", "Hiba történt", InfoDialogComponent),
+      error => this.dialogService.openDialog("Tantárgy hozzáadása:", error.error, InfoDialogComponent),
       () => this.dialogService.openDialog("Tantárgy hozzáadása:", "Tantárgy sikeresen rögítve", InfoDialogComponent)
     );
     this.subjectForm.reset();

@@ -1,6 +1,6 @@
 package RoomReservationSystem.validation;
 
-import RoomReservationSystem.model.Reservation;
+import RoomReservationSystem.dto.ReservationDTO;
 import java.text.SimpleDateFormat;
 import java.util.regex.Pattern;
 import org.springframework.stereotype.Service;
@@ -43,7 +43,7 @@ public class ReservationValidator implements Validator {
     
     @Override
     public boolean supports(Class<?> clazz) {
-      return clazz == Reservation.class;
+      return clazz == ReservationDTO.class;
     }
 
     @Override

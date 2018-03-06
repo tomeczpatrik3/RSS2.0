@@ -130,7 +130,7 @@ export class AddReservationFormComponent implements OnInit {
   addReservation() {
     this.reservationService.createRes(this.formToReservation()).subscribe(
       res => console.log(res),
-      error => this.dialogService.openDialog("Foglalás hozzáadása:", "Hiba történt", InfoDialogComponent),
+      error => this.dialogService.openDialog("Foglalás hozzáadása:", error.error, InfoDialogComponent),
       () => this.dialogService.openDialog("Foglalás hozzáadása:", "Foglalás sikeresen rögítve", InfoDialogComponent)
     );
     

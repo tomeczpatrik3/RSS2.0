@@ -1,10 +1,12 @@
 package RoomReservationSystem.service.impl;
 
+import RoomReservationSystem.dto.ClassroomDTO;
 import RoomReservationSystem.model.Building;
 import RoomReservationSystem.model.Classroom;
 import RoomReservationSystem.repository.ClassroomRepository;
 import RoomReservationSystem.service.ClassroomService;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,13 +35,27 @@ public class ClassroomServiceImpl implements ClassroomService{
     }
     
     @Override
-    public Classroom save(Classroom classroom){       
-        return classroomRepository.save(classroom);
+    public Classroom save(ClassroomDTO classroom){       
+        return classroomRepository.save(new Classroom(
+                classroom.getName(),
+                classroom.isHasPC(),
+                classroom.isHasProjector(),
+                classroom.getChairs(),
+                Collections.emptyList(),
+                buildingService.findByName(classroom.getBuilding())
+        ));
     }
     
     @Override
-    public Iterable<Classroom> findAll(){
-        return classroomRepository.findAll();
+    public List<ClassroomDTO> findAll(){
+        List<Classroom> classrooms = classroomRepository.findAll();
+        List<ClassroomDTO> crDtos = new ArrayList<>();
+        
+        for (Classroom classroom: classrooms) {
+            crDtos.add( ClassroomDTO.toClassroomDTO(classroom, classroom.getBuilding()) );
+        }
+        
+        return crDtos;
     }
     
     @Override
@@ -96,10 +112,10 @@ public class ClassroomServiceImpl implements ClassroomService{
     
     @Override
     public List<String> getNames() {
-        Iterable<Classroom> rooms = this.findAll();
+        List<ClassroomDTO> rooms = this.findAll();
         List<String> roomNames = new ArrayList<>();
         
-        for (Classroom room: rooms) {
+        for (ClassroomDTO room: rooms) {
             roomNames.add(room.getName());
         }
         

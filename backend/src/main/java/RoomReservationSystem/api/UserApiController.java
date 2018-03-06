@@ -1,5 +1,8 @@
 package RoomReservationSystem.api;
 
+import static RoomReservationSystem.config.ApiErrorMessageConstants.ERROR_USER_CREATE;
+import static RoomReservationSystem.config.ApiErrorMessageConstants.ERROR_USER_DELETE;
+import static RoomReservationSystem.config.ApiErrorMessageConstants.ERROR_USER_UPDATE;
 import RoomReservationSystem.model.User;
 import RoomReservationSystem.service.impl.UserServiceImpl;
 import RoomReservationSystem.validation.UserValidator;
@@ -27,7 +30,7 @@ public class UserApiController {
     UserServiceImpl userService;
     
     //@PreAuthorize("hasRole('ADMIN')")
-    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping
     public Iterable<User> getAll(){
         return userService.findAll();
@@ -39,49 +42,54 @@ public class UserApiController {
         return userService.getNames();
     }
     
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findByUsername")
     public User findByUsername(@RequestParam String username){
 	return userService.findByUsername(username);
     }
     
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findByName")
     public List<User> findByName(@RequestParam String name){
 	return userService.findByName(name);
     }
     
+    
     @PostMapping("/createUser")
-    public ResponseEntity<User> createUser(@RequestBody User user, BindingResult bindingResult) {
+    public ResponseEntity createUser(@RequestBody User user, BindingResult bindingResult) {
         userValidator.validate(user, bindingResult);
         if (!bindingResult.hasErrors()) {
             User registered = userService.register(user);
-            return ResponseEntity.ok(registered);
+            return ResponseEntity.status(HttpStatus.CREATED).body(registered);
         }
         else {
-            return new ResponseEntity(HttpStatus.FORBIDDEN);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ERROR_USER_CREATE);
         }
     }
     
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/updateUser")
-    public ResponseEntity<User> updateUser(@RequestBody User user, BindingResult bindingResult) {
+    public ResponseEntity updateUser(@RequestBody User user, BindingResult bindingResult) {
         userValidator.validate(user, bindingResult);
         if (!bindingResult.hasErrors()) {
             userService.delete( userService.findByUsername(user.getName()) );
             User saved = userService.register(user);
-            return ResponseEntity.ok(saved);            
+            return ResponseEntity.status(HttpStatus.CREATED).body(saved);           
         }
         else {
-            return new ResponseEntity(HttpStatus.FORBIDDEN);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ERROR_USER_UPDATE);
         }
     }
     
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/deleteByUsername")
-    public ResponseEntity<User> deleteByUsername(@RequestParam String username) {
+    public ResponseEntity deleteByUsername(@RequestParam String username) {
         if ( userService.findByUsername( username ) != null ) {
             userService.deleteByUsername(username);
             return new ResponseEntity(HttpStatus.OK);           
         }
         else {
-            return new ResponseEntity(HttpStatus.FORBIDDEN);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ERROR_USER_DELETE);
         }
     }   
 }

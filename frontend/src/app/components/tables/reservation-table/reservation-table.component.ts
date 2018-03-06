@@ -27,4 +27,5 @@ export class ReservationTableComponent implements OnInit {
     this.reservationService.getAll().subscribe(
       res => this.reservations = res
     )
+  }
 }
