@@ -19,6 +19,7 @@ import { RoleGuardService as RoleGuard } from '../guards/role-guard.service';
 import { FormGuardService as FormGuard } from '../guards/form-guard.service';
 
 import { Authorities } from '../config/authoritites.config';
+import { LogoutComponent } from '../components/logout/logout.component';
 
 
 const routes: Routes = [
@@ -36,6 +37,14 @@ const routes: Routes = [
     component: LoginFormComponent
   },
   {
+    path: 'logout',
+    component: LogoutComponent,
+    canActivate: [RoleGuard], 
+    data: { 
+      authority: Authorities.ROLE_USER
+    } 
+  },
+  {
     path: 'users',
     component: UserTableComponent,
     canActivate: [AuthGuard]
@@ -47,8 +56,7 @@ const routes: Routes = [
   },
   {
     path: 'reservations',
-    component: ReservationTableComponent,
-    canActivate: [AuthGuard]
+    component: ReservationTableComponent
   },
   {
     path: 'subjects',

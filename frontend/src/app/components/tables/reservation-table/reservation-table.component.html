@@ -5,18 +5,22 @@
         <tr>
           <th scope="col">#</th>
           <th scope="col">Tanár</th>
+          <th scope="col">Épület</th>
           <th scope="col">Terem</th>
           <th scope="col">Tantárgy</th>
+          <th scope="col">Nap</th>
           <th scope="col">Kezdési időpont</th>
           <th scope="col">Befejezési időpont</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let reservation of reservations">
-          <th scope="row">{{reservation.id}}</th>
-          <td>{{reservation.id}}</td>
-          <td>{{reservation.id}}</td>
-          <td>{{reservation.id}}</td>
+        <tr *ngFor="let reservation of reservations; let i = index">
+          <th scope="row">{{i+1}}</th>
+          <td>{{reservation.name}}</td>
+          <td>{{reservation.building}}</td>
+          <td>{{reservation.room}}</td>
+          <td>{{reservation.subject}}</td>
+          <td>{{reservation.day}}</td>
           <td>{{reservation.startTime }}</td>
           <td>{{reservation.endTime}}</td>
         </tr>

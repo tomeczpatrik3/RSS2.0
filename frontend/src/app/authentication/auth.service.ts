@@ -8,9 +8,12 @@ import { HttpResponse } from '@angular/common/http';
 //JWT Helper:
 import { JwtHelperService } from '@auth0/angular-jwt';
 
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class AuthService {
+    //Subject létrehozása a NavBar számára:
+    loginStatus = new Subject<boolean>();
 
     constructor(
         private userService: UserService,
@@ -45,20 +48,26 @@ export class AuthService {
     private setSession(response: HttpResponse<any>) {
         const token = this.getDecodedAccesToken(response.headers.get('Authorization'));
         
-        localStorage.setItem('user', token.sub);
+        localStorage.setItem('username', token.sub);
         localStorage.setItem('authorities', token.authorities);
         localStorage.setItem('expires_at', token.exp);
         localStorage.setItem('token', response.headers.get('Authorization'));
+
+        //Belépett a felhasználó:
+        this.loginStatus.next(true);
     }
 
     /*
         Kiejelentkezéskor töröljük a tokeneket:
     */
     logout() {
-        localStorage.removeItem("user");
+        localStorage.removeItem("username");
         localStorage.removeItem("authorities");
         localStorage.removeItem("expires_at");
         localStorage.removeItem("token");
+
+        //Kilépett a felhasználó:
+        this.loginStatus.next(false);
     }
 
     /*
@@ -88,11 +97,22 @@ export class AuthService {
     */
     hasAuthority(authority: string): boolean {
         const authorities = localStorage.getItem('authorities');
+        if (authority == 'ANY')
+            return true;
         if (authorities != null && authorities.length == 1)
             return (authorities == authority);
         else if (authorities != null)
             return (authorities.split(',').indexOf(authority) != -1);
+        else if (authority == "")
+            return true;
         else
             return false;
+    }
+
+    /*
+        Felhasználónév lekérdezése:
+    */
+    getUsername(): string {
+        return localStorage.getItem('username');
     }
 }

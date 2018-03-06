@@ -28,7 +28,7 @@ public class Building extends BaseEntity {
     private String name;
     
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "buildingId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "building")
     private List<Classroom> classroomList;
 
 }

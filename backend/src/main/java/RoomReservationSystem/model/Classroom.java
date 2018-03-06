@@ -45,12 +45,12 @@ public class Classroom extends BaseEntity {
     private int chairs;
     
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "classroomId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "classroom")
     private List<Reservation> reservationList;
     
     @JsonIgnore
-    @JoinColumn(name = "building_id", referencedColumnName = "id")
+    @JoinColumn(name = "building", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Building buildingId;
+    private Building building;
     
 }

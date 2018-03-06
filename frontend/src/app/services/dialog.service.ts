@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { InfoDialogComponent } from '../components/dialogs/info-dialog/info-dialog.component';
+import { Subject } from 'rxjs/Subject';
+
 
 @Injectable()
 export class DialogService {
 
-  return_value: boolean;
+  returnValue = new Subject<boolean>();
 
   constructor(
     private dialog: MatDialog
@@ -18,7 +20,7 @@ export class DialogService {
 
     Dialog bezárása után reseteljük a formot!
   */
-  openDialog(title_: string, text_: string, dialogComponent): boolean {
+  openDialog(title_: string, text_: string, dialogComponent) {
     let dialogRef = this.dialog.open(dialogComponent, {
       width: '600px',
       data: {
@@ -28,10 +30,8 @@ export class DialogService {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.return_value = ( result == 'Confirm' ? true : false );
+      this.returnValue.next( result == 'Confirm' ? true : false );
     })
-
-    return this.return_value;
   }
 
 }

@@ -44,22 +44,14 @@ h2 {
 }
 
 /* Táblázatok: */
-.mat-table {
-    margin: auto;
-    width: 70%;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    border: 1px solid black;
-}
-
-.mat-header-cell {
-    font-weight: bold;
-    font-size: 15px;
-}
-
 .table {
     margin: auto;
     margin-top: 20px;
     margin-bottom: 20px;  
     border: 2px solid black;  
+}
+
+/* Cards: */
+.card-block {
+    padding: 10px 10px 10px;
 }

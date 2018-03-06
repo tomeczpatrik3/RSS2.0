@@ -40,6 +40,11 @@ public class ClassroomApiController {
 	return classroomService.findByName(name);
     }
     
+    @GetMapping("/getNamesByBuilding/{name}")
+    public List<String> getNamesByBuilding(@PathVariable String name){
+	return classroomService.getNamesByBuilding(name);
+    }
+    
     @GetMapping("/findByHasPC/{hasPC}")
     public List<Classroom> findByHasPC(@PathVariable boolean hasPC){
 	return classroomService.findByHasPc(hasPC);

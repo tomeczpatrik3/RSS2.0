@@ -1,5 +1,6 @@
 package RoomReservationSystem.api;
 
+import RoomReservationSystem.dto.ReservationDTO;
 import RoomReservationSystem.model.Reservation;
 import RoomReservationSystem.service.impl.ReservationServiceImpl;
 import RoomReservationSystem.validation.ReservationValidator;
@@ -26,12 +27,12 @@ public class ReservationApiController {
     ReservationValidator reservationValidator;
     
     @GetMapping
-    public Iterable<Reservation> getAll(){
-        return reservationService.findAll();
+    public List<ReservationDTO> getAll(){
+        return reservationService.getAll();
     }
     
     @PostMapping("/createRes")
-    public ResponseEntity<Reservation> createRes(@RequestBody Reservation res, BindingResult bindingResult) {
+    public ResponseEntity<Reservation> createRes(@RequestBody ReservationDTO res, BindingResult bindingResult) {
         reservationValidator.validate(res, bindingResult);
         if (!bindingResult.hasErrors()) {
             Reservation saved = reservationService.save(res);

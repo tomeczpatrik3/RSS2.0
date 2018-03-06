@@ -8,6 +8,8 @@ import { MatDialog } from '@angular/material';
 import { InfoDialogComponent } from '../../dialogs/info-dialog/info-dialog.component';
 import { ValidatorService } from '../../../services/validator.service';
 import { DialogService } from '../../../services/dialog.service';
+import { AuthService } from '../../../authentication/auth.service';
+import { BuildingService } from '../../../services/building.service';
 
 @Component({
   selector: 'app-add-reservation-form',
@@ -16,18 +18,21 @@ import { DialogService } from '../../../services/dialog.service';
 })
 export class AddReservationFormComponent implements OnInit {
 
-  username = "fannika123";
-
   days: string[] = ['Hétfő', 'Kedd', 'Szerda', 'Csütörtök', 'Péntek', 'Szombat'];
-
+  username: string;
   roomNames: string[];
   subjectNames: string[];
+  buildingNames: string[];
 
-  roomName = new FormControl('', [
+  room = new FormControl('', [
     Validators.required
   ]);
 
-  subjectName = new FormControl('', [
+  building = new FormControl('', [
+    Validators.required
+  ]);
+
+  subject = new FormControl('', [
     Validators.required
   ]);
 
@@ -58,8 +63,9 @@ export class AddReservationFormComponent implements OnInit {
   ]);
 
   reservationForm: FormGroup = this.builder.group({
-    roomName: this.roomName,
-    subjectName: this.subjectName,
+    room: this.room,
+    building: this.building,
+    subject: this.subject,
     startDate: this.startDate,
     endDate: this.endDate,
     day: this.day,
@@ -68,22 +74,31 @@ export class AddReservationFormComponent implements OnInit {
   });
 
   constructor(
+    private authService: AuthService,
     private classroomService: ClassroomService,
     private subjectService: SubjectService,
     private reservationService: ReservationService,
+    private buildingService: BuildingService,
     private builder: FormBuilder,
     private dialogService: DialogService,
     private validatorService: ValidatorService,
   ) { }
 
   ngOnInit() {
-    this.getClassroomNames();
+    this.username = this.authService.getUsername();
     this.getSubjectNames();
+    this.getBuildingNames();
   }
 
-  getClassroomNames() {
-    this.classroomService.getRoomNames().subscribe(
+  getRoomNamesByBuilding(name: string) {
+    this.classroomService.getRoomNamesByBuilding(name).subscribe(
       res => this.roomNames = res
+    )
+  }
+
+  getBuildingNames() {
+    this.buildingService.getNames().subscribe(
+      res => this.buildingNames = res
     )
   }
 
@@ -96,8 +111,9 @@ export class AddReservationFormComponent implements OnInit {
   formToReservation(): Reservation {
     return new Reservation(
       this.username, //Tesztelésig
-      this.reservationForm.value.roomName,
-      this.reservationForm.value.subjectName,
+      this.reservationForm.value.room,
+      this.reservationForm.value.subject,
+      this.reservationForm.value.building,
       this.reservationForm.value.startDate,
       this.reservationForm.value.endDate,
       this.reservationForm.value.day,

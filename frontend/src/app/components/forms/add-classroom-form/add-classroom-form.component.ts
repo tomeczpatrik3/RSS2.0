@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material';
 import { InfoDialogComponent } from '../../dialogs/info-dialog/info-dialog.component';
 import { DialogService } from '../../../services/dialog.service';
 import { BuildingService } from '../../../services/building.service';
+import { QuestionDialogComponent } from '../../dialogs/question-dialog/question-dialog.component';
 
 @Component({
   selector: 'app-add-classroom-form',
@@ -47,13 +48,17 @@ export class AddClassroomFormComponent implements OnInit {
     projector: this.projector
   });
 
+  //-----
+  letThrough: boolean;
+
   constructor(
     private builder: FormBuilder,
     private validatorService: ValidatorService,
     private classroomService: ClassroomService,
     private buildingService: BuildingService,
     private dialogService: DialogService
-  ) { }
+  ) { 
+  }
 
   ngOnInit() {
     this.loadBuildings();
@@ -93,4 +98,5 @@ export class AddClassroomFormComponent implements OnInit {
   isUntouched(): boolean {
     return this.classroomForm.untouched;
   }
+
 }

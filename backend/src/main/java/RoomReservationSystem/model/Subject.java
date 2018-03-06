@@ -28,7 +28,7 @@ public class Subject extends BaseEntity {
     private String name;
     
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subjectId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subject")
     private List<Reservation> reservationList;
 
 }

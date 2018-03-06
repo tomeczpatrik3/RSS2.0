@@ -7,17 +7,37 @@
       <div class="form-group row">
         <label for="subjectName" class="col-sm-4 col-form-label">Tantárgy neve*</label>
         <div class="col-sm-8">
-          <select class="form-control" id="subjectName" [formControl]="subjectName">
+          <select class="form-control" id="subjectName" [formControl]="subject">
             <option> --- </option>
             <option *ngFor="let name of subjectNames"> {{name}} </option>
           </select>
 
-          <div [hidden]="subjectName.valid || subjectName.untouched" class="alert alert-danger">
+          <div [hidden]="subject.valid || subject.untouched" class="alert alert-danger">
             <div>
               Probléma a tantárgy kiválasztása során:
             </div>
-            <div [hidden]="!subjectName.hasError('required')">
+            <div [hidden]="!subject.hasError('required')">
               A tantárgy nevét meg kell adni.
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="buildingName" class="col-sm-4 col-form-label">Épület neve*</label>
+        <div class="col-sm-8">
+          <select class="form-control" id="buildingName" [formControl]="building" (change)="getRoomNamesByBuilding($event.target.value)">
+            <option> --- </option>
+            <option *ngFor="let name of buildingNames" > {{name}} </option>
+          </select>
+
+          <div [hidden]="building.valid || building.untouched" class="alert alert-danger">
+            <div>
+              Probléma az épület kiválasztása során:
+            </div>
+            <div [hidden]="!building.hasError('required')">
+              Az épület nevét meg kell adni.
             </div>
           </div>
 
@@ -27,16 +47,16 @@
       <div class="form-group row">
         <label for="roomName" class="col-sm-4 col-form-label">Tanterem neve*</label>
         <div class="col-sm-8">
-          <select class="form-control" id="roomName" [formControl]="roomName">
+          <select class="form-control" id="roomName" [formControl]="room">
             <option> --- </option>
             <option *ngFor="let name of roomNames"> {{name}} </option>
           </select>
 
-          <div [hidden]="roomName.valid || roomName.untouched" class="alert alert-danger">
+          <div [hidden]="room.valid || room.untouched" class="alert alert-danger">
             <div>
               Probléma a tanterem kiválasztása során:
             </div>
-            <div [hidden]="!roomName.hasError('required')">
+            <div [hidden]="!room.hasError('required')">
               A tanterem nevét meg kell adni.
             </div>
           </div>

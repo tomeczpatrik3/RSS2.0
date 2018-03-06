@@ -8,16 +8,17 @@ export class NavigationService {
         Menu:
     */
     menuItems: MenuItem[] = [
-        new MenuItem("Főoldal", "/dashboard", "ROLE_USER"),
-        new MenuItem("Bejelentkezés", "/login"),
-        new MenuItem("Felhasználók", "/users", "ROLE_USER"),
-        new MenuItem("Tantermek", "/classrooms", "ROLE_USER"),
-        new MenuItem("Foglalások", "/reservations", "ROLE_USER"),
-        new MenuItem("Tantárgyak", "/subjects", "ROLE_USER"),
-        new MenuItem("Új felhasználó", "/addUser", "ROLE_ADMIN"),
-        new MenuItem("Új tanterem", "/addClassroom", "ROLE_ADMIN"),
-        new MenuItem("Új foglalás", "/addReservation", "ROLE_ADMIN"),
-        new MenuItem("Új tantárgy", "/addSubject", "ROLE_ADMIN"),
+        new MenuItem("Simple", "Főoldal", "/dashboard", "ROLE_USER"),
+
+        new MenuItem("Dropwdown", "Foglalások", "/reservations", "ANY"),
+
+        new MenuItem("Simple", "Felhasználók", "/users", "ROLE_ADMIN"),
+        new MenuItem("Simple", "Tantermek", "/classrooms", "ROLE_ADMIN"),
+        new MenuItem("Simple", "Tantárgyak", "/subjects", "ROLE_ADMIN"),
+        new MenuItem("Simple", "Új felhasználó", "/addUser", "ROLE_ADMIN"),
+        new MenuItem("Simple", "Új tanterem", "/addClassroom", "ROLE_ADMIN"),
+        new MenuItem("Simple", "Új foglalás", "/addReservation", "ROLE_ADMIN"),
+        new MenuItem("Simple", "Új tantárgy", "/addSubject", "ROLE_ADMIN"),
     ];
 
     constructor(
@@ -32,7 +33,7 @@ export class NavigationService {
     getMenu(): MenuItem[] {
         return this.menuItems.filter(
             element => {
-                return element.authorityRequired == "" ? true : this.authService.hasAuthority(element.authorityRequired)
+                return this.authService.hasAuthority(element.authorityRequired)
            }
         )
     }  

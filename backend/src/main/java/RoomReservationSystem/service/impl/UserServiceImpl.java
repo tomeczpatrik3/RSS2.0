@@ -5,6 +5,7 @@ import RoomReservationSystem.model.User;
 import RoomReservationSystem.repository.UserRepository;
 import RoomReservationSystem.service.UserService;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,13 +17,16 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 public class UserServiceImpl implements UserService   {
     
     private UserRepository userRepository;
+    private AuthorityServiceImpl authorityService;
     private BCryptPasswordEncoder passwordEncoder;
     
     public UserServiceImpl(
             UserRepository userRepository,
-            BCryptPasswordEncoder bCryptPasswordEncoder) {
+            BCryptPasswordEncoder bCryptPasswordEncoder,
+            AuthorityServiceImpl authorityService) {
         this.userRepository = userRepository;
         this.passwordEncoder = bCryptPasswordEncoder;
+        this.authorityService = authorityService;
     }
     
     @Override
@@ -36,10 +40,15 @@ public class UserServiceImpl implements UserService   {
 
     /*
         Felhasználó regisztrálása titkosított jelszóval
+        -- ROLE_USER engedély megkeresése
+        -- hozzáadjuk a felhasználót ehhez az engedélyhez
+        -- majd a felhasználó engedélyeihez is hozzáadjuk ezt
     */
     @Override
     public User register(User user) {
-        user.setAuthorityList(new ArrayList<Authority>());
+        Authority userAuth = this.authorityService.findByName("ROLE_USER");
+        userAuth.getUserList().add(user);
+        user.setAuthorityList(Arrays.asList(userAuth));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
@@ -47,6 +56,11 @@ public class UserServiceImpl implements UserService   {
     @Override
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+    
+    @Override
+    public User findById(int id) {
+        return this.userRepository.findById(id);
     }
     
     @Override

@@ -14,6 +14,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.context.annotation.Bean;
 
 import static RoomReservationSystem.security.SecurityConstants.REGISTER_URL;
+import static RoomReservationSystem.security.SecurityConstants.RESERVATIONS_URL;
 import java.util.Arrays;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 
@@ -38,6 +39,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST, REGISTER_URL).permitAll()
+                .antMatchers(HttpMethod.GET, RESERVATIONS_URL).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(authenticationFilter)

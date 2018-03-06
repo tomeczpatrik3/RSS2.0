@@ -1,5 +1,6 @@
 package RoomReservationSystem.service.impl;
 
+import RoomReservationSystem.model.Building;
 import RoomReservationSystem.model.Classroom;
 import RoomReservationSystem.repository.ClassroomRepository;
 import RoomReservationSystem.service.ClassroomService;
@@ -12,6 +13,9 @@ import org.springframework.stereotype.Service;
 public class ClassroomServiceImpl implements ClassroomService{
     @Autowired
     private ClassroomRepository classroomRepository;
+    
+    @Autowired
+    private BuildingServiceImpl buildingService;
     
     @Override
     public void delete(Classroom classroom){
@@ -39,8 +43,30 @@ public class ClassroomServiceImpl implements ClassroomService{
     }
     
     @Override
+    public Classroom findById(int id) {
+        return this.classroomRepository.findById(id);
+    }
+    
+    @Override
     public Classroom findByName(String name){
         return classroomRepository.findByName(name);
+    }
+    
+    @Override
+    public List<String> getNamesByBuilding(String buildingName){
+        List<Classroom> rooms = findByBuilding(buildingService.findByName(buildingName));
+        List<String> roomNames = new ArrayList<>();
+        
+        for (Classroom room: rooms) {
+            roomNames.add(room.getName());
+        }
+        
+        return roomNames;
+    }
+    
+    @Override
+    public List<Classroom> findByBuilding(Building building) {
+        return classroomRepository.findByBuilding(building);
     }
 
     @Override

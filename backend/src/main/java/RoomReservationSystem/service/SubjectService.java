@@ -9,5 +9,6 @@ public interface SubjectService {
     void deleteByName(String name);
     Iterable<Subject> findAll();
     Subject findByName(String name);
+    Subject findById(int id);
     List<String> getSubjectNames();
 }

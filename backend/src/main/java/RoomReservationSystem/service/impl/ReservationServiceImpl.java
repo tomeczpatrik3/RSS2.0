@@ -1,8 +1,10 @@
 package RoomReservationSystem.service.impl;
 
+import RoomReservationSystem.dto.ReservationDTO;
 import RoomReservationSystem.model.Reservation;
 import RoomReservationSystem.repository.ReservationRepository;
 import RoomReservationSystem.service.ReservationService;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,13 @@ public class ReservationServiceImpl implements ReservationService{
     @Autowired
     private UserServiceImpl userService;
     
+    @Autowired
+    private ClassroomServiceImpl classroomService;
+        
+    @Autowired
+    private SubjectServiceImpl subjectService;
+    //---
+    
     @Override
     public void delete(Reservation res){
         reservationRepository.delete(res);
@@ -25,14 +34,48 @@ public class ReservationServiceImpl implements ReservationService{
         reservationRepository.deleteAll();
     }
     
+    /*
+        A megfelelő adatokkal mentjük a foglalást:
+    */
     @Override
-    public Reservation save(Reservation res){       
-        return reservationRepository.save(res);
+    public Reservation save(ReservationDTO res){       
+        return reservationRepository.save(
+            new Reservation(
+                    res.getStartDate(),
+                    res.getEndDate(),
+                    res.getDay(),
+                    res.getStartTime(),
+                    res.getEndTime(),
+                    classroomService.findByName(res.getRoom()),
+                    subjectService.findByName(res.getSubject()),
+                    userService.findByUsername(res.getUsername())
+            )
+        );
     }
     
     @Override
-    public Iterable<Reservation> findAll(){
-        return reservationRepository.findAll();
+    public Reservation findById(int id){       
+        return reservationRepository.findById(id);
+    }
+    
+    /*
+        Reservation --> ReservationDTO
+    */
+    @Override
+    public List<ReservationDTO> getAll(){
+        List<Reservation> reservations =  reservationRepository.findAll();
+        List<ReservationDTO> resDtos = new ArrayList<>();
+        
+        for (Reservation res: reservations) {
+            resDtos.add(ReservationDTO.convertToReservationDto(
+                    res.getUser(), 
+                    res.getSubject(),
+                    res.getClassroom().getBuilding(),
+                    res.getClassroom(), 
+                    res
+            ));
+        }
+        return resDtos;
     }
     
 }

@@ -8,6 +8,7 @@ public interface UserService extends UserDetailsService {
     User register(User user);
     User findByEmail(String email);
     User findByUsername(String username);
+    User findById(int id);
     void deleteByUsername(String username);
     void deleteAll();
     void delete(User user);

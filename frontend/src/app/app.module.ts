@@ -31,6 +31,7 @@ import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
 
 import { QuestionDialogComponent } from './components/dialogs/question-dialog/question-dialog.component';
 import { InfoDialogComponent } from './components/dialogs/info-dialog/info-dialog.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { InfoDialogComponent } from './components/dialogs/info-dialog/info-dialo
     FilterReservationFormComponent,
     InfoDialogComponent,
     QuestionDialogComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,

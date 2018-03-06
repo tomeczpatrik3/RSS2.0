@@ -51,18 +51,18 @@ public class Reservation extends BaseEntity {
     private String endTime;
     
     @JsonIgnore
-    @JoinColumn(name = "classroom_id", referencedColumnName = "id")
+    @JoinColumn(name = "classroom", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Classroom classroomId;
+    private Classroom classroom;
     
     @JsonIgnore
-    @JoinColumn(name = "subject_id", referencedColumnName = "id")
+    @JoinColumn(name = "subject", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Subject subjectId;
+    private Subject subject;
     
     @JsonIgnore
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private User userId;
+    private User user;
  
 }

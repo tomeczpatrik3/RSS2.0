@@ -48,9 +48,10 @@ public class ReservationValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
+        /*
         ValidationUtils.rejectIfEmpty(errors, "startDate", "reservation.startDate.empty");
         ValidationUtils.rejectIfEmpty(errors, "endDate", "reservation.endDate.empty");
-        ValidationUtils.rejectIfEmpty(errors, "subjectName", "reservation.subjectName.empty");
+        ValidationUtils.rejectIfEmpty(errors, "subject", "reservation.subjectName.empty");
         ValidationUtils.rejectIfEmpty(errors, "username", "reservation.username.empty");
         ValidationUtils.rejectIfEmpty(errors, "roomName", "reservation.roomName.empty");
 
@@ -68,7 +69,7 @@ public class ReservationValidator implements Validator {
         if (res.getEndDate().before( res.getStartDate() )) {
             errors.rejectValue("endDate", "reservation.endDate.beforeStartDate");
         }
-        */
+        
         
         if (res.getStartTime() != null && !TIME_REGEX.matcher(res.getStartTime()).matches()) {
             errors.rejectValue("startTime", "reservation.startTime.invalid");
@@ -83,5 +84,6 @@ public class ReservationValidator implements Validator {
                 !isBefore( res.getStartTime(), res.getEndTime() ) ) {
             errors.rejectValue("endTime", "reservation.endTime.beforeStartTime");
         }
+        */
     }
 }

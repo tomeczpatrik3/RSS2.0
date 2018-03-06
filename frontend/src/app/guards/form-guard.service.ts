@@ -6,19 +6,16 @@ import { AddClassroomFormComponent } from '../components/forms/add-classroom-for
 import { DialogService } from '../services/dialog.service';
 import { InfoDialogComponent } from '../components/dialogs/info-dialog/info-dialog.component';
 import { QuestionDialogComponent } from '../components/dialogs/question-dialog/question-dialog.component';
+import { MatDialog } from '@angular/material';
 
 
 @Injectable()
-export class FormGuardService implements CanDeactivate<AddClassroomFormComponent> {
+export class FormGuardService implements CanDeactivate<AddClassroomFormComponent> {  
     constructor(
-        private dialogService: DialogService
     ) {}
   
-    canDeactivate(component: AddClassroomFormComponent): boolean {
-        if (component.isUntouched()==false) {
-            return this.dialogService.openDialog("Űrlap elhagyása", "Biztos, hogy el szeretnéd hagyni az oldalt?", QuestionDialogComponent);
-        }
-        else
-            return true;
+    canDeactivate(component: AddClassroomFormComponent) {
+        return true;
     }
+
 }
