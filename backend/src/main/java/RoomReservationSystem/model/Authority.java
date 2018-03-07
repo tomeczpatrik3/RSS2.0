@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -15,7 +14,6 @@ import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Data;
-import org.springframework.security.core.GrantedAuthority;
 
 @Data
 @AllArgsConstructor
@@ -27,7 +25,7 @@ public class Authority extends BaseEntity{
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "name")
+    @Column(name = "name", unique=true)
     private String name;
     
     @JsonIgnore

@@ -32,7 +32,7 @@ public class Subject extends BaseEntity {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "code")
+    @Column(name = "code", unique=true)
     private String code;    
     
     @JsonIgnore

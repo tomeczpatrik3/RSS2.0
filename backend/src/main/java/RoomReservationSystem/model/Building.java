@@ -26,7 +26,7 @@ public class Building extends BaseEntity {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "name")
+    @Column(name = "name", unique=true)
     private String name;
     
     @JsonIgnore

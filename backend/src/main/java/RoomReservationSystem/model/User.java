@@ -33,7 +33,7 @@ public class User extends BaseEntity implements UserDetails {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "username")
+    @Column(name = "username", unique=true)
     private String username;
     
     @Basic(optional = false)
@@ -51,7 +51,7 @@ public class User extends BaseEntity implements UserDetails {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "email")
+    @Column(name = "email", unique=true)
     private String email;
     
     @JsonIgnore
