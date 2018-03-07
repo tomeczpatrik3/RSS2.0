@@ -2,6 +2,7 @@ package RoomReservationSystem.service.impl;
 
 import RoomReservationSystem.dto.ReservationDTO;
 import RoomReservationSystem.model.Reservation;
+import static RoomReservationSystem.model.Reservation.toReservation;
 import RoomReservationSystem.repository.ReservationRepository;
 import RoomReservationSystem.service.ReservationService;
 import java.util.ArrayList;
@@ -38,19 +39,13 @@ public class ReservationServiceImpl implements ReservationService{
         A megfelelő adatokkal mentjük a foglalást:
     */
     @Override
-    public Reservation save(ReservationDTO res){       
-        return reservationRepository.save(
-            new Reservation(
-                    res.getStartDate(),
-                    res.getEndDate(),
-                    res.getDay(),
-                    res.getStartTime(),
-                    res.getEndTime(),
-                    classroomService.findByName(res.getRoom()),
-                    subjectService.findByName(res.getSubject()),
-                    userService.findByUsername(res.getUsername())
-            )
-        );
+    public Reservation save(ReservationDTO resDTO){       
+        return reservationRepository.save(toReservation(
+                    resDTO,
+                    classroomService.findByName(resDTO.getRoom()),
+                    subjectService.findByCode(resDTO.getSubjectCode()),
+                    userService.findByUsername(resDTO.getUsername())
+            ));
     }
     
     @Override
@@ -78,4 +73,22 @@ public class ReservationServiceImpl implements ReservationService{
         return resDtos;
     }
     
+    @Override
+    public List<ReservationDTO> findByUsername(String username) {
+        List<Reservation> reservations =  reservationRepository.findAll();
+        List<ReservationDTO> resDtos = new ArrayList<>();
+        
+        for (Reservation res: reservations) {
+            if (res.getUser().getUsername().equals(username)) {
+                resDtos.add(ReservationDTO.convertToReservationDto(
+                        res.getUser(), 
+                        res.getSubject(),
+                        res.getClassroom().getBuilding(),
+                        res.getClassroom(), 
+                        res
+                ));                
+            }
+        }
+        return resDtos;
+    }
 }

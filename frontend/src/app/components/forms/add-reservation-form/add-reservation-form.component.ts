@@ -11,6 +11,8 @@ import { DialogService } from '../../../services/dialog.service';
 import { AuthService } from '../../../authentication/auth.service';
 import { BuildingService } from '../../../services/building.service';
 import { Router } from '@angular/router';
+import { Subject } from '../../../models/Subject';
+import { Building } from '../../../models/Building';
 
 @Component({
   selector: 'app-add-reservation-form',
@@ -22,8 +24,8 @@ export class AddReservationFormComponent implements OnInit {
   days: string[] = ['Hétfő', 'Kedd', 'Szerda', 'Csütörtök', 'Péntek', 'Szombat'];
   username: string;
   roomNames: string[];
-  subjectNames: string[];
-  buildingNames: string[];
+  subjects: Subject[];
+  buildings: Building[];
 
   room = new FormControl('', [
     Validators.required
@@ -88,8 +90,8 @@ export class AddReservationFormComponent implements OnInit {
 
   ngOnInit() {
     this.username = this.authService.getUsername();
-    this.getSubjectNames();
-    this.getBuildingNames();
+    this.getSubjects();
+    this.getBuildings();
   }
 
   getRoomNamesByBuilding(name: string) {
@@ -98,23 +100,26 @@ export class AddReservationFormComponent implements OnInit {
     )
   }
 
-  getBuildingNames() {
-    this.buildingService.getNames().subscribe(
-      res => this.buildingNames = res
+  getBuildings() {
+    this.buildingService.getAll().subscribe(
+      res => this.buildings = res
     )
   }
 
-  getSubjectNames() {
-    this.subjectService.getSubjectNames().subscribe(
-      res => this.subjectNames = res
+  getSubjects() {
+    this.subjectService.getAll().subscribe(
+      res => this.subjects = res
     )
   }
 
   formToReservation(): Reservation {
+    const subject_details = this.getSubjectDetails();
+
     return new Reservation(
       this.username, //Tesztelésig
       this.reservationForm.value.room,
-      this.reservationForm.value.subject,
+      subject_details[1].trim(),
+      subject_details[0].trim(),
       this.reservationForm.value.building,
       this.reservationForm.value.startDate,
       this.reservationForm.value.endDate,
@@ -125,6 +130,13 @@ export class AddReservationFormComponent implements OnInit {
   }
 
   /*
+    Split '|' karakter mentén
+  */
+  private getSubjectDetails(): string[] {
+    return this.reservationForm.value.subject.split('|');
+  }
+
+  /*
     Feliratkozunk, majd:
     - hiba esetén jelzünk a hibát dialog segítségével
     - siker esetén jelezzük a sikert dialog segítségével
@@ -132,7 +144,9 @@ export class AddReservationFormComponent implements OnInit {
   addReservation() {
     this.reservationService.createRes(this.formToReservation()).subscribe(
       res => console.log(res),
-      error => this.dialogService.openDialog("Foglalás hozzáadása:", error.error, InfoDialogComponent),
+      error => {
+        this.dialogService.openDialog("Foglalás hozzáadása:", this.dialogService.addBr(error.error), InfoDialogComponent);
+      },
       () => this.dialogService.openDialog("Foglalás hozzáadása:", "Foglalás sikeresen rögítve", InfoDialogComponent)
     );
   }

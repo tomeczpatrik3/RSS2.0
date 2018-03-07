@@ -10,4 +10,5 @@ public interface ReservationService {
     Reservation save(ReservationDTO res);
     Reservation findById(int id);
     List<ReservationDTO> getAll();
+    List<ReservationDTO> findByUsername(String username);
 }

@@ -30,7 +30,7 @@ export class ClassroomTableComponent implements OnInit {
   }
 
   convertToString(value: boolean): string {
-    return value ? 'Nincs' : 'Van';
+    return value ? 'Van' : 'Nincs';
   }
 
   onSelect(room) {

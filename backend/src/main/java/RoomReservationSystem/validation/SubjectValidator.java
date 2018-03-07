@@ -23,16 +23,22 @@ public class SubjectValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         ValidationUtils.rejectIfEmpty(errors, "name", "subject.name.empty", SUBJECT_NAME_EMPTY);
+        ValidationUtils.rejectIfEmpty(errors, "code", "subject.code.empty", SUBJECT_CODE_EMPTY);
 
         SubjectDTO subject = (SubjectDTO)target;     
         
-        if (subjectService.findByName(subject.getName()) != null) {
-            errors.rejectValue("name", "subject.name.alredyExists", SUBJECT_ALREDY_EXISTS);
+        if (subjectService.findByCode(subject.getCode()) != null) {
+            errors.rejectValue("code", "subject.code.alredyExists", SUBJECT_ALREDY_EXISTS);
         }
         
         if (subject.getName() != null && subject.getName().length() < 5 ||
                 subject.getName().length() > 30) {
             errors.rejectValue("name", "subject.name.size", SUBJECT_NAME_SIZE);
+        }
+        
+       if (subject.getCode() != null && subject.getCode().length() < 4 ||
+                subject.getCode().length() > 10) {
+            errors.rejectValue("code", "subject.code.size", SUBJECT_CODE_SIZE);
         }
     }
 }

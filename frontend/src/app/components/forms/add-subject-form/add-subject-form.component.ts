@@ -20,8 +20,15 @@ export class AddSubjectFormComponent implements OnInit {
     Validators.maxLength(30)
   ]);
 
+  subjectCode = new FormControl('', [
+    Validators.required,
+    Validators.minLength(4),
+    Validators.maxLength(10)
+  ]);
+
   subjectForm: FormGroup = this.builder.group({
     subjectName: this.subjectName,
+    subjectCode: this.subjectCode
   });
 
   constructor(
@@ -35,7 +42,8 @@ export class AddSubjectFormComponent implements OnInit {
 
   formToSubject(): Subject {
     return new Subject(
-      this.subjectForm.value.subjectName
+      this.subjectForm.value.subjectName,
+      this.subjectForm.value.subjectCode
     );
   }
 
@@ -47,7 +55,7 @@ export class AddSubjectFormComponent implements OnInit {
   addSubject() {
     this.subjectService.createSubject(this.formToSubject()).subscribe(
       res => console.log(res),
-      error => this.dialogService.openDialog("Tantárgy hozzáadása:", error.error, InfoDialogComponent),
+      error => this.dialogService.openDialog("Tantárgy hozzáadása:", this.dialogService.addBr(error.error), InfoDialogComponent),
       () => this.dialogService.openDialog("Tantárgy hozzáadása:", "Tantárgy sikeresen rögítve", InfoDialogComponent)
     );
     this.subjectForm.reset();

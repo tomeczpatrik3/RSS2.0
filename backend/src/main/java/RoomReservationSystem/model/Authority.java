@@ -35,5 +35,12 @@ public class Authority extends BaseEntity{
         @JoinColumn(name = "authority_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "user_id", referencedColumnName = "id")})
     @ManyToMany
-    private List<User> userList;   
+    private List<User> userList; 
+    
+    /*
+        Adott engedélyhez újabb felhasználó hozzárendelése:
+    */
+    public void addUser(User user) {
+        userList.add(user);
+    }
 }

@@ -35,10 +35,12 @@ public class ValidationErrorMessageConstants {
     public static final String RESERVATION_END_TIME_BEFORE_START_TIME = "A befejezési idő nem lehet korábban, mint a kezdési idő!";
     
     //SUBJECT:
-    public static final String SUBJECT_ALREDY_EXISTS = "Ezzel a névvel már létezik tantárgy!";
+    public static final String SUBJECT_ALREDY_EXISTS = "Ezzel a kóddal már létezik tantárgy!";
     public static final String SUBJECT_NOT_EXISTS = "Nem létezik ilyen tantárgy!";
     public static final String SUBJECT_NAME_SIZE = "A tantárgy neve nem megfelelő hosszúságú (3-30)!";
-    public static final String SUBJECT_NAME_EMPTY = "A tantárgy neve nem lehet üres!";    
+    public static final String SUBJECT_NAME_EMPTY = "A tantárgy neve nem lehet üres!";  
+    public static final String SUBJECT_CODE_SIZE = "A tantárgy kódja nem megfelelő hosszúságú (4-10)!";
+    public static final String SUBJECT_CODE_EMPTY = "A tantárgy kódja nem lehet üres!";    
     
     //USER:
     public static final String USER_USERNAME_EMPTY = "A felhasználónév nem lehet üres!";

@@ -10,8 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SubjectDTO {
     private String name;
+    private String code;
     
     public static SubjectDTO toSubjectDTO(Subject subject) {
-        return new SubjectDTO(subject.getName());
+        return new SubjectDTO(subject.getName(), subject.getCode());
     }
 }

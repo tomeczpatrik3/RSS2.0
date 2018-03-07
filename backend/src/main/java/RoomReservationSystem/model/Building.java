@@ -1,6 +1,8 @@
 package RoomReservationSystem.model;
 
+import RoomReservationSystem.dto.BuildingDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.Collections;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -30,5 +32,12 @@ public class Building extends BaseEntity {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "building")
     private List<Classroom> classroomList;
+    
+    public static Building toBuilding(BuildingDTO buildingDTO) {
+        return new Building(
+                buildingDTO.getName(),
+                Collections.emptyList()
+        );
+    }
 
 }

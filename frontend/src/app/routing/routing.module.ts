@@ -21,6 +21,8 @@ import { FormGuardService as FormGuard } from '../guards/form-guard.service';
 import { Authorities } from '../config/authoritites.config';
 import { LogoutComponent } from '../components/logout/logout.component';
 import { AddBuildingFormComponent } from '../components/forms/add-building-form/add-building-form.component';
+import { MyReservationsTableComponent } from '../components/tables/my-reservations-table/my-reservations-table.component';
+import { BuildingTableComponent } from '../components/tables/building-table/building-table.component';
 
 
 const routes: Routes = [
@@ -48,6 +50,18 @@ const routes: Routes = [
   //-------
   //Tables:
   {
+    path: 'reservations',
+    component: ReservationTableComponent
+  },
+  {
+    path: 'myReservations',
+    component: MyReservationsTableComponent,
+    canActivate: [RoleGuard], 
+    data: { 
+      authority: Authorities.ROLE_USER
+    } 
+  },
+  {
     path: 'users',
     component: UserTableComponent,
     canActivate: [RoleGuard], 
@@ -64,12 +78,16 @@ const routes: Routes = [
     } 
   },
   {
-    path: 'reservations',
-    component: ReservationTableComponent
-  },
-  {
     path: 'subjects',
     component: SubjectTableComponent,
+    canActivate: [RoleGuard], 
+    data: { 
+      authority: Authorities.ROLE_ADMIN
+    } 
+  },
+  {
+    path: 'buildings',
+    component: BuildingTableComponent,
     canActivate: [RoleGuard], 
     data: { 
       authority: Authorities.ROLE_ADMIN

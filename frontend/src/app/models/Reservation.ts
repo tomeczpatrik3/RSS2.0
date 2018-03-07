@@ -2,7 +2,8 @@ export class Reservation {
     username: string;
     name: string;
     room: string;
-    subject: string;
+    subjectName: string;
+    subjectCode: string;
     building: string;
     startDate: Date;
     endDate: Date;
@@ -13,7 +14,8 @@ export class Reservation {
     public constructor (
         username: string,
         room: string, 
-        subject: string,
+        subjectName: string,
+        subjectCode: string,
         building: string,
         startDate: Date,
         endDate: Date, 
@@ -26,7 +28,8 @@ export class Reservation {
         this.username = username;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.subject = subject;
+        this.subjectName = subjectName;
+        this.subjectCode = subjectCode;
         this.building = building;
         this.room = room;
         this.day = day;

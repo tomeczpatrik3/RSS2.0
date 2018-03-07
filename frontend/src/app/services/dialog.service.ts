@@ -34,4 +34,11 @@ export class DialogService {
     })
   }
 
+  /*
+    Sortörések hozzáadása a szöveghez:
+  */
+  addBr(text: string): string {
+    return text.replace(new RegExp('\n', 'g'), "<br />");
+  }
+
 }

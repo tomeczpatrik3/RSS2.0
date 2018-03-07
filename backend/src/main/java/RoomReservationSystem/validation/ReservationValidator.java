@@ -63,7 +63,7 @@ public class ReservationValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         ValidationUtils.rejectIfEmpty(errors, "username", "reservation.username.empty", USER_USERNAME_EMPTY);
-        ValidationUtils.rejectIfEmpty(errors, "subject", "reservation.subject.empty", SUBJECT_NAME_EMPTY);
+        ValidationUtils.rejectIfEmpty(errors, "subjectCode", "reservation.subjectCode.empty", SUBJECT_CODE_EMPTY);
         ValidationUtils.rejectIfEmpty(errors, "room", "reservation.room.empty", CLASSROOM_NAME_EMPTY);
         ValidationUtils.rejectIfEmpty(errors, "day", "reservation.day.empty", RESERVATION_DAY_EMPTY);
         ValidationUtils.rejectIfEmpty(errors, "startTime", "reservation.startTime.empty", RESERVATION_START_TIME_EMPTY);
@@ -88,13 +88,13 @@ public class ReservationValidator implements Validator {
         }
         
         //Subject:
-        if (subjectService.findByName(res.getSubject()) == null) {
-            errors.rejectValue("subject", "reservation.name.notExists", SUBJECT_NOT_EXISTS);
+        if (subjectService.findByCode(res.getSubjectCode()) == null) {
+            errors.rejectValue("subjectCode", "reservation.subjectCode.notExists", SUBJECT_NOT_EXISTS);
         }
         
-        if (res.getSubject() != null && res.getSubject().length() < 5 ||
-                res.getSubject().length() > 30) {
-            errors.rejectValue("subject", "reservation.name.size", SUBJECT_NAME_SIZE);
+        if (res.getSubjectName() != null && res.getSubjectName().length() < 5 ||
+                res.getSubjectName().length() > 30) {
+            errors.rejectValue("subjectName", "reservation.subjectName.size", SUBJECT_NAME_SIZE);
         }
         
         //Classroom:

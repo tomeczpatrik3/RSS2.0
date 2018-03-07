@@ -1,0 +1,31 @@
+<div class="container">
+    <h2>Saját foglalásaim:</h2>
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Épület</th>
+          <th scope="col">Terem</th>
+          <th scope="col">Tantárgy</th>
+          <th scope="col">Nap</th>
+          <th scope="col">Kezdési időpont</th>
+          <th scope="col">Befejezési időpont</th>
+          <th scope="col">Kezdeti dátum</th>
+          <th scope="col">Befejezési dátum</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let reservation of reservations; let i = index">
+          <th scope="row">{{i+1}}</th>
+          <td>{{reservation.building}}</td>
+          <td>{{reservation.room}}</td>
+          <td>{{reservation.subjectCode}} | {{reservation.subjectName}}</td>
+          <td>{{reservation.day}}</td>
+          <td>{{reservation.startTime }}</td>
+          <td>{{reservation.endTime}}</td>
+          <td>{{reservation.startDate}}</td>
+          <td>{{reservation.endDate}}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>

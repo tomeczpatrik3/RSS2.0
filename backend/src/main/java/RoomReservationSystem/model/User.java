@@ -1,8 +1,10 @@
 package RoomReservationSystem.model;
 
+import RoomReservationSystem.dto.UserDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -87,6 +89,17 @@ public class User extends BaseEntity implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+    
+    public static User toUser(UserDTO userDTO, String encodedPassword, List<Authority> authorityList) {
+        return new User(
+                userDTO.getUsername(),
+                encodedPassword,
+                userDTO.getName(),
+                userDTO.getEmail(),
+                authorityList,
+                Collections.emptyList()
+        );
     }
 
 }

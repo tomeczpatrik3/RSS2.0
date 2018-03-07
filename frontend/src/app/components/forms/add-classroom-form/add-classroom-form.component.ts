@@ -88,7 +88,7 @@ export class AddClassroomFormComponent implements OnInit {
   addClassroom() {
     this.classroomService.createClassroom(this.formToClassroom()).subscribe(
       res => console.log(res),
-      error => this.dialogService.openDialog("Tanterem hozzáadása:", error.error, InfoDialogComponent),
+      error => this.dialogService.openDialog("Tanterem hozzáadása:", this.dialogService.addBr(error.error), InfoDialogComponent),
       () => this.dialogService.openDialog("Tanterem hozzáadása:", "Tanterem sikeresen rögítve", InfoDialogComponent)
     );
     this.classroomForm.reset();

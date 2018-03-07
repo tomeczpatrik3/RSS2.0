@@ -5,11 +5,11 @@
   <div class="card-block">
     <form [formGroup]="reservationForm" (ngSubmit)="addReservation()"> 
       <div class="form-group row">
-        <label for="subjectName" class="col-sm-4 col-form-label">Tantárgy neve*</label>
+        <label for="subject" class="col-sm-4 col-form-label">Tantárgy*</label>
         <div class="col-sm-8">
-          <select class="form-control" id="subjectName" [formControl]="subject">
+          <select class="form-control" id="subject" [formControl]="subject">
             <option> --- </option>
-            <option *ngFor="let name of subjectNames"> {{name}} </option>
+            <option *ngFor="let subject of subjects"> {{subject.code}} | {{subject.name}} </option>
           </select>
 
           <div [hidden]="subject.valid || subject.untouched" class="alert alert-danger">
@@ -17,7 +17,7 @@
               Probléma a tantárgy kiválasztása során:
             </div>
             <div [hidden]="!subject.hasError('required')">
-              A tantárgy nevét meg kell adni.
+              A tantárgyat meg kell adni.
             </div>
           </div>
 
@@ -29,7 +29,7 @@
         <div class="col-sm-8">
           <select class="form-control" id="buildingName" [formControl]="building" (change)="getRoomNamesByBuilding($event.target.value)">
             <option> --- </option>
-            <option *ngFor="let name of buildingNames" > {{name}} </option>
+            <option *ngFor="let building of buildings" > {{building.name}} </option>
           </select>
 
           <div [hidden]="building.valid || building.untouched" class="alert alert-danger">

@@ -2,6 +2,7 @@ package RoomReservationSystem.service.impl;
 
 import RoomReservationSystem.dto.SubjectDTO;
 import RoomReservationSystem.model.Subject;
+import static RoomReservationSystem.model.Subject.toSubject;
 import java.util.ArrayList;
 import RoomReservationSystem.repository.SubjectRepository;
 import RoomReservationSystem.service.SubjectService;
@@ -16,11 +17,8 @@ public class SubjectServiceImpl implements SubjectService{
     private SubjectRepository subjectRepository;
     
     @Override
-    public Subject save(SubjectDTO subject){       
-        return subjectRepository.save(new Subject(
-                subject.getName(),
-                Collections.emptyList()
-        ));
+    public Subject save(SubjectDTO subjectDTO){       
+        return subjectRepository.save(toSubject(subjectDTO));
     }
     
     @Override
@@ -34,7 +32,7 @@ public class SubjectServiceImpl implements SubjectService{
     }
     
     @Override
-    public Iterable<Subject> findAll(){
+    public List<Subject> findAll(){
         return subjectRepository.findAll();
     }  
     
@@ -44,10 +42,15 @@ public class SubjectServiceImpl implements SubjectService{
     }
     
     @Override
-    public Subject findByName(String name) {
+    public List<Subject> findByName(String name) {
         return subjectRepository.findByName(name);
     }
     
+    @Override
+    public Subject findByCode(String code) {
+        return subjectRepository.findByCode(code);
+    } 
+   
     @Override
     public List<String> getSubjectNames() {
         Iterable<Subject> subjects = this.findAll();

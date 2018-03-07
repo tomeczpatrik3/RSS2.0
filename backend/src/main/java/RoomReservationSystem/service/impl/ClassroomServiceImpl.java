@@ -6,10 +6,11 @@ import RoomReservationSystem.model.Classroom;
 import RoomReservationSystem.repository.ClassroomRepository;
 import RoomReservationSystem.service.ClassroomService;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import static RoomReservationSystem.model.Classroom.toClassroom;
 
 @Service
 public class ClassroomServiceImpl implements ClassroomService{
@@ -35,14 +36,10 @@ public class ClassroomServiceImpl implements ClassroomService{
     }
     
     @Override
-    public Classroom save(ClassroomDTO classroom){       
-        return classroomRepository.save(new Classroom(
-                classroom.getName(),
-                classroom.isHasPC(),
-                classroom.isHasProjector(),
-                classroom.getChairs(),
-                Collections.emptyList(),
-                buildingService.findByName(classroom.getBuilding())
+    public Classroom save(ClassroomDTO classroomDTO){       
+        return classroomRepository.save(toClassroom(
+              classroomDTO,
+              buildingService.findByName(classroomDTO.getBuilding())
         ));
     }
     

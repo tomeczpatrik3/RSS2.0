@@ -59,7 +59,7 @@ public class SubjectApiController {
     public ResponseEntity updateSubject(@RequestBody SubjectDTO subject, BindingResult bindingResult) {
         subjectValidator.validate(subject, bindingResult);
         if (!bindingResult.hasErrors()) {
-            subjectService.delete( subjectService.findByName(subject.getName()) );
+            subjectService.delete( subjectService.findByCode(subject.getCode()) );
             Subject saved = subjectService.save(subject);
             return ResponseEntity.status(HttpStatus.CREATED).body(saved);            
         }

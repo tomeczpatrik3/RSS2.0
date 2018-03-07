@@ -12,10 +12,13 @@ export class NavigationService {
 
         new MenuItem("Simple", "Foglalások", "/reservations", "ANY"),
 
+        new MenuItem("Simple", "Saját foglalásaim", "/myReservations", "ROLE_USER"),
+
         new MenuItem("Dropdown", "Táblázatok", "", "ROLE_ADMIN", [
             new MenuItem("Simple", "Felhasználók", "/users", "ROLE_ADMIN"),
             new MenuItem("Simple", "Tantermek", "/classrooms", "ROLE_ADMIN"),
             new MenuItem("Simple", "Tantárgyak", "/subjects", "ROLE_ADMIN"),
+            new MenuItem("Simple", "Épületek", "/buildings", "ROLE_ADMIN")
         ]),
 
         new MenuItem("Dropdown", "Űrlapok", "", "ROLE_USER", [

@@ -9,6 +9,8 @@ import { HttpResponse } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { Subject } from 'rxjs/Subject';
+import { DialogService } from '../services/dialog.service';
+import { InfoDialogComponent } from '../components/dialogs/info-dialog/info-dialog.component';
 
 @Injectable()
 export class AuthService {
@@ -17,7 +19,8 @@ export class AuthService {
 
     constructor(
         private userService: UserService,
-        private jwtHelper: JwtHelperService
+        private jwtHelper: JwtHelperService,
+        private dialogService: DialogService
     ) {
 
     }
@@ -26,6 +29,9 @@ export class AuthService {
         return this.userService.login(accountCredentials).subscribe(
             (response:HttpResponse<any>) =>  {
                 this.setSession(response);
+            },
+            error => {
+                this.dialogService.openDialog("Sikertelen bejelentkezés:", "Próbálkozzon újra a saját felhasználónév/jelszó kombinációjával!", InfoDialogComponent)
             }
         );
     }

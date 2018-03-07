@@ -1,6 +1,8 @@
 package RoomReservationSystem.model;
 
+import RoomReservationSystem.dto.ClassroomDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.Collections;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -52,5 +54,16 @@ public class Classroom extends BaseEntity {
     @JoinColumn(name = "building", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Building building;
+    
+    public static Classroom toClassroom(ClassroomDTO classroomDTO, Building building) {
+        return new Classroom(
+                classroomDTO.getName(),
+                classroomDTO.isHasPC(),
+                classroomDTO.isHasProjector(),
+                classroomDTO.getChairs(),
+                Collections.emptyList(),
+                building
+        );
+    }
     
 }

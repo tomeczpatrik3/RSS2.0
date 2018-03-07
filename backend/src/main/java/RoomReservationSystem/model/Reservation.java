@@ -1,5 +1,6 @@
 package RoomReservationSystem.model;
 
+import RoomReservationSystem.dto.ReservationDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -65,4 +66,21 @@ public class Reservation extends BaseEntity {
     @ManyToOne(optional = false)
     private User user;
  
+    
+    public static Reservation toReservation(
+            ReservationDTO reservationDTO,
+            Classroom classroom,
+            Subject subject,
+            User user) {
+        return new Reservation(
+                reservationDTO.getStartDate(),
+                reservationDTO.getEndDate(),
+                reservationDTO.getDay(),
+                reservationDTO.getStartTime(),
+                reservationDTO.getEndTime(),
+                classroom,
+                subject,
+                user
+        );
+    }
 }

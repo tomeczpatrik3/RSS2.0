@@ -6,14 +6,15 @@ import RoomReservationSystem.model.User;
 import RoomReservationSystem.repository.UserRepository;
 import RoomReservationSystem.service.UserService;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import static RoomReservationSystem.model.User.toUser;
+import java.util.Arrays;
 
 @Service
 public class UserServiceImpl implements UserService   {
@@ -44,21 +45,18 @@ public class UserServiceImpl implements UserService   {
         Felhasználó regisztrálása titkosított jelszóval, megfelelő engedéllyel:
     */
     @Override
-    public User register(UserDTO user) {
+    public User register(UserDTO userDTO) {
         Authority userAuth = this.authorityService.findByName("ROLE_USER");
         
-        User registered = new User(
-                user.getUsername(),
-                passwordEncoder.encode(user.getPassword()),
-                user.getName(),
-                user.getEmail(),
-                Arrays.asList(userAuth),
-                Collections.emptyList()
+        User user = toUser(
+                userDTO, 
+                passwordEncoder.encode(userDTO.getPassword()),
+                Arrays.asList(userAuth)
         );
         
-        userAuth.getUserList().add(registered);
+        userAuth.addUser(user);
         
-        return userRepository.save(registered);
+        return userRepository.save(user);
     }
     
     @Override
@@ -72,8 +70,11 @@ public class UserServiceImpl implements UserService   {
     }
     
     @Override
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public User findByUsername(String username) throws UsernameNotFoundException{
+        if (userRepository.findByUsername(username)!=null)
+            return userRepository.findByUsername(username);
+        else
+            throw new UsernameNotFoundException(username);
     }
     
     @Override

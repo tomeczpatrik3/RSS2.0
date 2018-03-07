@@ -15,7 +15,8 @@ import lombok.NoArgsConstructor;
 public class ReservationDTO {
     private String username;
     private String name;
-    private String subject;
+    private String subjectName;
+    private String subjectCode;
     private String building;
     private String room;
     private String day;
@@ -35,6 +36,7 @@ public class ReservationDTO {
                 user.getUsername(),
                 user.getName(),
                 subject.getName(),
+                subject.getCode(),
                 building.getName(),
                 classroom.getName(),
                 reservation.getDay(),
