@@ -1,8 +1,12 @@
 package RoomReservationSystem.service.impl;
 
 import RoomReservationSystem.dto.ReservationDTO;
+import static RoomReservationSystem.dto.ReservationDTO.toReservationDTOList;
 import RoomReservationSystem.model.Reservation;
 import static RoomReservationSystem.model.Reservation.toReservation;
+import RoomReservationSystem.model.Status;
+import RoomReservationSystem.model.Ticket;
+import RoomReservationSystem.model.User;
 import RoomReservationSystem.repository.ReservationRepository;
 import RoomReservationSystem.service.ReservationService;
 import java.util.ArrayList;
@@ -23,6 +27,9 @@ public class ReservationServiceImpl implements ReservationService{
         
     @Autowired
     private SubjectServiceImpl subjectService;
+    
+    @Autowired
+    private TicketServiceImpl ticketService;
     //---
     
     @Override
@@ -40,12 +47,18 @@ public class ReservationServiceImpl implements ReservationService{
     */
     @Override
     public Reservation save(ReservationDTO resDTO){       
-        return reservationRepository.save(toReservation(
+        User user = userService.findByUsername(resDTO.getUsername());
+        
+        Reservation reservation =  reservationRepository.save(toReservation(
                     resDTO,
                     classroomService.findByName(resDTO.getRoom()),
                     subjectService.findByCode(resDTO.getSubjectCode()),
-                    userService.findByUsername(resDTO.getUsername())
+                    user
             ));
+        
+        ticketService.save(reservation, user);
+        
+        return reservation;
     }
     
     @Override
@@ -58,37 +71,23 @@ public class ReservationServiceImpl implements ReservationService{
     */
     @Override
     public List<ReservationDTO> getAll(){
-        List<Reservation> reservations =  reservationRepository.findAll();
-        List<ReservationDTO> resDtos = new ArrayList<>();
-        
-        for (Reservation res: reservations) {
-            resDtos.add(ReservationDTO.convertToReservationDto(
-                    res.getUser(), 
-                    res.getSubject(),
-                    res.getClassroom().getBuilding(),
-                    res.getClassroom(), 
-                    res
-            ));
-        }
-        return resDtos;
+        return toReservationDTOList(reservationRepository.findAll());
     }
     
     @Override
     public List<ReservationDTO> findByUsername(String username) {
-        List<Reservation> reservations =  reservationRepository.findAll();
-        List<ReservationDTO> resDtos = new ArrayList<>();
+        User user = userService.findByUsername(username);
+        return toReservationDTOList(
+                reservationRepository.findByUser(user)
+        );
+    }
+    
+    @Override
+    public List<ReservationDTO> getAccepted() {
+        List<Reservation> reservations = new ArrayList<>();
+        for (Ticket ticket: ticketService.findByStatusHelper(Status.ACCEPTED))
+            reservations.add(ticket.getReservation());
         
-        for (Reservation res: reservations) {
-            if (res.getUser().getUsername().equals(username)) {
-                resDtos.add(ReservationDTO.convertToReservationDto(
-                        res.getUser(), 
-                        res.getSubject(),
-                        res.getClassroom().getBuilding(),
-                        res.getClassroom(), 
-                        res
-                ));                
-            }
-        }
-        return resDtos;
+        return toReservationDTOList(reservations);
     }
 }

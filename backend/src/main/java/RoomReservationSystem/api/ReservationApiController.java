@@ -30,7 +30,7 @@ public class ReservationApiController {
     
     @GetMapping
     public List<ReservationDTO> getAll(){
-        return reservationService.getAll();
+        return reservationService.getAccepted();
     }
     
     @PreAuthorize("hasAuthority('ROLE_USER')")

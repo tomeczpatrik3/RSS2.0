@@ -100,3 +100,8 @@ Filter esetén Service inicializálása:
 
 --> RESERVATION VALIDATION DATES!!
 --> RESET RES FORM AFTER SUBMIT
+--> TICKETS:
+	-- validation
+	-- ticketek elbirlasa admin oldalon
+	-- sajat foglalasaim statusza ticketek alapjan
+	-- ticket uzenetek definialasa

@@ -6,8 +6,8 @@
 <canvas zoom="100">
 <tables>
 <table name="authorities" view="colnames">
-<left>789</left>
-<top>473</top>
+<left>849</left>
+<top>461</top>
 <width>78</width>
 <height>112</height>
 <sql_create_table>CREATE TABLE `authorities` (
@@ -18,8 +18,8 @@
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 <table name="buildings" view="colnames">
-<left>1</left>
-<top>366</top>
+<left>15</left>
+<top>309</top>
 <width>78</width>
 <height>112</height>
 <sql_create_table>CREATE TABLE `buildings` (
@@ -30,8 +30,8 @@
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 <table name="classrooms" view="colnames">
-<left>112</left>
-<top>310</top>
+<left>129</left>
+<top>301</top>
 <width>125</width>
 <height>180</height>
 <sql_create_table>CREATE TABLE `classrooms` (
@@ -48,8 +48,8 @@
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 <table name="reservations" view="colnames">
-<left>300</left>
-<top>275</top>
+<left>317</left>
+<top>311</top>
 <width>104</width>
 <height>231</height>
 <sql_create_table>CREATE TABLE `reservations` (
@@ -72,11 +72,11 @@
   CONSTRAINT `res_classroom_FK` FOREIGN KEY (`classroom`) REFERENCES `classrooms` (`id`),
   CONSTRAINT `res_subject_FK` FOREIGN KEY (`subject`) REFERENCES `subjects` (`id`),
   CONSTRAINT `res_user_FK` FOREIGN KEY (`user`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 <table name="subjects" view="colnames">
-<left>479</left>
-<top>227</top>
+<left>480</left>
+<top>295</top>
 <width>78</width>
 <height>129</height>
 <sql_create_table>CREATE TABLE `subjects` (
@@ -88,8 +88,8 @@
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 <table name="users" view="colnames">
-<left>468</left>
-<top>479</top>
+<left>519</left>
+<top>447</top>
 <width>103</width>
 <height>163</height>
 <sql_create_table>CREATE TABLE `users` (
@@ -104,8 +104,8 @@
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 <table name="users_authorities" view="colnames">
-<left>615</left>
-<top>481</top>
+<left>647</left>
+<top>437</top>
 <width>114</width>
 <height>112</height>
 <sql_create_table>CREATE TABLE `users_authorities` (
@@ -116,6 +116,25 @@
   CONSTRAINT `FKdsfxx5g8x8mnxne1fe0yxhjhq` FOREIGN KEY (`authority_id`) REFERENCES `authorities` (`id`),
   CONSTRAINT `FKq3lq694rr66e6kpo2h84ad92q` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="waiting_list" view="colnames">
+<left>576</left>
+<top>30</top>
+<width>142</width>
+<height>180</height>
+<sql_create_table>CREATE TABLE `waiting_list` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `last_modification` datetime NOT NULL,
+  `status` int(11) NOT NULL,
+  `reservation` int(11) NOT NULL,
+  `user` int(11) NOT NULL,
+  `message` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKalcvpk1ahli8ct0kqdt19pv4l` (`reservation`),
+  KEY `FKf2th6k9ylcq2l91dcfmtjb3vg` (`user`),
+  CONSTRAINT `FKalcvpk1ahli8ct0kqdt19pv4l` FOREIGN KEY (`reservation`) REFERENCES `reservations` (`id`),
+  CONSTRAINT `FKf2th6k9ylcq2l91dcfmtjb3vg` FOREIGN KEY (`user`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 </tables>
 </canvas>

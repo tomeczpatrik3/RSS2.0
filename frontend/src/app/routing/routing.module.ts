@@ -23,6 +23,8 @@ import { LogoutComponent } from '../components/logout/logout.component';
 import { AddBuildingFormComponent } from '../components/forms/add-building-form/add-building-form.component';
 import { MyReservationsTableComponent } from '../components/tables/my-reservations-table/my-reservations-table.component';
 import { BuildingTableComponent } from '../components/tables/building-table/building-table.component';
+import { DetailedReservationsComponent } from '../components/detailed-reservations/detailed-reservations.component';
+import { TicketTableComponent } from '../components/tables/ticket-table/ticket-table.component';
 
 
 const routes: Routes = [
@@ -62,6 +64,14 @@ const routes: Routes = [
     } 
   },
   {
+    path: 'myReservationsDetailed',
+    component: DetailedReservationsComponent,
+    canActivate: [RoleGuard], 
+    data: { 
+      authority: Authorities.ROLE_USER
+    } 
+  },
+  {
     path: 'users',
     component: UserTableComponent,
     canActivate: [RoleGuard], 
@@ -88,6 +98,14 @@ const routes: Routes = [
   {
     path: 'buildings',
     component: BuildingTableComponent,
+    canActivate: [RoleGuard], 
+    data: { 
+      authority: Authorities.ROLE_ADMIN
+    } 
+  },
+  {
+    path: 'tickets',
+    component: TicketTableComponent,
     canActivate: [RoleGuard], 
     data: { 
       authority: Authorities.ROLE_ADMIN

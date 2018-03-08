@@ -1,0 +1,21 @@
+<div class="container">
+  <h2>Jegyek:</h2>
+  <table class="table table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Státusz</th>
+        <th scope="col">Utolsó módosítás</th>
+        <th scope="col">Üzenet</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ticket of tickets; let i = index">
+        <th scope="row">{{i+1}}</th>
+        <td>{{ticket.status}}</td>
+        <td>{{ticket.lastModification}}</td>
+        <td>{{ticket.message}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

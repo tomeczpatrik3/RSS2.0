@@ -38,6 +38,11 @@ export class Routes {
     static BUILDING_CREATE_BUILDING: string = "building/createBuilding";
     static BUILDING_DELETE_BY_NAME: string = "building/deleteByName";
 
+    static TICKET: string = "ticket";
+    static TICKET_FIND_BY_USERNAME: string = "ticket/findByUsername";
+    static TICKET_FIND_BY_STATUS: string = "ticket/findByStatus";
+    static TICKET_SET_STATUS: string = "ticket/setStatus";
+
     static getUrl(route: string): string {
       return `http://localhost:8080/api/${route}`;
     }
