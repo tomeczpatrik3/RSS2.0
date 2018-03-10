@@ -1,0 +1,44 @@
+<div class="container">
+  <h3>Feldolgozásra várakozó foglalások:</h3>
+</div>
+
+<div *ngIf="this.hasPendingTicket">
+  <div class="card border-dark mb-3" *ngFor="let ticket of pendingTickets">
+    <div class="card-header">
+      
+    </div>
+    
+    <div class="card-body">
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <th>{{ticket.status}}</th>
+            <td>{{ticket.lastModification}}</td>
+            <td>{{ticket.message}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card-footer">
+      <button type="button" class="btn btn-secondary btn-sm btn-outline-success" (click)="accept(ticket)">Elfogadás</button>
+      <button type="button" class="btn btn-secondary btn-sm btn-outline-danger float-right" (click)="decline(ticket)">Elutasítás</button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!this.hasPendingTicket">
+  <div class="card border-dark mb-3">
+    <div class="card-header">
+        <strong>Feldolgozásra várakozó foglalások:</strong>
+    </div>
+    
+    <div class="card-body">
+      Jelenleg nincs feldolgozásra várokozó foglalás!
+    </div>
+
+    <div class="card-footer">
+
+    </div>
+  </div>  
+</div>

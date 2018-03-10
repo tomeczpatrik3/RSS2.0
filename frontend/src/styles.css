@@ -8,9 +8,13 @@ body {
 
 .card {
     margin: auto;
-    width: 50%;
+    width: 70%;
     margin-top: 20px;
     margin-bottom: 20px;
+}
+
+.form-card {
+    width: 60%;
 }
 
 .form-group {
@@ -36,6 +40,7 @@ body {
 h2 {
     padding-top: 15px;  
     margin: auto;
+    text-align: left;
 }
 
 /* Hibaüzenet: */

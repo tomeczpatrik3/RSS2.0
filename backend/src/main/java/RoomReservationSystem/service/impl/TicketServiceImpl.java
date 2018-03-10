@@ -1,6 +1,6 @@
 package RoomReservationSystem.service.impl;
 
-import static RoomReservationSystem.config.TicketMessages.TICKET_CREATION_MESSAGE;
+import static RoomReservationSystem.config.TicketMessages.*;
 import RoomReservationSystem.dto.TicketDTO;
 import static RoomReservationSystem.dto.TicketDTO.toTicketDTOList;
 import RoomReservationSystem.model.Reservation;
@@ -76,13 +76,25 @@ public class TicketServiceImpl implements TicketService {
         Ticket ticket = ticketRepository.findById(id);
         if (ticket != null) {
             delete(ticket);
-            ticket.setStatus(Status.valueOf(status));
+            
+            Status ticketStatus = Status.valueOf(status);
+            
+            ticket.setStatus(ticketStatus);
             ticket.setLastModification(new Date());
+            ticket.setMessage(getStatusMsg(ticketStatus));
             
             return ticketRepository.save(ticket);
         }
         else {
             return null;
+        }
+    }
+    
+    private String getStatusMsg(Status status) {
+        switch(status) {
+            case ACCEPTED: return TICKET_ACCEPTED_MESSAGE;
+            case DECLINED: return TICKET_DECLINED_MESSAGE;
+            default: return TICKET_CREATION_MESSAGE;
         }
     }
     

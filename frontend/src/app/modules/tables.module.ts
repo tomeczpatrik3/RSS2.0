@@ -18,6 +18,7 @@ import { SubjectTableComponent } from '../components/tables/subject-table/subjec
 import { BuildingTableComponent } from '../components/tables/building-table/building-table.component';
 import { TicketTableComponent } from '../components/tables/ticket-table/ticket-table.component';
 import { DetailedReservationsComponent } from '../components/detailed-reservations/detailed-reservations.component';
+import { PendingTicketsComponent } from '../components/pending-tickets/pending-tickets.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { DetailedReservationsComponent } from '../components/detailed-reservatio
     SubjectTableComponent,
     BuildingTableComponent,
     DetailedReservationsComponent,
-    TicketTableComponent
+    TicketTableComponent,
+    PendingTicketsComponent
   ], //Komponensek, pipe-ok
   providers: [
       ClassroomService,
@@ -51,7 +53,8 @@ import { DetailedReservationsComponent } from '../components/detailed-reservatio
     SubjectTableComponent,
     BuildingTableComponent,
     DetailedReservationsComponent,
-    TicketTableComponent
+    TicketTableComponent,
+    PendingTicketsComponent
   ] //Amit akarunk, hogy más komponens használhasson
 })
 export class TablesModule {}

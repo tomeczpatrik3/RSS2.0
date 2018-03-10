@@ -2,6 +2,9 @@ package RoomReservationSystem.model;
 
 import RoomReservationSystem.dto.ReservationDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,15 +26,13 @@ public class Reservation extends BaseEntity {
 
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 255)
     @Column(name = "start_date")
-    private String startDate;
+    private Date startDate;
     
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 255)
     @Column(name = "end_date")
-    private String endDate;
+    private Date endDate;
     
     @Basic(optional = false)
     @NotNull
@@ -73,8 +74,8 @@ public class Reservation extends BaseEntity {
             Subject subject,
             User user) {
         return new Reservation(
-                reservationDTO.getStartDate(),
-                reservationDTO.getEndDate(),
+                stringToDate(reservationDTO.getStartDate()),
+                stringToDate(reservationDTO.getEndDate()),
                 reservationDTO.getDay(),
                 reservationDTO.getStartTime(),
                 reservationDTO.getEndTime(),
@@ -82,5 +83,14 @@ public class Reservation extends BaseEntity {
                 subject,
                 user
         );
+    }
+    
+    private static Date stringToDate(String dateString) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            return sdf.parse(dateString); 
+        } catch (ParseException ex) {
+            return new Date();
+        }
     }
 }

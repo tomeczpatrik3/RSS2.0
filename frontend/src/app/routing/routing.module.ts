@@ -25,6 +25,7 @@ import { MyReservationsTableComponent } from '../components/tables/my-reservatio
 import { BuildingTableComponent } from '../components/tables/building-table/building-table.component';
 import { DetailedReservationsComponent } from '../components/detailed-reservations/detailed-reservations.component';
 import { TicketTableComponent } from '../components/tables/ticket-table/ticket-table.component';
+import { PendingTicketsComponent } from '../components/pending-tickets/pending-tickets.component';
 
 
 const routes: Routes = [
@@ -149,6 +150,14 @@ const routes: Routes = [
   {
     path: 'addBuilding',
     component: AddBuildingFormComponent,
+    canActivate: [RoleGuard], 
+    data: { 
+      authority: Authorities.ROLE_ADMIN
+    },
+  },
+  {
+    path: 'pendingTickets',
+    component: PendingTicketsComponent,
     canActivate: [RoleGuard], 
     data: { 
       authority: Authorities.ROLE_ADMIN

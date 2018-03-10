@@ -44,8 +44,8 @@ public class ReservationDTO {
                 reservation.getDay(),
                 reservation.getStartTime(),
                 reservation.getEndTime(),
-                reservation.getStartDate(),
-                reservation.getEndDate()
+                reservation.getStartDate().toString(),
+                reservation.getEndDate().toString()
         );
     }
     

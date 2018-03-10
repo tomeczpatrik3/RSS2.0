@@ -11,6 +11,7 @@ import { AuthService } from '../../authentication/auth.service';
 export class DetailedReservationsComponent implements OnInit {
 
   reservations: Reservation[];
+  hasReservations: boolean = false;
   username: string;
 
   constructor(
@@ -22,7 +23,14 @@ export class DetailedReservationsComponent implements OnInit {
     this.username = this.authService.getUsername();
 
     this.reservationService.findByUsername(this.username).subscribe(
-      res => this.reservations = res
+      res => {
+        this.reservations = res;
+        this.reservations.length == 0 ? this.hasReservations = false : this.hasReservations = true;
+      } 
     )
+  }
+
+  delete(reservation) {
+    console.log(reservation);
   }
 }

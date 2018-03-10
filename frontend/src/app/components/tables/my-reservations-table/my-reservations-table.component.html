@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="hasReservations">
     <h2>Saját foglalásaim:</h2>
     <table class="table table-striped">
       <thead class="thead-dark">
@@ -23,9 +23,25 @@
           <td>{{reservation.day}}</td>
           <td>{{reservation.startTime }}</td>
           <td>{{reservation.endTime}}</td>
-          <td>{{reservation.startDate}}</td>
-          <td>{{reservation.endDate}}</td>
+          <td>{{reservation.startDate | date: 'yyyy-MM-dd'}}</td>
+          <td>{{reservation.endDate | date: 'yyyy-MM-dd'}}</td>
         </tr>
       </tbody>
     </table>
+</div>
+
+<div *ngIf="!hasReservations">
+    <div class="card border-dark mb-3">
+      <div class="card-header">
+        <strong>Jelenleg nincs foglalásod a rendszerben!</strong>
+      </div>
+      
+      <div class="card-body">
+        <p>Új foglalást az "Űrlapok" menüpont alatt az "Új foglalás" gombra kattintva adhatsz le!</p>
+      </div>
+  
+      <div class="card-footer">
+  
+      </div>
+    </div>  
 </div>

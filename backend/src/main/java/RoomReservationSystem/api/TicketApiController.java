@@ -44,7 +44,7 @@ public class TicketApiController {
     
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/setStatus")
-    public ResponseEntity setStatus(@RequestParam("id") int id, @RequestParam("status") String status, BindingResult bindingResult) {
+    public ResponseEntity setStatus(@RequestParam("id") int id, @RequestParam("status") String status) {
         Ticket modified = ticketService.setStatus(id, status);
         return ResponseEntity.status(HttpStatus.CREATED).body(modified);                
     }

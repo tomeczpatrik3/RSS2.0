@@ -6,7 +6,9 @@ import RoomReservationSystem.service.impl.BuildingServiceImpl;
 import RoomReservationSystem.service.impl.ClassroomServiceImpl;
 import RoomReservationSystem.service.impl.SubjectServiceImpl;
 import RoomReservationSystem.service.impl.UserServiceImpl;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -111,21 +113,27 @@ public class ReservationValidator implements Validator {
             errors.rejectValue("day", "reservation.day.size", RESERVATION_DAY_SIZE);
         }
       
-        /*
-        if (res.getStartDate() != null && !DATE_REGEX.matcher(dateFormat.format(res.getStartDate())).matches()) {
+        //Date:
+        if (res.getStartDate() != null && !DATE_REGEX.matcher(res.getStartDate()).matches()) {
             errors.rejectValue("startDate", "reservation.startDate.invalid", RESERVATION_START_DATE_INVALID);
         }
         
-        if (res.getEndDate() != null && !DATE_REGEX.matcher(dateFormat.format(res.getEndDate())).matches()) {
+        if (res.getEndDate() != null && !DATE_REGEX.matcher(res.getEndDate()).matches()) {
             errors.rejectValue("endDate", "reservation.endDate.invalid", RESERVATION_END_DATE_INVALID);
         }
-        */
         
-        /*
-        if (res.getEndDate().before( res.getStartDate() )) {
-            errors.rejectValue("endDate", "reservation.endDate.beforeStartDate");
+        //Dátummá alakítás:
+        try {
+            Date startDate =  dateFormat.parse(res.getStartDate());
+            Date endDate = dateFormat.parse(res.getEndDate());
+            
+            if (!startDate.before(endDate)) {
+                errors.rejectValue("endDate", "reservation.endDate.beforeStartDate", RESERVATION_END_DATE_BEFORE_START_DATE);
+            }   
+        } catch (ParseException ex) {
+            errors.rejectValue("startDate", "reservation.startDate.invalid", RESERVATION_START_DATE_INVALID);
+            errors.rejectValue("endDate", "reservation.endDate.invalid", RESERVATION_END_DATE_INVALID);
         }
-        */
         
         if (res.getStartTime() != null && !TIME_REGEX.matcher(res.getStartTime()).matches()) {
             errors.rejectValue("startTime", "reservation.startTime.invalid", RESERVATION_START_TIME_INVALID);

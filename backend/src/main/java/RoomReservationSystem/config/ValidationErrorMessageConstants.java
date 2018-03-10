@@ -30,6 +30,7 @@ public class ValidationErrorMessageConstants {
     public static final String RESERVATION_DAY_SIZE = "A nap nem megfelelő hosszúságú (3-12)!";
     public static final String RESERVATION_START_DATE_INVALID = "A kezdeti dátum nem megfelelő formátumú!";
     public static final String RESERVATION_END_DATE_INVALID = "A befejezési dátum nem megfelelő formátumú!";
+    public static final String RESERVATION_END_DATE_BEFORE_START_DATE = "A befejezési dátum nem lehet korábbi, mint a kezdési dátum!";
     public static final String RESERVATION_START_TIME_INVALID = "A kezdeti idő nem megfelelő formátumú!";
     public static final String RESERVATION_END_TIME_INVALID = "A befejezési idő nem megfelelő formátumú!";
     public static final String RESERVATION_END_TIME_BEFORE_START_TIME = "A befejezési idő nem lehet korábban, mint a kezdési idő!";
