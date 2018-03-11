@@ -72,11 +72,11 @@ export class AddClassroomFormComponent implements OnInit {
 
   formToClassroom(): Classroom {
     return new Classroom(
-      this.classroomForm.value.building,
       this.classroomForm.value.roomName,
       this.classroomForm.value.pc,
       this.classroomForm.value.projector,
-      this.classroomForm.value.chairs
+      this.classroomForm.value.chairs,
+      this.classroomForm.value.building
     )
   }
 

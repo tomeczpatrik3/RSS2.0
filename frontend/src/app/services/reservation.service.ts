@@ -28,6 +28,14 @@ export class ReservationService {
     return <Observable<Reservation[]>>this.http.get(Routes.getUrl(Routes.RESERVATION_FIND_BY_ROOM_NAME) + "/" + roomName);
   }
 
+  findByStatus(status: string): Observable<Reservation[]> {
+    return <Observable<Reservation[]>>this.http.get(Routes.getUrl(Routes.RESERVATION_FIND_BY_STATUS + "/" + status));
+  }
+
+  setStatus(id: number, status: string): Observable<Reservation> {
+    return <Observable<Reservation>>this.http.get(Routes.getUrl(Routes.RESERVATION_SET_STATUS)+"?id="+id+"&status="+status);
+  }
+
   createRes(res: Reservation) {
     return <Observable<Reservation[]>>this.http.post(Routes.getUrl(Routes.RESERVATION_CREATE_RES), res);
   }

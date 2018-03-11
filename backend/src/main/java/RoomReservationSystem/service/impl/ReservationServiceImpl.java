@@ -1,15 +1,19 @@
 package RoomReservationSystem.service.impl;
 
 import RoomReservationSystem.dto.ReservationDTO;
+import static RoomReservationSystem.dto.ReservationDTO.toReservationDTO;
 import static RoomReservationSystem.dto.ReservationDTO.toReservationDTOList;
 import RoomReservationSystem.model.Reservation;
 import static RoomReservationSystem.model.Reservation.toReservation;
 import RoomReservationSystem.model.Status;
-import RoomReservationSystem.model.Ticket;
 import RoomReservationSystem.model.User;
 import RoomReservationSystem.repository.ReservationRepository;
+import RoomReservationSystem.service.ClassroomService;
 import RoomReservationSystem.service.ReservationService;
-import java.util.ArrayList;
+import RoomReservationSystem.service.StatusService;
+import RoomReservationSystem.service.SubjectService;
+import RoomReservationSystem.service.UserService;
+import java.util.Collections;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,16 +24,17 @@ public class ReservationServiceImpl implements ReservationService{
     private ReservationRepository reservationRepository;
     
     @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
     
     @Autowired
-    private ClassroomServiceImpl classroomService;
+    private ClassroomService classroomService;
         
     @Autowired
-    private SubjectServiceImpl subjectService;
+    private SubjectService subjectService;
     
     @Autowired
-    private TicketServiceImpl ticketService;
+    private StatusService statusService;
+
     //---
     
     @Override
@@ -46,19 +51,14 @@ public class ReservationServiceImpl implements ReservationService{
         A megfelelő adatokkal mentjük a foglalást:
     */
     @Override
-    public Reservation save(ReservationDTO resDTO){       
-        User user = userService.findByUsername(resDTO.getUsername());
-        
-        Reservation reservation =  reservationRepository.save(toReservation(
+    public Reservation save(ReservationDTO resDTO){        
+        return reservationRepository.save(toReservation(
                     resDTO,
                     classroomService.findByName(resDTO.getRoom()),
                     subjectService.findByCode(resDTO.getSubjectCode()),
-                    user
+                    userService.findByUsername(resDTO.getUsername()),
+                    statusService.findByName("PENDING")
             ));
-        
-        ticketService.save(reservation, user);
-        
-        return reservation;
     }
     
     @Override
@@ -81,13 +81,17 @@ public class ReservationServiceImpl implements ReservationService{
                 reservationRepository.findByUser(user)
         );
     }
+
+    @Override
+    public List<ReservationDTO> findByStatus(String statusName) {
+        Status status = statusService.findByName(statusName);
+        return toReservationDTOList(reservationRepository.findByStatus(status));
+    }
     
     @Override
-    public List<ReservationDTO> getAccepted() {
-        List<Reservation> reservations = new ArrayList<>();
-        for (Ticket ticket: ticketService.findByStatusHelper(Status.ACCEPTED))
-            reservations.add(ticket.getReservation());
-        
-        return toReservationDTOList(reservations);
+    public ReservationDTO setStatus(int id, String statusName) {
+        Reservation res = reservationRepository.findById(id);
+        res.setStatus(statusService.findByName(statusName));
+        return toReservationDTO(res);
     }
 }

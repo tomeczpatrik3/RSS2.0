@@ -27,7 +27,7 @@
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 <table name="classrooms" view="colnames">
 <left>166</left>
@@ -45,13 +45,13 @@
   KEY `FKlj1lfjtnb25trjy7u16qnul6v` (`building`),
   CONSTRAINT `FKlj1lfjtnb25trjy7u16qnul6v` FOREIGN KEY (`building`) REFERENCES `buildings` (`id`),
   CONSTRAINT `classroom_building_FK` FOREIGN KEY (`building`) REFERENCES `buildings` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 <table name="reservations" view="colnames">
-<left>346</left>
-<top>254</top>
-<width>104</width>
-<height>231</height>
+<left>296</left>
+<top>0</top>
+<width>142</width>
+<height>282</height>
 <sql_create_table>CREATE TABLE `reservations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `day` varchar(255) NOT NULL,
@@ -62,6 +62,9 @@
   `classroom` int(11) NOT NULL,
   `subject` int(11) NOT NULL,
   `user` int(11) NOT NULL,
+  `last_modification` datetime NOT NULL,
+  `message` varchar(255) NOT NULL,
+  `status` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK2rrwsexid63hpyaqv60ejbchj` (`classroom`),
   KEY `FKsjkaje002xefvn0t3p0pvd4mf` (`subject`),
@@ -72,10 +75,23 @@
   CONSTRAINT `res_classroom_FK` FOREIGN KEY (`classroom`) REFERENCES `classrooms` (`id`),
   CONSTRAINT `res_subject_FK` FOREIGN KEY (`subject`) REFERENCES `subjects` (`id`),
   CONSTRAINT `res_user_FK` FOREIGN KEY (`user`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="statuses" view="colnames">
+<left>443</left>
+<top>0</top>
+<width>97</width>
+<height>129</height>
+<sql_create_table>CREATE TABLE `statuses` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `message` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_9ob63rkqg8ppaon1l37w8id2p` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 <table name="subjects" view="colnames">
-<left>405</left>
+<left>545</left>
 <top>0</top>
 <width>78</width>
 <height>129</height>
@@ -88,7 +104,7 @@
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 <table name="users" view="colnames">
-<left>488</left>
+<left>628</left>
 <top>0</top>
 <width>103</width>
 <height>163</height>
@@ -104,7 +120,7 @@
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 <table name="users_authorities" view="colnames">
-<left>596</left>
+<left>736</left>
 <top>0</top>
 <width>114</width>
 <height>112</height>
@@ -116,25 +132,6 @@
   CONSTRAINT `FKdsfxx5g8x8mnxne1fe0yxhjhq` FOREIGN KEY (`authority_id`) REFERENCES `authorities` (`id`),
   CONSTRAINT `FKq3lq694rr66e6kpo2h84ad92q` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
-</table>
-<table name="waiting_list" view="colnames">
-<left>715</left>
-<top>0</top>
-<width>142</width>
-<height>180</height>
-<sql_create_table>CREATE TABLE `waiting_list` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `last_modification` datetime NOT NULL,
-  `status` int(11) NOT NULL,
-  `reservation` int(11) NOT NULL,
-  `user` int(11) NOT NULL,
-  `message` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FKalcvpk1ahli8ct0kqdt19pv4l` (`reservation`),
-  KEY `FKf2th6k9ylcq2l91dcfmtjb3vg` (`user`),
-  CONSTRAINT `FKalcvpk1ahli8ct0kqdt19pv4l` FOREIGN KEY (`reservation`) REFERENCES `reservations` (`id`),
-  CONSTRAINT `FKf2th6k9ylcq2l91dcfmtjb3vg` FOREIGN KEY (`user`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 </tables>
 </canvas>

@@ -11,5 +11,6 @@ public interface ReservationService {
     Reservation findById(int id);
     List<ReservationDTO> getAll();
     List<ReservationDTO> findByUsername(String username);
-    List<ReservationDTO> getAccepted();
+    List<ReservationDTO> findByStatus(String statusName);
+    ReservationDTO setStatus(int id, String status);
 }

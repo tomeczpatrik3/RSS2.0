@@ -22,7 +22,7 @@ export class NavigationService {
             new MenuItem("Simple", "Tantermek", "/classrooms", "ROLE_ADMIN"),
             new MenuItem("Simple", "Tantárgyak", "/subjects", "ROLE_ADMIN"),
             new MenuItem("Simple", "Épületek", "/buildings", "ROLE_ADMIN"),
-            new MenuItem("Simple", "Jegyek", "/tickets", "ROLE_ADMIN")
+            new MenuItem("Simple", "Várakozó foglalások", "/pendingReservations", "ROLE_ADMIN")
         ]),
 
         new MenuItem("Dropdown", "Űrlapok", "", "ROLE_USER", [
@@ -33,7 +33,7 @@ export class NavigationService {
             new MenuItem("Simple", "Új épület", "/addBuilding", "ROLE_ADMIN"),
         ]),
 
-        new MenuItem("Simple", "Várakozó foglalások", "/pendingTickets", "ROLE_ADMIN"),
+        new MenuItem("Simple", "Várakozó foglalások kezelése", "/managePendingReservations", "ROLE_ADMIN"),
     ];
 
     constructor(

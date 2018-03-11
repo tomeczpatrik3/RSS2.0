@@ -1,15 +1,21 @@
 export class Classroom {
-    building: string;
     name: string;
     hasPC: boolean;
     hasProjector: boolean;
     chairs: number;
+    building: string;
 
-    public constructor (building?: string, name?: string, hasPC?: boolean, hasProjector?: boolean, chairs?: number) {
-        this.building = building;
-        this.name = name;
-        this.hasPC = hasPC;
-        this.hasProjector = hasProjector;
-        this.chairs = chairs;
+    public constructor (
+        name?: string, 
+        hasPC?: boolean, 
+        hasProjector?: boolean, 
+        chairs?: number,
+        building?: string
+    ) {
+        this.name = name || "";
+        this.hasPC = hasPC || false;
+        this.hasProjector = hasProjector || false;
+        this.chairs = chairs || 0;
+        this.building = building || "";
     }
 }

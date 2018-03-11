@@ -14,13 +14,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import static RoomReservationSystem.model.User.toUser;
+import RoomReservationSystem.service.AuthorityService;
 import java.util.Arrays;
 
 @Service
 public class UserServiceImpl implements UserService   {
     
     private UserRepository userRepository;
-    private AuthorityServiceImpl authorityService;
+    private AuthorityService authorityService;
     private BCryptPasswordEncoder passwordEncoder;
     
     public UserServiceImpl(

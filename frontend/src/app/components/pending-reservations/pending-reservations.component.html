@@ -2,7 +2,7 @@
   <h3>Feldolgozásra várakozó foglalások:</h3>
 </div>
 
-<div *ngIf="this.hasPendingTicket">
+<div *ngIf="this.haspendingReservation">
   <div class="card border-dark mb-3" *ngFor="let ticket of pendingTickets">
     <div class="card-header">
       
@@ -27,7 +27,7 @@
   </div>
 </div>
 
-<div *ngIf="!this.hasPendingTicket">
+<div *ngIf="!this.haspendingReservation">
   <div class="card border-dark mb-3">
     <div class="card-header">
         <strong>Feldolgozásra várakozó foglalások:</strong>

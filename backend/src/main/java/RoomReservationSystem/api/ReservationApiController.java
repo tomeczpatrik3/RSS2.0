@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -29,8 +30,8 @@ public class ReservationApiController {
     ReservationValidator reservationValidator;
     
     @GetMapping
-    public List<ReservationDTO> getAll(){
-        return reservationService.getAccepted();
+    public List<ReservationDTO> getAccepted(){
+        return reservationService.findByStatus("ACCEPTED");
     }
     
     @PreAuthorize("hasAuthority('ROLE_USER')")
@@ -53,4 +54,15 @@ public class ReservationApiController {
         
     }
     
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping("/findByStatus/{status}")
+    public List<ReservationDTO> findByStatus(@PathVariable String status){
+	return reservationService.findByStatus(status);
+    } 
+    
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping("/setStatus")
+    public ReservationDTO setStatus(@RequestParam("id") int id, @RequestParam("status") String status){
+	return reservationService.setStatus(id, status);
+    } 
 }

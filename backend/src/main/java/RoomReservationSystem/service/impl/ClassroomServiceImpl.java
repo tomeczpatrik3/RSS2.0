@@ -1,6 +1,7 @@
 package RoomReservationSystem.service.impl;
 
 import RoomReservationSystem.dto.ClassroomDTO;
+import static RoomReservationSystem.dto.ClassroomDTO.toClassroomDTO;
 import RoomReservationSystem.model.Building;
 import RoomReservationSystem.model.Classroom;
 import RoomReservationSystem.repository.ClassroomRepository;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import static RoomReservationSystem.model.Classroom.toClassroom;
+import RoomReservationSystem.service.BuildingService;
 
 @Service
 public class ClassroomServiceImpl implements ClassroomService{
@@ -18,7 +20,7 @@ public class ClassroomServiceImpl implements ClassroomService{
     private ClassroomRepository classroomRepository;
     
     @Autowired
-    private BuildingServiceImpl buildingService;
+    private BuildingService buildingService;
     
     @Override
     public void delete(Classroom classroom){
@@ -49,7 +51,7 @@ public class ClassroomServiceImpl implements ClassroomService{
         List<ClassroomDTO> crDtos = new ArrayList<>();
         
         for (Classroom classroom: classrooms) {
-            crDtos.add( ClassroomDTO.toClassroomDTO(classroom, classroom.getBuilding()) );
+            crDtos.add( toClassroomDTO(classroom) );
         }
         
         return crDtos;

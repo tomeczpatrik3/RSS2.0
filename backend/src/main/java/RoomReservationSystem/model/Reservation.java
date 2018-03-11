@@ -52,6 +52,12 @@ public class Reservation extends BaseEntity {
     @Column(name = "end_time")
     private String endTime;
     
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "last_modification")
+    private Date lastModification;    
+     
+    
     @JsonIgnore
     @JoinColumn(name = "classroom", referencedColumnName = "id")
     @ManyToOne(optional = false)
@@ -66,22 +72,31 @@ public class Reservation extends BaseEntity {
     @JoinColumn(name = "user", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private User user;
+    
+    @JsonIgnore
+    @JoinColumn(name = "status", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Status status;
  
     
     public static Reservation toReservation(
             ReservationDTO reservationDTO,
             Classroom classroom,
             Subject subject,
-            User user) {
+            User user,
+            Status status
+        ) {
         return new Reservation(
                 stringToDate(reservationDTO.getStartDate()),
                 stringToDate(reservationDTO.getEndDate()),
                 reservationDTO.getDay(),
                 reservationDTO.getStartTime(),
                 reservationDTO.getEndTime(),
+                new Date(),
                 classroom,
                 subject,
-                user
+                user,
+                status
         );
     }
     

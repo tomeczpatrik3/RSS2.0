@@ -16,13 +16,13 @@ public class ClassroomDTO {
     private int chairs;
     private String building;
     
-    public static ClassroomDTO toClassroomDTO(Classroom classroom, Building building){
+    public static ClassroomDTO toClassroomDTO(Classroom classroom){
         return new ClassroomDTO(
                 classroom.getName(),
                 classroom.isHasPc(),
                 classroom.isHasProjector(),
                 classroom.getChairs(),
-                building.getName()
+                classroom.getBuilding().getName()
         );
     }
 }

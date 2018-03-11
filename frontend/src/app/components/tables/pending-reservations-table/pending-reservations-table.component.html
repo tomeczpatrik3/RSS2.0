@@ -1,0 +1,51 @@
+<div class="container" *ngIf="haspendingReservation">
+  <h2>Feldolgozásra váró foglalások:</h2>
+  <table class="table table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Felhasználónév</th>
+        <th scope="col">Épület</th>
+        <th scope="col">Terem</th>
+        <th scope="col">Tantárgy</th>
+        <th scope="col">Státusz</th>
+        <th scope="col">Nap</th>
+        <th scope="col">Kezdési időpont</th>
+        <th scope="col">Befejezési időpont</th>
+        <th scope="col">Kezdeti dátum</th>
+        <th scope="col">Befejezési dátum</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let reservation of pendingReservations; let i = index">
+        <th scope="row">{{i+1}}</th>
+        <td>{{reservation.username}}</td>
+        <td>{{reservation.building}}</td>
+        <td>{{reservation.room}}</td>
+        <td>{{reservation.subjectCode}} | {{reservation.subjectName}}</td>
+        <td>{{reservation.status}}</td>
+        <td>{{reservation.day}}</td>
+        <td>{{reservation.startTime }}</td>
+        <td>{{reservation.endTime}}</td>
+        <td>{{reservation.startDate | date: 'yyyy-MM-dd'}}</td>
+        <td>{{reservation.endDate | date: 'yyyy-MM-dd'}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="!haspendingReservation">
+  <div class="card border-dark mb-3">
+    <div class="card-header">
+      <strong>Jelenleg nincs feldolgozásra váró foglalás a rendszerben!</strong>
+    </div>
+    
+    <div class="card-body">
+      <p>Kérem térjen vissza később!</p>
+    </div>
+
+    <div class="card-footer">
+
+    </div>
+  </div>  
+</div>

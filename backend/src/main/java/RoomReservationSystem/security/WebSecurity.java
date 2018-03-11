@@ -1,5 +1,6 @@
 package RoomReservationSystem.security;
 
+import static RoomReservationSystem.security.SecurityConstants.LOGIN_URL;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -35,7 +36,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         final JWTAuthenticationFilter authenticationFilter = new JWTAuthenticationFilter(authenticationManager());
-        authenticationFilter.setFilterProcessesUrl("/api/user/login");
+        authenticationFilter.setFilterProcessesUrl(LOGIN_URL);
         
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST, REGISTER_URL).permitAll()

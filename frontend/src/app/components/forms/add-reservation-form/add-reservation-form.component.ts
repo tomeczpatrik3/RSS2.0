@@ -22,7 +22,6 @@ import { Building } from '../../../models/Building';
 export class AddReservationFormComponent implements OnInit {
 
   days: string[] = ['Hétfő', 'Kedd', 'Szerda', 'Csütörtök', 'Péntek', 'Szombat'];
-  username: string;
   roomNames: string[];
   subjects: Subject[];
   buildings: Building[];
@@ -89,7 +88,6 @@ export class AddReservationFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.username = this.authService.getUsername();
     this.getSubjects();
     this.getBuildings();
   }
@@ -116,16 +114,16 @@ export class AddReservationFormComponent implements OnInit {
     const subject_details = this.getSubjectDetails();
 
     return new Reservation(
-      this.username, //Tesztelésig
-      this.reservationForm.value.room,
+      this.authService.getUsername(),
       subject_details[1].trim(),
       subject_details[0].trim(),
       this.reservationForm.value.building,
-      this.reservationForm.value.startDate,
-      this.reservationForm.value.endDate,
-      this.reservationForm.value.day,
+      this.reservationForm.value.room,
+      this.reservationForm.value.day,      
       this.reservationForm.value.startTime,
       this.reservationForm.value.endTime,
+      this.reservationForm.value.startDate,
+      this.reservationForm.value.endDate,
     );
   }
 

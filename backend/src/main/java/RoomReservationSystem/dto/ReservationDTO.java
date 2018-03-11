@@ -3,6 +3,7 @@ package RoomReservationSystem.dto;
 import RoomReservationSystem.model.Building;
 import RoomReservationSystem.model.Classroom;
 import RoomReservationSystem.model.Reservation;
+import RoomReservationSystem.model.Status;
 import RoomReservationSystem.model.Subject;
 import RoomReservationSystem.model.User;
 import java.util.ArrayList;
@@ -26,26 +27,22 @@ public class ReservationDTO {
     private String endTime;
     private String startDate;
     private String endDate;
+    private String status;
     
-    public static ReservationDTO toReservationDTO(
-            User user, 
-            Subject subject,
-            Building building,
-            Classroom classroom, 
-            Reservation reservation) {
-        
+    public static ReservationDTO toReservationDTO(Reservation reservation) { 
         return new ReservationDTO(
-                user.getUsername(),
-                user.getName(),
-                subject.getName(),
-                subject.getCode(),
-                building.getName(),
-                classroom.getName(),
+                reservation.getUser().getUsername(),
+                reservation.getUser().getName(),
+                reservation.getSubject().getName(),
+                reservation.getSubject().getCode(),
+                reservation.getClassroom().getBuilding().getName(),
+                reservation.getClassroom().getName(),
                 reservation.getDay(),
                 reservation.getStartTime(),
                 reservation.getEndTime(),
                 reservation.getStartDate().toString(),
-                reservation.getEndDate().toString()
+                reservation.getEndDate().toString(),
+                reservation.getStatus().toString()
         );
     }
     
@@ -53,13 +50,7 @@ public class ReservationDTO {
         List<ReservationDTO> resDtos = new ArrayList<>();
         
         for (Reservation res: reservations) {
-            resDtos.add(ReservationDTO.toReservationDTO(
-                    res.getUser(), 
-                    res.getSubject(),
-                    res.getClassroom().getBuilding(),
-                    res.getClassroom(), 
-                    res
-            ));                
+            resDtos.add(toReservationDTO(res));                
         }
         return resDtos;        
     }

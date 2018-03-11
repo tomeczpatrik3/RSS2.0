@@ -24,8 +24,8 @@ import { AddBuildingFormComponent } from '../components/forms/add-building-form/
 import { MyReservationsTableComponent } from '../components/tables/my-reservations-table/my-reservations-table.component';
 import { BuildingTableComponent } from '../components/tables/building-table/building-table.component';
 import { DetailedReservationsComponent } from '../components/detailed-reservations/detailed-reservations.component';
-import { TicketTableComponent } from '../components/tables/ticket-table/ticket-table.component';
-import { PendingTicketsComponent } from '../components/pending-tickets/pending-tickets.component';
+import { PendingReservationsTableComponent } from '../components/tables/pending-reservations-table/pending-reservations-table.component';
+import { PendingReservationsComponent } from '../components/pending-reservations/pending-reservations.component';
 
 
 const routes: Routes = [
@@ -105,8 +105,8 @@ const routes: Routes = [
     } 
   },
   {
-    path: 'tickets',
-    component: TicketTableComponent,
+    path: 'pendingReservations',
+    component: PendingReservationsTableComponent,
     canActivate: [RoleGuard], 
     data: { 
       authority: Authorities.ROLE_ADMIN
@@ -156,8 +156,8 @@ const routes: Routes = [
     },
   },
   {
-    path: 'pendingTickets',
-    component: PendingTicketsComponent,
+    path: 'managePendingReservations',
+    component: PendingReservationsComponent,
     canActivate: [RoleGuard], 
     data: { 
       authority: Authorities.ROLE_ADMIN

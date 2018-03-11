@@ -54,7 +54,6 @@ public class UserApiController {
 	return userService.findByName(name);
     }
     
-    
     @PostMapping("/createUser")
     public ResponseEntity createUser(@RequestBody UserDTO user, BindingResult bindingResult) {
         userValidator.validate(user, bindingResult);
