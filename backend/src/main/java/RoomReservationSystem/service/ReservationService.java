@@ -1,5 +1,6 @@
 package RoomReservationSystem.service;
 
+import RoomReservationSystem.dto.ReservationDTO;
 import RoomReservationSystem.model.Reservation;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
  */
 public interface ReservationService {
     void delete(Reservation res);
-    Reservation save(Reservation res);
+    Reservation save(ReservationDTO reservatioNDTO);
     Reservation findById(int id);
     Reservation setStatus(int id, String status);
     List<Reservation> getAll();

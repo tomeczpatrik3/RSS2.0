@@ -10,7 +10,6 @@ import { ReservationService } from '../../../services/reservation.service';
 export class PendingReservationsTableComponent implements OnInit {
 
   pendingReservations: Reservation[];
-  hasPendingReservation: boolean = false;
 
   constructor(
     private reservationService: ReservationService,
@@ -19,10 +18,7 @@ export class PendingReservationsTableComponent implements OnInit {
 
   ngOnInit() {
     this.reservationService.findByStatus("PENDING").subscribe(
-      res => {
-        this.pendingReservations = res;
-        this.pendingReservations.length == 0 ? this.hasPendingReservation=false : this.hasPendingReservation=true;
-      } 
+      res => this.pendingReservations = res
     )
   }
 

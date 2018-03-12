@@ -45,7 +45,7 @@ public class ClassroomValidator implements Validator {
 
         ClassroomDTO classroom = (ClassroomDTO) target;
 
-        if (this.classroomService.findByName( classroom.getName() ) != null) {
+        if (classroomService.findByNameAndBuildingName( classroom.getName(), classroom.getBuilding() ) != null) {
             errors.rejectValue("name", "classroom.name.alredyExists", CLASSROOM_ALREDY_EXISTS);
         }
         

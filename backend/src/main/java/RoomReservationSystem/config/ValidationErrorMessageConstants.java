@@ -10,7 +10,7 @@ public class ValidationErrorMessageConstants {
     public static final String CLASSROOM_HAS_PROJECTOR_EMPTY = "A projektor neve nem lehet üres!";
     public static final String CLASSROOM_CHAIRS_EMPTY = "A székek száma nem lehet üres!";
     public static final String CLASSROOM_BUILDING_EMPTY = "Az épület neve nem lehet üres!";
-    public static final String CLASSROOM_ALREDY_EXISTS = "Ilyen nevű tanterem már létezik!";
+    public static final String CLASSROOM_ALREDY_EXISTS = "Ez a tanterem már létezik!";
     public static final String CLASSROOM_NOT_EXISTS = "Ilyen nevű tanterem nem létezik!";
     public static final String CLASSROOM_NAME_SIZE = "A tanterem neve nem megfelelő hosszúságú (3-30)!";
     public static final String CLASSROOM_CHAIRS_VALUE = "A székek száma nem nagyobb mint nulla!";

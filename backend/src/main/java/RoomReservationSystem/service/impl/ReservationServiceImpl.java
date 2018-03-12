@@ -1,12 +1,16 @@
 package RoomReservationSystem.service.impl;
 
+import RoomReservationSystem.dto.ReservationDTO;
 import RoomReservationSystem.model.Reservation;
 import RoomReservationSystem.model.Status;
 import RoomReservationSystem.model.User;
 import RoomReservationSystem.repository.ReservationRepository;
+import RoomReservationSystem.service.ClassroomService;
 import RoomReservationSystem.service.ReservationService;
 import RoomReservationSystem.service.StatusService;
+import RoomReservationSystem.service.SubjectService;
 import RoomReservationSystem.service.UserService;
+import static RoomReservationSystem.model.Reservation.toReservation;
 
 import java.util.List;
 
@@ -23,10 +27,17 @@ public class ReservationServiceImpl implements ReservationService{
     private ReservationRepository reservationRepository;
     
     @Autowired
-    private UserService userService;
+    UserService userService;
     
     @Autowired
-    private StatusService statusService;
+    ClassroomService classroomService;
+    
+    @Autowired
+    SubjectService subjectService;
+    
+    @Autowired
+    StatusService statusService;
+    
 
     /**
      * A foglalások törlését megvalósító függvény
@@ -39,14 +50,22 @@ public class ReservationServiceImpl implements ReservationService{
     
     /**
      * A foglalás rögzítését megvalósító függvény
-     * Beállítjuk a foglaláshoz tartozó tantermet, tantárgyat, felhasználót és státuszt is
-     * A státusz alapértelmezetten "PENDING", azaz feldolgozás alatt lesz
-     * @param   reservation     A rögzíteni kívánt foglalás
-     * @return                  A rögzített foglalás
+     * A ReservationDTO típusú objektumot átalakítjuk Reservation típusú objektummá
+     * --> Beállítjuk a foglaláshoz tartozó tantermet, tantárgyat, felhasználót és státuszt is
+     * --> A státusz alapértelmezetten "PENDING", azaz feldolgozás alatt lesz
+     * 
+     * @param   reservationDTO      A rögzíteni kívánt foglalás (DTO)
+     * @return                      A rögzített foglalás
      */
     @Override
-    public Reservation save(Reservation reservation){        
-        return reservationRepository.save(reservation);
+    public Reservation save(ReservationDTO reservationDTO) {
+        return reservationRepository.save(toReservation(
+                  reservationDTO,
+                  classroomService.findByNameAndBuildingName(reservationDTO.getRoom(), reservationDTO.getBuilding()),
+                  subjectService.findByCode(reservationDTO.getSubjectCode()),
+                  userService.findByUsername(reservationDTO.getUsername()),
+                  statusService.findByName("PENDING")
+            ));
     }
     
     /**
@@ -82,7 +101,7 @@ public class ReservationServiceImpl implements ReservationService{
     /**
      * A foglalások státusz alapján történő keresését megvalósító függvény
      * @param   statusName  A keresendő státusz
-     * @return 
+     * @return              Az adott státusszal rendelkező foglalások
      */
     @Override
     public List<Reservation> findByStatus(String statusName) {

@@ -3,16 +3,11 @@ package RoomReservationSystem.api;
 import RoomReservationSystem.dto.ReservationDTO;
 import RoomReservationSystem.model.Reservation;
 import RoomReservationSystem.validation.ReservationValidator;
-import RoomReservationSystem.service.ClassroomService;
 import RoomReservationSystem.service.ReservationService;
-import RoomReservationSystem.service.StatusService;
-import RoomReservationSystem.service.SubjectService;
-import RoomReservationSystem.service.UserService;
 import static RoomReservationSystem.config.ValidationErrorMessageConstants.concatErrors;
 import static RoomReservationSystem.dto.ReservationDTO.toReservationDTO;
 import static RoomReservationSystem.dto.ReservationDTO.toReservationDTOList;
 import static RoomReservationSystem.config.ValidationErrorMessageConstants.RESERVATION_NOT_EXISTS;
-import static RoomReservationSystem.model.Reservation.toReservation;
 
 import java.util.List;
 
@@ -37,19 +32,6 @@ public class ReservationApiController {
     ReservationService reservationService;
     
     @Autowired
-    UserService userService;
-    
-    @Autowired
-    ClassroomService classroomService;
-    
-    @Autowired
-    SubjectService subjectService;
-    
-    @Autowired
-    StatusService statusService;
-    
-    
-    @Autowired
     ReservationValidator reservationValidator;
     
     @GetMapping
@@ -68,13 +50,7 @@ public class ReservationApiController {
     public ResponseEntity createRes(@RequestBody ReservationDTO reservationDTO, BindingResult bindingResult) {
         reservationValidator.validate(reservationDTO, bindingResult);
         if (!bindingResult.hasErrors()) {
-            Reservation saved = reservationService.save(toReservation(
-                  reservationDTO,
-                  classroomService.findByNameAndBuildingName(reservationDTO.getRoom(), reservationDTO.getBuilding()),
-                  subjectService.findByCode(reservationDTO.getSubjectCode()),
-                  userService.findByUsername(reservationDTO.getUsername()),
-                  statusService.findByName(reservationDTO.getStatus())
-            ));
+            Reservation saved = reservationService.save(reservationDTO);
             return ResponseEntity.status(HttpStatus.CREATED).body(toReservationDTO(saved));           
         }
         else {

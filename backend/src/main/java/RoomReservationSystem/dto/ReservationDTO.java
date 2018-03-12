@@ -42,7 +42,7 @@ public class ReservationDTO {
                 reservation.getEndTime(),
                 reservation.getStartDate().toString(),
                 reservation.getEndDate().toString(),
-                reservation.getStatus().toString()
+                reservation.getStatus().getName()
         );
     }
     
