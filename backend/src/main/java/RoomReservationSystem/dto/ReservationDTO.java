@@ -48,10 +48,9 @@ public class ReservationDTO {
     
     public static List<ReservationDTO> toReservationDTOList(List<Reservation> reservations) {
         List<ReservationDTO> resDtos = new ArrayList<>();
-        
-        for (Reservation res: reservations) {
-            resDtos.add(toReservationDTO(res));                
-        }
+        reservations.forEach((res) -> {
+            resDtos.add(toReservationDTO(res));
+        });
         return resDtos;        
     }
 }

@@ -1,18 +1,23 @@
 package RoomReservationSystem.service;
 
-import RoomReservationSystem.dto.ClassroomDTO;
 import RoomReservationSystem.model.Building;
 import RoomReservationSystem.model.Classroom;
+
 import java.util.List;
 
+/**
+ * Az osztálytermekkel kapcsolatos műveletekért felelős interfész
+ * Részletes információ a függvényekről a megválósításnál
+ * @author Tomecz Patrik
+ */
 public interface ClassroomService {
     void delete(Classroom classroom);
     void deleteByName(String name);
-    void deleteAll();
-    Classroom save(ClassroomDTO classroom);
-    List<ClassroomDTO> findAll();
-    Classroom findByName(String name);
+    Classroom save(Classroom classroom);
+    Classroom findByNameAndBuildingName(String name, String buildingName);
     Classroom findById(int id);
+    List<Classroom> findByName(String name);
+    List<Classroom> findAll();
     List<Classroom> findByHasPc(boolean hasPC);
     List<Classroom> findByHasProjector(boolean hasProjector);
     List<Classroom> findByChairsLessThan(int num);

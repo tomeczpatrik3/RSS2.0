@@ -22,6 +22,8 @@ public class ValidationErrorMessageConstants {
     public static final String BUILDING_NAME_EMPTY = "Az épület neve nem lehet üres!";
     
     //RESERVATION:
+    public static final String RESERVATION_NOT_EXISTS = "Ilyen foglalás nem létezik!";
+    public static final String RESERVATION_ALREDY_EXISTS = "Ilyen foglalás már létezik!";
     public static final String RESERVATION_DAY_EMPTY = "A nap nem lehet üres!";
     public static final String RESERVATION_START_TIME_EMPTY = "A kezdeti idő nem lehet üres!";
     public static final String RESERVATION_END_TIME_EMPTY = "A befejezési idő nem lehet üres!";

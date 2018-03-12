@@ -1,21 +1,26 @@
 package RoomReservationSystem.validation;
 
-import static RoomReservationSystem.config.ValidationErrorMessageConstants.*;
 import RoomReservationSystem.dto.ReservationDTO;
-import RoomReservationSystem.service.impl.BuildingServiceImpl;
-import RoomReservationSystem.service.impl.ClassroomServiceImpl;
-import RoomReservationSystem.service.impl.SubjectServiceImpl;
-import RoomReservationSystem.service.impl.UserServiceImpl;
+import RoomReservationSystem.service.ClassroomService;
+import RoomReservationSystem.service.SubjectService;
+import RoomReservationSystem.service.UserService;
+import static RoomReservationSystem.config.ValidationErrorMessageConstants.*;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Pattern;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+/**
+ * A foglalások adatainak ellenőrzését végző osztály
+ * @author Tomecz Patrik
+ */
 @Service
 public class ReservationValidator implements Validator {
     
@@ -24,13 +29,13 @@ public class ReservationValidator implements Validator {
     private static final Pattern TIME_REGEX = Pattern.compile("^([01][0-9]|2[0-3]):[0-5][0-9]$");
     
     @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
     
     @Autowired
-    private SubjectServiceImpl subjectService;
+    private SubjectService subjectService;
             
     @Autowired
-    private ClassroomServiceImpl classroomService;
+    private ClassroomService classroomService;
     
     /*
         Két óó:pp típusú string esetén ellenőrzi, hogy az első
@@ -62,6 +67,11 @@ public class ReservationValidator implements Validator {
       return clazz == ReservationDTO.class;
     }
 
+    /**
+     * A validálást végző függvény
+     * @param   target  Az objektum amit validálunk
+     * @param   errors  A hibák, ha vannak
+     */
     @Override
     public void validate(Object target, Errors errors) {
         ValidationUtils.rejectIfEmpty(errors, "username", "reservation.username.empty", USER_USERNAME_EMPTY);

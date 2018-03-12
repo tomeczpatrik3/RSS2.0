@@ -1,12 +1,16 @@
 package RoomReservationSystem.api;
 
-import static RoomReservationSystem.config.ValidationErrorMessageConstants.USER_NOT_EXISTS;
-import static RoomReservationSystem.config.ValidationErrorMessageConstants.concatErrors;
 import RoomReservationSystem.dto.UserDTO;
 import RoomReservationSystem.model.User;
-import RoomReservationSystem.service.impl.UserServiceImpl;
+import RoomReservationSystem.service.UserService;
 import RoomReservationSystem.validation.UserValidator;
+import static RoomReservationSystem.config.ValidationErrorMessageConstants.USER_NOT_EXISTS;
+import static RoomReservationSystem.config.ValidationErrorMessageConstants.concatErrors;
+import static RoomReservationSystem.dto.UserDTO.toUserDTO;
+import static RoomReservationSystem.dto.UserDTO.toUserDTOList;
+
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,13 +31,13 @@ public class UserApiController {
     UserValidator userValidator;
     
     @Autowired
-    UserServiceImpl userService;
+    UserService userService;
     
     //@PreAuthorize("hasRole('ADMIN')")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping
-    public Iterable<User> getAll(){
-        return userService.findAll();
+    public List<UserDTO> getAll(){
+        return toUserDTOList(userService.findAll());
     }
     
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
@@ -44,22 +48,25 @@ public class UserApiController {
     
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findByUsername")
-    public User findByUsername(@RequestParam String username){
-	return userService.findByUsername(username);
+    public ResponseEntity findByUsername(@RequestParam String username){
+	if (userService.findByUsername(username) != null)
+            return ResponseEntity.ok(toUserDTO(userService.findByUsername(username)));
+        else
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(USER_NOT_EXISTS);
     }
     
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findByName")
-    public List<User> findByName(@RequestParam String name){
-	return userService.findByName(name);
+    public List<UserDTO> findByName(@RequestParam String name){
+	return toUserDTOList(userService.findByName(name));
     }
     
     @PostMapping("/createUser")
-    public ResponseEntity createUser(@RequestBody UserDTO user, BindingResult bindingResult) {
-        userValidator.validate(user, bindingResult);
+    public ResponseEntity createUser(@RequestBody UserDTO userDTO, BindingResult bindingResult) {
+        userValidator.validate(userDTO, bindingResult);
         if (!bindingResult.hasErrors()) {
-            User registered = userService.register(user);
-            return ResponseEntity.status(HttpStatus.CREATED).body(registered);
+            User registered = userService.register(userDTO);
+            return ResponseEntity.status(HttpStatus.CREATED).body(toUserDTO(registered));
         }
         else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
@@ -68,11 +75,11 @@ public class UserApiController {
     
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/updateUser")
-    public ResponseEntity updateUser(@RequestBody UserDTO user, BindingResult bindingResult) {
-        userValidator.validate(user, bindingResult);
+    public ResponseEntity updateUser(@RequestBody UserDTO userDTO, BindingResult bindingResult) {
+        userValidator.validate(userDTO, bindingResult);
         if (!bindingResult.hasErrors()) {
-            userService.delete( userService.findByUsername(user.getName()) );
-            User saved = userService.register(user);
+            userService.delete( userService.findByUsername(userDTO.getName()) );
+            User saved = userService.register(userDTO);
             return ResponseEntity.status(HttpStatus.CREATED).body(saved);           
         }
         else {
@@ -88,7 +95,7 @@ public class UserApiController {
             return new ResponseEntity(HttpStatus.OK);           
         }
         else {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(USER_NOT_EXISTS);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(USER_NOT_EXISTS);
         }
     }   
 }

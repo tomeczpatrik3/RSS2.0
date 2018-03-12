@@ -1,23 +1,22 @@
 package RoomReservationSystem.service.impl;
 
-import RoomReservationSystem.dto.ReservationDTO;
-import static RoomReservationSystem.dto.ReservationDTO.toReservationDTO;
-import static RoomReservationSystem.dto.ReservationDTO.toReservationDTOList;
 import RoomReservationSystem.model.Reservation;
-import static RoomReservationSystem.model.Reservation.toReservation;
 import RoomReservationSystem.model.Status;
 import RoomReservationSystem.model.User;
 import RoomReservationSystem.repository.ReservationRepository;
-import RoomReservationSystem.service.ClassroomService;
 import RoomReservationSystem.service.ReservationService;
 import RoomReservationSystem.service.StatusService;
-import RoomReservationSystem.service.SubjectService;
 import RoomReservationSystem.service.UserService;
-import java.util.Collections;
+
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * A foglalásokkal kapcsolatos műveletekért felelős osztály
+ * @author Tomecz Patrik
+ */
 @Service
 public class ReservationServiceImpl implements ReservationService{
     @Autowired
@@ -27,71 +26,80 @@ public class ReservationServiceImpl implements ReservationService{
     private UserService userService;
     
     @Autowired
-    private ClassroomService classroomService;
-        
-    @Autowired
-    private SubjectService subjectService;
-    
-    @Autowired
     private StatusService statusService;
 
-    //---
-    
+    /**
+     * A foglalások törlését megvalósító függvény
+     * @param   res     A foglalás amit törölni szeretnénk
+     */
     @Override
     public void delete(Reservation res){
         reservationRepository.delete(res);
     }
     
+    /**
+     * A foglalás rögzítését megvalósító függvény
+     * Beállítjuk a foglaláshoz tartozó tantermet, tantárgyat, felhasználót és státuszt is
+     * A státusz alapértelmezetten "PENDING", azaz feldolgozás alatt lesz
+     * @param   reservation     A rögzíteni kívánt foglalás
+     * @return                  A rögzített foglalás
+     */
     @Override
-    public void deleteAll(){
-        reservationRepository.deleteAll();
+    public Reservation save(Reservation reservation){        
+        return reservationRepository.save(reservation);
     }
     
-    /*
-        A megfelelő adatokkal mentjük a foglalást:
-    */
-    @Override
-    public Reservation save(ReservationDTO resDTO){        
-        return reservationRepository.save(toReservation(
-                    resDTO,
-                    classroomService.findByName(resDTO.getRoom()),
-                    subjectService.findByCode(resDTO.getSubjectCode()),
-                    userService.findByUsername(resDTO.getUsername()),
-                    statusService.findByName("PENDING")
-            ));
-    }
-    
+    /**
+     * A foglalás id alapján történő keresését megvalósító függvény
+     * @param   id  A foglalás id-je
+     * @return      A foglalás ha létezik, null egyébként
+     */
     @Override
     public Reservation findById(int id){       
         return reservationRepository.findById(id);
     }
     
-    /*
-        Reservation --> ReservationDTO
-    */
+    /**
+     * A foglalások lekérdezését megvalósító függvény
+     * @return  A foglalások egy listában
+     */
     @Override
-    public List<ReservationDTO> getAll(){
-        return toReservationDTOList(reservationRepository.findAll());
+    public List<Reservation> getAll(){
+        return reservationRepository.findAll();
     }
     
+    /**
+     * A foglalások felhasználónév alapján történő keresését megvalósító függvény
+     * @param   username    A felhasználónév
+     * @return              Az adott felhasználó által történt foglalások egy listában
+     */
     @Override
-    public List<ReservationDTO> findByUsername(String username) {
+    public List<Reservation> findByUsername(String username) {
         User user = userService.findByUsername(username);
-        return toReservationDTOList(
-                reservationRepository.findByUser(user)
-        );
+        return reservationRepository.findByUser(user);
     }
 
+    /**
+     * A foglalások státusz alapján történő keresését megvalósító függvény
+     * @param   statusName  A keresendő státusz
+     * @return 
+     */
     @Override
-    public List<ReservationDTO> findByStatus(String statusName) {
+    public List<Reservation> findByStatus(String statusName) {
         Status status = statusService.findByName(statusName);
-        return toReservationDTOList(reservationRepository.findByStatus(status));
+        return reservationRepository.findByStatus(status);
     }
     
+    /**
+     * Egy foglalás státuszának megváltoztatását megvalósító függvény
+     * @param id            A foglalás id-ja
+     * @param statusName    Az új státusz
+     * @return              A megváltoztatott státusszal rendelkező foglalás
+     */
     @Override
-    public ReservationDTO setStatus(int id, String statusName) {
+    public Reservation setStatus(int id, String statusName) {
         Reservation res = reservationRepository.findById(id);
         res.setStatus(statusService.findByName(statusName));
-        return toReservationDTO(res);
+        return res;
     }
 }

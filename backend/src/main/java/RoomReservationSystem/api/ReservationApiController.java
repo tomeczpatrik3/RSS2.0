@@ -1,11 +1,21 @@
 package RoomReservationSystem.api;
 
-import static RoomReservationSystem.config.ValidationErrorMessageConstants.concatErrors;
 import RoomReservationSystem.dto.ReservationDTO;
 import RoomReservationSystem.model.Reservation;
-import RoomReservationSystem.service.impl.ReservationServiceImpl;
 import RoomReservationSystem.validation.ReservationValidator;
+import RoomReservationSystem.service.ClassroomService;
+import RoomReservationSystem.service.ReservationService;
+import RoomReservationSystem.service.StatusService;
+import RoomReservationSystem.service.SubjectService;
+import RoomReservationSystem.service.UserService;
+import static RoomReservationSystem.config.ValidationErrorMessageConstants.concatErrors;
+import static RoomReservationSystem.dto.ReservationDTO.toReservationDTO;
+import static RoomReservationSystem.dto.ReservationDTO.toReservationDTOList;
+import static RoomReservationSystem.config.ValidationErrorMessageConstants.RESERVATION_NOT_EXISTS;
+import static RoomReservationSystem.model.Reservation.toReservation;
+
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,29 +34,48 @@ import org.springframework.web.bind.annotation.RestController;
 public class ReservationApiController {
     
     @Autowired
-    ReservationServiceImpl reservationService;
+    ReservationService reservationService;
+    
+    @Autowired
+    UserService userService;
+    
+    @Autowired
+    ClassroomService classroomService;
+    
+    @Autowired
+    SubjectService subjectService;
+    
+    @Autowired
+    StatusService statusService;
+    
     
     @Autowired
     ReservationValidator reservationValidator;
     
     @GetMapping
     public List<ReservationDTO> getAccepted(){
-        return reservationService.findByStatus("ACCEPTED");
+        return toReservationDTOList(reservationService.findByStatus("ACCEPTED"));
     }
     
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping("/findByUsername/{username}")
     public List<ReservationDTO> findByName(@PathVariable String username){
-	return reservationService.findByUsername(username);
+	return toReservationDTOList(reservationService.findByUsername(username));
     }
     
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @PostMapping("/createRes")
-    public ResponseEntity createRes(@RequestBody ReservationDTO res, BindingResult bindingResult) {
-        reservationValidator.validate(res, bindingResult);
+    public ResponseEntity createRes(@RequestBody ReservationDTO reservationDTO, BindingResult bindingResult) {
+        reservationValidator.validate(reservationDTO, bindingResult);
         if (!bindingResult.hasErrors()) {
-            Reservation saved = reservationService.save(res);
-            return ResponseEntity.status(HttpStatus.CREATED).body(saved);           
+            Reservation saved = reservationService.save(toReservation(
+                  reservationDTO,
+                  classroomService.findByNameAndBuildingName(reservationDTO.getRoom(), reservationDTO.getBuilding()),
+                  subjectService.findByCode(reservationDTO.getSubjectCode()),
+                  userService.findByUsername(reservationDTO.getUsername()),
+                  statusService.findByName(reservationDTO.getStatus())
+            ));
+            return ResponseEntity.status(HttpStatus.CREATED).body(toReservationDTO(saved));           
         }
         else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
@@ -57,12 +86,15 @@ public class ReservationApiController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findByStatus/{status}")
     public List<ReservationDTO> findByStatus(@PathVariable String status){
-	return reservationService.findByStatus(status);
+	return toReservationDTOList(reservationService.findByStatus(status));
     } 
     
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/setStatus")
-    public ReservationDTO setStatus(@RequestParam("id") int id, @RequestParam("status") String status){
-	return reservationService.setStatus(id, status);
+    public ResponseEntity setStatus(@RequestParam("id") int id, @RequestParam("status") String status){
+	if (reservationService.findById(id) != null)
+            return ResponseEntity.ok(toReservationDTO(reservationService.setStatus(id, status)));
+        else
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(RESERVATION_NOT_EXISTS);
     } 
 }

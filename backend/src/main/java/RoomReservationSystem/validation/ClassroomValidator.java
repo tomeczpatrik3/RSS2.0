@@ -1,29 +1,39 @@
 package RoomReservationSystem.validation;
 
-import static RoomReservationSystem.config.ValidationErrorMessageConstants.*;
+import RoomReservationSystem.service.BuildingService;
+import RoomReservationSystem.service.ClassroomService;
 import RoomReservationSystem.dto.ClassroomDTO;
-import RoomReservationSystem.service.impl.BuildingServiceImpl;
-import RoomReservationSystem.service.impl.ClassroomServiceImpl;
+import static RoomReservationSystem.config.ValidationErrorMessageConstants.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+/**
+ * Az osztálytermek adatainak ellenőrzését végző osztály
+ * @author Tomecz Patrik
+ */
 @Service
 public class ClassroomValidator implements Validator {
     
     @Autowired
-    ClassroomServiceImpl classroomService;
+    ClassroomService classroomService;
     
     @Autowired
-    BuildingServiceImpl buildingService;
+    BuildingService buildingService;
     
     @Override
     public boolean supports(Class<?> clazz) {
       return clazz == ClassroomDTO.class;
     }
 
+    /**
+     * A validálást végző függvény
+     * @param   target  Az objektum amit validálunk
+     * @param   errors  A hibák, ha vannak
+     */
     @Override
     public void validate(Object target, Errors errors) {
         

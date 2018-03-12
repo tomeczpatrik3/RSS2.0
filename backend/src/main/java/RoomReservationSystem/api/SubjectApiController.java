@@ -1,12 +1,17 @@
 package RoomReservationSystem.api;
 
-import static RoomReservationSystem.config.ValidationErrorMessageConstants.SUBJECT_NOT_EXISTS;
-import static RoomReservationSystem.config.ValidationErrorMessageConstants.concatErrors;
 import RoomReservationSystem.dto.SubjectDTO;
 import RoomReservationSystem.model.Subject;
-import RoomReservationSystem.service.impl.SubjectServiceImpl;
+import RoomReservationSystem.service.SubjectService;
 import RoomReservationSystem.validation.SubjectValidator;
+import static RoomReservationSystem.model.Subject.toSubject;
+import static RoomReservationSystem.dto.SubjectDTO.toSubjectDTOList;
+import static RoomReservationSystem.config.ValidationErrorMessageConstants.SUBJECT_NOT_EXISTS;
+import static RoomReservationSystem.config.ValidationErrorMessageConstants.concatErrors;
+import static RoomReservationSystem.dto.SubjectDTO.toSubjectDTO;
+
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,15 +29,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class SubjectApiController {
     
     @Autowired
-    private SubjectServiceImpl subjectService;
+    private SubjectService subjectService;
     
     @Autowired
     private SubjectValidator subjectValidator;
     
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping
-    public Iterable<Subject> getAll(){
-        return subjectService.findAll();
+    public List<SubjectDTO> getAll(){
+        return toSubjectDTOList(subjectService.findAll());
     }
     
     @PreAuthorize("hasAuthority('ROLE_USER')")
@@ -43,11 +48,11 @@ public class SubjectApiController {
     
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/createSubject")
-    public ResponseEntity createSubject(@RequestBody SubjectDTO subject, BindingResult bindingResult) {
-        subjectValidator.validate(subject, bindingResult);
+    public ResponseEntity createSubject(@RequestBody SubjectDTO subjectDTO, BindingResult bindingResult) {
+        subjectValidator.validate(subjectDTO, bindingResult);
         if (!bindingResult.hasErrors()) {
-            Subject saved = subjectService.save(subject);
-            return ResponseEntity.status(HttpStatus.CREATED).body(saved);           
+            Subject saved = subjectService.save(toSubject(subjectDTO));
+            return ResponseEntity.status(HttpStatus.CREATED).body(toSubjectDTO(saved));           
         }
         else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
@@ -56,12 +61,12 @@ public class SubjectApiController {
     
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/updateSubject")
-    public ResponseEntity updateSubject(@RequestBody SubjectDTO subject, BindingResult bindingResult) {
-        subjectValidator.validate(subject, bindingResult);
+    public ResponseEntity updateSubject(@RequestBody SubjectDTO subjectDTO, BindingResult bindingResult) {
+        subjectValidator.validate(subjectDTO, bindingResult);
         if (!bindingResult.hasErrors()) {
-            subjectService.delete( subjectService.findByCode(subject.getCode()) );
-            Subject saved = subjectService.save(subject);
-            return ResponseEntity.status(HttpStatus.CREATED).body(saved);            
+            subjectService.delete( subjectService.findByCode(subjectDTO.getCode()) );
+            Subject saved = subjectService.save(toSubject(subjectDTO));
+            return ResponseEntity.status(HttpStatus.CREATED).body(toSubjectDTO(saved));            
         }
         else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
@@ -69,10 +74,10 @@ public class SubjectApiController {
     }
     
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @PostMapping("/deleteByName")
-    public ResponseEntity deleteByName(@RequestParam String name) {
-        if ( subjectService.findByName( name ) != null ) {
-            subjectService.deleteByName(name);
+    @PostMapping("/deleteByCode")
+    public ResponseEntity deleteByCode(@RequestParam String code) {
+        if ( subjectService.findByCode( code ) != null ) {
+            subjectService.deleteByCode(code);
             return new ResponseEntity(HttpStatus.OK);          
         }
         else {

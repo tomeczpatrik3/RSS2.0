@@ -1,12 +1,19 @@
 package RoomReservationSystem.api;
 
-import static RoomReservationSystem.config.ValidationErrorMessageConstants.CLASSROOM_NOT_EXISTS;
-import static RoomReservationSystem.config.ValidationErrorMessageConstants.concatErrors;
+
 import RoomReservationSystem.dto.ClassroomDTO;
 import RoomReservationSystem.model.Classroom;
-import RoomReservationSystem.service.impl.ClassroomServiceImpl;
 import RoomReservationSystem.validation.ClassroomValidator;
+import RoomReservationSystem.service.BuildingService;
+import RoomReservationSystem.service.ClassroomService;
+import static RoomReservationSystem.config.ValidationErrorMessageConstants.CLASSROOM_NOT_EXISTS;
+import static RoomReservationSystem.config.ValidationErrorMessageConstants.concatErrors;
+import static RoomReservationSystem.dto.ClassroomDTO.toClassroomDTO;
+import static RoomReservationSystem.dto.ClassroomDTO.toClassroomDTOList;
+import static RoomReservationSystem.model.Classroom.toClassroom;
+
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,15 +31,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class ClassroomApiController {
     
     @Autowired
-    ClassroomServiceImpl classroomService;
+    private ClassroomService classroomService;
     
     @Autowired
-    ClassroomValidator classroomValidator;
+    private BuildingService buildingService;
+    
+    @Autowired
+    private ClassroomValidator classroomValidator;
     
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping
     public List<ClassroomDTO> getAll(){
-        return classroomService.findAll();
+        return toClassroomDTOList(classroomService.findAll());
     }
     
     @PreAuthorize("hasAuthority('ROLE_USER')")
@@ -43,8 +53,8 @@ public class ClassroomApiController {
     
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findByName/{name}")
-    public Classroom findByName(@PathVariable String name){
-	return classroomService.findByName(name);
+    public List<ClassroomDTO> findByName(@PathVariable String name){
+	return toClassroomDTOList(classroomService.findByName(name));
     }
     
     @PreAuthorize("hasAuthority('ROLE_USER')")
@@ -55,32 +65,32 @@ public class ClassroomApiController {
     
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findByHasPC/{hasPC}")
-    public List<Classroom> findByHasPC(@PathVariable boolean hasPC){
-	return classroomService.findByHasPc(hasPC);
+    public List<ClassroomDTO> findByHasPC(@PathVariable boolean hasPC){
+	return toClassroomDTOList(classroomService.findByHasPc(hasPC));
     }
     
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findByHasProjector/{hasProjector}")
-    public List<Classroom> findByHasProjector(@PathVariable boolean hasProjector){
-	return classroomService.findByHasProjector(hasProjector);
+    public List<ClassroomDTO> findByHasProjector(@PathVariable boolean hasProjector){
+	return toClassroomDTOList(classroomService.findByHasProjector(hasProjector));
     }
     
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findByChairsLessThan/{chair}")
-    public List<Classroom> findByChairsLessThan(@PathVariable int chairs){
-	return classroomService.findByChairsLessThan(chairs);
+    public List<ClassroomDTO> findByChairsLessThan(@PathVariable int chairs){
+	return toClassroomDTOList(classroomService.findByChairsLessThan(chairs));
     }
     
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findByChairsGreaterThan/{chair}")
-    public List<Classroom> findByChairsGreaterThan(@PathVariable int chairs){
-	return classroomService.findByChairsGreaterThan(chairs);
+    public List<ClassroomDTO> findByChairsGreaterThan(@PathVariable int chairs){
+	return toClassroomDTOList(classroomService.findByChairsGreaterThan(chairs));
     }
     
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findByChairsBetween")
-    public List<Classroom> findByChairsBetween(@PathVariable int from, @PathVariable int to){
-	return classroomService.findByChairsBetween(from, to);
+    public List<ClassroomDTO> findByChairsBetween(@PathVariable int from, @PathVariable int to){
+	return toClassroomDTOList(classroomService.findByChairsBetween(from, to));
     }
     
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
@@ -91,18 +101,21 @@ public class ClassroomApiController {
             return new ResponseEntity(HttpStatus.OK);            
         }
         else {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(CLASSROOM_NOT_EXISTS);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(CLASSROOM_NOT_EXISTS);
         }
 
     }
     
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/createClassroom")
-    public ResponseEntity createClassroom(@RequestBody ClassroomDTO cr, BindingResult bindingResult) {
-        classroomValidator.validate(cr, bindingResult);
+    public ResponseEntity createClassroom(@RequestBody ClassroomDTO classroomDTO, BindingResult bindingResult) {
+        classroomValidator.validate(classroomDTO, bindingResult);
         if ( !bindingResult.hasErrors() ) {
-            Classroom saved = classroomService.save(cr);
-            return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+            Classroom saved = classroomService.save(toClassroom(
+                    classroomDTO,
+                    buildingService.findByName(classroomDTO.getBuilding())
+            )); 
+            return ResponseEntity.status(HttpStatus.CREATED).body(toClassroomDTO(saved));
         }
         else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
@@ -111,15 +124,23 @@ public class ClassroomApiController {
     
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/updateClassroom")
-    public ResponseEntity updateClassroom(@RequestBody ClassroomDTO cr, BindingResult bindingResult) {
-        classroomValidator.validate(cr, bindingResult);
-        //Ha csak az a hiba hogy már szerepel ilyen tanterem:
+    public ResponseEntity updateClassroom(@RequestBody ClassroomDTO classroomDTO, BindingResult bindingResult) {
+        classroomValidator.validate(classroomDTO, bindingResult);
         if (bindingResult.hasErrors() && 
                 bindingResult.getErrorCount()==1 && 
                 bindingResult.getFieldError("name") != null) {
-            classroomService.delete( classroomService.findByName(cr.getName()));
-            Classroom saved = classroomService.save(cr);
-            return ResponseEntity.status(HttpStatus.CREATED).body(saved);         
+            
+            classroomService.delete( classroomService.findByNameAndBuildingName(
+                    classroomDTO.getName(),
+                    classroomDTO.getBuilding()
+            ));
+            
+            Classroom saved = classroomService.save(toClassroom(
+                    classroomDTO,
+                    buildingService.findByName(classroomDTO.getBuilding())
+            ));
+            
+            return ResponseEntity.status(HttpStatus.CREATED).body(toClassroomDTO(saved));         
         }
         else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));

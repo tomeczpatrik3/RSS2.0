@@ -2,6 +2,8 @@ package RoomReservationSystem.dto;
 
 import RoomReservationSystem.model.Building;
 import RoomReservationSystem.model.Classroom;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,5 +26,13 @@ public class ClassroomDTO {
                 classroom.getChairs(),
                 classroom.getBuilding().getName()
         );
+    }
+    
+    public static List<ClassroomDTO> toClassroomDTOList(List<Classroom> classrooms) {
+        List<ClassroomDTO> classroomDTOs = new ArrayList<>();
+        classrooms.forEach((classroom) -> {
+            classroomDTOs.add(toClassroomDTO(classroom));
+        });
+        return classroomDTOs;
     }
 }

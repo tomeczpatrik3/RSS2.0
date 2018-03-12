@@ -9,7 +9,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ClassroomRepository extends JpaRepository<Classroom, Integer> { 
     Classroom findById(int id);
-    Classroom findByName(String name);
+    Classroom findByNameAndBuilding(String name, Building building);
+    List<Classroom> findByName(String name);
     List<Classroom> findByHasPc(boolean hasPC);
     List<Classroom> findByHasProjector(boolean hasProjector);
     List<Classroom> findByChairsLessThan(int number);

@@ -1,27 +1,38 @@
 package RoomReservationSystem.validation;
 
-import static RoomReservationSystem.config.ValidationErrorMessageConstants.*;
 import RoomReservationSystem.dto.UserDTO;
-import RoomReservationSystem.service.impl.UserServiceImpl;
+import RoomReservationSystem.service.UserService;
+import static RoomReservationSystem.config.ValidationErrorMessageConstants.*;
+
 import java.util.regex.Pattern;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+/**
+ * A felhasználók adatainak ellenőrzését végző osztály
+ * @author Tomecz Patrik
+ */
 @Service
 public class UserValidator implements Validator {
     private static final Pattern EMAIL_REGEX = Pattern.compile("^[\\w\\d._-]+@[\\w\\d.-]+\\.[\\w\\d]{2,6}$");
     
     @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
     
     @Override
     public boolean supports(Class<?> clazz) {
       return clazz == UserDTO.class;
     }
 
+    /**
+     * A validálást végző függvény
+     * @param   target  Az objektum amit validálunk
+     * @param   errors  A hibák, ha vannak
+     */
     @Override
     public void validate(Object target, Errors errors) {
         ValidationUtils.rejectIfEmpty(errors, "username", "user.username.empty", USER_USERNAME_EMPTY);
