@@ -1,8 +1,7 @@
 package RoomReservationSystem.model;
 
-import RoomReservationSystem.dto.SubjectDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.util.Collections;
+
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -12,10 +11,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Státusz entitás
+ * @author Tomecz Patrik
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,15 +30,15 @@ public class Status extends BaseEntity {
     @Basic(optional = false)
     @NotNull
     @Column(name = "name", unique=true)
-    private String name;
+    private String name; /*A státusz neve*/
     
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "message")
-    private String message;    
+    private String message; /*A státuszhoz tartozó üzenet*/
     
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "status")
-    private List<Reservation> reservationList;
+    private List<Reservation> reservationList; /*Az adott státusszal rendelkező foglalások egy listában*/
 }

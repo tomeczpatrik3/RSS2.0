@@ -1,0 +1,13 @@
+SZAKDOGA TODO:
+
+-- napi/heti nézet
+-- foglalás megjegyzés
+-- esetleg tantárgy ne legyen kotelezően kitoltendő, ekkor más esemény
+-- felev/adott nap foglalas?? --> félév tábla?
+-- utolsó módosítás dátuma? folosleges
+-- teremfoglaltsági adatok
+-- foglalás validálása
+-- archiválás, félév nyitás/zárás ilyenkor clean
+
+Határidő: Május 15. -- kb április végére végleges
+

@@ -7,6 +7,10 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+/**
+ * A kölcsönzésekért felelős repó
+ * @author Tomecz Patrik
+ */
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Integer> {
     Reservation findById(int id);

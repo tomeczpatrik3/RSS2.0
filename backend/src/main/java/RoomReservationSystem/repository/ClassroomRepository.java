@@ -6,6 +6,10 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+/**
+ * A tantermekért felelős repó
+ * @author Tomecz Patrik
+ */
 @Repository
 public interface ClassroomRepository extends JpaRepository<Classroom, Integer> { 
     Classroom findById(int id);

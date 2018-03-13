@@ -5,6 +5,10 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+/**
+ * Az tantárgyakért felelős repó
+ * @author Tomecz Patrik
+ */
 @Repository
 public interface SubjectRepository extends JpaRepository<Subject, Integer> {
     Subject findById(int id);
