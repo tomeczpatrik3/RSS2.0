@@ -1,11 +1,6 @@
 package RoomReservationSystem.dto;
 
-import RoomReservationSystem.model.Building;
-import RoomReservationSystem.model.Classroom;
 import RoomReservationSystem.model.Reservation;
-import RoomReservationSystem.model.Status;
-import RoomReservationSystem.model.Subject;
-import RoomReservationSystem.model.User;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -27,6 +22,8 @@ public class ReservationDTO {
     private String endTime;
     private String startDate;
     private String endDate;
+    private String semester;
+    private String note;
     private String status;
     
     public static ReservationDTO toReservationDTO(Reservation reservation) { 
@@ -42,6 +39,8 @@ public class ReservationDTO {
                 reservation.getEndTime(),
                 reservation.getStartDate().toString(),
                 reservation.getEndDate().toString(),
+                reservation.getSemester().getName(),
+                reservation.getNote(),
                 reservation.getStatus().getName()
         );
     }

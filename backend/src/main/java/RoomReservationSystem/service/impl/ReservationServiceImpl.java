@@ -11,6 +11,7 @@ import RoomReservationSystem.service.StatusService;
 import RoomReservationSystem.service.SubjectService;
 import RoomReservationSystem.service.UserService;
 import static RoomReservationSystem.model.Reservation.toReservation;
+import RoomReservationSystem.service.SemesterService;
 
 import java.util.List;
 
@@ -38,6 +39,9 @@ public class ReservationServiceImpl implements ReservationService{
     @Autowired
     StatusService statusService;
     
+    @Autowired
+    SemesterService semesterService;
+    
 
     /**
      * A foglalások törlését megvalósító függvény
@@ -64,7 +68,8 @@ public class ReservationServiceImpl implements ReservationService{
                   classroomService.findByNameAndBuildingName(reservationDTO.getRoom(), reservationDTO.getBuilding()),
                   subjectService.findByCode(reservationDTO.getSubjectCode()),
                   userService.findByUsername(reservationDTO.getUsername()),
-                  statusService.findByName("PENDING")
+                  statusService.findByName("PENDING"),
+                  semesterService.findByName(reservationDTO.getSemester())
             ));
     }
     

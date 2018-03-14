@@ -1,6 +1,7 @@
 package RoomReservationSystem.model;
 
 import RoomReservationSystem.dto.ReservationDTO;
+import RoomReservationSystem.util.DateUtils;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -63,8 +64,9 @@ public class Reservation extends BaseEntity {
     
     @Basic(optional = false)
     @NotNull
-    @Column(name = "last_modification")
-    private Date lastModification;  /*Az utolsó módosítás dátuma*/
+    @Size(min = 1, max = 255)
+    @Column(name = "note")
+    private String note;  /*A foglaláshoz tartozó megjegyzés*/
      
     @JsonIgnore
     @JoinColumn(name = "classroom", referencedColumnName = "id")
@@ -85,6 +87,11 @@ public class Reservation extends BaseEntity {
     @JoinColumn(name = "status", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Status status;  /*A foglalás státusza*/
+    
+    @JsonIgnore
+    @JoinColumn(name = "semester", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Semester semester;  /*A foglaláshoz tartozó félév*/
  
     /**
      * A ReservationDTO objektum Reservation objektummá konvertálását végrehajtó megtódus
@@ -93,6 +100,7 @@ public class Reservation extends BaseEntity {
      * @param subject           A foglaláshoz tartozó tantárgy
      * @param user              A foglaláshoz tartozó felhasználó
      * @param status            A foglaláshoz tartozó státusz
+     * @param semester          A foglaláshoz tartozó félév
      * @return                  A Reservation objektum
      */
     public static Reservation toReservation(
@@ -100,33 +108,21 @@ public class Reservation extends BaseEntity {
             Classroom classroom,
             Subject subject,
             User user,
-            Status status
+            Status status,
+            Semester semester
         ) {
         return new Reservation(
-                stringToDate(reservationDTO.getStartDate()),
-                stringToDate(reservationDTO.getEndDate()),
+                DateUtils.stringToDate(reservationDTO.getStartDate()),
+                DateUtils.stringToDate(reservationDTO.getEndDate()),
                 reservationDTO.getDay(),
                 reservationDTO.getStartTime(),
                 reservationDTO.getEndTime(),
-                new Date(),
+                reservationDTO.getNote(),
                 classroom,
                 subject,
                 user,
-                status
+                status,
+                semester
         );
-    }
-    
-    /**
-     * Megfelelő formátumú szöveg dátummá konvertálása
-     * @param   dateString  A dátum szöveges reprezentációja (yyyy-MM-dd)
-     * @return              A Date objektum
-     */
-    private static Date stringToDate(String dateString) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            return sdf.parse(dateString); 
-        } catch (ParseException ex) {
-            return new Date();
-        }
     }
 }
