@@ -31,7 +31,7 @@ public class Semester extends BaseEntity{
 
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 255)
+    @Size(min = 11, max = 11)
     @Column(name = "name", unique=true)
     private String name; /*Az szemeszter neve (pl: 2017-2018-2)*/    
     

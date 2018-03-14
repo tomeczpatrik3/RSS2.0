@@ -59,8 +59,26 @@ public class ValidationErrorMessageConstants {
     public static final String USER_PASSWORD_SPACE = "A jelszó nem megfelelő hosszúságú (5-30)!";
     public static final String USER_PASSWORD_SIZE = "A jelszó nem megfelelő hosszúságú (5-50)!";
     public static final String USER_EMAIL_SIZE = "A e-mail cím nem megfelelő hosszúságú (5-50)!";
-    public static final String USER_EMAIL_INVALID = "Az e-mail cím formátuma nem megfelelő!";       
+    public static final String USER_EMAIL_INVALID = "Az e-mail cím formátuma nem megfelelő!";
     
+    //SEMESTER:
+    public static final String SEMESTER_NAME_EMPTY = "A félév neve nem lehet üres!";
+    public static final String SEMESTER_START_DATE_EMPTY = "A félév kezdetének dátuma nem lehet üres!";
+    public static final String SEMESTER_END_DATE_EMPTY = "A félév végének dátuma nem lehet üres!";
+    public static final String SEMESTER_ALREDY_EXISTS = "Ezzel a névvel már létezik félév!";
+    public static final String SEMESTER_NAME_SIZE = "A félév nevének hossza 11 karakter kell hogy legyen (pl.: 2017-2018-2)!";
+    public static final String SEMESTER_NAME_INVALID = "A félév neve nem megfelelő formátumú (pl.: 2017-2018-2)!";
+    public static final String SEMESTER_START_DATE_INVALID = "A félév elejének dátuma nem megfelelő formátumú!";
+    public static final String SEMESTER_END_DATE_INVALID = "A félév végének dátuma nem megfelelő formátumú!";
+    public static final String SEMESTER_END_DATE_BEFORE_START_DATE = "A félév végének dátuma nem lehet korábbi, mint a kezdeti dátum!";
+    
+    
+    
+    /**
+     * A hibaüzenetek konkatenálását végző függvény
+     * @param   bindingResult   A validálás eredménye
+     * @return                  A hibaüzenet(ek) szövegként
+     */
     public static String concatErrors(BindingResult bindingResult) {
         StringBuilder errors = new StringBuilder();
         errors.append("Hiba történt: \n");
