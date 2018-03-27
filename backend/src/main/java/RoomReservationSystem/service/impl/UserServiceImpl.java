@@ -10,6 +10,7 @@ import static RoomReservationSystem.model.User.toUser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,17 +59,20 @@ public class UserServiceImpl implements UserService   {
      */
     @Override
     public User register(UserDTO userDTO) {
-        Authority userAuth = this.authorityService.findByName("ROLE_USER");
+        Authority userAuth = authorityService.findByName("ROLE_USER");
+        if (userAuth==null) {
+            userAuth = authorityService.save(new Authority("ROLE_USER", Collections.emptyList()));
+        }
         
-        User user = toUser(
+        User user = userRepository.save(toUser(
                 userDTO, 
                 passwordEncoder.encode(userDTO.getPassword()),
                 Arrays.asList(userAuth)
-        );
+        ));
         
         userAuth.addUser(user);
         
-        return userRepository.save(user);
+        return user;
     }
     
     /**
