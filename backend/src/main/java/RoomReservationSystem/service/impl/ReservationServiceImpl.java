@@ -11,7 +11,11 @@ import RoomReservationSystem.service.StatusService;
 import RoomReservationSystem.service.SubjectService;
 import RoomReservationSystem.service.UserService;
 import static RoomReservationSystem.model.Reservation.toReservation;
+import RoomReservationSystem.model.ReservationDate;
 import RoomReservationSystem.service.SemesterService;
+import static RoomReservationSystem.util.DateUtils.generateReservationDate;
+import static RoomReservationSystem.util.DateUtils.getDate;
+import java.util.ArrayList;
 
 import java.util.List;
 
@@ -63,14 +67,37 @@ public class ReservationServiceImpl implements ReservationService{
      */
     @Override
     public Reservation save(ReservationDTO reservationDTO) {
-        return reservationRepository.save(toReservation(
-                  reservationDTO,
-                  classroomService.findByNameAndBuildingName(reservationDTO.getRoom(), reservationDTO.getBuilding()),
-                  subjectService.findByCode(reservationDTO.getSubjectCode()),
-                  userService.findByUsername(reservationDTO.getUsername()),
-                  statusService.findByName("PENDING"),
-                  semesterService.findByName(reservationDTO.getSemester())
+        Reservation reservation = reservationRepository.save(
+                toReservation(
+                        userService.findByDTO(reservationDTO.getUser()),                    /*A foglaláshoz tartozó felhasználó*/
+                        semesterService.findByName(reservationDTO.getSemester()),           /*A félév*/
+                        subjectService.findByDTO(reservationDTO.getSubject()),              /*A foglaláshoz tartozó tantárgy*/
+                        classroomService.findByDTO(reservationDTO.getClassroom()),          /*A foglaláshoz tartozó tanterem*/
+                        statusService.findByName("PENDING"),                                /*A foglalás státusza*/
+                        reservationDTO.getNote()                                            /*A foglaláshoz tartozó megjegyzés*/          
+                )
+        );
+        
+        List<ReservationDate> dates = new ArrayList<>();
+
+        if (reservationDTO.getStatus().equals("day")) {
+            dates.add(generateReservationDate(
+                    reservation,
+                    getDate(reservationDTO.getDates()[0]),
+                    reservationDTO.getStartTime(),
+                    reservationDTO.getEndTime()
             ));
+        }
+        else { /*semester --> féléves foglalás*/
+            dates = generateReservationDates(
+                    semesterService.findByName(reservationDTO.getSemester()),
+                    reservation,
+                    reservationDTO.getDay(),
+                    reservationDTO.getStartTime(),
+                    reservationDTO.getEndTime()                    
+            );
+        }
+       
     }
     
     /**

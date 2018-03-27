@@ -1,5 +1,6 @@
 package RoomReservationSystem.service;
 
+import RoomReservationSystem.dto.ClassroomDTO;
 import RoomReservationSystem.model.Building;
 import RoomReservationSystem.model.Classroom;
 
@@ -26,4 +27,5 @@ public interface ClassroomService {
     List<Classroom> findByBuilding(Building building);
     List<String> getNamesByBuilding(String buildingName);
     List<String> getNames();
+    Classroom findByDTO(ClassroomDTO classroomDTO);
 }

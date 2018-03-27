@@ -1,5 +1,6 @@
 package RoomReservationSystem.service.impl;
 
+import RoomReservationSystem.dto.BuildingDTO;
 import RoomReservationSystem.model.Building;
 import RoomReservationSystem.repository.BuildingRepository;
 import RoomReservationSystem.service.BuildingService;
@@ -92,6 +93,16 @@ public class BuildingServiceImpl implements BuildingService {
         }
         
         return buildingNames;
-    }  
+    }
     
+    /**
+     * A DTO objektum alapján történő keresést megvalósító függvény
+     * (Annak ismeretében hogy melyik attribútum egyedi)
+     * @param   buildingDTO A DTO objektum
+     * @return              A Building objektum ha létezik
+     */
+    @Override
+    public Building findByDTO(BuildingDTO buildingDTO) {
+        return buildingRepository.findByName(buildingDTO.getName());
+    }    
 }

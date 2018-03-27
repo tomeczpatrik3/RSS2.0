@@ -4,6 +4,27 @@
   </div>
   <div class="card-block">
     <form [formGroup]="reservationForm" (ngSubmit)="addReservation()"> 
+      
+      <div class="form-group row">
+        <label for="semester" class="col-sm-4 col-form-label">Szemeszter*</label>
+        <div class="col-sm-8">
+          <select class="form-control" id="semester" [formControl]="semester">
+            <option> --- </option>
+            <option *ngFor="let semester of semesters"> {{semester}} </option>
+          </select>
+
+          <div [hidden]="semester.valid || semester.untouched" class="alert alert-danger">
+            <div>
+              Probléma a félév kiválasztása során:
+            </div>
+            <div [hidden]="!semester.hasError('required')">
+              A félévet meg kell adni.
+            </div>
+          </div>
+
+        </div>
+      </div>      
+      
       <div class="form-group row">
         <label for="subject" class="col-sm-4 col-form-label">Tantárgy*</label>
         <div class="col-sm-8">
@@ -65,40 +86,33 @@
       </div>
 
       <div class="form-group row">
-        <label for="startDate" class="col-sm-4 col-form-label">A foglalás kezdetének dátuma*</label>
+        <label for="type" class="col-sm-4 col-form-label">Foglalás típusa*</label>
         <div class="col-sm-8">
-          <input class="form-control" type="date" id="startDate" [formControl]="startDate">
+          <select class="form-control" id="type">
+            <option> --- </option>
+            <option *ngFor="let type of reservationTypes" (click)="setReservationType(type)"> {{type}} </option>
+          </select>
+        </div>
+      </div>
 
-          <div [hidden]="startDate.valid || startDate.untouched" class="alert alert-danger">
+      <div class="form-group row" *ngIf="reservationType == 'd'">
+        <label for="date" class="col-sm-4 col-form-label">A foglalás dátuma*</label>
+        <div class="col-sm-8">
+          <input class="form-control" type="date" id="date" aria-describedby="dayHelp" [formControl]="date">
+          <small [hidden]="date.untouched" id="dayHelp" class="form-text text-muted">A választott nap: {{ getDayOfWeek(date.value) }} </small>
+          <div [hidden]="date.valid || date.untouched" class="alert alert-danger">
             <div>
-              Probléma a foglalás kezdetének kiválasztása során:
+              Probléma a foglalás dátumának kiválasztása során:
             </div>
-            <div [hidden]="!startDate.hasError('required')">
-              A foglalás kezdetét meg kell adni.
+            <div [hidden]="!date.hasError('required')">
+              A foglalás dátumát meg kell adni.
             </div>
           </div>
 
         </div>
       </div>
 
-      <div class="form-group row">
-        <label for="endDate" class="col-sm-4 col-form-label">A foglalás végének dátuma*</label>
-        <div class="col-sm-8">
-          <input class="form-control" type="date" id="endDate" [formControl]="endDate">
-
-          <div [hidden]="endDate.valid || endDate.untouched" class="alert alert-danger">
-            <div>
-              Probléma a foglalás végének kiválasztása során:
-            </div>
-            <div [hidden]="!endDate.hasError('required')">
-              A foglalás végét meg kell adni.
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <div class="form-group row">
+      <div class="form-group row" *ngIf="reservationType == 's'">
         <label for="day" class="col-sm-4 col-form-label">Nap*</label>
         <div class="col-sm-8">
           <select class="form-control" id="day" [formControl]="day">
@@ -162,6 +176,11 @@
 
         </div>
       </div>
+      
+      <div class="form-group">
+        <label for="note">Megjegyzés:</label>
+        <textarea class="form-control" rows="5" id="note" [formControl]="note"></textarea>
+      </div> 
 
       <div class="btn-padding">
         <button type="submit" class="btn btn-primary" [disabled]="!reservationForm.valid">Hozzáadás</button>

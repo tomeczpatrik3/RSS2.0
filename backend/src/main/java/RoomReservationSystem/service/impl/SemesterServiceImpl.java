@@ -1,5 +1,6 @@
 package RoomReservationSystem.service.impl;
 
+import RoomReservationSystem.dto.SemesterDTO;
 import RoomReservationSystem.model.Semester;
 import RoomReservationSystem.repository.SemesterRepository;
 import RoomReservationSystem.service.SemesterService;
@@ -76,4 +77,15 @@ public class SemesterServiceImpl implements SemesterService {
     public void deleteByName(String name) {
         semesterRepository.deleteByName(name);
     }
+    
+    /**
+     * A DTO objektum alapján történő keresést megvalósító függvény
+     * (Annak ismeretében hogy melyik attribútum egyedi)
+     * @param   semesterDTO    A DTO objektum
+     * @return                 A Semester objektum ha létezik
+     */
+    @Override
+    public Semester findByDTO(SemesterDTO semesterDTO) {
+        return semesterRepository.findByName(semesterDTO.getName());
+    }  
 }

@@ -23,4 +23,5 @@ public interface UserService extends UserDetailsService {
     List<User> findAll();
     List<User> findByName(String name);
     List<String> getNames();
+    User findByDTO(UserDTO userDTO);
 }

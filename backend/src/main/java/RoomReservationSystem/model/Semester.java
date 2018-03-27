@@ -57,8 +57,8 @@ public class Semester extends BaseEntity{
     public static Semester toSemester(SemesterDTO semesterDTO) {
         return new Semester(
                 semesterDTO.getName(),
-                DateUtils.stringToDate(semesterDTO.getStartDate()),
-                DateUtils.stringToDate(semesterDTO.getEndDate()),
+                DateUtils.getDate(semesterDTO.getStartDate()),
+                DateUtils.getDate(semesterDTO.getEndDate()),
                 Collections.emptyList());
     }
 }

@@ -1,5 +1,6 @@
 package RoomReservationSystem.service;
 
+import RoomReservationSystem.dto.SemesterDTO;
 import RoomReservationSystem.model.Semester;
 import java.util.List;
 
@@ -15,4 +16,5 @@ public interface SemesterService {
     Semester findByName(String name);
     void delete(Semester semester);
     void deleteByName(String name);
+    Semester findByDTO(SemesterDTO semesterDTO);
 }

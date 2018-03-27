@@ -151,4 +151,15 @@ public class UserServiceImpl implements UserService   {
         }
         return names;
     }
+    
+    /**
+     * A DTO objektum alapján történő keresést megvalósító függvény
+     * (Annak ismeretében hogy melyik attribútum egyedi)
+     * @param   userDTO    A DTO objektum
+     * @return             A User objektum ha létezik
+     */
+    @Override
+    public User findByDTO(UserDTO userDTO) {
+        return userRepository.findByUsername(userDTO.getUsername());
+    }  
 }

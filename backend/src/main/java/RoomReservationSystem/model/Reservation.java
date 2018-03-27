@@ -1,20 +1,17 @@
 package RoomReservationSystem.model;
 
-import RoomReservationSystem.dto.ReservationDTO;
-import RoomReservationSystem.util.DateUtils;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
-import java.util.Date;
+import java.util.Collections;
+import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -32,35 +29,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "reservations")
-public class Reservation extends BaseEntity {
-
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "start_date")
-    private Date startDate; /*A foglalás kezdete (dátum)*/
-    
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "end_date")
-    private Date endDate;   /*A foglalás vége (dátum)*/
-    
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "day")
-    private String day; /*A foglalás napja*/
-    
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "start_time")
-    private String startTime; /*A foglalás kezdete (időpont)*/
-    
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "end_time")
-    private String endTime; /*A foglalás vége (időpont)*/
+public class Reservation extends BaseEntity {    
     
     @Basic(optional = false)
     @NotNull
@@ -92,10 +61,14 @@ public class Reservation extends BaseEntity {
     @JoinColumn(name = "semester", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Semester semester;  /*A foglaláshoz tartozó félév*/
+    
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservation")
+    private List<ReservationDate> dateList; /*A foglalt dátumok*/
  
     /**
      * A ReservationDTO objektum Reservation objektummá konvertálását végrehajtó megtódus
-     * @param reservationDTO    A ReservationDTO objektum
+     * @param note              A foglaláshoz tartozó megjegyzés
      * @param classroom         A foglaláshoz tartozó tanterem
      * @param subject           A foglaláshoz tartozó tantárgy
      * @param user              A foglaláshoz tartozó felhasználó
@@ -104,25 +77,21 @@ public class Reservation extends BaseEntity {
      * @return                  A Reservation objektum
      */
     public static Reservation toReservation(
-            ReservationDTO reservationDTO,
-            Classroom classroom,
-            Subject subject,
             User user,
+            Semester semester,
+            Subject subject,
+            Classroom classroom,
             Status status,
-            Semester semester
+            String note
         ) {
         return new Reservation(
-                DateUtils.stringToDate(reservationDTO.getStartDate()),
-                DateUtils.stringToDate(reservationDTO.getEndDate()),
-                reservationDTO.getDay(),
-                reservationDTO.getStartTime(),
-                reservationDTO.getEndTime(),
-                reservationDTO.getNote(),
+                note,
                 classroom,
                 subject,
                 user,
                 status,
-                semester
+                semester,
+                Collections.emptyList()
         );
     }
 }

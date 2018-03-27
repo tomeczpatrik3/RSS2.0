@@ -76,12 +76,10 @@ public class ReservationValidator implements Validator {
     public void validate(Object target, Errors errors) {
         ValidationUtils.rejectIfEmpty(errors, "username", "reservation.username.empty", USER_USERNAME_EMPTY);
         ValidationUtils.rejectIfEmpty(errors, "subjectCode", "reservation.subjectCode.empty", SUBJECT_CODE_EMPTY);
-        ValidationUtils.rejectIfEmpty(errors, "room", "reservation.room.empty", CLASSROOM_NAME_EMPTY);
+        ValidationUtils.rejectIfEmpty(errors, "roomName", "reservation.roomName.empty", CLASSROOM_NAME_EMPTY);
         ValidationUtils.rejectIfEmpty(errors, "day", "reservation.day.empty", RESERVATION_DAY_EMPTY);
         ValidationUtils.rejectIfEmpty(errors, "startTime", "reservation.startTime.empty", RESERVATION_START_TIME_EMPTY);
         ValidationUtils.rejectIfEmpty(errors, "endTime", "reservation.endTime.empty", RESERVATION_END_TIME_EMPTY);
-        ValidationUtils.rejectIfEmpty(errors, "startDate", "reservation.startDate.empty", RESERVATION_START_DATE_EMPTY);
-        ValidationUtils.rejectIfEmpty(errors, "endDate", "reservation.endDate.empty", RESERVATION_END_DATE_EMPTY);
 
         ReservationDTO res = (ReservationDTO)target;     
 
@@ -110,39 +108,12 @@ public class ReservationValidator implements Validator {
         }
         
         //Classroom:
-        if (this.classroomService.findByName( res.getRoom() ) == null) {
-            errors.rejectValue("room", "reservation.room.notExists", CLASSROOM_NOT_EXISTS);
+        if (this.classroomService.findByName( res.getRoomName() ) == null) {
+            errors.rejectValue("roomName", "reservation.roomName.notExists", CLASSROOM_NOT_EXISTS);
         }
         
-        if (res.getRoom() != null && res.getRoom().length()<3 ||  res.getRoom().length()>30) {
-            errors.rejectValue("room", "reservation.room.size", CLASSROOM_NAME_SIZE);
-        }
-        
-        //Own attributes:
-        if (res.getDay() != null && res.getDay().length() < 3 || res.getDay().length()>12) {
-            errors.rejectValue("day", "reservation.day.size", RESERVATION_DAY_SIZE);
-        }
-      
-        //Date:
-        if (res.getStartDate() != null && !DATE_REGEX.matcher(res.getStartDate()).matches()) {
-            errors.rejectValue("startDate", "reservation.startDate.invalid", RESERVATION_START_DATE_INVALID);
-        }
-        
-        if (res.getEndDate() != null && !DATE_REGEX.matcher(res.getEndDate()).matches()) {
-            errors.rejectValue("endDate", "reservation.endDate.invalid", RESERVATION_END_DATE_INVALID);
-        }
-        
-        //Dátummá alakítás:
-        try {
-            Date startDate =  dateFormat.parse(res.getStartDate());
-            Date endDate = dateFormat.parse(res.getEndDate());
-            
-            if (!startDate.before(endDate)) {
-                errors.rejectValue("endDate", "reservation.endDate.beforeStartDate", RESERVATION_END_DATE_BEFORE_START_DATE);
-            }   
-        } catch (ParseException ex) {
-            errors.rejectValue("startDate", "reservation.startDate.invalid", RESERVATION_START_DATE_INVALID);
-            errors.rejectValue("endDate", "reservation.endDate.invalid", RESERVATION_END_DATE_INVALID);
+        if (res.getRoomName() != null && res.getRoomName().length()<3 ||  res.getRoomName().length()>30) {
+            errors.rejectValue("roomName", "reservation.roomName.size", CLASSROOM_NAME_SIZE);
         }
         
         if (res.getStartTime() != null && !TIME_REGEX.matcher(res.getStartTime()).matches()) {

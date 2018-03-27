@@ -1,7 +1,12 @@
 package RoomReservationSystem.dto;
 
+import static RoomReservationSystem.dto.ClassroomDTO.toClassroomDTO;
+import static RoomReservationSystem.dto.SubjectDTO.toSubjectDTO;
+import static RoomReservationSystem.dto.UserDTO.toUserDTO;
 import RoomReservationSystem.model.Reservation;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,37 +16,25 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReservationDTO {
-    private String username;
-    private String name;
-    private String subjectName;
-    private String subjectCode;
-    private String building;
-    private String room;
-    private String day;
-    private String startTime;
-    private String endTime;
-    private String startDate;
-    private String endDate;
     private String semester;
+    private UserDTO user;
+    private SubjectDTO subject;
+    private ClassroomDTO classroom;
     private String note;
     private String status;
+    private String type;
+    private Date[] dates;
     
     public static ReservationDTO toReservationDTO(Reservation reservation) { 
         return new ReservationDTO(
-                reservation.getUser().getUsername(),
-                reservation.getUser().getName(),
-                reservation.getSubject().getName(),
-                reservation.getSubject().getCode(),
-                reservation.getClassroom().getBuilding().getName(),
-                reservation.getClassroom().getName(),
-                reservation.getDay(),
-                reservation.getStartTime(),
-                reservation.getEndTime(),
-                reservation.getStartDate().toString(),
-                reservation.getEndDate().toString(),
                 reservation.getSemester().getName(),
+                toUserDTO(reservation.getUser()),
+                toSubjectDTO(reservation.getSubject()),
+                toClassroomDTO(reservation.getClassroom()),
                 reservation.getNote(),
-                reservation.getStatus().getName()
+                reservation.getStatus().getName(),
+                "",
+                Collections.emptyList()
         );
     }
     

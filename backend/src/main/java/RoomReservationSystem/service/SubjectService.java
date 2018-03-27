@@ -19,4 +19,5 @@ public interface SubjectService {
     List<Subject> findAll();
     List<Subject> findByName(String name);
     List<String> getSubjectNames();
+    Subject findByDTO(SubjectDTO subjectDTO);
 }

@@ -18,4 +18,5 @@ public interface BuildingService {
     Building findById(int id);
     List<Building> findAll();
     List<String> getNames();
+    Building findByDTO(BuildingDTO buildingDTO);
 }
