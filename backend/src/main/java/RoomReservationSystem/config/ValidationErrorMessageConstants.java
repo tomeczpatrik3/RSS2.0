@@ -3,6 +3,10 @@ package RoomReservationSystem.config;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 
+/**
+ * A validálással kapcsolatos hibaüzeneteket tartalmazó osztály
+ * @author Tomecz Patrik
+ */
 public class ValidationErrorMessageConstants {
     //CLASSROOM:
     public static final String CLASSROOM_NAME_EMPTY = "A tanterem neve nem lehet üres!";

@@ -27,12 +27,14 @@ import RoomReservationSystem.service.impl.UserServiceImpl;
 import io.jsonwebtoken.Claims;
 import java.util.stream.Collectors;
 import javax.servlet.ServletContext;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+/**
+ * Az Authentikációért felelős osztály (filter)
+ * @author Tomecz Patrik
+ */
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     
     private AuthenticationManager authenticationManager;

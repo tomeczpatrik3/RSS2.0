@@ -2,9 +2,10 @@ package RoomReservationSystem.model;
 
 import RoomReservationSystem.dto.SemesterDTO;
 import RoomReservationSystem.util.DateUtils;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -13,10 +14,13 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
 import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import org.joda.time.DateTime;
 
 /**
  * Szemeszter entitás
@@ -38,12 +42,12 @@ public class Semester extends BaseEntity{
     @Basic(optional = false)
     @NotNull
     @Column(name = "start_date")
-    private Date startDate; /*A szemeszter kezdete (dátum)*/
+    private DateTime startDate; /*A szemeszter kezdete (dátum)*/
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "end_date")
-    private Date endDate; /*A szemeszter vége (dátum)*/
+    private DateTime endDate; /*A szemeszter vége (dátum)*/
     
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "semester")

@@ -12,10 +12,8 @@ import RoomReservationSystem.service.SubjectService;
 import RoomReservationSystem.service.UserService;
 import static RoomReservationSystem.model.Reservation.toReservation;
 import RoomReservationSystem.model.ReservationDate;
+import RoomReservationSystem.service.ReservationDateService;
 import RoomReservationSystem.service.SemesterService;
-import static RoomReservationSystem.util.DateUtils.generateReservationDate;
-import static RoomReservationSystem.util.DateUtils.getDate;
-import java.util.ArrayList;
 
 import java.util.List;
 
@@ -45,6 +43,9 @@ public class ReservationServiceImpl implements ReservationService{
     
     @Autowired
     SemesterService semesterService;
+    
+    @Autowired
+    ReservationDateService reservationDateService;
     
 
     /**
@@ -78,26 +79,12 @@ public class ReservationServiceImpl implements ReservationService{
                 )
         );
         
-        List<ReservationDate> dates = new ArrayList<>();
-
-        if (reservationDTO.getStatus().equals("day")) {
-            dates.add(generateReservationDate(
-                    reservation,
-                    getDate(reservationDTO.getDates()[0]),
-                    reservationDTO.getStartTime(),
-                    reservationDTO.getEndTime()
-            ));
-        }
-        else { /*semester --> féléves foglalás*/
-            dates = generateReservationDates(
-                    semesterService.findByName(reservationDTO.getSemester()),
-                    reservation,
-                    reservationDTO.getDay(),
-                    reservationDTO.getStartTime(),
-                    reservationDTO.getEndTime()                    
-            );
-        }
+        reservation.setDateList(reservationDateService.saveReservationDates(
+                reservation,
+                reservationDTO.getDates()
+        ));
        
+        return reservation;
     }
     
     /**

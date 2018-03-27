@@ -94,4 +94,15 @@ public class Reservation extends BaseEntity {
                 Collections.emptyList()
         );
     }
+    
+    public String[] getDates() {
+        String[] dates = new String[dateList.size()*2];
+        int i = 0;
+        for (ReservationDate resDate: dateList) {
+            dates[i] = resDate.getStartTime().toString();
+            dates[i+1] = resDate.getEndTime().toString();
+            i+=2;
+        }
+        return dates;
+    }
 }
