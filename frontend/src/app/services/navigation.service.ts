@@ -27,6 +27,7 @@ export class NavigationService {
 
         new MenuItem("Dropdown", "Űrlapok", "", "ROLE_USER", [
             new MenuItem("Simple", "Új foglalás", "/addReservation", "ROLE_USER"),
+            new MenuItem("Simple", "Új szemeszter", "/addSemester", "ROLE_ADMIN"),
             new MenuItem("Simple", "Új felhasználó", "/addUser", "ROLE_ADMIN"),
             new MenuItem("Simple", "Új tanterem", "/addClassroom", "ROLE_ADMIN"),
             new MenuItem("Simple", "Új tantárgy", "/addSubject", "ROLE_ADMIN"),

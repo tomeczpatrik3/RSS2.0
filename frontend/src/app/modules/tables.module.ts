@@ -8,6 +8,7 @@ import { UserService } from '../services/user.service';
 import { ReservationService } from '../services/reservation.service';
 import { SubjectService } from '../services/subject.service';
 import { BuildingService } from '../services/building.service';
+import { SemesterService } from '../services/semester.service';
 
 import { ClassroomTableComponent } from '../components/tables/classroom-table/classroom-table.component';
 import { UserTableComponent } from '../components/tables/user-table/user-table.component';
@@ -18,6 +19,7 @@ import { BuildingTableComponent } from '../components/tables/building-table/buil
 import { DetailedReservationsComponent } from '../components/detailed-reservations/detailed-reservations.component';
 import { PendingReservationsComponent } from '../components/pending-reservations/pending-reservations.component';
 import { PendingReservationsTableComponent } from '../components/tables/pending-reservations-table/pending-reservations-table.component';
+import { SemesterTableComponent } from '../components/tables/semester-table/semester-table.component';
 
 @NgModule({
   imports: [
@@ -33,14 +35,16 @@ import { PendingReservationsTableComponent } from '../components/tables/pending-
     BuildingTableComponent,
     DetailedReservationsComponent,
     PendingReservationsComponent,
-    PendingReservationsTableComponent
+    PendingReservationsTableComponent,
+    SemesterTableComponent
   ], //Komponensek, pipe-ok
   providers: [
       ClassroomService,
       UserService,
       ReservationService,
       SubjectService,
-      BuildingService
+      BuildingService,
+      SemesterService
   ], //Service(s)
   exports: [
     ClassroomTableComponent,
@@ -51,7 +55,8 @@ import { PendingReservationsTableComponent } from '../components/tables/pending-
     BuildingTableComponent,
     DetailedReservationsComponent,
     PendingReservationsComponent,
-    PendingReservationsTableComponent
+    PendingReservationsTableComponent,
+    SemesterTableComponent
   ] //Amit akarunk, hogy más komponens használhasson
 })
 export class TablesModule {}

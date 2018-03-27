@@ -4,13 +4,13 @@ import RoomReservationSystem.model.Reservation;
 import RoomReservationSystem.model.ReservationDate;
 import RoomReservationSystem.repository.ReservationDateRepository;
 import RoomReservationSystem.service.ReservationDateService;
-import static RoomReservationSystem.util.DateUtils.getDate;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import static RoomReservationSystem.util.DateUtils.getDateTime;
 
 /**
  * A foglalásokhoz tartozó dátumokkal kapcsolatos műveletekért felelős osztály
@@ -60,10 +60,9 @@ public class ReservationDateServiceImpl implements ReservationDateService {
     public List<ReservationDate> saveReservationDates(Reservation reservation, String[] dates) {
         List<ReservationDate> reservationDates = new ArrayList<>();
         for(int i=0; i<dates.length; i+=2) {
-            reservationDates.add(save(
-                    new ReservationDate(
-                            getDate(dates[i]),
-                            getDate(dates[i+1]),
+            reservationDates.add(save(new ReservationDate(
+                            getDateTime(dates[i]),
+                            getDateTime(dates[i+1]),
                             reservation
                     )
             ));

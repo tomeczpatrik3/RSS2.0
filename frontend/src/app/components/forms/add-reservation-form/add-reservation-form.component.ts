@@ -13,6 +13,8 @@ import { BuildingService } from '../../../services/building.service';
 import { Router } from '@angular/router';
 import { Subject } from '../../../models/Subject';
 import { Building } from '../../../models/Building';
+import { ReservationForm } from '../../../models/ReservationForm';
+import { SemesterService } from '../../../services/semester.service';
 
 @Component({
   selector: 'app-add-reservation-form',
@@ -26,6 +28,7 @@ export class AddReservationFormComponent implements OnInit {
   roomNames: string[];
   subjects: Subject[];
   buildings: Building[];
+  semesterNames: string[];
 
   /**
    * A foglalás típusának beállításához szükséges adattagok:
@@ -115,6 +118,7 @@ export class AddReservationFormComponent implements OnInit {
     private subjectService: SubjectService,
     private reservationService: ReservationService,
     private buildingService: BuildingService,
+    private semesterService: SemesterService,
     private builder: FormBuilder,
     private dialogService: DialogService,
     private validatorService: ValidatorService,
@@ -155,20 +159,28 @@ export class AddReservationFormComponent implements OnInit {
   }
 
   /**
+   * A félévek lekérdezése:
+   */
+  getSemesterNames() {
+    this.semesterService.getSemesterNames().subscribe(
+      res => this.semesterNames = res
+    )
+  }
+
+  /**
    * Az űrlap foglalássá konvertálása:
    */
-  formToReservation(): Reservation {
+  formToReservation(): ReservationForm {
     const subject_details = this.getSubjectDetails();
 
-    return new Reservation(
+    return new ReservationForm(
       this.authService.getUsername(),
+      this.reservationForm.value.semester,
       subject_details[0].trim(),
-      subject_details[1].trim(),
       this.reservationForm.value.building,
       this.reservationForm.value.room,
-      this.reservationForm.value.day,      
-      this.reservationForm.value.startTime,
-      this.reservationForm.value.endTime
+      this.reservationForm.value.note,
+      ["ASD"] //TODO GENERATE DATES!!
     );
   }
 

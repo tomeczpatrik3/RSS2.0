@@ -4,6 +4,7 @@ import { Reservation } from '../models/Reservation';
 import { Routes } from '../config/routes.config';
 import { HttpService } from './http.service';
 import { Observable } from 'rxjs/Observable';
+import { ReservationForm } from '../models/ReservationForm';
 
 @Injectable()
 export class ReservationService {
@@ -36,7 +37,7 @@ export class ReservationService {
     return <Observable<Reservation>>this.http.get(Routes.getUrl(Routes.RESERVATION_SET_STATUS)+"?id="+id+"&status="+status);
   }
 
-  createRes(res: Reservation) {
+  createRes(res: ReservationForm) {
     return <Observable<Reservation[]>>this.http.post(Routes.getUrl(Routes.RESERVATION_CREATE_RES), res);
   }
 

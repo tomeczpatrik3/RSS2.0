@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,7 +22,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import org.joda.time.DateTime;
 
 /**
  * Szemeszter entitás
@@ -42,12 +43,12 @@ public class Semester extends BaseEntity{
     @Basic(optional = false)
     @NotNull
     @Column(name = "start_date")
-    private DateTime startDate; /*A szemeszter kezdete (dátum)*/
+    private Date startDate; /*A szemeszter kezdete (dátum)*/
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "end_date")
-    private DateTime endDate; /*A szemeszter vége (dátum)*/
+    private Date endDate; /*A szemeszter vége (dátum)*/
     
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "semester")

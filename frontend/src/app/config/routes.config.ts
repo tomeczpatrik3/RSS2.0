@@ -40,6 +40,12 @@ export class Routes {
     static BUILDING_CREATE_BUILDING: string = "building/createBuilding";
     static BUILDING_DELETE_BY_NAME: string = "building/deleteByName";
 
+    static SEMESTER: string = "semester";
+    static SEMESTER_GET_NAMES: string = "semester/getSemesterNames";
+    static SEMESTER_CREATE_SEMESTER: string ="semester/createSemester";
+    static SEMESTER_DELETE_BY_NAME: string="semester/deleteByName";
+
+
     static getUrl(route: string): string {
       return `http://localhost:8080/api/${route}`;
     }

@@ -10,7 +10,7 @@
         <div class="col-sm-8">
           <select class="form-control" id="semester" [formControl]="semester">
             <option> --- </option>
-            <option *ngFor="let semester of semesters"> {{semester}} </option>
+            <option *ngFor="let semester of semesterNames"> {{semester}} </option>
           </select>
 
           <div [hidden]="semester.valid || semester.untouched" class="alert alert-danger">
