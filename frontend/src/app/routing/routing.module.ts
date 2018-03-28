@@ -28,6 +28,7 @@ import { PendingReservationsTableComponent } from '../components/tables/pending-
 import { PendingReservationsComponent } from '../components/pending-reservations/pending-reservations.component';
 import { AddSemesterFormComponent } from '../components/forms/add-semester-form/add-semester-form.component';
 import { SemesterTableComponent } from '../components/tables/semester-table/semester-table.component';
+import { DailyViewComponent } from '../components/tables/reservation/daily-view/daily-view.component';
 
 
 const routes: Routes = [
@@ -109,6 +110,14 @@ const routes: Routes = [
   {
     path: 'semesters',
     component: SemesterTableComponent,
+    canActivate: [RoleGuard], 
+    data: { 
+      authority: Authorities.ROLE_ADMIN
+    } 
+  },
+  {
+    path: 'dailyView',
+    component: DailyViewComponent,
     canActivate: [RoleGuard], 
     data: { 
       authority: Authorities.ROLE_ADMIN

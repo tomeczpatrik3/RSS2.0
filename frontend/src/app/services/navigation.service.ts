@@ -12,6 +12,8 @@ export class NavigationService {
 
         new MenuItem("Simple", "Foglalások", "/reservations", "ANY"),
 
+        new MenuItem("Simple", "Napi nézet", "/dailyView", "ROLE_ADMIN"),
+
         new MenuItem("Dropdown", "Foglalásaim", "", "ROLE_USER", [
             new MenuItem("Simple", "Táblázatos megjelenítés", "/myReservations", "ROLE_USER"),
             new MenuItem("Simple", "Részletes megjelenítés", "/myReservationsDetailed", "ROLE_USER")

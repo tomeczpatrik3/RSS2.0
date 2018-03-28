@@ -36,6 +36,7 @@ import { InfoDialogComponent } from './components/dialogs/info-dialog/info-dialo
 import { LogoutComponent } from './components/logout/logout.component';
 
 import { UpperCasePipe } from '@angular/common';
+import { DailyViewComponent } from './components/tables/reservation/daily-view/daily-view.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { UpperCasePipe } from '@angular/common';
     InfoDialogComponent,
     QuestionDialogComponent,
     LogoutComponent,
+    DailyViewComponent,
   ],
   imports: [
     BrowserModule,
