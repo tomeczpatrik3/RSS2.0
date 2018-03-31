@@ -11,12 +11,12 @@ import { SubjectService } from '../services/subject.service';
 import { BuildingService} from '../services/building.service';
 import { SemesterService } from '../services/semester.service';
 
-import { AddClassroomFormComponent } from '../components/forms/add-classroom-form/add-classroom-form.component';
-import { AddReservationFormComponent } from '../components/forms/add-reservation-form/add-reservation-form.component';
-import { AddSubjectFormComponent } from '../components/forms/add-subject-form/add-subject-form.component';
-import { AddUserFormComponent } from '../components/forms/add-user-form/add-user-form.component';
-import { AddBuildingFormComponent } from '../components/forms/add-building-form/add-building-form.component';
-import { AddSemesterFormComponent } from '../components/forms/add-semester-form/add-semester-form.component';
+import { AddClassroomFormComponent } from '../components/classroom/add-classroom-form/add-classroom-form.component';
+import { AddReservationFormComponent } from '../components/reservation/add-reservation-form/add-reservation-form.component';
+import { AddSubjectFormComponent } from '../components/subject/add-subject-form/add-subject-form.component';
+import { AddUserFormComponent } from '../components/user/add-user-form/add-user-form.component';
+import { AddBuildingFormComponent } from '../components/building/add-building-form/add-building-form.component';
+import { AddSemesterFormComponent } from '../components/semester/add-semester-form/add-semester-form.component';
 
 @NgModule({
   imports: [

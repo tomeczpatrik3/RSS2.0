@@ -1,5 +1,6 @@
 package RoomReservationSystem.repository;
 
+import RoomReservationSystem.model.Classroom;
 import RoomReservationSystem.model.Reservation;
 import RoomReservationSystem.model.Status;
 import RoomReservationSystem.model.User;
@@ -16,4 +17,5 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
     Reservation findById(int id);
     List<Reservation> findByUser(User user);
     List<Reservation> findByStatus(Status status);
+    List<Reservation> findByClassroom(Classroom classroom);
 }

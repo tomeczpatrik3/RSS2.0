@@ -1,8 +1,9 @@
 package RoomReservationSystem.service;
 
-import RoomReservationSystem.dto.ReservationDTO;
+import RoomReservationSystem.dto.ReservationFormDTO;
+import RoomReservationSystem.model.Classroom;
 import RoomReservationSystem.model.Reservation;
-
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -12,10 +13,13 @@ import java.util.List;
  */
 public interface ReservationService {
     void delete(Reservation res);
-    Reservation save(ReservationDTO reservatioNDTO);
+    Reservation save(ReservationFormDTO reservationFormDTO);
     Reservation findById(int id);
     Reservation setStatus(int id, String status);
     List<Reservation> getAll();
     List<Reservation> findByUsername(String username);
     List<Reservation> findByStatus(String statusName);
+    List<Reservation> findByClassroom(Classroom classroom);
+    List<Reservation> findByDate(Date date);
+    List<Reservation> findByClassroomAndDate(String building, String classroom, Date date);
 }

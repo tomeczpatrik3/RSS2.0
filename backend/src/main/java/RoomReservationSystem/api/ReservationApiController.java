@@ -8,6 +8,8 @@ import static RoomReservationSystem.config.ValidationErrorMessageConstants.conca
 import static RoomReservationSystem.dto.ReservationDTO.toReservationDTO;
 import static RoomReservationSystem.dto.ReservationDTO.toReservationDTOList;
 import static RoomReservationSystem.config.ValidationErrorMessageConstants.RESERVATION_NOT_EXISTS;
+import RoomReservationSystem.dto.ReservationFormDTO;
+import static RoomReservationSystem.util.DateUtils.getDate;
 
 import java.util.List;
 
@@ -47,10 +49,10 @@ public class ReservationApiController {
     
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @PostMapping("/createRes")
-    public ResponseEntity createRes(@RequestBody ReservationDTO reservationDTO, BindingResult bindingResult) {
-        reservationValidator.validate(reservationDTO, bindingResult);
+    public ResponseEntity createRes(@RequestBody ReservationFormDTO reservationFormDTO, BindingResult bindingResult) {
+        reservationValidator.validate(reservationFormDTO, bindingResult);
         if (!bindingResult.hasErrors()) {
-            Reservation saved = reservationService.save(reservationDTO);
+            Reservation saved = reservationService.save(reservationFormDTO);
             return ResponseEntity.status(HttpStatus.CREATED).body(toReservationDTO(saved));           
         }
         else {
@@ -64,6 +66,21 @@ public class ReservationApiController {
     public List<ReservationDTO> findByStatus(@PathVariable String status){
 	return toReservationDTOList(reservationService.findByStatus(status));
     } 
+    
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @GetMapping("/findByClassroomAndDate")
+    public List<ReservationDTO> findByClassroomAndDate(
+            @RequestParam("building") String building,
+            @RequestParam("classroom") String classroom,
+            @RequestParam("date") String date
+    ){
+	return toReservationDTOList(
+                reservationService.findByClassroomAndDate(
+                        building,
+                        classroom,
+                        getDate(date)
+                ));
+    }
     
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/setStatus")

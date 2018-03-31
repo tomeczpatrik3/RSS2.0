@@ -1,6 +1,8 @@
 package RoomReservationSystem.service.impl;
 
 import RoomReservationSystem.dto.ReservationDTO;
+import RoomReservationSystem.dto.ReservationFormDTO;
+import RoomReservationSystem.model.Classroom;
 import RoomReservationSystem.model.Reservation;
 import RoomReservationSystem.model.Status;
 import RoomReservationSystem.model.User;
@@ -14,8 +16,12 @@ import static RoomReservationSystem.model.Reservation.toReservation;
 import RoomReservationSystem.model.ReservationDate;
 import RoomReservationSystem.service.ReservationDateService;
 import RoomReservationSystem.service.SemesterService;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,26 +69,30 @@ public class ReservationServiceImpl implements ReservationService{
      * --> Beállítjuk a foglaláshoz tartozó tantermet, tantárgyat, felhasználót és státuszt is
      * --> A státusz alapértelmezetten "PENDING", azaz feldolgozás alatt lesz
      * 
-     * @param   reservationDTO      A rögzíteni kívánt foglalás (DTO)
-     * @return                      A rögzített foglalás
+     * @param   reservationFormDTO      A rögzíteni kívánt foglalás (DTO)
+     * @return                          A rögzített foglalás
      */
     @Override
-    public Reservation save(ReservationDTO reservationDTO) {
+    public Reservation save(ReservationFormDTO reservationFormDTO) {
         Reservation reservation = reservationRepository.save(
                 toReservation(
-                        userService.findByDTO(reservationDTO.getUser()),                    /*A foglaláshoz tartozó felhasználó*/
-                        semesterService.findByName(reservationDTO.getSemester()),           /*A félév*/
-                        subjectService.findByDTO(reservationDTO.getSubject()),              /*A foglaláshoz tartozó tantárgy*/
-                        classroomService.findByDTO(reservationDTO.getClassroom()),          /*A foglaláshoz tartozó tanterem*/
-                        statusService.findByName("PENDING"),                                /*A foglalás státusza*/
-                        reservationDTO.getNote()                                            /*A foglaláshoz tartozó megjegyzés*/          
+                        userService.findByUsername(reservationFormDTO.getUsername()),               /*A foglaláshoz tartozó felhasználó*/
+                        semesterService.findByName(reservationFormDTO.getSemesterName()),           /*A félév*/
+                        subjectService.findByCode(reservationFormDTO.getSubjectCode()),             /*A foglaláshoz tartozó tantárgy*/
+                        classroomService.findByNameAndBuildingName(                                 /*A foglaláshoz tartozó tanterem*/
+                                reservationFormDTO.getRoomName(),
+                                reservationFormDTO.getBuildingName()),          
+                        statusService.findByName("PENDING"),                                        /*A foglalás státusza*/
+                        reservationFormDTO.getNote()                                                /*A foglaláshoz tartozó megjegyzés*/          
                 )
         );
         
+        /*
         reservation.setDateList(reservationDateService.saveReservationDates(
                 reservation,
-                reservationDTO.getDates()
+                reservationFormDTO.getDates()
         ));
+        */
        
         return reservation;
     }
@@ -139,5 +149,53 @@ public class ReservationServiceImpl implements ReservationService{
         Reservation res = reservationRepository.findById(id);
         res.setStatus(statusService.findByName(statusName));
         return res;
+    }
+    
+    /**
+     * A foglalások tanterem alapján történő kiválasztását megvalósító függvény
+     * @param   classroom   A tanterem
+     * @return              A foglalások egy listában
+     */
+    @Override
+    public List<Reservation> findByClassroom(Classroom classroom) {
+        return reservationRepository.findByClassroom(classroom);
+    }
+    
+    /**
+     * A foglalások egy adott dátum alapján történő kiválasztását megvalósító függvény
+     * @param   date    A dátum
+     * @return          A foglalások egy listában
+     */
+    @Override
+    public List<Reservation> findByDate(Date date) {
+        return reservationDateService.findByDate(date);
+    }
+    
+    /**
+     * A foglalások egy adott tanterem és adott dátum alapján történő kiválasztását megvalósító függvény
+     * @param   building    Az épület amiben a tanterem található
+     * @param   classroom   A tanterem
+     * @param   date        A dátum
+     * @return              A foglalások egy listában
+     */
+    @Override
+    public List<Reservation> findByClassroomAndDate(String building, String classroom, Date date) {
+        List<Reservation> foundByClassroom = findByClassroom(
+                classroomService.findByNameAndBuildingName(classroom, building)
+        );
+        List<Reservation> foundByDate = findByDate(date);
+        return  intersect(foundByClassroom, foundByDate);
+        
+    }
+    
+    /**
+     * Két Reservation objektumokat tartalmazó lista metszetének megkeresése:
+     * @param   listA   Az első lista
+     * @param   listB   A második lista
+     * @return          A metszet
+     */
+    private List<Reservation> intersect(List<Reservation> listA, List<Reservation> listB) {
+        listA.retainAll(listB);
+        return listA;
     }
 }

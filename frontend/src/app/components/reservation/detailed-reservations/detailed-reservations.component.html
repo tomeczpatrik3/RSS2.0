@@ -1,0 +1,48 @@
+<div class="container">
+  <h2>Részletes foglalási adatok, foglalások szerkesztése:</h2>
+</div>
+
+<div *ngIf="hasReservations">
+    <div class="card border-dark mb-3" *ngFor="let reservation of reservations">
+        <div class="card-header">
+          {{reservation.subjectCode}} | {{reservation.subjectName}}
+        </div>
+        
+        <div class="card-body">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th>{{reservation.building}}</th>
+                <td>{{reservation.room}}</td>
+                <td>{{reservation.day}}</td>
+                <td>{{reservation.startTime}}</td>
+                <td>{{reservation.endTime}}</td>
+                <td>{{reservation.startDate | date: 'yyyy-MM-dd'}}</td>
+                <td>{{reservation.endDate | date: 'yyyy-MM-dd'}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      
+        <div class="card-footer">
+          <button type="button" class="btn btn-secondary btn-sm btn-outline-danger float-right" (click)="delete(reservation)">Törlés</button>
+        </div>
+      </div>
+</div>
+
+
+<div *ngIf="!hasReservations">
+    <div class="card border-dark mb-3">
+      <div class="card-header">
+        <strong>Jelenleg nincs foglalásod a rendszerben!</strong>
+      </div>
+      
+      <div class="card-body">
+        <p>Új foglalást az "Űrlapok" menüpont alatt az "Új foglalás" gombra kattintva adhatsz le!</p>
+      </div>
+  
+      <div class="card-footer">
+  
+      </div>
+    </div>  
+</div>

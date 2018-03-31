@@ -1,6 +1,6 @@
 export class ReservationForm {
     username: string;
-    semester: string;
+    semesterName: string;
     subjectCode: string;
     buildingName: string;
     roomName: string;
@@ -9,7 +9,7 @@ export class ReservationForm {
 
     public constructor (
         username: string,
-        semester: string,
+        semesterName: string,
         subjectCode: string,
         buildingName: string,
         roomName: string,
@@ -17,7 +17,7 @@ export class ReservationForm {
         dates: string[]
     ) {
         this.username = username;
-        this.semester = semester;
+        this.semesterName = semesterName;
         this.subjectCode = subjectCode;
         this.buildingName = buildingName;
         this.roomName = roomName;

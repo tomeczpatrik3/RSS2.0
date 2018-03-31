@@ -1,0 +1,13 @@
+--Elso inditas eseten futtatando!
+/*
+DELETE FROM STATUSES;
+
+INSERT INTO STATUSES VALUES (1, 'A foglalas feldolgozas alatt!', 'PENDING');
+INSERT INTO STATUSES VALUES (2, 'A foglalas feldolgozva!', 'ACCEPTED');
+INSERT INTO STATUSES VALUES (3, 'A foglalas elutasitva!', 'DECLINED');
+
+DELETE FROM AUTHORITIES;
+
+INSERT INTO AUTHORITIES VALUES (1, 'ROLE_USER');
+INSERT INTO AUTHORITIES VALUES (2, 'ROLE_ADMIN');
+*/

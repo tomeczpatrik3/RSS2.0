@@ -10,16 +10,16 @@ import { SubjectService } from '../services/subject.service';
 import { BuildingService } from '../services/building.service';
 import { SemesterService } from '../services/semester.service';
 
-import { ClassroomTableComponent } from '../components/tables/classroom-table/classroom-table.component';
-import { UserTableComponent } from '../components/tables/user-table/user-table.component';
-import { ReservationTableComponent } from '../components/tables/reservation-table/reservation-table.component';
-import { MyReservationsTableComponent } from '../components/tables/my-reservations-table/my-reservations-table.component';
-import { SubjectTableComponent } from '../components/tables/subject-table/subject-table.component';
-import { BuildingTableComponent } from '../components/tables/building-table/building-table.component';
-import { DetailedReservationsComponent } from '../components/detailed-reservations/detailed-reservations.component';
-import { PendingReservationsComponent } from '../components/pending-reservations/pending-reservations.component';
-import { PendingReservationsTableComponent } from '../components/tables/pending-reservations-table/pending-reservations-table.component';
-import { SemesterTableComponent } from '../components/tables/semester-table/semester-table.component';
+import { ClassroomTableComponent } from '../components/classroom/classroom-table/classroom-table.component';
+import { UserTableComponent } from '../components/user/user-table/user-table.component';
+import { ReservationTableComponent } from '../components/reservation/reservation-table/reservation-table.component';
+import { MyReservationsTableComponent } from '../components/reservation/my-reservations-table/my-reservations-table.component';
+import { SubjectTableComponent } from '../components/subject/subject-table/subject-table.component';
+import { BuildingTableComponent } from '../components/building/building-table/building-table.component';
+import { DetailedReservationsComponent } from '../components/reservation/detailed-reservations/detailed-reservations.component';
+import { PendingReservationsComponent } from '../components/reservation/pending-reservations/pending-reservations.component';
+import { PendingReservationsTableComponent } from '../components/reservation/pending-reservations-table/pending-reservations-table.component';
+import { SemesterTableComponent } from '../components/semester/semester-table/semester-table.component';
 
 @NgModule({
   imports: [

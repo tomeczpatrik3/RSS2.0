@@ -11,6 +11,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import static RoomReservationSystem.util.DateUtils.getDateTime;
+import java.util.Date;
 
 /**
  * A foglalásokhoz tartozó dátumokkal kapcsolatos műveletekért felelős osztály
@@ -48,6 +49,20 @@ public class ReservationDateServiceImpl implements ReservationDateService {
     @Override
     public ReservationDate save(ReservationDate reservationDate) {
         return reservationDateRepository.save(reservationDate);
+    }
+    
+    /**
+     * Egy dátum alapján a foglalások keresését megvalósító függvény
+     * @param   date    A dátum
+     * @return          A foglalások egy listában
+     */
+    @Override
+    public List<Reservation> findByDate(Date date) {
+        List<Reservation> reservations = new ArrayList<>();
+        reservationDateRepository.findAll().stream().filter((reservationDate) -> (reservationDate.getStartTime().toDate().equals(date) && reservationDate.getEndTime().toDate().equals(date))).forEachOrdered((reservationDate) -> {
+            reservations.add(reservationDate.getReservation());
+        });
+        return reservations;
     }
     
     /**

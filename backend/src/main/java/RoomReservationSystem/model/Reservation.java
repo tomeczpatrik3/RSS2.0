@@ -95,6 +95,10 @@ public class Reservation extends BaseEntity {
         );
     }
     
+    /**
+     * Egy adott foglaláshoz tartozó dátumok String tömbbé konvertálása:
+     * @return  A dátumok egy String tömbben
+     */
     public String[] getDates() {
         String[] dates = new String[dateList.size()*2];
         int i = 0;

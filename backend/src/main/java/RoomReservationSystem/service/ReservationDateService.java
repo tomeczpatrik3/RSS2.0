@@ -2,6 +2,7 @@ package RoomReservationSystem.service;
 
 import RoomReservationSystem.model.Reservation;
 import RoomReservationSystem.model.ReservationDate;
+import java.util.Date;
 
 import java.util.List;
 
@@ -15,4 +16,5 @@ public interface ReservationDateService {
     void deleteByReservation(Reservation reservation);
     ReservationDate save(ReservationDate reservationDate);
     List<ReservationDate> saveReservationDates(Reservation reservation, String[] dates);
+    List<Reservation> findByDate(Date date);
 }

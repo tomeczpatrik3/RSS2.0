@@ -10,13 +10,14 @@ import { RoutingModule } from './routing/routing.module';
 import { AppComponent } from './components/app/app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { LoginFormComponent } from './components/forms/login-form/login-form.component';
-import { AddUserFormComponent } from './components/forms/add-user-form/add-user-form.component';
-import { AddClassroomFormComponent } from './components/forms/add-classroom-form/add-classroom-form.component';
-import { AddReservationFormComponent } from './components/forms/add-reservation-form/add-reservation-form.component';
-import { SubjectTableComponent } from './components/tables/subject-table/subject-table.component';
-import { AddSubjectFormComponent } from './components/forms/add-subject-form/add-subject-form.component';
-import { FilterReservationFormComponent } from './components/forms/filter-reservation-form/filter-reservation-form.component';
+import { LoginFormComponent } from './components/login-form/login-form.component';
+import { AddUserFormComponent } from './components/user/add-user-form/add-user-form.component';
+import { AddClassroomFormComponent } from './components/classroom/add-classroom-form/add-classroom-form.component';
+import { AddReservationFormComponent } from './components/reservation/add-reservation-form/add-reservation-form.component';
+import { SubjectTableComponent } from './components/subject/subject-table/subject-table.component';
+import { AddSubjectFormComponent } from './components/subject/add-subject-form/add-subject-form.component';
+import { FilterReservationFormComponent } from './components/reservation/filter-reservation-form/filter-reservation-form.component';
+
 import { ValidatorService } from './services/validator.service';
 import { MaterialModule } from './modules/material.module';
 import { TablesModule } from './modules/tables.module';
@@ -36,7 +37,7 @@ import { InfoDialogComponent } from './components/dialogs/info-dialog/info-dialo
 import { LogoutComponent } from './components/logout/logout.component';
 
 import { UpperCasePipe } from '@angular/common';
-import { DailyViewComponent } from './components/tables/reservation/daily-view/daily-view.component';
+import { DailyViewComponent } from './components/reservation/daily-view/daily-view.component';
 
 @NgModule({
   declarations: [
