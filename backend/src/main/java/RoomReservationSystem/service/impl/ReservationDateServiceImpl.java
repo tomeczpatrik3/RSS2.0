@@ -84,4 +84,18 @@ public class ReservationDateServiceImpl implements ReservationDateService {
         }
         return reservationDates;
     }
+    
+    @Override
+    public ReservationDate save(
+            Reservation reservation,
+            String startDateTime,
+            String endDateTime
+    ) {
+        return save(new ReservationDate(
+                getDateTime(startDateTime),
+                getDateTime(endDateTime),
+                reservation
+        ));
+    }
+
 }

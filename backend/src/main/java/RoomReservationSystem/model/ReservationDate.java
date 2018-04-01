@@ -41,4 +41,5 @@ public class ReservationDate extends BaseEntity {
     @JoinColumn(name = "reservation", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Reservation reservation;  /*A foglalás amihez a dátum tartozik*/
+    
 }

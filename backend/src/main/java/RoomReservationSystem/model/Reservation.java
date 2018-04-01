@@ -30,6 +30,12 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "reservations")
 public class Reservation extends BaseEntity {    
+
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "name")
+    private String name;  /*A foglalás neve*/
     
     @Basic(optional = false)
     @NotNull
@@ -68,6 +74,7 @@ public class Reservation extends BaseEntity {
  
     /**
      * A ReservationDTO objektum Reservation objektummá konvertálását végrehajtó megtódus
+     * @param name              A foglalás neve
      * @param note              A foglaláshoz tartozó megjegyzés
      * @param classroom         A foglaláshoz tartozó tanterem
      * @param subject           A foglaláshoz tartozó tantárgy
@@ -82,9 +89,11 @@ public class Reservation extends BaseEntity {
             Subject subject,
             Classroom classroom,
             Status status,
-            String note
+            String note,
+            String name
         ) {
         return new Reservation(
+                name,
                 note,
                 classroom,
                 subject,

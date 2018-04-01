@@ -8,6 +8,8 @@ import static RoomReservationSystem.config.ValidationErrorMessageConstants.conca
 import static RoomReservationSystem.dto.ReservationDTO.toReservationDTO;
 import static RoomReservationSystem.dto.ReservationDTO.toReservationDTOList;
 import static RoomReservationSystem.config.ValidationErrorMessageConstants.RESERVATION_NOT_EXISTS;
+import RoomReservationSystem.dto.EventReservationDTO;
+import RoomReservationSystem.dto.SemesterReservationDTO;
 import RoomReservationSystem.dto.SimpleReservationDTO;
 import static RoomReservationSystem.util.DateUtils.getDate;
 
@@ -48,17 +50,42 @@ public class ReservationApiController {
     }
     
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    @PostMapping("/createRes")
-    public ResponseEntity createRes(@RequestBody SimpleReservationDTO reservationFormDTO, BindingResult bindingResult) {
-        reservationValidator.validate(reservationFormDTO, bindingResult);
+    @PostMapping("/createSimpleReservation")
+    public ResponseEntity createSimpleReservation(@RequestBody SimpleReservationDTO simpleReservationDTO, BindingResult bindingResult) {
+        reservationValidator.validate(simpleReservationDTO, bindingResult);
         if (!bindingResult.hasErrors()) {
-            Reservation saved = reservationService.save(reservationFormDTO);
+            Reservation saved = reservationService.save(simpleReservationDTO);
             return ResponseEntity.status(HttpStatus.CREATED).body(toReservationDTO(saved));           
         }
         else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
+        }        
+    }
+    
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @PostMapping("/createSemesterReservation")
+    public ResponseEntity createSemesterReservation(@RequestBody SemesterReservationDTO semesterReservationDTO, BindingResult bindingResult) {
+        reservationValidator.validate(semesterReservationDTO, bindingResult);
+        if (!bindingResult.hasErrors()) {
+            Reservation saved = reservationService.save(semesterReservationDTO);
+            return ResponseEntity.status(HttpStatus.CREATED).body(toReservationDTO(saved));           
         }
-        
+        else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
+        }        
+    }
+    
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @PostMapping("/createEventReservation")
+    public ResponseEntity createEventReservation(@RequestBody EventReservationDTO eventReservationDTO, BindingResult bindingResult) {
+        reservationValidator.validate(eventReservationDTO, bindingResult);
+        if (!bindingResult.hasErrors()) {
+            Reservation saved = reservationService.save(eventReservationDTO);
+            return ResponseEntity.status(HttpStatus.CREATED).body(toReservationDTO(saved));           
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
+        }        
     }
     
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")

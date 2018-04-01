@@ -17,4 +17,8 @@ public class SemesterReservationDTO extends BaseReservationDTO {
     private String day;             /*A nap*/
     private String startTime;       /*A kezdés ideje*/
     private String endTime;         /*A befejezés ideje*/
+    
+    public String getReservationName() {
+        return String.format("Semester: %s - %s - %s", super.getUsername(), this.semesterName, this.subjectCode);
+    }
 }

@@ -16,4 +16,8 @@ public class SimpleReservationDTO extends BaseReservationDTO {
     private String subjectCode;         /*A tantárgy kódja*/
     private String startDateTime;       /*Az esemény kezdetének dátuma és ideje*/
     private String endDateTime;         /*Az esemény végének dátuma és ideje*/
+    
+    public String getReservationName() {
+        return String.format("Simple: %s - %s - %s", super.getUsername(), this.semesterName, this.subjectCode);
+    }
 }

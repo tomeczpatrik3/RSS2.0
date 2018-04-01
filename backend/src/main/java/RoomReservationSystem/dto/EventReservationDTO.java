@@ -15,4 +15,8 @@ public class EventReservationDTO extends BaseReservationDTO {
     private String eventName;       /*Az esemény neve*/
     private String startDateTime;   /*Az esemény kezdetének dátuma és ideje*/
     private String endDateTime;     /*Az esemény végének dátuma és ideje*/
+    
+    public String getReservationName() {
+        return String.format("%s", this.eventName);
+    }
 }
