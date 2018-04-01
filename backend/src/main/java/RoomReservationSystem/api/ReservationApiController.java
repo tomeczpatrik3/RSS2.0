@@ -8,7 +8,7 @@ import static RoomReservationSystem.config.ValidationErrorMessageConstants.conca
 import static RoomReservationSystem.dto.ReservationDTO.toReservationDTO;
 import static RoomReservationSystem.dto.ReservationDTO.toReservationDTOList;
 import static RoomReservationSystem.config.ValidationErrorMessageConstants.RESERVATION_NOT_EXISTS;
-import RoomReservationSystem.dto.ReservationFormDTO;
+import RoomReservationSystem.dto.SimpleReservationDTO;
 import static RoomReservationSystem.util.DateUtils.getDate;
 
 import java.util.List;
@@ -49,7 +49,7 @@ public class ReservationApiController {
     
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @PostMapping("/createRes")
-    public ResponseEntity createRes(@RequestBody ReservationFormDTO reservationFormDTO, BindingResult bindingResult) {
+    public ResponseEntity createRes(@RequestBody SimpleReservationDTO reservationFormDTO, BindingResult bindingResult) {
         reservationValidator.validate(reservationFormDTO, bindingResult);
         if (!bindingResult.hasErrors()) {
             Reservation saved = reservationService.save(reservationFormDTO);

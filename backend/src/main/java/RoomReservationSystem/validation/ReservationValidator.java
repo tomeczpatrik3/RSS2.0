@@ -4,7 +4,7 @@ import RoomReservationSystem.service.ClassroomService;
 import RoomReservationSystem.service.SubjectService;
 import RoomReservationSystem.service.UserService;
 import static RoomReservationSystem.config.ValidationErrorMessageConstants.*;
-import RoomReservationSystem.dto.ReservationFormDTO;
+import RoomReservationSystem.dto.SimpleReservationDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +30,7 @@ public class ReservationValidator implements Validator {
     
     @Override
     public boolean supports(Class<?> clazz) {
-      return clazz == ReservationFormDTO.class;
+      return clazz == SimpleReservationDTO.class;
     }
 
     /**
@@ -47,7 +47,7 @@ public class ReservationValidator implements Validator {
         ValidationUtils.rejectIfEmpty(errors, "roomName", "reservation.roomName.empty", CLASSROOM_EMPTY);
         ValidationUtils.rejectIfEmpty(errors, "dates", "reservation.dates.empty", RESERVATION_DATES_EMPTY);
 
-        ReservationFormDTO res = (ReservationFormDTO)target;     
+        SimpleReservationDTO res = (SimpleReservationDTO)target;     
 
         
     }

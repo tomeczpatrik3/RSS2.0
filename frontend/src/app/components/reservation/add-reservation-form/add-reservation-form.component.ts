@@ -64,6 +64,8 @@ export class AddReservationFormComponent implements OnInit {
     Validators.required
   ]);
 
+  day = new FormControl('');
+
   startTime = new FormControl('', [
     Validators.required,
     this.validatorService.isTime,
@@ -206,14 +208,14 @@ export class AddReservationFormComponent implements OnInit {
 
   /**
    * A foglalás típusának beállítása:
-   * d --> day
-   * s --> semester
+   * simple   --> egy napos foglalás
+   * semester --> egész szemeszterre vonatkozó foglalás
    * @param type A foglalás típusa (amit kiválasztunk a legördülő listából)
    */
   setReservationType(type: string) {
     switch(type) {
-      case "Foglalás egy adott napra": this.reservationType = "d"; break;
-      case "Foglalás az egész szemeszterre": this.reservationType = "s"; break;
+      case "Foglalás egy adott napra": this.reservationType = "simple"; break;
+      case "Foglalás az egész szemeszterre": this.reservationType = "semester"; break;
     }
   }
 

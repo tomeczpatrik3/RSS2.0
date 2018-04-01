@@ -13,7 +13,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * A foglalásokhoz tartozó DTO osztály
+ * A foglalások megjelenítéséhez tartozó DTO osztály
  * @author Tomecz Patrik
  */
 @Data

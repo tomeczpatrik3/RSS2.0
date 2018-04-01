@@ -1,7 +1,7 @@
 package RoomReservationSystem.service.impl;
 
 import RoomReservationSystem.dto.ReservationDTO;
-import RoomReservationSystem.dto.ReservationFormDTO;
+import RoomReservationSystem.dto.SimpleReservationDTO;
 import RoomReservationSystem.model.Classroom;
 import RoomReservationSystem.model.Reservation;
 import RoomReservationSystem.model.Status;
@@ -73,7 +73,7 @@ public class ReservationServiceImpl implements ReservationService{
      * @return                          A rögzített foglalás
      */
     @Override
-    public Reservation save(ReservationFormDTO reservationFormDTO) {
+    public Reservation save(SimpleReservationDTO reservationFormDTO) {
         Reservation reservation = reservationRepository.save(
                 toReservation(
                         userService.findByUsername(reservationFormDTO.getUsername()),               /*A foglaláshoz tartozó felhasználó*/
