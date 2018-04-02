@@ -118,7 +118,6 @@ public class ReservationServiceImpl implements ReservationService {
         return reservation;        
     }
     
-    //TODO: implement semester reservation
     @Override
     public Reservation save(SemesterReservationDTO semesterReservationDTO) {
         Reservation reservation = reservationRepository.save(
@@ -135,11 +134,13 @@ public class ReservationServiceImpl implements ReservationService {
                 )
         );
 
-        reservation.setDateList(Arrays.asList(reservationDateService.save(
+        reservation.setDateList(reservationDateService.save(
                 reservation,
-                semesterReservationDTO.getStartDateTime(),
-                semesterReservationDTO.getEndDateTime()
-        )));
+                semesterService.findByName(semesterReservationDTO.getSemesterName()),
+                semesterReservationDTO.getDay(),
+                semesterReservationDTO.getStartTime(),
+                semesterReservationDTO.getEndTime()
+        ));
         
         return reservation;
     }

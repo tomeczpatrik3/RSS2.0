@@ -2,6 +2,7 @@ package RoomReservationSystem.service.impl;
 
 import RoomReservationSystem.model.Reservation;
 import RoomReservationSystem.model.ReservationDate;
+import RoomReservationSystem.model.Semester;
 import RoomReservationSystem.repository.ReservationDateRepository;
 import RoomReservationSystem.service.ReservationDateService;
 
@@ -11,7 +12,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import static RoomReservationSystem.util.DateUtils.getDateTime;
+import static RoomReservationSystem.util.DateUtils.getDateTimeString;
+import static RoomReservationSystem.util.DateUtils.getDayOfWeek;
+import java.time.DayOfWeek;
+import java.time.ZoneId;
 import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * A foglalásokhoz tartozó dátumokkal kapcsolatos műveletekért felelős osztály
@@ -65,24 +71,26 @@ public class ReservationDateServiceImpl implements ReservationDateService {
         return reservations;
     }
     
-    /**
-     * A foglalásokhoz tartozó dátumok mentéséért felelős függvény
-     * @param   reservation     A foglalás amihez tartozó dátumokat szeretnénk menteni
-     * @param   dates           A dátumok egy string tömbben
-     * @return 
-     */
     @Override
-    public List<ReservationDate> saveReservationDates(Reservation reservation, String[] dates) {
-        List<ReservationDate> reservationDates = new ArrayList<>();
-        for(int i=0; i<dates.length; i+=2) {
-            reservationDates.add(save(new ReservationDate(
-                            getDateTime(dates[i]),
-                            getDateTime(dates[i+1]),
-                            reservation
-                    )
+    public List<ReservationDate> save(Reservation reservation, Semester semester, String day, String startTime, String endTime) {
+        LocalDate start = semester.getStartDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate end = semester.getEndDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        DayOfWeek dayOfWeek = getDayOfWeek(day);
+        List<ReservationDate> savedDates = new ArrayList<>();
+        
+        while (!start.getDayOfWeek().equals(dayOfWeek)) {
+            start.plusDays(1);
+        }
+        
+        for (LocalDate date = start; date.isBefore(end); date = date.plusDays(7)) {
+            savedDates.add(save(
+                    reservation,
+                    getDateTimeString(date, startTime),
+                    getDateTimeString(date, endTime)
             ));
         }
-        return reservationDates;
+        
+        return savedDates;
     }
     
     @Override
