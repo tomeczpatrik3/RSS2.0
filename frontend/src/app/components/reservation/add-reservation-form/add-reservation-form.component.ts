@@ -24,18 +24,10 @@ import { Semester } from '../../../models/Semester';
 })
 export class AddReservationFormComponent implements OnInit {
 
-
-  days: string[] = ['Hétfő', 'Kedd', 'Szerda', 'Csütörtök', 'Péntek', 'Szombat', 'Vasárnap'];
   roomNames: string[];
   subjects: Subject[];
   buildings: Building[];
   semesters: Semester[];
-
-  /**
-   * A foglalás típusának beállításához szükséges adattagok:
-   */
-  reservationType: string = "";
-  reservationTypes: string[] = [ "Foglalás egy adott napra", "Foglalás az egész szemeszterre"];
 
   /**
    * Az egyes formcontrollok:
@@ -179,7 +171,6 @@ export class AddReservationFormComponent implements OnInit {
       this.reservationForm.value.building,
       this.reservationForm.value.room,
       this.reservationForm.value.note,
-      ["ASD"] //TODO GENERATE DATES!!
     );
   }
 

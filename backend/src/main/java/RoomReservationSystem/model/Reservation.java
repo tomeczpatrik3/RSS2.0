@@ -39,6 +39,11 @@ public class Reservation extends BaseEntity {
     
     @Basic(optional = false)
     @NotNull
+    @Column(name = "type")
+    private Type type;  /*A foglalás típusa*/
+    
+    @Basic(optional = false)
+    @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "note")
     private String note;  /*A foglaláshoz tartozó megjegyzés*/
@@ -75,6 +80,7 @@ public class Reservation extends BaseEntity {
     /**
      * A ReservationDTO objektum Reservation objektummá konvertálását végrehajtó megtódus
      * @param name              A foglalás neve
+     * @param type              A foglalás típusa
      * @param note              A foglaláshoz tartozó megjegyzés
      * @param classroom         A foglaláshoz tartozó tanterem
      * @param subject           A foglaláshoz tartozó tantárgy
@@ -89,11 +95,13 @@ public class Reservation extends BaseEntity {
             Subject subject,
             Classroom classroom,
             Status status,
-            String note,
-            String name
+            Type type,
+            String name,
+            String note
         ) {
         return new Reservation(
                 name,
+                type,
                 note,
                 classroom,
                 subject,

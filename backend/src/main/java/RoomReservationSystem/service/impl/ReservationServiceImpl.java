@@ -1,7 +1,6 @@
 package RoomReservationSystem.service.impl;
 
 import RoomReservationSystem.dto.EventReservationDTO;
-import RoomReservationSystem.dto.ReservationDTO;
 import RoomReservationSystem.dto.SemesterReservationDTO;
 import RoomReservationSystem.dto.SimpleReservationDTO;
 import RoomReservationSystem.model.Classroom;
@@ -14,17 +13,14 @@ import RoomReservationSystem.service.ReservationService;
 import RoomReservationSystem.service.StatusService;
 import RoomReservationSystem.service.SubjectService;
 import RoomReservationSystem.service.UserService;
-import static RoomReservationSystem.model.Reservation.toReservation;
-import RoomReservationSystem.model.ReservationDate;
+import RoomReservationSystem.model.Type;
 import RoomReservationSystem.service.ReservationDateService;
 import RoomReservationSystem.service.SemesterService;
-import java.util.ArrayList;
+import static RoomReservationSystem.model.Reservation.toReservation;
+
 import java.util.Arrays;
 import java.util.Date;
-import java.util.HashSet;
-
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -79,8 +75,9 @@ public class ReservationServiceImpl implements ReservationService {
                                 simpleReservationDTO.getRoomName(),
                                 simpleReservationDTO.getBuildingName()),
                         statusService.findByName("PENDING"), /*A foglalás státusza*/
-                        simpleReservationDTO.getNote(), /*A foglaláshoz tartozó megjegyzés*/
-                        simpleReservationDTO.getReservationName()
+                        Type.SIMPLE,
+                        simpleReservationDTO.getReservationName(),
+                        simpleReservationDTO.getNote() /*A foglaláshoz tartozó megjegyzés*/
                 )
         );
 
@@ -104,8 +101,9 @@ public class ReservationServiceImpl implements ReservationService {
                                 eventReservationDTO.getRoomName(),
                                 eventReservationDTO.getBuildingName()),
                         statusService.findByName("PENDING"), /*A foglalás státusza*/
-                        eventReservationDTO.getNote(), /*A foglaláshoz tartozó megjegyzés*/
-                        eventReservationDTO.getReservationName()
+                        Type.EVENT,
+                        eventReservationDTO.getReservationName(),
+                        eventReservationDTO.getNote() /*A foglaláshoz tartozó megjegyzés*/
                 )
         );
         
@@ -129,8 +127,9 @@ public class ReservationServiceImpl implements ReservationService {
                                 semesterReservationDTO.getRoomName(),
                                 semesterReservationDTO.getBuildingName()),
                         statusService.findByName("PENDING"), /*A foglalás státusza*/
-                        semesterReservationDTO.getNote(), /*A foglaláshoz tartozó megjegyzés*/
-                        semesterReservationDTO.getReservationName()
+                        Type.SEMESTER,
+                        semesterReservationDTO.getReservationName(),
+                        semesterReservationDTO.getNote() /*A foglaláshoz tartozó megjegyzés*/
                 )
         );
 

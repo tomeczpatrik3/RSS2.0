@@ -6,21 +6,25 @@ import { Subject } from "./Subject";
 import { User } from "./User";
 
 export class Reservation {
-    note: string;
-    classroom: Classroom;
-    subject: Subject;
-    user: User;
-    status: string;
-    dates: Date[];
+    name:       string;
+    note:       string;
+    type:       string;
+    status:     string;
+    classroom:  Classroom;
+    subject:    Subject;
+    user:       User;
+    dates:      Date[];
 
 
     public constructor (
-        user: User,
-        subject: Subject,
-        classroom: Classroom,
-        dates: Date[],
-        status: string,
-        note: string
+        name:     string,
+        note:       string,
+        type:       string,
+        status:     string,
+        user:       User,
+        subject:    Subject,
+        classroom:  Classroom,
+        dates:      Date[]
     ) 
     {
         this.user = user;
@@ -29,5 +33,7 @@ export class Reservation {
         this.dates = dates;
         this.status = status;
         this.note = note;
+        this.name = name;
+        this.type = type;
     }
 }
