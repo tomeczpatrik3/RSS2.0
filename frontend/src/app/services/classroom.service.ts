@@ -22,8 +22,8 @@ export class ClassroomService {
     return <Observable<string[]>>this.http.get(Routes.getUrl(Routes.CLASSROOM_GET_BUILDINGS));
   }
   
-  getRoomNamesByBuilding(name: string): Observable<string[]> {
-    return <Observable<string[]>>this.http.get(Routes.getUrl(Routes.CLASSROOM_GET_NAMES_BY_BUILDING) + "/" + name);
+  findByBuildingName(buildingName: string): Observable<Classroom[]> {
+    return <Observable<Classroom[]>>this.http.get(Routes.getUrl(Routes.CLASSROOM_FIND_BY_BUILDING_NAME) + "/" + buildingName);
   }
 
   findByName(roomName: string): Observable<Classroom> {

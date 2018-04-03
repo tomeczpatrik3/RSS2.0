@@ -14,8 +14,9 @@ import lombok.NoArgsConstructor;
 public class SimpleReservationDTO extends BaseReservationDTO {
     private String semesterName;        /*A szemeszter, amin belül a foglalás történik*/
     private String subjectCode;         /*A tantárgy kódja*/
-    private String startDateTime;       /*Az esemény kezdetének dátuma és ideje*/
-    private String endDateTime;         /*Az esemény végének dátuma és ideje*/
+    private String date;                /*A foglalás dátuma*/
+    private String startTime;           /*A foglalás kezdetének ideje*/
+    private String endTime;             /*A foglalás végének ideje*/
     
     public String getReservationName() {
         return String.format("Simple: %s - %s - %s", super.getUsername(), this.semesterName, this.subjectCode);

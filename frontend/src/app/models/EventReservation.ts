@@ -2,8 +2,9 @@ import { BaseReservation } from "./BaseReservation";
 
 export class EventReservation extends BaseReservation {
     eventName:      string;
-    startDateTime:  string;
-    endDateTime:    string;
+    date:           string;
+    startTime:      string;
+    endTime:        string;
 
     public constructor(
         username:       string,
@@ -11,8 +12,9 @@ export class EventReservation extends BaseReservation {
         roomName:       string,
         note:           string,
         eventName:      string,
-        startDateTime:  string,
-        endDateTime:    string
+        date:           string,
+        startTime:      string,
+        endTime:        string
     ) {
         super(
             username,
@@ -21,7 +23,8 @@ export class EventReservation extends BaseReservation {
             note
         );
         this.eventName = eventName;
-        this.startDateTime = startDateTime;
-        this.endDateTime = endDateTime;
+        this.date = date;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 }

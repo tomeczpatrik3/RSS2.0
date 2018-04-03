@@ -17,6 +17,7 @@ import RoomReservationSystem.model.Type;
 import RoomReservationSystem.service.ReservationDateService;
 import RoomReservationSystem.service.SemesterService;
 import static RoomReservationSystem.model.Reservation.toReservation;
+import static RoomReservationSystem.util.DateUtils.getDateTimeString;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -83,8 +84,8 @@ public class ReservationServiceImpl implements ReservationService {
 
         reservation.setDateList(Arrays.asList(reservationDateService.save(
                 reservation,
-                simpleReservationDTO.getStartDateTime(),
-                simpleReservationDTO.getEndDateTime()
+                getDateTimeString(simpleReservationDTO.getDate(), simpleReservationDTO.getStartTime()),
+                getDateTimeString(simpleReservationDTO.getDate(), simpleReservationDTO.getEndTime())
         )));
         
         return reservation;
@@ -109,8 +110,8 @@ public class ReservationServiceImpl implements ReservationService {
         
         reservation.setDateList(Arrays.asList(reservationDateService.save(
                 reservation,
-                eventReservationDTO.getStartDateTime(),
-                eventReservationDTO.getEndDateTime()
+                getDateTimeString(eventReservationDTO.getDate(), eventReservationDTO.getStartTime()),
+                getDateTimeString(eventReservationDTO.getDate(), eventReservationDTO.getEndTime())
         )));
         
         return reservation;        

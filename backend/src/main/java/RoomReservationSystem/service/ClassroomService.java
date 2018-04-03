@@ -25,7 +25,6 @@ public interface ClassroomService {
     List<Classroom> findByChairsGreaterThan(int num);
     List<Classroom> findByChairsBetween(int from, int to);
     List<Classroom> findByBuilding(Building building);
-    List<String> getNamesByBuilding(String buildingName);
-    List<String> getNames();
+    List<Classroom> findByBuildingName(String buildingName);
     Classroom findByDTO(ClassroomDTO classroomDTO);
 }

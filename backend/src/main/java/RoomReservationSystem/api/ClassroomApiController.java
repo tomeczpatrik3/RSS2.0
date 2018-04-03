@@ -45,12 +45,6 @@ public class ClassroomApiController {
         return toClassroomDTOList(classroomService.findAll());
     }
     
-    @PreAuthorize("hasAuthority('ROLE_USER')")
-    @GetMapping("/getNames")
-    public List<String> getNames(){
-        return classroomService.getNames();
-    }  
-    
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findByName/{name}")
     public List<ClassroomDTO> findByName(@PathVariable String name){
@@ -58,9 +52,9 @@ public class ClassroomApiController {
     }
     
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    @GetMapping("/getNamesByBuilding/{name}")
-    public List<String> getNamesByBuilding(@PathVariable String name){
-	return classroomService.getNamesByBuilding(name);
+    @GetMapping("/findByBuildingName/{buildingName}")
+    public List<Classroom> findByBuildingName(@PathVariable String buildingName){
+	return classroomService.findByBuildingName(buildingName);
     }
     
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")

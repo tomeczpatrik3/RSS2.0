@@ -3,13 +3,23 @@ import { FormControl, FormGroup } from '@angular/forms/src/model';
 import { Validators } from '@angular/forms/src/validators';
 import { FormBuilder } from '@angular/forms/src/form_builder';
 import { ValidatorService } from '../../../services/validator.service';
+import { AddReservationBaseComponent } from '../add-reservaion-base.component';
+import { AuthService } from '../../../authentication/auth.service';
+import { ClassroomService } from '../../../services/classroom.service';
+import { SubjectService } from '../../../services/subject.service';
+import { ReservationService } from '../../../services/reservation.service';
+import { BuildingService } from '../../../services/building.service';
+import { SemesterService } from '../../../services/semester.service';
+import { DialogService } from '../../../services/dialog.service';
+import { Router } from '@angular/router';
+import { EventReservation } from '../../../models/EventReservation';
 
 @Component({
   selector: 'app-add-event-reservation',
   templateUrl: './add-event-reservation.component.html',
   styleUrls: ['./add-event-reservation.component.css']
 })
-export class AddEventReservationComponent implements OnInit {
+export class AddEventReservationComponent extends AddReservationBaseComponent {
 
   /**
    * Az egyes formcontrollok:
@@ -63,13 +73,42 @@ export class AddEventReservationComponent implements OnInit {
     note: this.note
   });
 
-
   constructor(
-    private builder: FormBuilder,
-    private validatorService: ValidatorService
-  ) { }
-
-  ngOnInit() {
+    protected authService:        AuthService,
+    protected classroomService:   ClassroomService,
+    protected subjectService:     SubjectService,
+    protected reservationService: ReservationService,
+    protected buildingService:    BuildingService,
+    protected semesterService:    SemesterService,
+    protected builder:            FormBuilder,
+    protected dialogService:      DialogService,
+    protected validatorService:   ValidatorService,
+    protected router:             Router
+  ) { 
+    super(
+      authService,
+      classroomService,
+      subjectService,
+      reservationService,
+      buildingService,
+      semesterService,
+      builder,
+      dialogService,
+      validatorService,
+      router
+    );
   }
 
+  protected formToReservation() {
+    return new EventReservation(
+      this.authService.getUsername(),
+      this.building.value,
+      this.room.value,
+      this.note.value,
+      this.eventName.value,
+      this.date.value,
+      this.startTime.value,
+      this.endTime.value
+    )
+  }
 }

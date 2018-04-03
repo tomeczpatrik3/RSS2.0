@@ -13,8 +13,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class EventReservationDTO extends BaseReservationDTO {
     private String eventName;       /*Az esemény neve*/
-    private String startDateTime;   /*Az esemény kezdetének dátuma és ideje*/
-    private String endDateTime;     /*Az esemény végének dátuma és ideje*/
+    private String date;            /*A foglalás dátuma*/
+    private String startTime;       /*Az esemény kezdetének ideje*/
+    private String endTime;         /*Az esemény végének ideje*/
     
     public String getReservationName() {
         return String.format("%s", this.eventName);

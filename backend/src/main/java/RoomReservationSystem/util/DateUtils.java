@@ -80,6 +80,10 @@ public class DateUtils {
         return String.format("%s-%s-%s %s:%s:00", year, month, day, hour, minute);
     }
     
+    public static String getDateTimeString(String date, String time) {
+        return String.format("%s %s:00", date, time);
+    }
+    
 }
 
 

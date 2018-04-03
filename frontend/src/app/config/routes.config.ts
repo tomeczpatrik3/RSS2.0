@@ -22,7 +22,7 @@ export class Routes {
                                                   
     static CLASSROOM: 			                            string = "classroom";
     static CLASSROOM_GET_NAMES: 			            string = "classroom/getNames";
-    static CLASSROOM_GET_NAMES_BY_BUILDING: 			            string = "classroom/getNamesByBuilding";
+    static CLASSROOM_FIND_BY_BUILDING_NAME: 			            string = "classroom/findByBuildingName";
     static CLASSROOM_FIND_BY_NAME: 			                string = "classroom/findByName";
     static CLASSROOM_FIND_BY_HAS_PC: 			            string = "classroom/findByHasPC";
     static CLASSROOM_FIND_BY_HAS_PROJECTOR: 			    string = "classroom/findByHasProjector";

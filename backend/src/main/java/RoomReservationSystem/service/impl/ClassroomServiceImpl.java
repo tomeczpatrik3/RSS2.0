@@ -83,20 +83,13 @@ public class ClassroomServiceImpl implements ClassroomService{
     }
     
     /**
-     * Egy adott épülethez tartozó tantermek neveinek listázását megvalósító függvény
+     * Egy adott épülethez tartozó tantermek listázását megvalósító függvény
      * @param   buildingName    Az épület neve
-     * @return                  A tanteremek nevei egy listában
+     * @return                  A tanteremek egy listában
      */
     @Override
-    public List<String> getNamesByBuilding(String buildingName){
-        List<Classroom> rooms = classroomRepository.findByBuilding(buildingService.findByName(buildingName));
-        List<String> roomNames = new ArrayList<>();
-        
-        for (Classroom room: rooms) {
-            roomNames.add(room.getName());
-        }
-        
-        return roomNames;
+    public List<Classroom> findByBuildingName(String buildingName){
+        return classroomRepository.findByBuilding(buildingService.findByName(buildingName));
     }
     
     /**
@@ -171,22 +164,6 @@ public class ClassroomServiceImpl implements ClassroomService{
         Building building = buildingService.findByName(buildingName);
         return classroomRepository.findByNameAndBuilding(name, building);
     }
-    
-    /**
-     * A tantermek neveinek lekérdezését megvalósító függvény
-     * @return  A tantermek nevei egy listában
-     */
-    @Override
-    public List<String> getNames() {
-        List<Classroom> rooms = this.findAll();
-        List<String> roomNames = new ArrayList<>();
-        
-        for (Classroom room: rooms) {
-            roomNames.add(room.getName());
-        }
-        
-        return roomNames;
-    } 
     
     /**
      * A DTO objektum alapján történő keresést megvalósító függvény

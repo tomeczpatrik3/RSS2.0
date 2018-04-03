@@ -24,197 +24,20 @@ import { Semester } from '../../../models/Semester';
 })
 export class AddReservationFormComponent implements OnInit {
 
-  roomNames: string[];
-  subjects: Subject[];
-  buildings: Building[];
-  semesters: Semester[];
+  types: string[] = [
+    "Esemény foglalása", 
+    "Tantárgyra vonatkozó egyszeri foglalás", 
+    "Tantárgyra és szemeszterre vonatkozó foglalás"
+  ];
 
-  /**
-   * Az egyes formcontrollok:
-   */
-  semester = new FormControl('', [
-    Validators.required
-  ]);
+  selectedType: string;
 
-  subject = new FormControl('', [
-    Validators.required
-  ]);
+  constructor()
+  {}
 
-  room = new FormControl('', [
-    Validators.required
-  ]);
+  ngOnInit() {}
 
-  building = new FormControl('', [
-    Validators.required
-  ]);
-
-  type = new FormControl('', [
-    Validators.required
-  ]);
-
-  date = new FormControl('', [
-    Validators.required
-  ]);
-
-  day = new FormControl('');
-
-  startTime = new FormControl('', [
-    Validators.required,
-    this.validatorService.isTime,
-    Validators.minLength(5),
-    Validators.maxLength(5)
-  ]);
-
-  endTime = new FormControl('', [
-    Validators.required,
-    this.validatorService.isTime,
-    Validators.minLength(5),
-    Validators.maxLength(5)
-  ]);
-
-  note = new FormControl('', []);
-
-  //-------------------------------
-
-  /**
-   * Formgroup felépítése a formcontrollokból:
-   */
-  reservationForm: FormGroup = this.builder.group({
-    semester: this.semester,
-    room: this.room,
-    building: this.building,
-    subject: this.subject,
-    //date: this.date,
-    startTime: this.startTime,
-    endTime: this.endTime,
-    note: this.note
-  });
-
-  /**
-   * Service-k inicializálása:
-   * @param authService 
-   * @param classroomService 
-   * @param subjectService 
-   * @param reservationService 
-   * @param buildingService 
-   * @param builder 
-   * @param dialogService 
-   * @param validatorService 
-   * @param router 
-   */
-  constructor(
-    private authService: AuthService,
-    private classroomService: ClassroomService,
-    private subjectService: SubjectService,
-    private reservationService: ReservationService,
-    private buildingService: BuildingService,
-    private semesterService: SemesterService,
-    private builder: FormBuilder,
-    private dialogService: DialogService,
-    private validatorService: ValidatorService,
-    private router: Router
-  ) { }
-
-  ngOnInit() {
-    this.getSubjects();
-    this.getBuildings();
-    this.getSemesters();
-  }
-
-  /**
-   * Tantermek neveinek lekérdezése az épület alapján:
-   * @param name Az épület neve
-   */
-  getRoomNamesByBuilding(name: string) {
-    this.classroomService.getRoomNamesByBuilding(name).subscribe(
-      res => this.roomNames = res
-    )
-  }
-
-  /**
-   * Épületek lekérdezése:
-   */
-  getBuildings() {
-    this.buildingService.getAll().subscribe(
-      res => this.buildings = res
-    )
-  }
-
-  /**
-   * Tantárgyak lekérdezése:
-   */
-  getSubjects() {
-    this.subjectService.getAll().subscribe(
-      res => this.subjects = res
-    )
-  }
-
-  /**
-   * A félévek lekérdezése:
-   */
-  getSemesters() {
-    this.semesterService.getAll().subscribe(
-      res => this.semesters = res
-    )
-  }
-
-  /**
-   * Az űrlap foglalássá konvertálása:
-   */
-  formToReservation(): ReservationForm {
-    const subject_details = this.getSubjectDetails();
-
-    return new ReservationForm(
-      this.authService.getUsername(),
-      this.reservationForm.value.semester,
-      subject_details[0].trim(),
-      this.reservationForm.value.building,
-      this.reservationForm.value.room,
-      this.reservationForm.value.note,
-    );
-  }
-
-  /**
-   * A tantárgy nevének és kódjának szétválasztására használt függvény
-   * A split a '|' karakter mentén történik
-   */
-  private getSubjectDetails(): string[] {
-    return this.reservationForm.value.subject.split('|');
-  }
-
-  /**
-   * Feliratkozunk, majd:
-   * - hiba esetén jelzünk a hibát dialog segítségével
-   * - siker esetén jelezzük a sikert dialog segítségével
-   */
-  addReservation() {
-    this.reservationService.createRes(this.formToReservation()).subscribe(
-      res => console.log(res),
-      error => {
-        this.dialogService.openDialog("Foglalás hozzáadása:", this.dialogService.addBr(error.error), InfoDialogComponent);
-      },
-      () => this.dialogService.openDialog("Foglalás hozzáadása:", "Foglalás rögítve, elbírálás alá került!", InfoDialogComponent)
-    );
-  }
-
-  /**
-   * A foglalás típusának beállítása:
-   * simple   --> egy napos foglalás
-   * semester --> egész szemeszterre vonatkozó foglalás
-   * @param type A foglalás típusa (amit kiválasztunk a legördülő listából)
-   */
-  setReservationType(type: string) {
-    switch(type) {
-      case "Foglalás egy adott napra": this.reservationType = "simple"; break;
-      case "Foglalás az egész szemeszterre": this.reservationType = "semester"; break;
-    }
-  }
-
-  /**
-   * Dátumhoz tartozó nap lekérdezése:
-   */
-  getDayOfWeek(date) {
-    var dayOfWeek = new Date(date).getDay();
-    return isNaN(dayOfWeek) ? null : ['Vasárnap', 'Hétfő', 'Kedd', 'Szerda', 'Csütörtök', 'Péntek', 'Szombat'][dayOfWeek];
+  private selectType(type: string) {
+    this.selectedType = type;
   }
 }

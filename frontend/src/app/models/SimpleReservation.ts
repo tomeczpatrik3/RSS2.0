@@ -3,8 +3,9 @@ import { BaseReservation } from "./BaseReservation";
 export class SimpleReservation extends BaseReservation {
     semesterName:   string;
     subjectCode:    string;
-    startDateTime:  string;
-    endDateTime:    string;
+    date:           string;
+    startTime:      string;
+    endTime:        string;
 
     public constructor(
         username:       string,
@@ -13,8 +14,9 @@ export class SimpleReservation extends BaseReservation {
         note:           string,
         semesterName:   string,
         subjectCode:    string,
-        startDateTime:  string,
-        endDateTime:    string
+        date:           string,
+        startTime:      string,
+        endTime:        string
     ) {
         super(
             username,
@@ -24,7 +26,8 @@ export class SimpleReservation extends BaseReservation {
         );
         this.semesterName = semesterName;
         this.subjectCode = subjectCode;
-        this.startDateTime = startDateTime;
-        this.endDateTime = endDateTime;
+        this.date = date;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 }

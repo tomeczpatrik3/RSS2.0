@@ -1,190 +1,26 @@
 <div class="card form-card">
   <div class="card-header">
-    Foglalás hozzáadása:
+    Foglalás típusának kiválasztása:
   </div>
   <div class="card-block">
-    <form [formGroup]="reservationForm" (ngSubmit)="addReservation()"> 
-      
       <div class="form-group row">
-        <label for="semester" class="col-sm-4 col-form-label">Szemeszter*</label>
-        <div class="col-sm-8">
-          <select class="form-control" id="semester" [formControl]="semester">
-            <option> --- </option>
-            <option *ngFor="let semester of semesters"> {{semester.name}} </option>
-          </select>
-
-          <div [hidden]="semester.valid || semester.untouched" class="alert alert-danger">
-            <div>
-              Probléma a félév kiválasztása során:
-            </div>
-            <div [hidden]="!semester.hasError('required')">
-              A félévet meg kell adni.
-            </div>
-          </div>
-
-        </div>
-      </div>      
-      
-      <div class="form-group row">
-        <label for="subject" class="col-sm-4 col-form-label">Tantárgy*</label>
-        <div class="col-sm-8">
-          <select class="form-control" id="subject" [formControl]="subject">
-            <option> --- </option>
-            <option *ngFor="let subject of subjects"> {{subject.code}} | {{subject.name}} </option>
-          </select>
-
-          <div [hidden]="subject.valid || subject.untouched" class="alert alert-danger">
-            <div>
-              Probléma a tantárgy kiválasztása során:
-            </div>
-            <div [hidden]="!subject.hasError('required')">
-              A tantárgyat meg kell adni.
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label for="buildingName" class="col-sm-4 col-form-label">Épület neve*</label>
-        <div class="col-sm-8">
-          <select class="form-control" id="buildingName" [formControl]="building" (change)="getRoomNamesByBuilding($event.target.value)">
-            <option> --- </option>
-            <option *ngFor="let building of buildings" > {{building.name}} </option>
-          </select>
-
-          <div [hidden]="building.valid || building.untouched" class="alert alert-danger">
-            <div>
-              Probléma az épület kiválasztása során:
-            </div>
-            <div [hidden]="!building.hasError('required')">
-              Az épület nevét meg kell adni.
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label for="roomName" class="col-sm-4 col-form-label">Tanterem neve*</label>
-        <div class="col-sm-8">
-          <select class="form-control" id="roomName" [formControl]="room">
-            <option> --- </option>
-            <option *ngFor="let name of roomNames"> {{name}} </option>
-          </select>
-
-          <div [hidden]="room.valid || room.untouched" class="alert alert-danger">
-            <div>
-              Probléma a tanterem kiválasztása során:
-            </div>
-            <div [hidden]="!room.hasError('required')">
-              A tanterem nevét meg kell adni.
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label for="type" class="col-sm-4 col-form-label">Foglalás típusa*</label>
+        <label for="type" class="col-sm-4 col-form-label">Típus*</label>
         <div class="col-sm-8">
           <select class="form-control" id="type">
             <option> --- </option>
-            <option *ngFor="let type of reservationTypes" (click)="setReservationType(type)"> {{type}} </option>
+            <option *ngFor="let type of type" (click)="selectType(type)"> {{type}} </option>
           </select>
         </div>
-      </div>
-
-      <div class="form-group row" *ngIf="reservationType == 'simple'">
-        <label for="date" class="col-sm-4 col-form-label">A foglalás dátuma*</label>
-        <div class="col-sm-8">
-          <input class="form-control" type="date" id="date" aria-describedby="dayHelp" [formControl]="date">
-          <small [hidden]="date.untouched" id="dayHelp" class="form-text text-muted">A választott nap: {{ getDayOfWeek(date.value) }} </small>
-          <div [hidden]="date.valid || date.untouched" class="alert alert-danger">
-            <div>
-              Probléma a foglalás dátumának kiválasztása során:
-            </div>
-            <div [hidden]="!date.hasError('required')">
-              A foglalás dátumát meg kell adni.
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <div class="form-group row" *ngIf="reservationType == 'semester'">
-        <label for="day" class="col-sm-4 col-form-label">Nap*</label>
-        <div class="col-sm-8">
-          <select class="form-control" id="day" [formControl]="day">
-            <option> --- </option>
-            <option *ngFor="let day of days"> {{day}} </option>
-          </select>
-
-          <div [hidden]="day.valid || day.untouched" class="alert alert-danger">
-            <div>
-              Probléma a nap kiválasztása során:
-            </div>
-            <div [hidden]="!day.hasError('required')">
-              A napot meg kell adni.
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label for="startTime" class="col-sm-4 col-form-label">Kezdési idő*</label>
-        <div class="col-sm-8">
-          <input class="form-control" type="text" id="startTime" [formControl]="startTime">
-
-          <div [hidden]="startTime.valid || startTime.untouched" class="alert alert-danger">
-            <div>
-              Probléma a kezdési idővel:
-            </div>
-            <div [hidden]="!startTime.hasError('required')">
-              A kezdési időt meg kell adni.
-            </div>
-            <div [hidden]="!startTime.hasError('notTime')">
-              Hibás formátum (óó:pp).
-            </div>
-            <div [hidden]="!startTime.hasError('minlength') && !startTime.hasError('maxlength')">
-              Az időnek 5 karakterből kell állnia.
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label for="endTime" class="col-sm-4 col-form-label">Befejezési idő*</label>
-        <div class="col-sm-8">
-          <input class="form-control" type="text" id="endTime" [formControl]="endTime">
-
-          <div [hidden]="endTime.valid || endTime.untouched" class="alert alert-danger">
-            <div>
-              Probléma a befejezési idővel:
-            </div>
-            <div [hidden]="!endTime.hasError('required')">
-              A befejezési időt meg kell adni.
-            </div>
-            <div [hidden]="!endTime.hasError('notTime')">
-              Hibás formátum (óó:pp).
-            </div>
-            <div [hidden]="!endTime.hasError('minlength') && !endTime.hasError('maxlength')">
-              Az időnek 5 karakterből kell állnia.
-            </div>
-          </div>
-
-        </div>
-      </div>
-      
-      <div class="form-group">
-        <label for="note">Megjegyzés:</label>
-        <textarea class="form-control" rows="5" id="note" [formControl]="note"></textarea>
-      </div> 
-
-      <div class="btn-padding">
-        <button type="submit" class="btn btn-primary" [disabled]="!reservationForm.valid">Hozzáadás</button>
-      </div>
-    </form>
+      </div>      
   </div>
+</div>
+
+<div *ngIf="selectedType == types[0]">
+  <app-add-event-reservation></app-add-event-reservation>
+</div>
+<div *ngIf="selectedType == types[1]">
+  <app-add-simple-reservation></app-add-simple-reservation>
+</div>
+<div *ngIf="selectedType == types[2]">
+  <app-add-semester-reservation></app-add-semester-reservation>
 </div>
