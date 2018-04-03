@@ -78,6 +78,7 @@ public class ReservationApiController {
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @PostMapping("/createEventReservation")
     public ResponseEntity createEventReservation(@RequestBody EventReservationDTO eventReservationDTO, BindingResult bindingResult) {
+        /*
         reservationValidator.validate(eventReservationDTO, bindingResult);
         if (!bindingResult.hasErrors()) {
             Reservation saved = reservationService.save(eventReservationDTO);
@@ -85,7 +86,10 @@ public class ReservationApiController {
         }
         else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
-        }        
+        } 
+        */
+            Reservation saved = reservationService.save(eventReservationDTO);
+            return ResponseEntity.status(HttpStatus.CREATED).body(toReservationDTO(saved));  
     }
     
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")

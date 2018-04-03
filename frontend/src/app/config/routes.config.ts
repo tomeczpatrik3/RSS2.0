@@ -13,7 +13,9 @@ export class Routes {
     static SUBJECT_CREATE_SUBJECT: 		                    string = "subject/createSubject";
                                                   
     static RESERVATION: 		                            string = "reservation";
-    static RESERVATION_CREATE_RES: 			                string = "reservation/createRes";
+    static RESERVATION_CREATE_SIMPLE: 			                string = "reservation/createSimpleReservation";
+    static RESERVATION_CREATE_SEMESTER: 			                string = "reservation/createSemesterReservation";
+    static RESERVATION_CREATE_EVENT: 			                string = "reservation/createEventReservation";
     static RESERVATION_FIND_BY_USERNAME: 		            string = "reservation/findByUsername";
     static RESERVATION_FIND_BY_NAME: 		                string = "reservation/findByName";
     static RESERVATION_FIND_BY_ROOM_NAME: 		            string = "reservation/findByRoomName";

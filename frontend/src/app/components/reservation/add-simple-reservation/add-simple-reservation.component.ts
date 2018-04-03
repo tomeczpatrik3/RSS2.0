@@ -12,6 +12,7 @@ import { DialogService } from '../../../services/dialog.service';
 import { ValidatorService } from '../../../services/validator.service';
 import { Router } from '@angular/router';
 import { SimpleReservation } from '../../../models/SimpleReservation';
+import { InfoDialogComponent } from '../../dialogs/info-dialog/info-dialog.component';
 
 
 @Component({
@@ -115,4 +116,18 @@ export class AddSimpleReservationComponent extends AddReservationBaseComponent {
     )
   }
 
+  /**
+   * Feliratkozunk, majd:
+   * - hiba esetén jelzünk a hibát dialog segítségével
+   * - siker esetén jelezzük a sikert dialog segítségével
+   */
+  protected addReservation() {
+    this.reservationService.createSimpleReservation(this.formToReservation()).subscribe(
+      res => console.log(res),
+      error => {
+        this.dialogService.openDialog("Foglalás hozzáadása:", this.dialogService.addBr(error.error), InfoDialogComponent);
+      },
+      () => this.dialogService.openDialog("Foglalás hozzáadása:", "Foglalás rögítve, elbírálás alá került!", InfoDialogComponent)
+    );    
+  }
 }

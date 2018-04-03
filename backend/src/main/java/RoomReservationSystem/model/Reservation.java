@@ -54,8 +54,8 @@ public class Reservation extends BaseEntity {
     private Classroom classroom;    /*A foglalás helye (tanterem)*/
     
     @JsonIgnore
-    @JoinColumn(name = "subject", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @JoinColumn(name = "subject", referencedColumnName = "id", nullable = true)
+    @ManyToOne(optional = true)
     private Subject subject;    /*A foglalás tantárgy*/
     
     @JsonIgnore
@@ -69,8 +69,8 @@ public class Reservation extends BaseEntity {
     private Status status;  /*A foglalás státusza*/
     
     @JsonIgnore
-    @JoinColumn(name = "semester", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @JoinColumn(name = "semester", referencedColumnName = "id", nullable = true)
+    @ManyToOne(optional = true)
     private Semester semester;  /*A foglaláshoz tartozó félév*/
     
     @JsonIgnore

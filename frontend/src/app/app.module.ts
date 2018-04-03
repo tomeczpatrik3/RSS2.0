@@ -38,9 +38,6 @@ import { LogoutComponent } from './components/logout/logout.component';
 
 import { UpperCasePipe } from '@angular/common';
 import { DailyViewComponent } from './components/reservation/daily-view/daily-view.component';
-import { AddSimpleReservationComponent } from './components/reservation/add-simple-reservation/add-simple-reservation.component';
-import { AddEventReservationComponent } from './components/reservation/add-event-reservation/add-event-reservation.component';
-import { AddSemesterReservationComponent } from './components/reservation/add-semester-reservation/add-semester-reservation.component';
 
 @NgModule({
   declarations: [
@@ -53,9 +50,6 @@ import { AddSemesterReservationComponent } from './components/reservation/add-se
     QuestionDialogComponent,
     LogoutComponent,
     DailyViewComponent,
-    AddSimpleReservationComponent,
-    AddEventReservationComponent,
-    AddSemesterReservationComponent,
   ],
   imports: [
     BrowserModule,

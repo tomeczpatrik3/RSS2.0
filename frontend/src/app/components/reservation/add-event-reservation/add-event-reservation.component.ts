@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms/src/model';
-import { Validators } from '@angular/forms/src/validators';
-import { FormBuilder } from '@angular/forms/src/form_builder';
+import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ValidatorService } from '../../../services/validator.service';
 import { AddReservationBaseComponent } from '../add-reservaion-base.component';
 import { AuthService } from '../../../authentication/auth.service';
@@ -13,6 +11,7 @@ import { SemesterService } from '../../../services/semester.service';
 import { DialogService } from '../../../services/dialog.service';
 import { Router } from '@angular/router';
 import { EventReservation } from '../../../models/EventReservation';
+import { InfoDialogComponent } from '../../dialogs/info-dialog/info-dialog.component';
 
 @Component({
   selector: 'app-add-event-reservation',
@@ -110,5 +109,22 @@ export class AddEventReservationComponent extends AddReservationBaseComponent {
       this.startTime.value,
       this.endTime.value
     )
+  }
+
+  /**
+   * Feliratkozunk, majd:
+   * - hiba esetén jelzünk a hibát dialog segítségével
+   * - siker esetén jelezzük a sikert dialog segítségével
+   */
+  protected addReservation() {
+    console.log(this.formToReservation());
+
+    this.reservationService.createEventReservation(this.formToReservation()).subscribe(
+      res => console.log(res),
+      error => {
+        this.dialogService.openDialog("Foglalás hozzáadása:", this.dialogService.addBr(error.error), InfoDialogComponent);
+      },
+      () => this.dialogService.openDialog("Foglalás hozzáadása:", "Foglalás rögítve, elbírálás alá került!", InfoDialogComponent)
+    );    
   }
 }

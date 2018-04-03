@@ -48,7 +48,7 @@
       <div class="form-group row">
         <label for="buildingName" class="col-sm-4 col-form-label">Épület neve*</label>
         <div class="col-sm-8">
-          <select class="form-control" id="buildingName" [formControl]="building" (change)="getRoomNamesByBuilding($event.target.value)">
+          <select class="form-control" id="buildingName" [formControl]="building" (change)="getRoomsByBuildingName($event.target.value)">
             <option> --- </option>
             <option *ngFor="let building of buildings" > {{building.name}} </option>
           </select>

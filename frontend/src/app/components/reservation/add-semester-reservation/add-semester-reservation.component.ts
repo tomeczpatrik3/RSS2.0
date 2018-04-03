@@ -15,6 +15,7 @@ import { AddReservationBaseComponent } from '../add-reservaion-base.component';
 import { SimpleReservation } from '../../../models/SimpleReservation';
 import { Semester } from '../../../models/Semester';
 import { SemesterReservation } from '../../../models/SemesterReservation';
+import { InfoDialogComponent } from '../../dialogs/info-dialog/info-dialog.component';
 
 @Component({
   selector: 'app-add-semester-reservation',
@@ -115,5 +116,20 @@ export class AddSemesterReservationComponent extends AddReservationBaseComponent
       this.startTime.value,
       this.endTime.value
     )
+  }
+
+  /**
+   * Feliratkozunk, majd:
+   * - hiba esetén jelzünk a hibát dialog segítségével
+   * - siker esetén jelezzük a sikert dialog segítségével
+   */
+  protected addReservation() {
+    this.reservationService.createSemesterReservation(this.formToReservation()).subscribe(
+      res => console.log(res),
+      error => {
+        this.dialogService.openDialog("Foglalás hozzáadása:", this.dialogService.addBr(error.error), InfoDialogComponent);
+      },
+      () => this.dialogService.openDialog("Foglalás hozzáadása:", "Foglalás rögítve, elbírálás alá került!", InfoDialogComponent)
+    );    
   }
 }

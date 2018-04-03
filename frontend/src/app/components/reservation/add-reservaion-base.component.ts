@@ -104,19 +104,9 @@ export abstract class AddReservationBaseComponent implements OnInit {
   protected abstract formToReservation();
 
   /**
-   * Feliratkozunk, majd:
-   * - hiba esetén jelzünk a hibát dialog segítségével
-   * - siker esetén jelezzük a sikert dialog segítségével
+   * Foglalás elkészítése:
    */
-  protected addReservation() {
-    this.reservationService.createRes(this.formToReservation()).subscribe(
-      res => console.log(res),
-      error => {
-        this.dialogService.openDialog("Foglalás hozzáadása:", this.dialogService.addBr(error.error), InfoDialogComponent);
-      },
-      () => this.dialogService.openDialog("Foglalás hozzáadása:", "Foglalás rögítve, elbírálás alá került!", InfoDialogComponent)
-    );
-  }
+  protected abstract addReservation();
 
   /**
    * Dátumhoz tartozó nap lekérdezése:
