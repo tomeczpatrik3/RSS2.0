@@ -65,7 +65,7 @@ public class ReservationDateServiceImpl implements ReservationDateService {
     @Override
     public List<Reservation> findByDate(Date date) {
         List<Reservation> reservations = new ArrayList<>();
-        reservationDateRepository.findAll().stream().filter((reservationDate) -> (reservationDate.getStartTime().toDate().equals(date) && reservationDate.getEndTime().toDate().equals(date))).forEachOrdered((reservationDate) -> {
+        reservationDateRepository.findAll().stream().filter((reservationDate) -> (reservationDate.getStartDateTime().toDate().equals(date) && reservationDate.getEndDateTime().toDate().equals(date))).forEachOrdered((reservationDate) -> {
             reservations.add(reservationDate.getReservation());
         });
         return reservations;

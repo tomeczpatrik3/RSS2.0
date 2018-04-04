@@ -72,16 +72,34 @@ public class DateUtils {
      * @return      A DateTime mintának megfelelő String objektum
      */
     public static String getDateTimeString(LocalDate date, String time) {
-        String year = date.getYear()+"";
-        String month = date.getMonthValue()<10 ? "0"+date.getMonthValue() : date.getMonthValue()+"";
-        String day = date.getDayOfMonth()<10 ? "0"+date.getDayOfMonth() : date.getDayOfMonth()+"";
+        String year = formatNumber(date.getYear());
+        String month = formatNumber(date.getMonthValue());
+        String day = formatNumber(date.getDayOfMonth());
         String hour = time.split(":")[0];
         String minute = time.split(":")[1];
         return String.format("%s-%s-%s %s:%s:00", year, month, day, hour, minute);
     }
     
+    public static String getDateTimeString(DateTime dateTime) {
+        String year = formatNumber(dateTime.year().get());
+        String month = formatNumber(dateTime.monthOfYear().get());
+        String day = formatNumber(dateTime.dayOfMonth().get());
+        String hour = formatNumber(dateTime.getHourOfDay());
+        String minute = formatNumber(dateTime.getMinuteOfHour());
+        String second = formatNumber(dateTime.getSecondOfMinute());
+        
+        return String.format("%s-%s-%s %s:%s:%s", year, month, day, hour, minute, second);
+    }
+    
     public static String getDateTimeString(String date, String time) {
         return String.format("%s %s:00", date, time);
+    }
+    
+    private static String formatNumber(int number) {
+        if (number<10)
+            return String.format("0%d", number);
+        else
+            return String.format("%d", number);
     }
     
 }

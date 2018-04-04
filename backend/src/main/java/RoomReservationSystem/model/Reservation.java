@@ -1,5 +1,6 @@
 package RoomReservationSystem.model;
 
+import static RoomReservationSystem.util.DateUtils.getDateTimeString;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Collections;
@@ -120,8 +121,8 @@ public class Reservation extends BaseEntity {
         String[] dates = new String[dateList.size()*2];
         int i = 0;
         for (ReservationDate resDate: dateList) {
-            dates[i] = resDate.getStartTime().toString();
-            dates[i+1] = resDate.getEndTime().toString();
+            dates[i] = getDateTimeString(resDate.getStartDateTime());
+            dates[i+1] = getDateTimeString(resDate.getEndDateTime());
             i+=2;
         }
         return dates;

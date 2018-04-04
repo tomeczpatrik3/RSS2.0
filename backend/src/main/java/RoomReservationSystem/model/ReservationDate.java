@@ -29,17 +29,16 @@ public class ReservationDate extends BaseEntity {
     
     @Basic(optional = false)
     @NotNull
-    @Column(name = "startTime")
-    private DateTime startTime; /*A foglalás kezdete*/
+    @Column(name = "startDateTime")
+    private DateTime startDateTime; /*A foglalás kezdete*/
     
     @Basic(optional = false)
     @NotNull
-    @Column(name = "endTime")
-    private DateTime endTime; /*A foglalás vége*/
+    @Column(name = "endDateTime")
+    private DateTime endDateTime; /*A foglalás vége*/
     
     @JsonIgnore
     @JoinColumn(name = "reservation", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Reservation reservation;  /*A foglalás amihez a dátum tartozik*/
-    
 }
