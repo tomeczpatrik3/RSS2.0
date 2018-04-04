@@ -70,7 +70,7 @@
         <div class="col-sm-8">
           <select class="form-control" id="roomName" [formControl]="room">
             <option> --- </option>
-            <option *ngFor="let name of roomNames"> {{name}} </option>
+            <option *ngFor="let room of rooms"> {{room.name}} </option>
           </select>
 
           <div [hidden]="room.valid || room.untouched" class="alert alert-danger">

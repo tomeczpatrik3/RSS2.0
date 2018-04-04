@@ -22,14 +22,34 @@ public class ValidationErrorMessageConstants {
     //BUILDING:
     public static final String BUILDING_EMPTY = "Az épületet meg kell adni!";
     public static final String BUILDING_ALREDY_EXISTS = "Ezzel a névvel már létezik épület!";
-    public static final String BUILDING_NOT_EXISTS = "Nem létezik ilyen épület!";
-    public static final String BUILDING_NAME_SIZE = "Az épület neve nem megfelelő hosszúságú (3-30)!";
     public static final String BUILDING_NAME_EMPTY = "Az épület neve nem lehet üres!";
     
-    //RESERVATION:
+    //--------------
+    public static final String USERNAME_EMPTY = "A felhasználónév nem lehet üres!";
+    public static final String BUILDING_NAME_EMTPY = "Az épület neve nem lehet üres!";
+    public static final String ROOM_NAME_EMPTY = "A terem neve nem lehet üres!";
+    public static final String NOTE_EMPTY = "A megjegyzés nem lehet üres!";
+    public static final String EVENT_NAME_EMPTY = "Az esemény neve nem lehet üres!";
+    public static final String DATE_EMPTY = "Az esemény dátuma nem lehet üres!";
+    public static final String START_TIME_EMPTY = "Az esemény kezdete nem lehet üres!";
+    public static final String END_TIME_EMPTY = "Az esemény vége nem lehet üres!";
+    
+    public static final String USERNAME_SIZE = "A felhasználónév nem megfelelő hosszúságú (5-30)!";
+    public static final String USER_NOT_EXISTS = "Nem létezik ezzel a felhasználónévvel rendelkező felhasználó!";
+    
+    public static final String BUILDING_NOT_EXISTS = "Nem létezik ilyen nevű épület!";
+    public static final String BUILDING_NAME_SIZE = "Az épület neve nem megfelelő hosszúságú (3-30)!";
+        
+    public static final String ROOM_NOT_EXISTS = "Ilyen nevű terem nem létezik!";
+    public static final String ROOM_NAME_SIZE = "A terem neve nem megfelelő hosszúságú (3-30)!";
+      
+    
+    //-------------
     public static final String RESERVATION_NOT_EXISTS = "Ilyen foglalás nem létezik!";
     public static final String RESERVATION_ALREDY_EXISTS = "Ilyen foglalás már létezik!";
     public static final String RESERVATION_DATES_EMPTY = "A foglaláshoz tartozó időpontokat meg kell adni!";
+    
+    
     
     //SUBJECT:
     public static final String SUBJECT_EMPTY = "A tantárgyat meg kell adni!";
@@ -47,11 +67,9 @@ public class ValidationErrorMessageConstants {
     public static final String USER_PASSWORD_EMPTY = "A jelszó nem lehet üres!";
     public static final String USER_EMAIL_EMPTY = "Az e-mail cím nem lehet üres!";
     public static final String USER_ALREDY_EXISTS = "Ez a felhasználónév már foglalt!";
-    public static final String USER_NOT_EXISTS = "Nem létezik ezzel a felhasználónévvel rendelkező felhasználó!";
     public static final String USER_EMAIL_ALREDY_EXISTS = "Ez az e-mail cím már használatban van!";
     public static final String USER_NAME_SIZE = "A név nem megfelelő hosszúságú (5-30)!";
-    public static final String USER_USERNAME_SIZE = "A felhasználónév nem megfelelő hosszúságú (5-30)!";
-    public static final String USER_USERNAME_SPACE = "A felhasználónév nem tartalmazhat szóközt!";
+     public static final String USER_USERNAME_SPACE = "A felhasználónév nem tartalmazhat szóközt!";
     public static final String USER_PASSWORD_SPACE = "A jelszó nem megfelelő hosszúságú (5-30)!";
     public static final String USER_PASSWORD_SIZE = "A jelszó nem megfelelő hosszúságú (5-50)!";
     public static final String USER_EMAIL_SIZE = "A e-mail cím nem megfelelő hosszúságú (5-50)!";
