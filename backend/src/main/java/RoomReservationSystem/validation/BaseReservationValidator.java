@@ -12,7 +12,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 /**
- *
+ * A foglalások közös tulajdonságainak ellenőrzését elvégző osztály
  * @author Tomecz Patrik
  */
 public class BaseReservationValidator implements Validator {
@@ -44,29 +44,38 @@ public class BaseReservationValidator implements Validator {
         
         BaseReservationDTO reservation = (BaseReservationDTO)target;     
         
+        /*Felhasználó meglétének ellenőrzése*/
         if (reservation.getUsername() != null && userService.findByUsername(reservation.getUsername()) == null) {
             errors.rejectValue("username", "baseReservation.username.notExists", USER_NOT_EXISTS);
         }
         
+        /*
         if (reservation.getUsername() != null && reservation.getUsername().length() < 5 || reservation.getUsername().length() > 30 ) {
             errors.rejectValue("username", "baseReservation.username.size", USERNAME_SIZE);
         }
+        */
         
+        /*Épület meglétének ellenőrzése*/
         if (reservation.getBuildingName() != null && buildingService.findByName(reservation.getBuildingName()) == null) {
             errors.rejectValue("buildingName", "baseReservation.buildingName.notExists", BUILDING_NOT_EXISTS);
         }
         
+        /*
         if (reservation.getBuildingName() != null && reservation.getBuildingName().length() < 3 || reservation.getBuildingName().length() > 30 ) {
             errors.rejectValue("buildingName", "baseReservation.buildingName.size", BUILDING_NAME_SIZE);
         }
+        */
         
+        /*Terem meglétének ellenőrzése*/
         if (reservation.getRoomName() != null && reservation.getBuildingName() != null 
                 && classroomService.findByNameAndBuildingName(reservation.getRoomName(), reservation.getBuildingName()) == null) {
             errors.rejectValue("roomName", "baseReservation.roomName.notExists", ROOM_NOT_EXISTS);
         }
         
+        /*
         if (reservation.getRoomName() != null && reservation.getRoomName().length() < 3 || reservation.getRoomName().length() > 30 ) {
             errors.rejectValue("roomName", "baseReservation.roomName.size", ROOM_NAME_SIZE);
         }
+        */
     }
 }

@@ -37,18 +37,19 @@ public class SubjectValidator implements Validator {
 
         SubjectDTO subject = (SubjectDTO)target;     
         
+        /*Tantárgy kód validálása*/
+        if (subject.getCode()!= null && subject.getCode().length()<4 || subject.getCode().length() > 10) {
+            errors.rejectValue("subjectCode", "subject.code.size", SUBJECT_CODE_SIZE);
+        }
+        
         if (subjectService.findByCode(subject.getCode()) != null) {
             errors.rejectValue("code", "subject.code.alredyExists", SUBJECT_ALREDY_EXISTS);
         }
         
+        /*Tantárgy nevének validálása*/
         if (subject.getName() != null && subject.getName().length() < 5 ||
                 subject.getName().length() > 30) {
             errors.rejectValue("name", "subject.name.size", SUBJECT_NAME_SIZE);
-        }
-        
-       if (subject.getCode() != null && subject.getCode().length() < 4 ||
-                subject.getCode().length() > 10) {
-            errors.rejectValue("code", "subject.code.size", SUBJECT_CODE_SIZE);
         }
     }
 }

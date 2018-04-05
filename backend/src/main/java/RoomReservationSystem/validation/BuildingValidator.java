@@ -37,10 +37,12 @@ public class BuildingValidator implements Validator {
 
         BuildingDTO building = (BuildingDTO) target;
 
+        /*Épület meglétének ellernőrzése*/
         if (this.buildingService.findByName( building.getName() ) != null) {
             errors.rejectValue("name", "buildingDTO.name.alredyExists", BUILDING_ALREDY_EXISTS);
         }
         
+        /*Épület nevének validálása*/
         if (building.getName() != null && building.getName().length()<3 ||  building.getName().length()>30) {
             errors.rejectValue("name", "buildingDTO.name.size", BUILDING_NAME_SIZE);
         }

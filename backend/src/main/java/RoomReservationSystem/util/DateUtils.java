@@ -14,8 +14,8 @@ import org.joda.time.format.DateTimeFormatter;
  * @author Tomecz Patrik
  */
 public class DateUtils {
-    private static final DateTimeFormatter dateTimeFormat = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     
     /**
      * Megfelelő formátumú szöveg DateTime objektummű konvertálása
@@ -23,7 +23,7 @@ public class DateUtils {
      * @return                  A DateTime objektum
      */
     public static DateTime getDateTime(String dateTimeString) {
-        return dateTimeFormat.parseDateTime(dateTimeString);
+        return DATE_TIME_FORMAT.parseDateTime(dateTimeString);
     }
     
     /**
@@ -33,10 +33,9 @@ public class DateUtils {
      */
     public static Date getDate(String dateString) {
         try {
-            return dateFormat.parse(dateString);
+            return DATE_FORMAT.parse(dateString);
         }
         catch (ParseException ex) {
-            ex.printStackTrace();
             return null;
         }
     }
@@ -100,6 +99,17 @@ public class DateUtils {
             return String.format("0%d", number);
         else
             return String.format("%d", number);
+    }
+    
+    public static boolean isBefore(String dateStringA, String dateStringB) {
+        try {
+            Date startDate =  DATE_FORMAT.parse(dateStringA);
+            Date endDate = DATE_FORMAT.parse(dateStringB);
+            
+            return startDate.before(endDate);
+        } catch (ParseException ex) {
+            return false;
+        }        
     }
     
 }

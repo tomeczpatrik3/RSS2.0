@@ -4,7 +4,7 @@ import RoomReservationSystem.dto.UserDTO;
 import RoomReservationSystem.service.UserService;
 import static RoomReservationSystem.config.ValidationErrorMessageConstants.*;
 
-import java.util.regex.Pattern;
+import static RoomReservationSystem.util.RegexUtils.isValidEmail;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,8 +18,6 @@ import org.springframework.validation.Validator;
  */
 @Service
 public class UserValidator implements Validator {
-    private static final Pattern EMAIL_REGEX = Pattern.compile("^[\\w\\d._-]+@[\\w\\d.-]+\\.[\\w\\d]{2,6}$");
-    
     @Autowired
     private UserService userService;
     
@@ -35,51 +33,56 @@ public class UserValidator implements Validator {
      */
     @Override
     public void validate(Object target, Errors errors) {
-        ValidationUtils.rejectIfEmpty(errors, "username", "user.username.empty", USER_USERNAME_EMPTY);
-        ValidationUtils.rejectIfEmpty(errors, "name", "user.name.empty", USER_NAME_EMPTY);
-        ValidationUtils.rejectIfEmpty(errors, "password", "user.password.empty", USER_PASSWORD_EMPTY);
-        ValidationUtils.rejectIfEmpty(errors, "email", "user.email.empty", USER_EMAIL_EMPTY);
+        ValidationUtils.rejectIfEmpty(errors, "username", "user.username.empty", USERNAME_EMPTY);
+        ValidationUtils.rejectIfEmpty(errors, "name", "user.name.empty", NAME_EMPTY);
+        ValidationUtils.rejectIfEmpty(errors, "password", "user.password.empty", PASSWORD_EMPTY);
+        ValidationUtils.rejectIfEmpty(errors, "email", "user.email.empty", EMAIL_EMPTY);
 
         UserDTO user = (UserDTO) target;
 
+        /*Felhasználónlév és e-mail cím használatban létének ellenőrzése*/
         if ( this.userService.findByUsername(user.getUsername()) != null ) {
-            errors.rejectValue("username", "user.username.alredyExists", USER_ALREDY_EXISTS);
+            errors.rejectValue("username", "user.username.alredyExists", USERNAME_ALREDY_EXISTS);
         }
         
         if ( this.userService.findByEmail(user.getEmail()) != null ) {
-            errors.rejectValue("email", "user.email.alredyExists", USER_EMAIL_ALREDY_EXISTS);
+            errors.rejectValue("email", "user.email.alredyExists", EMAIL_ALREDY_EXISTS);
         }        
         
+        /*A felhasználó nevének validálása*/
         if (user.getName() != null && user.getName().length() < 5 ||
                 user.getName().length() > 30) {
             errors.rejectValue("name", "user.name.size", USER_NAME_SIZE);
         }
         
+        /*Felhasználónév validálása*/
         if (user.getUsername() != null && user.getUsername().length() < 5 ||
                 user.getUsername().length() > 30) {
-            errors.rejectValue("username", "user.username.size", USER_USERNAME_SIZE);
+            errors.rejectValue("username", "user.username.size", USERNAME_SIZE);
         }
         
         if (user.getUsername() != null && user.getUsername().contains(" ")) {
-            errors.rejectValue("username", "user.username.space", USER_USERNAME_SPACE);
+            errors.rejectValue("username", "user.username.space", USERNAME_SPACE);
         }
 
+        /*Jelszó validálása*/
         if (user.getPassword() != null && user.getPassword().contains(" ")) {
-            errors.rejectValue("password", "user.password.space", USER_PASSWORD_SPACE);
+            errors.rejectValue("password", "user.password.space", PASSWORD_SPACE);
         }
 
         if (user.getPassword() != null && user.getPassword().length() < 5 &&
                 user.getPassword().length() > 30) {
-            errors.rejectValue("password", "user.password.size", USER_PASSWORD_SIZE);
+            errors.rejectValue("password", "user.password.size", PASSWORD_SIZE);
         }
 
+        /*E-mail cím validálása*/
         if (user.getEmail() != null && user.getEmail().length() < 5 &&
                 user.getEmail().length() > 50) {
-            errors.rejectValue("email", "user.email.size", USER_EMAIL_SIZE);
+            errors.rejectValue("email", "user.email.size", EMAIL_SIZE);
         }
 
-        if (user.getEmail() != null && !EMAIL_REGEX.matcher(user.getEmail()).matches()) {
-            errors.rejectValue("email", "user.email.invalid", USER_EMAIL_INVALID);
+        if (user.getEmail() != null && !isValidEmail(user.getEmail())) {
+            errors.rejectValue("email", "user.email.invalidFormat", EMAIL_INVALID_FORMAT);
         }
   }
 }

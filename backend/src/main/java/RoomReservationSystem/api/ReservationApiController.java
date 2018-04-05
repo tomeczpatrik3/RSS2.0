@@ -2,7 +2,6 @@ package RoomReservationSystem.api;
 
 import RoomReservationSystem.dto.ReservationDTO;
 import RoomReservationSystem.model.Reservation;
-import RoomReservationSystem.validation.ReservationValidator;
 import RoomReservationSystem.service.ReservationService;
 import static RoomReservationSystem.config.ValidationErrorMessageConstants.concatErrors;
 import static RoomReservationSystem.dto.ReservationDTO.toReservationDTO;
@@ -12,6 +11,10 @@ import RoomReservationSystem.dto.EventReservationDTO;
 import RoomReservationSystem.dto.SemesterReservationDTO;
 import RoomReservationSystem.dto.SimpleReservationDTO;
 import static RoomReservationSystem.util.DateUtils.getDate;
+import RoomReservationSystem.validation.BaseReservationValidator;
+import RoomReservationSystem.validation.EventReservationValidator;
+import RoomReservationSystem.validation.SemesterReservationValidator;
+import RoomReservationSystem.validation.SimpleReservationValidator;
 
 import java.util.List;
 
@@ -35,8 +38,18 @@ public class ReservationApiController {
     @Autowired
     ReservationService reservationService;
     
+    /*Validátorok*/
     @Autowired
-    ReservationValidator reservationValidator;
+    BaseReservationValidator baseReservationValidator;
+    
+    @Autowired
+    SimpleReservationValidator simpleReservationValidator;
+    
+    @Autowired
+    SemesterReservationValidator semesterReservationValidator;
+    
+    @Autowired
+    EventReservationValidator eventReservationValidator;
     
     @GetMapping
     public List<ReservationDTO> getAccepted(){
@@ -52,7 +65,8 @@ public class ReservationApiController {
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @PostMapping("/createSimpleReservation")
     public ResponseEntity createSimpleReservation(@RequestBody SimpleReservationDTO simpleReservationDTO, BindingResult bindingResult) {
-        reservationValidator.validate(simpleReservationDTO, bindingResult);
+        baseReservationValidator.validate(simpleReservationDTO, bindingResult);
+        simpleReservationValidator.validate(simpleReservationDTO, bindingResult);
         if (!bindingResult.hasErrors()) {
             Reservation saved = reservationService.save(simpleReservationDTO);
             return ResponseEntity.status(HttpStatus.CREATED).body(toReservationDTO(saved));           
@@ -65,7 +79,8 @@ public class ReservationApiController {
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @PostMapping("/createSemesterReservation")
     public ResponseEntity createSemesterReservation(@RequestBody SemesterReservationDTO semesterReservationDTO, BindingResult bindingResult) {
-        reservationValidator.validate(semesterReservationDTO, bindingResult);
+        baseReservationValidator.validate(semesterReservationDTO, bindingResult);
+        semesterReservationValidator.validate(semesterReservationDTO, bindingResult);
         if (!bindingResult.hasErrors()) {
             Reservation saved = reservationService.save(semesterReservationDTO);
             return ResponseEntity.status(HttpStatus.CREATED).body(toReservationDTO(saved));           
@@ -78,8 +93,8 @@ public class ReservationApiController {
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @PostMapping("/createEventReservation")
     public ResponseEntity createEventReservation(@RequestBody EventReservationDTO eventReservationDTO, BindingResult bindingResult) {
-        /*
-        reservationValidator.validate(eventReservationDTO, bindingResult);
+        baseReservationValidator.validate(eventReservationDTO, bindingResult);
+        eventReservationValidator.validate(eventReservationDTO, bindingResult);
         if (!bindingResult.hasErrors()) {
             Reservation saved = reservationService.save(eventReservationDTO);
             return ResponseEntity.status(HttpStatus.CREATED).body(toReservationDTO(saved));           
@@ -87,9 +102,6 @@ public class ReservationApiController {
         else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
         } 
-        */
-            Reservation saved = reservationService.save(eventReservationDTO);
-            return ResponseEntity.status(HttpStatus.CREATED).body(toReservationDTO(saved));  
     }
     
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
