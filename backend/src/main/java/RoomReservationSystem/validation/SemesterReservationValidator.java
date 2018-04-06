@@ -1,14 +1,18 @@
 package RoomReservationSystem.validation;
 
 import static RoomReservationSystem.config.ValidationErrorMessageConstants.*;
+
 import RoomReservationSystem.dto.SemesterReservationDTO;
 import RoomReservationSystem.service.SemesterService;
 import RoomReservationSystem.service.SubjectService;
+
 import static RoomReservationSystem.util.DayUtils.isValidDay;
 import static RoomReservationSystem.util.RegexUtils.isValidSemester;
 import static RoomReservationSystem.util.RegexUtils.isValidTime;
 import static RoomReservationSystem.util.TimeUtils.isBefore;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -17,6 +21,7 @@ import org.springframework.validation.Validator;
  * Az egész szemeszterre vonatkozó foglalások validálását megvalósító osztály
  * @author Tomecz Patrik
  */
+@Service
 public class SemesterReservationValidator implements Validator {
 
     @Autowired

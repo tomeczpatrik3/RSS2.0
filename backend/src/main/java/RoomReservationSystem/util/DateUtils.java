@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Date;
+
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -65,7 +66,7 @@ public class DateUtils {
     }
     
     /**
-     * A DateTimeString előállításáért felelős függvény
+     * LocalDate és time (String) objektumokból DateTimeString előállításáért felelős függvény
      * @param date  A LocalDate objektum
      * @param time  Az idő String reprezentációban (óó:pp)
      * @return      A DateTime mintának megfelelő String objektum
@@ -79,6 +80,11 @@ public class DateUtils {
         return String.format("%s-%s-%s %s:%s:00", year, month, day, hour, minute);
     }
     
+    /**
+     * DateTime objektumból DateTimeString előállításáért felelős objektum
+     * @param   dateTime    A DateTime objektum
+     * @return              A DateTime mintának megfelelő String objektum
+     */
     public static String getDateTimeString(DateTime dateTime) {
         String year = formatNumber(dateTime.year().get());
         String month = formatNumber(dateTime.monthOfYear().get());
@@ -90,6 +96,12 @@ public class DateUtils {
         return String.format("%s-%s-%s %s:%s:%s", year, month, day, hour, minute, second);
     }
     
+    /**
+     * Date (String) és time (String) objektumokból DateTimeString előállításáért felelős függvény
+     * @param   date    A dátum szöveges reprezentációja
+     * @param   time    Az idő szöveges reprezentációja
+     * @return          A DateTime mintának megfelelő String objektum
+     */
     public static String getDateTimeString(String date, String time) {
         return String.format("%s %s:00", date, time);
     }
@@ -101,6 +113,14 @@ public class DateUtils {
             return String.format("%d", number);
     }
     
+    /**
+     * A függvény amely leellenőrzi, hogy a paraméterben kapott két
+     * dátum (String) közül az első megelőzi-e a másodikat
+     * (korábban van-e?)
+     * @param dateStringA   Az első dátum szöveges reprezentációja
+     * @param dateStringB   A második dátum szöveges reprezentációja
+     * @return              Igaz, ha az első dátum korábban van mint a második, hamis egyébként
+     */
     public static boolean isBefore(String dateStringA, String dateStringB) {
         try {
             Date startDate =  DATE_FORMAT.parse(dateStringA);

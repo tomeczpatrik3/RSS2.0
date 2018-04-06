@@ -1,12 +1,15 @@
 package RoomReservationSystem.validation;
 
 import static RoomReservationSystem.config.ValidationErrorMessageConstants.*;
+
 import RoomReservationSystem.dto.BaseReservationDTO;
 import RoomReservationSystem.dto.EventReservationDTO;
 import RoomReservationSystem.service.BuildingService;
 import RoomReservationSystem.service.ClassroomService;
 import RoomReservationSystem.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -15,6 +18,7 @@ import org.springframework.validation.Validator;
  * A foglalások közös tulajdonságainak ellenőrzését elvégző osztály
  * @author Tomecz Patrik
  */
+@Service
 public class BaseReservationValidator implements Validator {
     @Autowired
     private UserService userService;

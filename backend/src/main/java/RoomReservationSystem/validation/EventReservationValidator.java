@@ -1,17 +1,22 @@
 package RoomReservationSystem.validation;
 
 import static RoomReservationSystem.config.ValidationErrorMessageConstants.*;
+
 import RoomReservationSystem.dto.EventReservationDTO;
+
+import static RoomReservationSystem.util.RegexUtils.isValidDate;
+import static RoomReservationSystem.util.RegexUtils.isValidTime;
+
+import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
-import static RoomReservationSystem.util.RegexUtils.isValidDate;
-import static RoomReservationSystem.util.RegexUtils.isValidTime;
 
 /**
  * Az események foglalásának validálását megvalósító osztály
  * @author Tomecz Patrik
  */
+@Service
 public class EventReservationValidator implements Validator {
 
     
