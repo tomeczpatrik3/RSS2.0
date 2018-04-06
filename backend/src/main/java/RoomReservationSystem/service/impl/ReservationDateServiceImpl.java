@@ -54,6 +54,7 @@ public class ReservationDateServiceImpl implements ReservationDateService {
      */
     @Override
     public ReservationDate save(ReservationDate reservationDate) {
+        String startDateTimeStr = reservationDate.getStartDateTime().toString();
         return reservationDateRepository.save(reservationDate);
     }
     

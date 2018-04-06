@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 
 import org.joda.time.DateTime;
 
+
 /**
  * A foglalásokhoz tartozó dátumok
  * @author Tomecz Patrik
@@ -27,14 +28,15 @@ import org.joda.time.DateTime;
 @Table(name = "reservation_dates")
 public class ReservationDate extends BaseEntity {
     
+    
     @Basic(optional = false)
     @NotNull
-    @Column(name = "startDateTime")
+    @Column(name = "startDateTime", columnDefinition="longblob") /*LONGBLOB: mert a TINYBLOB hibát dobott*/
     private DateTime startDateTime; /*A foglalás kezdete*/
     
     @Basic(optional = false)
     @NotNull
-    @Column(name = "endDateTime")
+    @Column(name = "endDateTime", columnDefinition="longblob") /*LONGBLOB: mert a TINYBLOB hibát dobott*/
     private DateTime endDateTime; /*A foglalás vége*/
     
     @JsonIgnore
