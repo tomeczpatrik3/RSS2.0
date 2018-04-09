@@ -6,8 +6,8 @@ import RoomReservationSystem.service.SubjectService;
 import RoomReservationSystem.validation.SubjectValidator;
 import static RoomReservationSystem.model.Subject.toSubject;
 import static RoomReservationSystem.dto.SubjectDTO.toSubjectDTOList;
-import static RoomReservationSystem.config.ValidationErrorMessageConstants.SUBJECT_NOT_EXISTS;
-import static RoomReservationSystem.config.ValidationErrorMessageConstants.concatErrors;
+import static RoomReservationSystem.config.ErrorMessageConstants.SUBJECT_NOT_EXISTS;
+import static RoomReservationSystem.config.ErrorMessageConstants.concatErrors;
 import static RoomReservationSystem.dto.SubjectDTO.toSubjectDTO;
 
 import java.util.List;

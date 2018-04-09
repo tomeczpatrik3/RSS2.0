@@ -6,7 +6,7 @@ import org.springframework.validation.BindingResult;
  * A validálással kapcsolatos hibaüzeneteket tartalmazó osztály
  * @author Tomecz Patrik
  */
-public class ValidationErrorMessageConstants {
+public class ErrorMessageConstants {
     //--------------
     public static final String USERNAME_EMPTY = "A felhasználónév nem lehet üres!";
     public static final String BUILDING_NAME_EMTPY = "Az épület neve nem lehet üres!";
@@ -85,6 +85,10 @@ public class ValidationErrorMessageConstants {
     public static final String EMAIL_ALREDY_EXISTS = "Ez az e-mail cím már használatban van!";
     
     public static final String RESERVATION_NOT_EXISTS = "Ilyen foglalás nem létezik!";
+    
+    public static final String TYPE_NOT_EXISTS = "Nem létezik ilyen foglalás típus!";
+    public static final String STATUS_NOT_EXISTS = "Nem létezik ilyen foglalás státusz!";
+    public static final String TYPE_OR_STATUS_NOT_EXISTS = "Nem létezik ilyen foglalás típus vagy státusz!";
    
     //-------------
 

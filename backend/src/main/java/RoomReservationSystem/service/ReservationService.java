@@ -5,6 +5,8 @@ import RoomReservationSystem.dto.SemesterReservationDTO;
 import RoomReservationSystem.dto.SimpleReservationDTO;
 import RoomReservationSystem.model.Classroom;
 import RoomReservationSystem.model.Reservation;
+import RoomReservationSystem.model.Status;
+import RoomReservationSystem.model.Type;
 import java.util.Date;
 import java.util.List;
 
@@ -26,4 +28,6 @@ public interface ReservationService {
     List<Reservation> findByClassroom(Classroom classroom);
     List<Reservation> findByDate(Date date);
     List<Reservation> findByClassroomAndDate(String building, String classroom, Date date);
+    List<Reservation> findByType(Type type);
+    List<Reservation> findByStatusAndType(Status status, Type type);
 }

@@ -8,27 +8,15 @@
         <th scope="col">Épület</th>
         <th scope="col">Terem</th>
         <th scope="col">Tantárgy</th>
-        <th scope="col">Státusz</th>
-        <th scope="col">Nap</th>
-        <th scope="col">Kezdési időpont</th>
-        <th scope="col">Befejezési időpont</th>
-        <th scope="col">Kezdeti dátum</th>
-        <th scope="col">Befejezési dátum</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let reservation of pendingReservations; let i = index">
         <th scope="row">{{i+1}}</th>
-        <td>{{reservation.username}}</td>
-        <td>{{reservation.building}}</td>
-        <td>{{reservation.room}}</td>
-        <td>{{reservation.subjectCode}} | {{reservation.subjectName}}</td>
-        <td>{{reservation.status}}</td>
-        <td>{{reservation.day}}</td>
-        <td>{{reservation.startTime }}</td>
-        <td>{{reservation.endTime}}</td>
-        <td>{{reservation.startDate | date: 'yyyy-MM-dd'}}</td>
-        <td>{{reservation.endDate | date: 'yyyy-MM-dd'}}</td>
+        <td>{{reservation.user.username}}</td>
+        <td>{{reservation.building.name}}</td>
+        <td>{{reservation.classroom.name}}</td>
+        <td>{{reservation.subject.code}} | {{reservation.subject.name}}</td>
       </tr>
     </tbody>
   </table>

@@ -3,13 +3,20 @@ package RoomReservationSystem.api;
 import RoomReservationSystem.dto.ReservationDTO;
 import RoomReservationSystem.model.Reservation;
 import RoomReservationSystem.service.ReservationService;
-import static RoomReservationSystem.config.ValidationErrorMessageConstants.concatErrors;
+import static RoomReservationSystem.config.ErrorMessageConstants.concatErrors;
 import static RoomReservationSystem.dto.ReservationDTO.toReservationDTO;
 import static RoomReservationSystem.dto.ReservationDTO.toReservationDTOList;
-import static RoomReservationSystem.config.ValidationErrorMessageConstants.RESERVATION_NOT_EXISTS;
+import static RoomReservationSystem.config.ErrorMessageConstants.RESERVATION_NOT_EXISTS;
+import static RoomReservationSystem.config.ErrorMessageConstants.STATUS_NOT_EXISTS;
+import static RoomReservationSystem.config.ErrorMessageConstants.TYPE_NOT_EXISTS;
+import static RoomReservationSystem.config.ErrorMessageConstants.TYPE_OR_STATUS_NOT_EXISTS;
 import RoomReservationSystem.dto.EventReservationDTO;
 import RoomReservationSystem.dto.SemesterReservationDTO;
 import RoomReservationSystem.dto.SimpleReservationDTO;
+import RoomReservationSystem.model.Status;
+import RoomReservationSystem.model.Type;
+import RoomReservationSystem.service.StatusService;
+import RoomReservationSystem.service.TypeService;
 import static RoomReservationSystem.util.DateUtils.getDate;
 import RoomReservationSystem.validation.BaseReservationValidator;
 import RoomReservationSystem.validation.EventReservationValidator;
@@ -37,6 +44,12 @@ public class ReservationApiController {
     
     @Autowired
     ReservationService reservationService;
+    
+    @Autowired
+    StatusService statusService;
+    
+    @Autowired
+    TypeService typeService;
     
     /*Validátorok*/
     @Autowired
@@ -106,8 +119,11 @@ public class ReservationApiController {
     
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findByStatus/{status}")
-    public List<ReservationDTO> findByStatus(@PathVariable String status){
-	return toReservationDTOList(reservationService.findByStatus(status));
+    public ResponseEntity findByStatus(@PathVariable String status){
+        if (statusService.findByName(status) != null)
+            return ResponseEntity.status(HttpStatus.OK).body(toReservationDTOList(reservationService.findByStatus(status)));
+        else
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(STATUS_NOT_EXISTS);  
     } 
     
     @PreAuthorize("hasAuthority('ROLE_USER')")
@@ -132,5 +148,26 @@ public class ReservationApiController {
             return ResponseEntity.ok(toReservationDTO(reservationService.setStatus(id, status)));
         else
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(RESERVATION_NOT_EXISTS);
-    } 
+    }
+    
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping("/findByType")
+    public ResponseEntity findByType(@RequestParam("type") String type){
+	Type reservationType = typeService.findByName(type.toUpperCase());
+        if ( reservationType != null)
+            return ResponseEntity.ok(toReservationDTOList(reservationService.findByType(reservationType)));
+        else
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(TYPE_NOT_EXISTS);
+    }    
+  
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping("/findByStatusAndType")
+    public ResponseEntity findByStatusAndType(@RequestParam("status") String status, @RequestParam("type") String type){
+	Status reservationStatus = statusService.findByName(status);
+        Type reservationType = typeService.findByName(type.toUpperCase());
+        if ( reservationType != null && reservationStatus!= null)
+            return ResponseEntity.ok(toReservationDTOList(reservationService.findByStatusAndType(reservationStatus, reservationType)));
+        else
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(TYPE_OR_STATUS_NOT_EXISTS);
+    }   
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from '../authentication/auth.service';
 import { MenuItem } from '../models/MenuItem';
+import { Authorities } from '../config/authoritites.config';
 
 @Injectable()
 export class NavigationService {
@@ -8,36 +9,36 @@ export class NavigationService {
         Menu:
     */
     menuItems: MenuItem[] = [
-        new MenuItem("Simple", "Főoldal", "/dashboard", "ANY"),
+        new MenuItem("Simple", "Főoldal", "/dashboard", Authorities.ROLE_GUEST),
 
-        new MenuItem("Simple", "Foglalások", "/reservations", "ANY"),
+        new MenuItem("Simple", "Foglalások", "/reservations", Authorities.ROLE_GUEST),
 
-        new MenuItem("Simple", "Napi nézet", "/dailyView", "ROLE_ADMIN"),
+        new MenuItem("Simple", "Napi nézet", "/dailyView", Authorities.ROLE_ADMIN),
 
-        new MenuItem("Dropdown", "Foglalásaim", "", "ROLE_USER", [
-            new MenuItem("Simple", "Táblázatos megjelenítés", "/myReservations", "ROLE_USER"),
-            new MenuItem("Simple", "Részletes megjelenítés", "/myReservationsDetailed", "ROLE_USER")
+        new MenuItem("Dropdown", "Foglalásaim", "", Authorities.ROLE_USER, [
+            new MenuItem("Simple", "Táblázatos megjelenítés", "/myReservations", Authorities.ROLE_USER),
+            new MenuItem("Simple", "Részletes megjelenítés", "/myReservationsDetailed", Authorities.ROLE_USER)
         ]),
 
-        new MenuItem("Dropdown", "Táblázatok", "", "ROLE_ADMIN", [
-            new MenuItem("Simple", "Felhasználók", "/users", "ROLE_ADMIN"),
-            new MenuItem("Simple", "Tantermek", "/classrooms", "ROLE_ADMIN"),
-            new MenuItem("Simple", "Félévek", "/semesters", "ROLE_ADMIN"),
-            new MenuItem("Simple", "Tantárgyak", "/subjects", "ROLE_ADMIN"),
-            new MenuItem("Simple", "Épületek", "/buildings", "ROLE_ADMIN"),
-            new MenuItem("Simple", "Várakozó foglalások", "/pendingReservations", "ROLE_ADMIN")
+        new MenuItem("Dropdown", "Táblázatok", "", Authorities.ROLE_ADMIN, [
+            new MenuItem("Simple", "Felhasználók", "/users", Authorities.ROLE_ADMIN),
+            new MenuItem("Simple", "Tantermek", "/classrooms", Authorities.ROLE_ADMIN),
+            new MenuItem("Simple", "Félévek", "/semesters", Authorities.ROLE_ADMIN),
+            new MenuItem("Simple", "Tantárgyak", "/subjects", Authorities.ROLE_ADMIN),
+            new MenuItem("Simple", "Épületek", "/buildings", Authorities.ROLE_ADMIN),
+            new MenuItem("Simple", "Várakozó foglalások", "/pendingReservations", Authorities.ROLE_ADMIN)
         ]),
 
-        new MenuItem("Dropdown", "Űrlapok", "", "ROLE_USER", [
-            new MenuItem("Simple", "Új foglalás", "/addReservation", "ROLE_USER"),
-            new MenuItem("Simple", "Új szemeszter", "/addSemester", "ROLE_ADMIN"),
-            new MenuItem("Simple", "Új felhasználó", "/addUser", "ROLE_ADMIN"),
-            new MenuItem("Simple", "Új tanterem", "/addClassroom", "ROLE_ADMIN"),
-            new MenuItem("Simple", "Új tantárgy", "/addSubject", "ROLE_ADMIN"),
-            new MenuItem("Simple", "Új épület", "/addBuilding", "ROLE_ADMIN"),
+        new MenuItem("Dropdown", "Űrlapok", "", Authorities.ROLE_USER, [
+            new MenuItem("Simple", "Új foglalás", "/addReservation", Authorities.ROLE_USER),
+            new MenuItem("Simple", "Új szemeszter", "/addSemester", Authorities.ROLE_ADMIN),
+            new MenuItem("Simple", "Új felhasználó", "/addUser", Authorities.ROLE_ADMIN),
+            new MenuItem("Simple", "Új tanterem", "/addClassroom", Authorities.ROLE_ADMIN),
+            new MenuItem("Simple", "Új tantárgy", "/addSubject", Authorities.ROLE_ADMIN),
+            new MenuItem("Simple", "Új épület", "/addBuilding", Authorities.ROLE_ADMIN),
         ]),
 
-        new MenuItem("Simple", "Várakozó foglalások kezelése", "/managePendingReservations", "ROLE_ADMIN"),
+        new MenuItem("Simple", "Várakozó foglalások kezelése", "/managePendingReservations", Authorities.ROLE_ADMIN),
     ];
 
     constructor(

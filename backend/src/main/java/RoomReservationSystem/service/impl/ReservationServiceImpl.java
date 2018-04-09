@@ -17,6 +17,7 @@ import RoomReservationSystem.model.Type;
 import RoomReservationSystem.service.ReservationDateService;
 import RoomReservationSystem.service.SemesterService;
 import static RoomReservationSystem.model.Reservation.toReservation;
+import RoomReservationSystem.service.TypeService;
 import static RoomReservationSystem.util.DateUtils.getDateTimeString;
 
 import java.util.Arrays;
@@ -48,6 +49,9 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Autowired
     StatusService statusService;
+    
+    @Autowired
+    TypeService typeService;
 
     @Autowired
     SemesterService semesterService;
@@ -76,7 +80,7 @@ public class ReservationServiceImpl implements ReservationService {
                                 simpleReservationDTO.getRoomName(),
                                 simpleReservationDTO.getBuildingName()),
                         statusService.findByName("PENDING"), /*A foglalás státusza*/
-                        Type.SIMPLE,
+                        typeService.findByName("SIMPLE"),
                         simpleReservationDTO.getReservationName(),
                         simpleReservationDTO.getNote() /*A foglaláshoz tartozó megjegyzés*/
                 )
@@ -102,7 +106,7 @@ public class ReservationServiceImpl implements ReservationService {
                                 eventReservationDTO.getRoomName(),
                                 eventReservationDTO.getBuildingName()),
                         statusService.findByName("PENDING"), /*A foglalás státusza*/
-                        Type.EVENT,
+                        typeService.findByName("EVENT"),
                         eventReservationDTO.getReservationName(),
                         eventReservationDTO.getNote() /*A foglaláshoz tartozó megjegyzés*/
                 )
@@ -128,7 +132,7 @@ public class ReservationServiceImpl implements ReservationService {
                                 semesterReservationDTO.getRoomName(),
                                 semesterReservationDTO.getBuildingName()),
                         statusService.findByName("PENDING"), /*A foglalás státusza*/
-                        Type.SEMESTER,
+                        typeService.findByName("SEMESTER"),
                         semesterReservationDTO.getReservationName(),
                         semesterReservationDTO.getNote() /*A foglaláshoz tartozó megjegyzés*/
                 )
@@ -245,6 +249,27 @@ public class ReservationServiceImpl implements ReservationService {
         List<Reservation> foundByDate = findByDate(date);
         return intersect(foundByClassroom, foundByDate);
 
+    }
+    
+    /**
+     * A foglalások típus alapján történő keresését megvalósító függvény
+     * @param   type    A foglalás típusa
+     * @return          A paraméterben átadott típusú foglalások egy listában
+     */
+    @Override
+    public List<Reservation> findByType(Type type) {
+        return reservationRepository.findByType(type);
+    }
+    
+    /**
+     * A foglalások típus és státusz alapján történő keresését megvalósító függvény
+     * @param   status  A foglalás státusza
+     * @param   type    A foglalás típusa
+     * @return          A paraméterben átadott típusú és státuszú foglalások egy listában
+     */
+    @Override
+    public List<Reservation> findByStatusAndType(Status status, Type type) {
+        return reservationRepository.findByStatusAndType(status, type);
     }
 
     /**

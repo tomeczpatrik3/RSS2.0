@@ -4,6 +4,8 @@ import { DialogService } from '../../../services/dialog.service';
 import { InfoDialogComponent } from '../../dialogs/info-dialog/info-dialog.component';
 import { Reservation } from '../../../models/Reservation';
 import { ReservationService } from '../../../services/reservation.service';
+import { Type } from '../../../models/Type';
+import { TypeService } from '../../../services/type.service';
 
 @Component({
   selector: 'app-pending-reservations',
@@ -13,19 +15,31 @@ import { ReservationService } from '../../../services/reservation.service';
 export class PendingReservationsComponent implements OnInit {
 
   pendingReservations: Reservation[];
+  types: Type[];
   haspendingReservation: boolean = false;
 
   constructor(
     private reservationService: ReservationService,
+    private typeService: TypeService,
     private dialogService: DialogService
   ) { }
 
   ngOnInit() {
-    this.updateReservations();
+    this.getTypes();
   }
 
-  updateReservations() {
-    this.reservationService.findByStatus('PENDING').subscribe(
+  getTypes() {
+    this.typeService.getAll().subscribe(
+      res => this.types = res
+    )
+  }
+
+  selectType(type: string) {
+    this.updateReservations(type);
+  }
+
+  updateReservations(type: string) {
+    this.reservationService.findByStatusAndType('PENDING', type).subscribe(
       res => {
         this.pendingReservations = res;
         this.pendingReservations.length == 0 ? this.haspendingReservation = false : this.haspendingReservation = true;
@@ -37,7 +51,7 @@ export class PendingReservationsComponent implements OnInit {
     this.reservationService.setStatus(reservation.id, Statuses.ACCEPTED).subscribe(
       res => {
         this.dialogService.openDialog("Értesítés:", "A várakozó foglalás sikeresen elfogadva!", InfoDialogComponent);
-        this.updateReservations();
+        //this.updateReservations();
       },
       err => {
         console.log(err);
@@ -49,7 +63,7 @@ export class PendingReservationsComponent implements OnInit {
     this.reservationService.setStatus(reservation.id, Statuses.DECLINED).subscribe(
       res => {
         this.dialogService.openDialog("Értesítés:", "A várakozó foglalás sikeresen elutasítva!", InfoDialogComponent);
-        this.updateReservations();
+        //this.updateReservations();
       },
       err => {
         console.log(err);

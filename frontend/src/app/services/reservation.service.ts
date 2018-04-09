@@ -4,7 +4,6 @@ import { Reservation } from '../models/Reservation';
 import { Routes } from '../config/routes.config';
 import { HttpService } from './http.service';
 import { Observable } from 'rxjs/Observable';
-import { ReservationForm } from '../models/ReservationForm';
 import { SimpleReservation } from '../models/SimpleReservation';
 import { SemesterReservation } from '../models/SemesterReservation';
 import { EventReservation } from '../models/EventReservation';
@@ -34,6 +33,10 @@ export class ReservationService {
 
   findByStatus(status: string): Observable<Reservation[]> {
     return <Observable<Reservation[]>>this.http.get(Routes.getUrl(Routes.RESERVATION_FIND_BY_STATUS + "/" + status));
+  }
+
+  findByStatusAndType(status: string, type: string): Observable<Reservation[]> {
+    return <Observable<Reservation[]>>this.http.get(Routes.getUrl(Routes.RESERVATION_FIND_BY_STATUS_AND_TYPE + "/status=" + status + "&type=" + type));
   }
 
   setStatus(id: number, status: string): Observable<Reservation> {

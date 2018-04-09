@@ -4,8 +4,8 @@ import RoomReservationSystem.dto.UserDTO;
 import RoomReservationSystem.model.User;
 import RoomReservationSystem.service.UserService;
 import RoomReservationSystem.validation.UserValidator;
-import static RoomReservationSystem.config.ValidationErrorMessageConstants.USER_NOT_EXISTS;
-import static RoomReservationSystem.config.ValidationErrorMessageConstants.concatErrors;
+import static RoomReservationSystem.config.ErrorMessageConstants.USER_NOT_EXISTS;
+import static RoomReservationSystem.config.ErrorMessageConstants.concatErrors;
 import static RoomReservationSystem.dto.UserDTO.toUserDTO;
 import static RoomReservationSystem.dto.UserDTO.toUserDTOList;
 

@@ -1,7 +1,7 @@
 package RoomReservationSystem.api;
 
-import static RoomReservationSystem.config.ValidationErrorMessageConstants.SUBJECT_NOT_EXISTS;
-import static RoomReservationSystem.config.ValidationErrorMessageConstants.concatErrors;
+import static RoomReservationSystem.config.ErrorMessageConstants.SUBJECT_NOT_EXISTS;
+import static RoomReservationSystem.config.ErrorMessageConstants.concatErrors;
 import RoomReservationSystem.dto.SemesterDTO;
 import static RoomReservationSystem.dto.SemesterDTO.toSemesterDTO;
 import static RoomReservationSystem.dto.SemesterDTO.toSemesterDTOList;

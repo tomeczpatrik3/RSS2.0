@@ -40,11 +40,6 @@ public class Reservation extends BaseEntity {
     
     @Basic(optional = false)
     @NotNull
-    @Column(name = "type")
-    private Type type;  /*A foglalás típusa*/
-    
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "note")
     private String note;  /*A foglaláshoz tartozó megjegyzés*/
@@ -68,6 +63,11 @@ public class Reservation extends BaseEntity {
     @JoinColumn(name = "status", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Status status;  /*A foglalás státusza*/
+    
+    @JsonIgnore
+    @JoinColumn(name = "type", referencedColumnName = "id")
+    @ManyToOne(optional = false)    
+    private Type type;  /*A foglalás típusa*/
     
     @JsonIgnore
     @JoinColumn(name = "semester", referencedColumnName = "id", nullable = true)
@@ -102,12 +102,12 @@ public class Reservation extends BaseEntity {
         ) {
         return new Reservation(
                 name,
-                type,
                 note,
                 classroom,
                 subject,
                 user,
                 status,
+                type,
                 semester,
                 Collections.emptyList()
         );

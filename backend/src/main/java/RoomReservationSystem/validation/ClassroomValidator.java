@@ -4,7 +4,7 @@ import RoomReservationSystem.service.BuildingService;
 import RoomReservationSystem.service.ClassroomService;
 import RoomReservationSystem.dto.ClassroomDTO;
 
-import static RoomReservationSystem.config.ValidationErrorMessageConstants.*;
+import static RoomReservationSystem.config.ErrorMessageConstants.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

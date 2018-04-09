@@ -3,7 +3,7 @@ package RoomReservationSystem.validation;
 import RoomReservationSystem.dto.SemesterDTO;
 import RoomReservationSystem.service.SemesterService;
 
-import static RoomReservationSystem.config.ValidationErrorMessageConstants.*;
+import static RoomReservationSystem.config.ErrorMessageConstants.*;
 import static RoomReservationSystem.util.DateUtils.isBefore;
 import static RoomReservationSystem.util.RegexUtils.isValidDate;
 import static RoomReservationSystem.util.RegexUtils.isValidSemester;

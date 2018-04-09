@@ -1,10 +1,10 @@
 package RoomReservationSystem.dto;
 
+import static RoomReservationSystem.dto.BuildingDTO.toBuildingDTO;
 import static RoomReservationSystem.dto.ClassroomDTO.toClassroomDTO;
 import static RoomReservationSystem.dto.SubjectDTO.toSubjectDTO;
 import static RoomReservationSystem.dto.UserDTO.toUserDTO;
 import RoomReservationSystem.model.Reservation;
-import RoomReservationSystem.model.Type;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +25,7 @@ public class ReservationDTO {
     private String semester;            /*A félév (neve)*/
     private UserDTO user;               /*A felhasználó akihez a foglalás tarotzik*/
     private SubjectDTO subject;         /*A tantárgy amire a foglalás vonatkozik*/
+    private BuildingDTO building;       /*Az épület, amiben a tanterem található*/
     private ClassroomDTO classroom;     /*A tanterem amire a foglalás vonatkozik*/
     private String note;                /*A foglaláshoz tartozó jegyzet*/
     private String status;              /*A foglalás státusza*/
@@ -39,12 +40,12 @@ public class ReservationDTO {
         String semesterName;
         SubjectDTO subjectDTO;
         
-        switch (reservation.getType()) {
-            case SIMPLE:
+        switch (reservation.getType().getName().toUpperCase()) {
+            case "SIMPLE":
                 semesterName = reservation.getSemester().getName();
                 subjectDTO = toSubjectDTO(reservation.getSubject());
                 break;
-            case EVENT:
+            case "EVENT":
                 semesterName = "";
                 subjectDTO = null;
                 break;
@@ -58,6 +59,7 @@ public class ReservationDTO {
                 semesterName,
                 toUserDTO(reservation.getUser()),
                 subjectDTO,
+                toBuildingDTO(reservation.getClassroom().getBuilding()),
                 toClassroomDTO(reservation.getClassroom()),
                 reservation.getNote(),
                 reservation.getStatus().getName(),

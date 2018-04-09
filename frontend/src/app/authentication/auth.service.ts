@@ -11,6 +11,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Subject } from 'rxjs/Subject';
 import { DialogService } from '../services/dialog.service';
 import { InfoDialogComponent } from '../components/dialogs/info-dialog/info-dialog.component';
+import { Authorities } from '../config/authoritites.config';
 
 @Injectable()
 export class AuthService {
@@ -103,7 +104,7 @@ export class AuthService {
     */
     hasAuthority(authority: string): boolean {
         const authorities = localStorage.getItem('authorities');
-        if (authority == 'ANY')
+        if (authority == Authorities.ROLE_GUEST)
             return true;
         if (authorities != null && authorities.length == 1)
             return (authorities == authority);

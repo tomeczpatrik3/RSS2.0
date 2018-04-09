@@ -47,7 +47,7 @@
         </div>
       </div>
 
-      <div class="form-group row">
+      <div [hidden]="!building.valid" class="form-group row">
         <label for="room" class="col-sm-4 col-form-label">Terem neve*</label>
         <div class="col-sm-8">
           <select class="form-control" id="room" [formControl]="room">

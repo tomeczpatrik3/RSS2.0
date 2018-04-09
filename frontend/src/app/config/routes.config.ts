@@ -21,7 +21,8 @@ export class Routes {
     static RESERVATION_FIND_BY_ROOM_NAME: 		            string = "reservation/findByRoomName";
     static RESERVATION_FIND_BY_STATUS:                  string = "reservation/findByStatus";
     static RESERVATION_SET_STATUS:                      string = "reservation/setStatus";
-                                                  
+    static RESERVATION_FIND_BY_STATUS_AND_TYPE:          string = "reservation/findByStatusAndType";         
+    
     static CLASSROOM: 			                            string = "classroom";
     static CLASSROOM_GET_NAMES: 			            string = "classroom/getNames";
     static CLASSROOM_FIND_BY_BUILDING_NAME: 			            string = "classroom/findByBuildingName";
@@ -46,6 +47,8 @@ export class Routes {
     static SEMESTER_GET_NAMES: string = "semester/getSemesterNames";
     static SEMESTER_CREATE_SEMESTER: string ="semester/createSemester";
     static SEMESTER_DELETE_BY_NAME: string="semester/deleteByName";
+
+    static TYPE: string = "type";
 
 
     static getUrl(route: string): string {

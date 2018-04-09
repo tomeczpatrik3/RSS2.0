@@ -13,7 +13,6 @@ import { BuildingService } from '../../../services/building.service';
 import { Router } from '@angular/router';
 import { Subject } from '../../../models/Subject';
 import { Building } from '../../../models/Building';
-import { ReservationForm } from '../../../models/ReservationForm';
 import { SemesterService } from '../../../services/semester.service';
 import { Semester } from '../../../models/Semester';
 

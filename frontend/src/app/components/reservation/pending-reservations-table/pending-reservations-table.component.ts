@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Reservation } from '../../../models/Reservation';
 import { ReservationService } from '../../../services/reservation.service';
+import { Statuses } from '../../../config/statuses.config';
 
 @Component({
   selector: 'app-pending-reservations-table',
@@ -17,7 +18,7 @@ export class PendingReservationsTableComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.reservationService.findByStatus("PENDING").subscribe(
+    this.reservationService.findByStatus(Statuses.PENDING).subscribe(
       res => this.pendingReservations = res
     )
   }

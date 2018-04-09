@@ -60,9 +60,6 @@ public class UserServiceImpl implements UserService   {
     @Override
     public User register(UserDTO userDTO) {
         Authority userAuth = authorityService.findByName("ROLE_USER");
-        if (userAuth==null) {
-            userAuth = authorityService.save(new Authority("ROLE_USER", Collections.emptyList()));
-        }
         
         User user = userRepository.save(toUser(
                 userDTO, 
@@ -71,6 +68,7 @@ public class UserServiceImpl implements UserService   {
         ));
         
         userAuth.addUser(user);
+        authorityService.save(userAuth);
         
         return user;
     }

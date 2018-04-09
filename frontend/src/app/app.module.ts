@@ -38,6 +38,8 @@ import { LogoutComponent } from './components/logout/logout.component';
 
 import { UpperCasePipe } from '@angular/common';
 import { DailyViewComponent } from './components/reservation/daily-view/daily-view.component';
+import { EditReservationDialogComponent } from './components/dialogs/edit-reservation-dialog/edit-reservation-dialog.component';
+import { TypeService } from './services/type.service';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,7 @@ import { DailyViewComponent } from './components/reservation/daily-view/daily-vi
     QuestionDialogComponent,
     LogoutComponent,
     DailyViewComponent,
+    EditReservationDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,6 +85,8 @@ import { DailyViewComponent } from './components/reservation/daily-view/daily-vi
     RoleGuardService,
     FormGuardService,
     NavigationService,
+
+    TypeService,
   ],
   entryComponents: [
     InfoDialogComponent,
