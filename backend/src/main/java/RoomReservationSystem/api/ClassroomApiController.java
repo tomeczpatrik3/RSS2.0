@@ -88,19 +88,6 @@ public class ClassroomApiController {
     }
     
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @PostMapping("/deleteByRoomName/{name}")
-    public ResponseEntity deleteByRoomName(@PathVariable String name){
-	if (classroomService.findByName(name) != null) {
-            classroomService.deleteByName(name);
-            return new ResponseEntity(HttpStatus.OK);            
-        }
-        else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(CLASSROOM_NOT_EXISTS);
-        }
-
-    }
-    
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/createClassroom")
     public ResponseEntity createClassroom(@RequestBody ClassroomDTO classroomDTO, BindingResult bindingResult) {
         classroomValidator.validate(classroomDTO, bindingResult);
@@ -114,6 +101,19 @@ public class ClassroomApiController {
         else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
         }
+    }
+    
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PostMapping("/deleteByRoomName/{name}")
+    public ResponseEntity deleteByRoomName(@PathVariable String name){
+	if (classroomService.findByName(name) != null) {
+            classroomService.deleteByName(name);
+            return new ResponseEntity(HttpStatus.OK);            
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(CLASSROOM_NOT_EXISTS);
+        }
+
     }
     
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")

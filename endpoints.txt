@@ -1,0 +1,145 @@
+-- BUILDING:
+
+	-- GET:
+	
+		Név:		getAll()
+		Url: 		/api/building/
+		Feladat:	Visszaadja egy listában az összes adatbázisban található épületet
+		
+		Név:		getNames()
+		Url: 		/api/building/getNames
+		Feladat:	Visszaadja egy listában az összes adatbázisban található épület nevét
+		
+		Név:		findByName()
+		Url: 		/api/building/findByName/{name}
+		Feladat:	Visszaadja az adott névhez tartozó épületet
+		
+		Név:		findById()
+		Url: 		/api/building/findById/{id}
+		Feladat:	Visszaadja az adott idhoz tartozó épületet	
+		
+	-- POST:
+
+		Név:		createBuilding()
+		Url: 		/api/building/createBuilding
+		Feladat:	Létrehozza a megfelelő épületet
+
+		Név:		deleteByName()
+		Url: 		/api/building/deleteByName/{name}
+		Feladat:	Törli az adott névhez tartozó épületet
+		
+-- CLASSROOM:
+
+	-- GET:
+	
+		Név:		getAll()
+		Url: 		/api/classroom/
+		Feladat:	Visszaadja egy listában az összes adatbázisban található tantermet
+		
+		Név:		findByName()
+		Url: 		/api/classroom/findByName/{name}
+		Feladat:	Visszaadja egy listában az adott névvel rendelkező tantermeket
+		
+		Név:		findByBuildingName()
+		Url: 		/api/classroom/findByBuildingName/{buildingName}
+		Feladat:	Visszaadja az adott épülethez tartozó tantermeket
+		
+		Név:		findByHasPC()
+		Url: 		/api/classroom/findByHasPC/{hasPC}
+		Feladat:	Visszaadja a PC-vel rendelkező (vagy nem rendelkező) tantermeket
+
+		Név:		findByHasProjector()
+		Url: 		/api/classroom/findByHasProjector/{hasProjector}
+		Feladat:	Visszaadja a projektorral rendelkező (vagy nem rendelkező) tantermeket
+
+		Név:		findByChairsLessThan()
+		Url: 		/api/classroom/findByChairsLessThan/{chair}
+		Feladat:	Visszaadja egy adott számnál kevesebb székkel rendelkező tantermeket
+
+		Név:		findByChairsGreaterThan()
+		Url: 		/api/classroom/findByChairsGreaterThan/{chair}
+		Feladat:	Visszaadja egy adott számnál több székkel rendelkező tantermeket
+
+		Név:		findByChairsBetween()
+		Url: 		/api/classroom/findByChairsBetween
+		Feladat:	Visszaadja két adott szám közötti székkel rendelkező tantermeket
+		
+	-- POST:
+
+		Név:		createClassroom()
+		Url: 		/api/classroom/createClassroom
+		Feladat:	Létrehozza a megfelelő tantermet
+
+		Név:		deleteByRoomName()
+		Url: 		/api/classroom/deleteByRoomName/{name}
+		Feladat:	Törli az adott névhez tartozó tantermet
+		
+		Név:		updateClassroom()
+		Url: 		/api/classroom/updateClassroom
+		Feladat:	Frissíti a megfelelő tantermet	
+		
+-- RESERVATION:
+
+	-- GET:
+	
+		Név:		getAccepted()
+		Url: 		/api/reservation/
+		Feladat:	Visszaadja az elfogadott foglalásokat
+		
+		Név:		findByUsername()
+		Url: 		/api/reservation/findByUsername/{username}
+		Feladat:	Visszaadja az adott felhasználónévhez tartozó foglalásokat
+		
+		Név:		findByStatus()
+		Url: 		/api/reservation/findByStatus/{status}
+		Feladat:	Visszaadja az adott státusszal rendelkező foglalásokat
+		
+		Név:		findByClassroomAndDate()
+		Url: 		/api/reservation/findByClassroomAndDate
+		Feladat:	Visszaadja az adott tanteremhez és időponthoz tartozó foglalásokat
+
+		Név:		setStatus()
+		Url: 		/api/reservation/setStatus
+		Feladat:	A megfelelő foglalás státuszát állítja be
+
+		Név:		findByType()
+		Url: 		/api/reservation/findByType
+		Feladat:	Visszaadja az adott típusú foglalásokat
+
+		Név:		findByStatusAndType()
+		Url: 		/api/reservation/findByStatusAndType
+		Feladat:	Visszaadja egy adott státuszú és típusú foglalásokat
+		
+	-- POST:
+
+		Név:		createSimpleReservation()
+		Url: 		/api/reservation/createSimpleReservation
+		Feladat:	Létrehozza a megfelelő egyszerű foglalást
+
+		Név:		createSemesterReservation()
+		Url: 		/api/reservation/createSemesterReservation
+		Feladat:	Létrehozza a megfelelő, szemeszterre vonatkozó foglalást
+		
+		Név:		createEventReservation()
+		Url: 		/api/reservation/createEventReservation
+		Feladat:	Létrehozza a megfelelő, eseményre vonatkozó foglalást	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		

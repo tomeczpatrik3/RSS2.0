@@ -66,18 +66,6 @@ public class BuildingApiController {
     }
     
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @PostMapping("/deleteByName/{name}")
-    public ResponseEntity deleteByName(@PathVariable String name){
-	if ( buildingService.findByName( name ) != null ) {
-            buildingService.deleteByName(name);
-            return new ResponseEntity(HttpStatus.OK);            
-        }
-        else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(BUILDING_NOT_EXISTS);
-        }
-    }
-    
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/createBuilding")
     public ResponseEntity createBuilding(@RequestBody BuildingDTO buildingDTO, BindingResult bindingResult) {
         buildingValidator.validate(buildingDTO, bindingResult);
@@ -92,18 +80,15 @@ public class BuildingApiController {
         }
     }
     
-    /*
-    @PostMapping("/updateClassroom")
-    public ResponseEntity<Building> updateClassroom(@RequestBody Classroom cr, BindingResult bindingResult) {
-        classroomValidator.validate(cr, bindingResult);
-        if (!bindingResult.hasErrors()) {
-            classroomService.delete( classroomService.findByRoomName(cr.getRoomName()));
-            Classroom saved = classroomService.save(cr);
-            return ResponseEntity.ok(saved);          
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PostMapping("/deleteByName/{name}")
+    public ResponseEntity deleteByName(@PathVariable String name){
+	if ( buildingService.findByName( name ) != null ) {
+            buildingService.deleteByName(name);
+            return new ResponseEntity(HttpStatus.OK);            
         }
         else {
-            return new ResponseEntity(HttpStatus.FORBIDDEN);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(BUILDING_NOT_EXISTS);
         }
-    } 
-    */
+    }
 }
