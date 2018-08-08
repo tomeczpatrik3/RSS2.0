@@ -124,9 +124,53 @@
 		Url: 		/api/reservation/createEventReservation
 		Feladat:	Létrehozza a megfelelő, eseményre vonatkozó foglalást	
 		
+-- SEMESTER:
+
+	-- GET:
+	
+		Név:		getAll()
+		Url: 		/api/semester/
+		Feladat:	Visszaadja egy listában az összes adatbázisban található szemesztert
 		
+		Név:		getSemesterNames()
+		Url: 		/api/semester/getSemesterNames
+		Feladat:	Visszaadja egy listában az szemeszterek neveit
 		
+	-- POST:
+
+		Név:		createSemester()
+		Url: 		/api/semester/createSemester
+		Feladat:	Létrehozza a megfelelő szemesztert
+
+		Név:		deleteByName()
+		Url: 		/api/semester/deleteByName
+		Feladat:	Törli az adott névhez tartozó szemesztert		
 		
+-- SUBJECT:
+
+	-- GET:
+	
+		Név:		getAll()
+		Url: 		/api/semester/
+		Feladat:	Visszaadja egy listában az összes adatbázisban található tantárgyat
+		
+		Név:		getSubjectNames()
+		Url: 		/api/semester/getSubjectNames
+		Feladat:	Visszaadja egy listában a tantárgyak neveit
+		
+	-- POST:
+
+		Név:		createSubject()
+		Url: 		/api/semester/createSubject
+		Feladat:	Létrehozza a megfelelő tantárgyat
+		
+		Név:		updateSubject()
+		Url: 		/api/semester/updateSubject
+		Feladat:	Frissíti a megfelelő tantárgyat
+
+		Név:		deleteByCode()
+		Url: 		/api/semester/deleteByCode
+		Feladat:	Törli az adott kódhoz tartozó tantárgyat			
 		
 		
 		
