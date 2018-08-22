@@ -4,29 +4,29 @@
 	
 		Név:		getAll()
 		Url: 		/api/building/
-		Feladat:	Visszaadja egy listában az összes adatbázisban található épületet
+		Feladat:	A függvény ami visszaadja egy listában az összes adatbázisban található épületet
 		
 		Név:		getNames()
 		Url: 		/api/building/getNames
-		Feladat:	Visszaadja egy listában az összes adatbázisban található épület nevét
+		Feladat:	A függvény ami visszaadja egy listában az összes adatbázisban található épület nevét
 		
 		Név:		findByName()
 		Url: 		/api/building/findByName/{name}
-		Feladat:	Visszaadja az adott névhez tartozó épületet
+		Feladat:	A függvény ami visszaadja az adott névhez tartozó épületet
 		
 		Név:		findById()
 		Url: 		/api/building/findById/{id}
-		Feladat:	Visszaadja az adott idhoz tartozó épületet	
+		Feladat:	A függvény ami visszaadja az adott azonosítóhoz tartozó épületet	
 		
 	-- POST:
 
 		Név:		createBuilding()
 		Url: 		/api/building/createBuilding
-		Feladat:	Létrehozza a megfelelő épületet
+		Feladat:	A függvény ami létrehozza a megfelelő épületet
 
 		Név:		deleteByName()
 		Url: 		/api/building/deleteByName/{name}
-		Feladat:	Törli az adott névhez tartozó épületet
+		Feladat:	A függvény ami törli az adott névhez tartozó épületet
 		
 -- CLASSROOM:
 
@@ -34,49 +34,49 @@
 	
 		Név:		getAll()
 		Url: 		/api/classroom/
-		Feladat:	Visszaadja egy listában az összes adatbázisban található tantermet
+		Feladat:	A függvény ami visszaadja egy listában az összes adatbázisban található termet
 		
 		Név:		findByName()
 		Url: 		/api/classroom/findByName/{name}
-		Feladat:	Visszaadja egy listában az adott névvel rendelkező tantermeket
+		Feladat:	A függvény ami visszaadja egy listában az adott névvel rendelkező termeket
 		
 		Név:		findByBuildingName()
 		Url: 		/api/classroom/findByBuildingName/{buildingName}
-		Feladat:	Visszaadja az adott épülethez tartozó tantermeket
+		Feladat:	A függvény ami visszaadja az adott épülethez tartozó termeket
 		
 		Név:		findByHasPC()
 		Url: 		/api/classroom/findByHasPC/{hasPC}
-		Feladat:	Visszaadja a PC-vel rendelkező (vagy nem rendelkező) tantermeket
+		Feladat:	A függvény ami visszaadja a PC-vel rendelkező (vagy nem rendelkező) termeket
 
 		Név:		findByHasProjector()
 		Url: 		/api/classroom/findByHasProjector/{hasProjector}
-		Feladat:	Visszaadja a projektorral rendelkező (vagy nem rendelkező) tantermeket
+		Feladat:	A függvény ami visszaadja a projektorral rendelkező (vagy nem rendelkező) termeket
 
 		Név:		findByChairsLessThan()
 		Url: 		/api/classroom/findByChairsLessThan/{chair}
-		Feladat:	Visszaadja egy adott számnál kevesebb székkel rendelkező tantermeket
+		Feladat:	A függvény ami visszaadja egy adott számnál kevesebb székkel rendelkező termeket
 
 		Név:		findByChairsGreaterThan()
 		Url: 		/api/classroom/findByChairsGreaterThan/{chair}
-		Feladat:	Visszaadja egy adott számnál több székkel rendelkező tantermeket
+		Feladat:	A függvény ami visszaadja egy adott számnál több székkel rendelkező termeket
 
 		Név:		findByChairsBetween()
 		Url: 		/api/classroom/findByChairsBetween
-		Feladat:	Visszaadja két adott szám közötti székkel rendelkező tantermeket
+		Feladat:	A függvény ami visszaadja két adott szám közötti székkel rendelkező termeket
 		
 	-- POST:
 
 		Név:		createClassroom()
 		Url: 		/api/classroom/createClassroom
-		Feladat:	Létrehozza a megfelelő tantermet
+		Feladat:	A függvény ami létrehozza a megfelelő termet
 
 		Név:		deleteByRoomName()
 		Url: 		/api/classroom/deleteByRoomName/{name}
-		Feladat:	Törli az adott névhez tartozó tantermet
+		Feladat:	A függvény ami törli az adott névhez tartozó termet
 		
 		Név:		updateClassroom()
 		Url: 		/api/classroom/updateClassroom
-		Feladat:	Frissíti a megfelelő tantermet	
+		Feladat:	A függvény ami firssíti a megfelelő termet	
 		
 -- RESERVATION:
 
@@ -84,45 +84,48 @@
 	
 		Név:		getAccepted()
 		Url: 		/api/reservation/
-		Feladat:	Visszaadja az elfogadott foglalásokat
+		Feladat:	A függvény ami visszaadja az elfogadott foglalásokat
 		
 		Név:		findByUsername()
 		Url: 		/api/reservation/findByUsername/{username}
-		Feladat:	Visszaadja az adott felhasználónévhez tartozó foglalásokat
+		Feladat:	A függvény ami visszaadja az adott felhasználónévhez tartozó foglalásokat
 		
 		Név:		findByStatus()
 		Url: 		/api/reservation/findByStatus/{status}
-		Feladat:	Visszaadja az adott státusszal rendelkező foglalásokat
+		Feladat:	A függvény ami visszaadja az adott státusszal rendelkező foglalásokat
 		
 		Név:		findByClassroomAndDate()
 		Url: 		/api/reservation/findByClassroomAndDate
-		Feladat:	Visszaadja az adott tanteremhez és időponthoz tartozó foglalásokat
+		Feladat:	A függvény ami visszaadja az adott teremhez és időponthoz tartozó foglalásokat
 
 		Név:		setStatus()
 		Url: 		/api/reservation/setStatus
 		Feladat:	A megfelelő foglalás státuszát állítja be
-
-		Név:		findByType()
-		Url: 		/api/reservation/findByType
-		Feladat:	Visszaadja az adott típusú foglalásokat
-
-		Név:		findByStatusAndType()
-		Url: 		/api/reservation/findByStatusAndType
-		Feladat:	Visszaadja egy adott státuszú és típusú foglalásokat
 		
+-- SIMPLE RESERVATION:
+
 	-- POST:
 
-		Név:		createSimpleReservation()
-		Url: 		/api/reservation/createSimpleReservation
-		Feladat:	Létrehozza a megfelelő egyszerű foglalást
-
-		Név:		createSemesterReservation()
-		Url: 		/api/reservation/createSemesterReservation
-		Feladat:	Létrehozza a megfelelő, szemeszterre vonatkozó foglalást
+		Név:		createReservation()
+		Url: 		/api/simpleReservation/createReservation
+		Feladat:	A függvény ami létrehozza a megfelelő egyszerű foglalást
 		
-		Név:		createEventReservation()
-		Url: 		/api/reservation/createEventReservation
-		Feladat:	Létrehozza a megfelelő, eseményre vonatkozó foglalást	
+-- SEMESTER RESERVATION:
+
+	-- POST:
+
+		Név:		createReservation()
+		Url: 		/api/semesterReservation/createReservation
+		Feladat:	A függvény ami létrehozza a megfelelő, szemeszterre vonatkozó foglalást
+		
+-- EVENT RESERVATION:
+
+	-- POST:
+		
+		Név:		createReservation()
+		Url: 		/api/eventReservation/createReservation
+		Feladat:	A függvény ami létrehozza a megfelelő, eseményre vonatkozó foglalást	
+		
 		
 -- SEMESTER:
 
@@ -130,21 +133,21 @@
 	
 		Név:		getAll()
 		Url: 		/api/semester/
-		Feladat:	Visszaadja egy listában az összes adatbázisban található szemesztert
+		Feladat:	A függvény ami visszaadja egy listában az összes adatbázisban található szemesztert
 		
 		Név:		getSemesterNames()
 		Url: 		/api/semester/getSemesterNames
-		Feladat:	Visszaadja egy listában az szemeszterek neveit
+		Feladat:	A függvény ami visszaadja egy listában az szemeszterek neveit
 		
 	-- POST:
 
 		Név:		createSemester()
 		Url: 		/api/semester/createSemester
-		Feladat:	Létrehozza a megfelelő szemesztert
+		Feladat:	A függvény ami létrehozza a megfelelő szemesztert
 
 		Név:		deleteByName()
 		Url: 		/api/semester/deleteByName
-		Feladat:	Törli az adott névhez tartozó szemesztert		
+		Feladat:	A függvény ami törli az adott névhez tartozó szemesztert		
 		
 -- SUBJECT:
 
@@ -152,27 +155,77 @@
 	
 		Név:		getAll()
 		Url: 		/api/semester/
-		Feladat:	Visszaadja egy listában az összes adatbázisban található tantárgyat
+		Feladat:	A függvény ami visszaadja egy listában az összes adatbázisban található tantárgyat
 		
 		Név:		getSubjectNames()
 		Url: 		/api/semester/getSubjectNames
-		Feladat:	Visszaadja egy listában a tantárgyak neveit
+		Feladat:	A függvény ami visszaadja egy listában a tantárgyak neveit
 		
 	-- POST:
 
 		Név:		createSubject()
 		Url: 		/api/semester/createSubject
-		Feladat:	Létrehozza a megfelelő tantárgyat
+		Feladat:	A függvény ami létrehozza a megfelelő tantárgyat
 		
 		Név:		updateSubject()
 		Url: 		/api/semester/updateSubject
-		Feladat:	Frissíti a megfelelő tantárgyat
+		Feladat:	A függvény ami firssíti a megfelelő tantárgyat
 
 		Név:		deleteByCode()
 		Url: 		/api/semester/deleteByCode
-		Feladat:	Törli az adott kódhoz tartozó tantárgyat			
+		Feladat:	A függvény ami törli az adott kódhoz tartozó tantárgyat			
 		
+-- TYPE:
+
+	-- GET:
+	
+		Név:		getAll()
+		Url: 		/api/type/
+		Feladat:	A függvény ami visszaadja egy listában az összes adatbázisban található típust
 		
+	-- POST:
+
+		Név:		createType()
+		Url: 		/api/type/createType
+		Feladat:	A függvény ami létrehozza a megfelelő típust
+
+		Név:		deleteByName()
+		Url: 		/api/type/deleteByName
+		Feladat:	A függvény ami törli az adott névhez tartozó típust		
+
+-- USER:
+
+	-- GET:
+	
+		Név:		getAll()
+		Url: 		/api/user/
+		Feladat:	A függvény ami visszaadja egy listában az összes adatbázisban található felhasználót
+		
+		Név:		getNames()
+		Url: 		/api/user/getNames
+		Feladat:	A függvény ami visszaadja egy listában az összes adatbázisban található felhasználó nevét
+		
+		Név:		findByUsername()
+		Url: 		/api/user/getSubjectNames
+		Feladat:	A függvény ami visszaadja a felhasználónévhez tartozó felhasználót
+		
+		Név:		findByName()
+		Url: 		/api/user/findByName
+		Feladat:	A függvény ami visszaadja egy listában az adott nevű felhasználókat
+		
+	-- POST:
+
+		Név:		createUser()
+		Url: 		/api/user/createUser
+		Feladat:	A függvény ami létrehozza a megfelelő felhasználót
+		
+		Név:		updateUser()
+		Url: 		/api/user/updateUser
+		Feladat:	A függvény ami firssíti a megfelelő felhasználót
+
+		Név:		deleteByUsername()
+		Url: 		/api/user/deleteByUsername
+		Feladat:	A függvény ami törli az adott felhasználónévhez tartozó felhasználót					
 		
 		
 		

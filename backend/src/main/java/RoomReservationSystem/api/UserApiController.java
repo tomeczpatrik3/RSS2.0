@@ -23,6 +23,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * A felhasználókhoz tartozó végpontokat tartalmazó osztály
+ * @author Tomecz Patrik
+ */
 @RestController
 @RequestMapping(value="/api/user")
 public class UserApiController {
@@ -33,6 +37,10 @@ public class UserApiController {
     @Autowired
     UserService userService;
     
+    /**
+     * A függvény ami visszaadja egy listában az összes adatbázisban található felhasználót
+     * @return A felhasználók egy listában
+     */
     //@PreAuthorize("hasRole('ADMIN')")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping
@@ -40,12 +48,21 @@ public class UserApiController {
         return toUserDTOList(userService.findAll());
     }
     
+    /**
+     * A függvény ami visszaadja egy listában az összes adatbázisban található felhasználó nevét
+     * @return A felhasználónevek egy listában
+     */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/getNames")
     public List<String> getNames(){
         return userService.getNames();
     }
     
+    /**
+     * A függvény ami visszaadja a felhasználónévhez tartozó felhasználót
+     * @param username A felhasználónév
+     * @return A megfelelő felhasználó
+     */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findByUsername")
     public ResponseEntity findByUsername(@RequestParam String username){
@@ -55,12 +72,23 @@ public class UserApiController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(USER_NOT_EXISTS);
     }
     
+    /**
+     * A függvény ami visszaadja egy listában az adott nevű felhasználókat
+     * @param name A név
+     * @return A megfelelő felhasználók egy listában
+     */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findByName")
     public List<UserDTO> findByName(@RequestParam String name){
 	return toUserDTOList(userService.findByName(name));
     }
     
+    /**
+     * A függvény ami létrehozza a megfelelő felhasználót
+     * @param userDTO A felhasználó
+     * @param bindingResult
+     * @return A megfelelő válasz entitás
+     */
     @PostMapping("/createUser")
     public ResponseEntity createUser(@RequestBody UserDTO userDTO, BindingResult bindingResult) {
         userValidator.validate(userDTO, bindingResult);
@@ -73,6 +101,12 @@ public class UserApiController {
         }
     }
     
+    /**
+     * A függvény ami firssíti a megfelelő felhasználót
+     * @param userDTO A felhasználó
+     * @param bindingResult
+     * @return A megfelelő válasz entitás
+     */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/updateUser")
     public ResponseEntity updateUser(@RequestBody UserDTO userDTO, BindingResult bindingResult) {
@@ -87,6 +121,11 @@ public class UserApiController {
         }
     }
     
+    /**
+     * A függvény ami törli az adott felhasználónévhez tartozó felhasználót	
+     * @param username A felhasználónév
+     * @return A megfelelő válasz entitás
+     */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/deleteByUsername")
     public ResponseEntity deleteByUsername(@RequestParam String username) {

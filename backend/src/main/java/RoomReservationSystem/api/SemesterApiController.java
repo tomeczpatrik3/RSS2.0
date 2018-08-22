@@ -22,6 +22,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * A szemeszterekhez tartozó végpontokat tartalmazó osztály
+ * @author Tomecz Patrik
+ */
 @RestController
 @RequestMapping(value="/api/semester")
 public class SemesterApiController {
@@ -32,18 +36,32 @@ public class SemesterApiController {
     @Autowired
     private SemesterValidator semesterValidator;
     
+    /**
+     * A függvény ami visszaadja egy listában az összes adatbázisban található szemesztert
+     * @return A szemeszterek egy listában
+     */
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping
     public List<SemesterDTO> getAll(){
         return toSemesterDTOList(semesterService.getAll());
     }
     
+    /**
+     * A függvény ami visszaadja egy listában az szemeszterek neveit
+     * @return A szemeszterek nevei egy listában
+     */
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping("/getSemesterNames")
     public List<String> getSemesterNames(){
         return semesterService.getNames();
     }
     
+    /**
+     * A függvény ami létrehozza a megfelelő szemesztert
+     * @param semesterDTO A szemeszter
+     * @param bindingResult
+     * @return A megfelelő válasz entitás
+     */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/createSemester")
     public ResponseEntity createSemester(@RequestBody SemesterDTO semesterDTO, BindingResult bindingResult) {
@@ -57,6 +75,11 @@ public class SemesterApiController {
         }          
     }
     
+    /**
+     * A függvény ami törli az adott névhez tartozó szemesztert
+     * @param name A név
+     * @return A megfelelő válasz entitás
+     */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/deleteByName")
     public ResponseEntity deleteByName(@RequestParam String name) {

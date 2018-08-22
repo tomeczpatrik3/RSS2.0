@@ -24,7 +24,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+/**
+ * Az épületekhez tartozó végpontokat tartalmazó osztály
+ * @author Tomecz Patrik
+ */
 @RestController
 @RequestMapping(value="/api/building")
 public class BuildingApiController {
@@ -35,18 +38,31 @@ public class BuildingApiController {
     @Autowired
     private BuildingValidator buildingValidator;
     
+    /**
+     * A függvény ami visszaadja egy listában az összes adatbázisban található épületet
+     * @return Az épületek egy listában
+     */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping
     public List<BuildingDTO> getAll(){
         return toBuildingDTOList(buildingService.findAll());
     }
     
+    /**
+     * A függvény ami visszaadja egy listában az összes adatbázisban található épület nevét
+     * @return A nevek egy listában
+     */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/getNames")
     public List<String> getNames(){
         return buildingService.getNames();
     }  
     
+    /**
+     * A függvény ami visszaadja az adott névhez tartozó épületet
+     * @param name A név
+     * @return A megfelelő épület
+     */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findByName/{name}")
     public ResponseEntity findByName(@PathVariable String name){
@@ -56,6 +72,11 @@ public class BuildingApiController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(BUILDING_NOT_EXISTS);
     }
     
+    /**
+     * A függvény ami visszaadja az adott azonosítóhoz tartozó épületet
+     * @param id Az azonosító
+     * @return  A megfelelő épület
+     */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findById/{id}")
     public ResponseEntity findById(@PathVariable int id){
@@ -65,6 +86,12 @@ public class BuildingApiController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(BUILDING_NOT_EXISTS);  
     }
     
+    /**
+     * A függvény ami létrehozza a megfelelő épületet
+     * @param buildingDTO Az épület
+     * @param bindingResult
+     * @return A megfelelő válasz entitás
+     */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/createBuilding")
     public ResponseEntity createBuilding(@RequestBody BuildingDTO buildingDTO, BindingResult bindingResult) {
@@ -80,6 +107,11 @@ public class BuildingApiController {
         }
     }
     
+    /**
+     * A függvény ami törli az adott névhez tartozó épületet
+     * @param name A név
+     * @return A megfelelő válasz entitás
+     */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/deleteByName/{name}")
     public ResponseEntity deleteByName(@PathVariable String name){

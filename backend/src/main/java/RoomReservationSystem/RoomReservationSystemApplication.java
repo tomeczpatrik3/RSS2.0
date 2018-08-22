@@ -14,7 +14,6 @@ public class RoomReservationSystemApplication {
         return new BCryptPasswordEncoder();
     }
     
-    
     public static void main(String[] args) {
         SpringApplication.run(RoomReservationSystemApplication.class, args);
     }

@@ -24,6 +24,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * A tantárgyakhoz tartozó végpontokat tartalmazó osztály
+ * @author Tomecz Patrik
+ */
 @RestController
 @RequestMapping(value="/api/subject")
 public class SubjectApiController {
@@ -34,18 +38,32 @@ public class SubjectApiController {
     @Autowired
     private SubjectValidator subjectValidator;
     
+    /**
+     * A függvény ami visszaadja egy listában az összes adatbázisban található tantárgyat
+     * @return A tantárgyak egy listában
+     */
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping
     public List<SubjectDTO> getAll(){
         return toSubjectDTOList(subjectService.findAll());
     }
     
+    /**
+     * A függvény ami visszaadja egy listában a tantárgyak neveit
+     * @return A tantárgyak nevei egy listában
+     */
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping("/getSubjectNames")
     public List<String> getSubjectNames(){
         return subjectService.getSubjectNames();
     }
     
+    /**
+     * A függvény ami létrehozza a megfelelő tantárgyat
+     * @param subjectDTO A tantárgy
+     * @param bindingResult
+     * @return A megfelelő válasz entitás
+     */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/createSubject")
     public ResponseEntity createSubject(@RequestBody SubjectDTO subjectDTO, BindingResult bindingResult) {
@@ -59,6 +77,12 @@ public class SubjectApiController {
         }          
     }
     
+    /**
+     * A függvény ami firssíti a megfelelő tantárgyat
+     * @param subjectDTO A tantárgy
+     * @param bindingResult
+     * @return A megfelelő válasz entitás
+     */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/updateSubject")
     public ResponseEntity updateSubject(@RequestBody SubjectDTO subjectDTO, BindingResult bindingResult) {
@@ -73,6 +97,11 @@ public class SubjectApiController {
         }
     }
     
+    /**
+     * A függvény ami törli az adott kódhoz tartozó tantárgyat	
+     * @param code A tárgykód
+     * @return A megfelelő válasz entitás
+     */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/deleteByCode")
     public ResponseEntity deleteByCode(@RequestParam String code) {

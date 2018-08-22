@@ -20,6 +20,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * A típusokhoz tartozó végpontokat tartalmazó osztály
+ * @author Tomecz Patrik
+ */
 @RestController
 @RequestMapping(value="/api/type")
 public class TypeApiController {
@@ -27,13 +31,22 @@ public class TypeApiController {
     @Autowired
     private TypeService typeService;
     
+    /**
+     * A függvény ami visszaadja egy listában az összes adatbázisban található típust
+     * @return A típusok egy listában
+     */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping
     public List<TypeDTO> getAll(){
         return toTypeDTOList(typeService.findAll());
     }
     
-    
+    /**
+     * A függvény ami létrehozza a megfelelő típust
+     * @param typeDTO A típus
+     * @param bindingResult
+     * @return A megfelelő válasz entitás
+     */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/createType")
     public ResponseEntity createType(@RequestBody TypeDTO typeDTO, BindingResult bindingResult) {
@@ -47,6 +60,11 @@ public class TypeApiController {
         //}          
     }
     
+    /**
+     * A függvény ami törli az adott névhez tartozó típust
+     * @param name A név
+     * @return A megfelelő válasz entitás
+     */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/deleteByName")
     public ResponseEntity deleteByName(@RequestParam String name) {
