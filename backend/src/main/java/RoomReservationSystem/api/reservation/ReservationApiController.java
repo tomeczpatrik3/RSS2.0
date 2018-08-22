@@ -154,46 +154,4 @@ public abstract class ReservationApiController {
 //        else
 //            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(TYPE_OR_STATUS_NOT_EXISTS);
 //    }   
-    
-//    /**
-//     * 
-//     * @param simpleReservationDTO
-//     * @param bindingResult
-//     * @return 
-//     */
-//    @PreAuthorize("hasAuthority('ROLE_USER')")
-//    @PostMapping("/createSimpleReservation")
-//    public ResponseEntity createSimpleReservation(@RequestBody SimpleReservationDTO simpleReservationDTO, BindingResult bindingResult) {
-//        baseReservationValidator.validate(simpleReservationDTO, bindingResult);
-//        simpleReservationValidator.validate(simpleReservationDTO, bindingResult);
-//        if (!bindingResult.hasErrors()) {
-//            Reservation saved = reservationService.save(simpleReservationDTO);
-//            return ResponseEntity.status(HttpStatus.CREATED).body(toReservationDTO(saved));           
-//        }
-//        else {
-//            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
-//        }        
-//    }
-//    
-//    /**
-//     * 
-//     * @param semesterReservationDTO
-//     * @param bindingResult
-//     * @return 
-//     */
-//    @PreAuthorize("hasAuthority('ROLE_USER')")
-//    @PostMapping("/createSemesterReservation")
-//    public ResponseEntity createSemesterReservation(@RequestBody SemesterReservationDTO semesterReservationDTO, BindingResult bindingResult) {
-//        baseReservationValidator.validate(semesterReservationDTO, bindingResult);
-//        semesterReservationValidator.validate(semesterReservationDTO, bindingResult);
-//        if (!bindingResult.hasErrors()) {
-//            Reservation saved = reservationService.save(semesterReservationDTO);
-//            return ResponseEntity.status(HttpStatus.CREATED).body(toReservationDTO(saved));           
-//        }
-//        else {
-//            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
-//        }        
-//    }
-//    
-
 }
