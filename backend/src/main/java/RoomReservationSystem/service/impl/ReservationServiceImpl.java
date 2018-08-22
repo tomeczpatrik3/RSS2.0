@@ -4,7 +4,7 @@ import RoomReservationSystem.dto.EventReservationDTO;
 import RoomReservationSystem.dto.SemesterReservationDTO;
 import RoomReservationSystem.dto.SimpleReservationDTO;
 import RoomReservationSystem.model.Classroom;
-import RoomReservationSystem.model.Reservation;
+import RoomReservationSystem.model.reservation.Reservation;
 import RoomReservationSystem.model.Status;
 import RoomReservationSystem.model.User;
 import RoomReservationSystem.repository.ReservationRepository;
@@ -16,7 +16,7 @@ import RoomReservationSystem.service.UserService;
 import RoomReservationSystem.model.Type;
 import RoomReservationSystem.service.ReservationDateService;
 import RoomReservationSystem.service.SemesterService;
-import static RoomReservationSystem.model.Reservation.toReservation;
+import static RoomReservationSystem.model.reservation.Reservation.toReservation;
 import RoomReservationSystem.service.TypeService;
 import static RoomReservationSystem.util.DateUtils.getDateTimeString;
 

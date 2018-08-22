@@ -1,5 +1,6 @@
 package RoomReservationSystem.model;
 
+import RoomReservationSystem.model.reservation.Reservation;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;

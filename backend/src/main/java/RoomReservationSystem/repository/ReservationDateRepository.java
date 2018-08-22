@@ -1,7 +1,7 @@
 package RoomReservationSystem.repository;
 
-import RoomReservationSystem.model.Reservation;
-import RoomReservationSystem.model.ReservationDate;
+import RoomReservationSystem.model.reservation.Reservation;
+import RoomReservationSystem.model.reservation.ReservationDate;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

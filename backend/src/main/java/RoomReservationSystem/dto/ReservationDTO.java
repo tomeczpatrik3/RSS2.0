@@ -4,7 +4,7 @@ import static RoomReservationSystem.dto.BuildingDTO.toBuildingDTO;
 import static RoomReservationSystem.dto.ClassroomDTO.toClassroomDTO;
 import static RoomReservationSystem.dto.SubjectDTO.toSubjectDTO;
 import static RoomReservationSystem.dto.UserDTO.toUserDTO;
-import RoomReservationSystem.model.Reservation;
+import RoomReservationSystem.model.reservation.Reservation;
 
 import java.util.ArrayList;
 import java.util.List;

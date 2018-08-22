@@ -1,7 +1,7 @@
 package RoomReservationSystem.repository;
 
 import RoomReservationSystem.model.Classroom;
-import RoomReservationSystem.model.Reservation;
+import RoomReservationSystem.model.reservation.Reservation;
 import RoomReservationSystem.model.Status;
 import RoomReservationSystem.model.Type;
 import RoomReservationSystem.model.User;

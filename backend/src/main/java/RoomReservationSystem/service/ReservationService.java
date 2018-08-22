@@ -4,7 +4,7 @@ import RoomReservationSystem.dto.EventReservationDTO;
 import RoomReservationSystem.dto.SemesterReservationDTO;
 import RoomReservationSystem.dto.SimpleReservationDTO;
 import RoomReservationSystem.model.Classroom;
-import RoomReservationSystem.model.Reservation;
+import RoomReservationSystem.model.reservation.Reservation;
 import RoomReservationSystem.model.Status;
 import RoomReservationSystem.model.Type;
 import java.util.Date;

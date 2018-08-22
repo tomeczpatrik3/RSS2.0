@@ -1,5 +1,6 @@
-package RoomReservationSystem.model;
+package RoomReservationSystem.model.reservation;
 
+import RoomReservationSystem.model.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Basic;

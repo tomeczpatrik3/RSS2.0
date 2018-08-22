@@ -1,7 +1,7 @@
 package RoomReservationSystem.api.reservation;
 
 import RoomReservationSystem.dto.EventReservationDTO;
-import RoomReservationSystem.model.Reservation;
+import RoomReservationSystem.model.reservation.Reservation;
 
 import static RoomReservationSystem.dto.ReservationDTO.toReservationDTO;
 import static RoomReservationSystem.config.ErrorMessageConstants.concatErrors;

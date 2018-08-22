@@ -3,7 +3,7 @@ package RoomReservationSystem.api.reservation;
 import static RoomReservationSystem.config.ErrorMessageConstants.concatErrors;
 import static RoomReservationSystem.dto.ReservationDTO.toReservationDTO;
 import RoomReservationSystem.dto.SemesterReservationDTO;
-import RoomReservationSystem.model.Reservation;
+import RoomReservationSystem.model.reservation.Reservation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

@@ -1,5 +1,6 @@
 package RoomReservationSystem.model;
 
+import RoomReservationSystem.model.reservation.Reservation;
 import RoomReservationSystem.dto.SemesterDTO;
 import RoomReservationSystem.util.DateUtils;
 

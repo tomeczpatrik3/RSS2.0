@@ -1,7 +1,7 @@
 package RoomReservationSystem.service;
 
-import RoomReservationSystem.model.Reservation;
-import RoomReservationSystem.model.ReservationDate;
+import RoomReservationSystem.model.reservation.Reservation;
+import RoomReservationSystem.model.reservation.ReservationDate;
 import RoomReservationSystem.model.Semester;
 import java.util.Date;
 
