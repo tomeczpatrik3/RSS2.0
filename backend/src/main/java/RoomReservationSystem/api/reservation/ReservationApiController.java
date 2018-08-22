@@ -1,9 +1,9 @@
 package RoomReservationSystem.api.reservation;
 
-import RoomReservationSystem.dto.ReservationDTO;
-import RoomReservationSystem.service.ReservationService;
-import static RoomReservationSystem.dto.ReservationDTO.toReservationDTO;
-import static RoomReservationSystem.dto.ReservationDTO.toReservationDTOList;
+import RoomReservationSystem.dto.reservation.ReservationDTO;
+import RoomReservationSystem.service.reservation.ReservationService;
+import static RoomReservationSystem.dto.reservation.ReservationDTO.toReservationDTO;
+import static RoomReservationSystem.dto.reservation.ReservationDTO.toReservationDTOList;
 import static RoomReservationSystem.config.ErrorMessageConstants.RESERVATION_NOT_EXISTS;
 import static RoomReservationSystem.config.ErrorMessageConstants.STATUS_NOT_EXISTS;
 import RoomReservationSystem.service.StatusService;

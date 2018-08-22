@@ -21,6 +21,7 @@ import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
@@ -28,6 +29,7 @@ import lombok.NoArgsConstructor;
  * @author Tomecz Patrik
  */
 @Data
+@EqualsAndHashCode(callSuper=true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity

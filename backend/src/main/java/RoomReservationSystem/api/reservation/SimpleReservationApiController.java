@@ -1,7 +1,7 @@
 package RoomReservationSystem.api.reservation;
 
 import static RoomReservationSystem.config.ErrorMessageConstants.concatErrors;
-import static RoomReservationSystem.dto.ReservationDTO.toReservationDTO;
+import static RoomReservationSystem.dto.reservation.ReservationDTO.toReservationDTO;
 import RoomReservationSystem.dto.SimpleReservationDTO;
 import RoomReservationSystem.model.reservation.Reservation;
 import org.springframework.http.HttpStatus;
