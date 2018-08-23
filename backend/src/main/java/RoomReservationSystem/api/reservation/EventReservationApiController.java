@@ -8,6 +8,8 @@ import static RoomReservationSystem.config.ErrorMessageConstants.concatErrors;
 import RoomReservationSystem.dto.reservation.EventReservationDTO;
 import static RoomReservationSystem.dto.reservation.EventReservationDTO.toEventReservationDTO;
 import static RoomReservationSystem.dto.reservation.EventReservationDTO.toEventReservationDTOList;
+import RoomReservationSystem.model.reservation.EventReservation;
+import RoomReservationSystem.model.reservation.SemesterReservation;
 import RoomReservationSystem.service.StatusService;
 import RoomReservationSystem.service.reservation.EventReservationService;
 import java.util.List;
@@ -128,11 +130,22 @@ public class EventReservationApiController extends ReservationApiController {
 //        baseReservationValidator.validate(eventReservationDTO, bindingResult);
 //        eventReservationValidator.validate(eventReservationDTO, bindingResult);
         if (!bindingResult.hasErrors()) {
-            Reservation saved = eventService.save(eventReservationDTO);
-            return ResponseEntity.status(HttpStatus.CREATED).body(saved);           
+            EventReservation saved = eventService.save(eventReservationDTO);
+            return ResponseEntity.status(HttpStatus.CREATED).body(toEventReservationDTO(saved));           
         }
         else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
         } 
+    }
+    
+     /**
+     * A függvény ami visszaadja az adott névhez tartozó foglalást
+     * @param name A foglalás neve
+     * @return A megfelelő foglalás
+     */
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @GetMapping("/findByName/{username}")
+    public EventReservationDTO findByName(@PathVariable String name){
+	return toEventReservationDTO(eventService.findByName(name));
     }
 }
