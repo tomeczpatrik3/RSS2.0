@@ -2,8 +2,8 @@ package RoomReservationSystem.validation;
 
 import static RoomReservationSystem.config.ErrorMessageConstants.*;
 
-import RoomReservationSystem.dto.BaseReservationDTO;
-import RoomReservationSystem.dto.EventReservationDTO;
+import RoomReservationSystem.dto.reservation.EventReservationDTO;
+import RoomReservationSystem.dto.reservation.ReservationDTO;
 import RoomReservationSystem.service.BuildingService;
 import RoomReservationSystem.service.ClassroomService;
 import RoomReservationSystem.service.UserService;
@@ -46,10 +46,10 @@ public class BaseReservationValidator implements Validator {
         ValidationUtils.rejectIfEmpty(errors, "roomName", "baseReservation.roomName.empty", ROOM_NAME_EMPTY);
         //ValidationUtils.rejectIfEmpty(errors, "note", "eventReservation.note.empty", NOTE_EMPTY);
         
-        BaseReservationDTO reservation = (BaseReservationDTO)target;     
+        ReservationDTO reservation = (ReservationDTO)target;     
         
         /*Felhasználó meglétének ellenőrzése*/
-        if (reservation.getUsername() != null && userService.findByUsername(reservation.getUsername()) == null) {
+        if (reservation.getUser().getUsername() != null && userService.findByUsername(reservation.getUser().getUsername()) == null) {
             errors.rejectValue("username", "baseReservation.username.notExists", USER_NOT_EXISTS);
         }
         
@@ -60,7 +60,7 @@ public class BaseReservationValidator implements Validator {
         */
         
         /*Épület meglétének ellenőrzése*/
-        if (reservation.getBuildingName() != null && buildingService.findByName(reservation.getBuildingName()) == null) {
+        if (reservation.getBuilding().getName() != null && buildingService.findByName(reservation.getBuilding().getName()) == null) {
             errors.rejectValue("buildingName", "baseReservation.buildingName.notExists", BUILDING_NOT_EXISTS);
         }
         
@@ -71,8 +71,8 @@ public class BaseReservationValidator implements Validator {
         */
         
         /*Terem meglétének ellenőrzése*/
-        if (reservation.getRoomName() != null && reservation.getBuildingName() != null 
-                && classroomService.findByNameAndBuildingName(reservation.getRoomName(), reservation.getBuildingName()) == null) {
+        if (reservation.getClassroom() != null && reservation.getBuilding() != null 
+                && classroomService.findByNameAndBuildingName(reservation.getClassroom().getName(), reservation.getBuilding().getName()) == null) {
             errors.rejectValue("roomName", "baseReservation.roomName.notExists", ROOM_NOT_EXISTS);
         }
         

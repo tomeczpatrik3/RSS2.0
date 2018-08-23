@@ -2,26 +2,15 @@ package RoomReservationSystem.model.reservation;
 
 import RoomReservationSystem.model.BaseEntity;
 import RoomReservationSystem.model.Classroom;
-import RoomReservationSystem.model.Semester;
 import RoomReservationSystem.model.Status;
-import RoomReservationSystem.model.Subject;
-import RoomReservationSystem.model.Type;
 import RoomReservationSystem.model.User;
-import RoomReservationSystem.model.reservation.ReservationDate;
-import static RoomReservationSystem.util.DateUtils.getDateTimeString;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.util.Collections;
-import java.util.List;
-
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -36,7 +25,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public abstract class Reservation extends BaseEntity {    
+@MappedSuperclass
+public class Reservation extends BaseEntity {    
     
     @Basic(optional = false)
     @NotNull
