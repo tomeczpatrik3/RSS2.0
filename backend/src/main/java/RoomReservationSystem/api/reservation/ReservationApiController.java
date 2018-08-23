@@ -1,27 +1,13 @@
 package RoomReservationSystem.api.reservation;
 
 import RoomReservationSystem.dto.reservation.ReservationDTO;
-import RoomReservationSystem.service.reservation.ReservationService;
-import static RoomReservationSystem.dto.reservation.ReservationDTO.toReservationDTO;
-import static RoomReservationSystem.dto.reservation.ReservationDTO.toReservationDTOList;
-import static RoomReservationSystem.config.ErrorMessageConstants.RESERVATION_NOT_EXISTS;
-import static RoomReservationSystem.config.ErrorMessageConstants.STATUS_NOT_EXISTS;
-import RoomReservationSystem.service.StatusService;
-import RoomReservationSystem.service.TypeService;
-import static RoomReservationSystem.util.DateUtils.getDate;
-import RoomReservationSystem.validation.BaseReservationValidator;
-import RoomReservationSystem.validation.EventReservationValidator;
-import RoomReservationSystem.validation.SemesterReservationValidator;
-import RoomReservationSystem.validation.SimpleReservationValidator;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -29,129 +15,57 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author Tomecz Patrik
  */
 public abstract class ReservationApiController {
-    
-    @Autowired
-    ReservationService reservationService;
-    
-    @Autowired
-    StatusService statusService;
-    
-    @Autowired
-    TypeService typeService;
-    
-    /*Validátorok*/
-    @Autowired
-    BaseReservationValidator baseReservationValidator;
-    
-    @Autowired
-    SimpleReservationValidator simpleReservationValidator;
-    
-    @Autowired
-    SemesterReservationValidator semesterReservationValidator;
-    
-    @Autowired
-    EventReservationValidator eventReservationValidator;
-    
-    /**
+     /**
      * A függvény ami visszaadja az elfogadott foglalásokat
+     * @param <T> Valamilyen ReservationDTO-ból származó típus
      * @return A megfelelő foglalások egy listában
      */
-    @GetMapping
-    public List<ReservationDTO> getAccepted(){
-        return toReservationDTOList(reservationService.findByStatus("ACCEPTED"));
-    }
+    public abstract <T extends ReservationDTO> List<T> getAccepted();
+    
     
     /**
-     * 
-     * @param username
-     * @return 
+     * A függvény ami visszaadja az adott felhasználóhoz tartozó foglalásokat
+     * @param <T> Valamilyen ReservationDTO-ból származó típus
+     * @param username A felhasználónév
+     * @return A megfelelő foglalások egy listában
      */
-    @PreAuthorize("hasAuthority('ROLE_USER')")
-    @GetMapping("/findByUsername/{username}")
-    public List<ReservationDTO> findByUsername(@PathVariable String username){
-	return toReservationDTOList(reservationService.findByUsername(username));
-    }
+    public abstract <T extends ReservationDTO> List<T> findByUsername(@PathVariable String username);
     
     /**
-     * 
-     * @param status
-     * @return 
+     * A függvény ami visszaadja az adott státusszal rendelkező foglalásokat
+     * @param status A státusz
+     * @return A megfelelő válasz entitás
      */
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @GetMapping("/findByStatus/{status}")
-    public ResponseEntity findByStatus(@PathVariable String status){
-        if (statusService.findByName(status) != null)
-            return ResponseEntity.status(HttpStatus.OK).body(toReservationDTOList(reservationService.findByStatus(status)));
-        else
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(STATUS_NOT_EXISTS);  
-    } 
+    public abstract ResponseEntity findByStatus(@PathVariable String status);
     
     /**
-     * 
-     * @param building
-     * @param classroom
-     * @param date
-     * @return 
+     * A függvény ami visszaadja az adott terem kiválasztott időpontjára vonatkozó foglalásokat
+     * @param <T> Valamilyen ReservationDTO-ból származó típus
+     * @param building Az épület
+     * @param classroom A terem
+     * @param date  A dátum
+     * @return A megfelelő foglalások egy listában
      */
-    @PreAuthorize("hasAuthority('ROLE_USER')")
-    @GetMapping("/findByClassroomAndDate")
-    public List<ReservationDTO> findByClassroomAndDate(
+    public abstract <T extends ReservationDTO> List<T> findByClassroomAndDate(
             @RequestParam("building") String building,
             @RequestParam("classroom") String classroom,
             @RequestParam("date") String date
-    ){
-	return toReservationDTOList(
-                reservationService.findByClassroomAndDate(
-                        building,
-                        classroom,
-                        getDate(date)
-                ));
-    }
+    );
     
     /**
-     * 
-     * @param id
-     * @param status
-     * @return 
+     * A függvény ami beállítja egy adott foglalást státuszát a paraméterben átadott értékre
+     * @param id A foglalás azonosítója
+     * @param status A státusz
+     * @return A megfelelő válasz entitás
      */
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @GetMapping("/setStatus")
-    public ResponseEntity setStatus(@RequestParam("id") int id, @RequestParam("status") String status){
-	if (reservationService.findById(id) != null)
-            return ResponseEntity.ok(toReservationDTO(reservationService.setStatus(id, status)));
-        else
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(RESERVATION_NOT_EXISTS);
-    }
+    public abstract ResponseEntity setStatus(@RequestParam("id") int id, @RequestParam("status") String status);
     
-//    /**
-//     * 
-//     * @param type
-//     * @return 
-//     */
-//    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-//    @GetMapping("/findByType")
-//    public ResponseEntity findByType(@RequestParam("type") String type){
-//	Type reservationType = typeService.findByName(type.toUpperCase());
-//        if ( reservationType != null)
-//            return ResponseEntity.ok(toReservationDTOList(reservationService.findByType(reservationType)));
-//        else
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(TYPE_NOT_EXISTS);
-//    }    
-  
-//    /**
-//     * 
-//     * @param status
-//     * @param type
-//     * @return 
-//     */
-//    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-//    @GetMapping("/findByStatusAndType")
-//    public ResponseEntity findByStatusAndType(@RequestParam("status") String status, @RequestParam("type") String type){
-//	Status reservationStatus = statusService.findByName(status);
-//        Type reservationType = typeService.findByName(type.toUpperCase());
-//        if ( reservationType != null && reservationStatus!= null)
-//            return ResponseEntity.ok(toReservationDTOList(reservationService.findByStatusAndType(reservationStatus, reservationType)));
-//        else
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(TYPE_OR_STATUS_NOT_EXISTS);
-//    }   
+    /**
+     * A függvény ami létrehozza a megfelelő eseményre vonatkozó foglalást
+     * @param <T> Valamilyen ReservationDTO-ból származó típus
+     * @param reservationDTO A foglalás
+     * @param bindingResult
+     * @return A megfelelő válasz entitás
+     */
+    //public abstract <T extends ReservationDTO> ResponseEntity createReservation(@RequestBody T reservationDTO, BindingResult bindingResult);
 }

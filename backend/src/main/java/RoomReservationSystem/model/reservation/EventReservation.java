@@ -1,5 +1,10 @@
 package RoomReservationSystem.model.reservation;
 
+import RoomReservationSystem.model.Classroom;
+import RoomReservationSystem.model.Semester;
+import RoomReservationSystem.model.Status;
+import RoomReservationSystem.model.Subject;
+import RoomReservationSystem.model.User;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,4 +31,25 @@ public class EventReservation extends Reservation {
     @Size(min = 1, max = 255)
     @Column(name = "name")
     private String name;  /*A foglalás neve*/
+    
+    public EventReservation(
+            User user,
+            Classroom classroom,
+            Status status,
+            String name,
+            String note
+    ) {
+        super(note, classroom, user, status);
+        this.name = name;
+    }
+    
+    public static EventReservation toEventReservation(
+            User user,
+            Classroom classroom,
+            Status status,
+            String name,
+            String note
+    ) {
+        return new EventReservation(user, classroom, status, name, note);
+    }
 }
