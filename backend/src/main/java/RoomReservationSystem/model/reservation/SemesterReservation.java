@@ -11,12 +11,14 @@ import RoomReservationSystem.model.Status;
 import RoomReservationSystem.model.Subject;
 import RoomReservationSystem.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
@@ -24,19 +26,21 @@ import lombok.NoArgsConstructor;
  * @author Tomecz Patrik
  */
 @Data
+@EqualsAndHashCode(callSuper=true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "semesterReservations")
+@DiscriminatorValue("SEMESTER")
+@Table(name = "SEMESTER_RESERVATIONS")
 public class SemesterReservation extends Reservation {
     
     @JsonIgnore
-    @JoinColumn(name = "subject", referencedColumnName = "id", nullable = true)
+    @JoinColumn(name = "SUBJECT", referencedColumnName = "ID", nullable = true)
     @ManyToOne(optional = true)
     private Subject subject;    /*A foglalás tantárgy*/
     
     @JsonIgnore
-    @JoinColumn(name = "semester", referencedColumnName = "id", nullable = true)
+    @JoinColumn(name = "SEMESTER", referencedColumnName = "ID", nullable = true)
     @ManyToOne(optional = true)
     private Semester semester;  /*A foglaláshoz tartozó félév*/
     

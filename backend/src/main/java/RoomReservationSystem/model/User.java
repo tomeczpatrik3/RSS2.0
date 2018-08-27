@@ -38,31 +38,31 @@ import org.springframework.security.core.userdetails.UserDetails;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "users")
+@Table(name = "USERS")
 public class User extends BaseEntity implements UserDetails {
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "username", unique=true)
+    @Column(name = "USERNAME", unique=true)
     private String username; /*Felhasználónév*/
     
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "password")
+    @Column(name = "PASSWORD")
     private String password; /*Jelszó*/
     
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "name")
+    @Column(name = "NAME")
     private String name;    /*A felhasználó neve*/
     
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "email", unique=true)
+    @Column(name = "EMAIL", unique=true)
     private String email;   /*A felhasználó e-mail címe*/
     
     @JsonIgnore
@@ -70,7 +70,7 @@ public class User extends BaseEntity implements UserDetails {
     private List<Authority> authorityList; /*A felhasználóhoz tartozó engedélyek listája*/
     
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", targetEntity = Reservation.class)
     private List<Reservation> reservationList; /*A felhasználóhoz tartozó foglalások listája*/
 
     /**

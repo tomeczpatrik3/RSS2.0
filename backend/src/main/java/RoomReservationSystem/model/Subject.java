@@ -31,23 +31,23 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "subjects")
+@Table(name = "SUBJECTS")
 public class Subject extends BaseEntity {
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "name")
+    @Column(name = "NAME")
     private String name; /*A tantárgy neve*/
     
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "code", unique=true)
+    @Column(name = "CODE", unique=true)
     private String code;    /*A tantárgy kódja (tárgykód)*/
     
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subject")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subject", targetEntity = Reservation.class)
     private List<Reservation> reservationList; /*Az adott tantárgyra vonatkozó foglalások egy listában*/
     
     /**

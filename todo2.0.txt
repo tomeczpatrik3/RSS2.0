@@ -1,0 +1,11 @@
+inheritance: https://www.thoughts-on-java.org/complete-guide-inheritance-strategies-jpa-hibernate/
+
+-- Õsosztály készítése: 
+
+	-- Foglalás
+
+		-- Esemény foglalás
+
+		-- Óra foglalás // Ide kell egy õsosztály
+			-- Egyszeri alkalom
+			-- Szemeszter

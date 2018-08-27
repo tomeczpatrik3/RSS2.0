@@ -21,11 +21,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @MappedSuperclass
-public class BaseEntity implements Serializable {
+public abstract class BaseEntity implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id")    /*Egyértelmű azonosító*/
+    @Column(name = "ID")    /*Egyértelmű azonosító*/
     protected Integer id;
 }

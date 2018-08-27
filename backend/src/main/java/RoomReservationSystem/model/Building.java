@@ -30,17 +30,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "buildings")
+@Table(name = "BUILDINGS")
 public class Building extends BaseEntity {
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "name", unique=true)
+    @Column(name = "NAME", unique=true)
     private String name; /*Az épület neve*/
     
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "building")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "building", targetEntity = Classroom.class)
     private List<Classroom> classroomList;  /*Az épülethez tartozó tantermek listája*/
     
     /**

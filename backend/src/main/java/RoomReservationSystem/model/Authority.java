@@ -28,19 +28,19 @@ import lombok.EqualsAndHashCode;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "authorities")
+@Table(name = "AUTHORITIES")
 public class Authority extends BaseEntity{
     
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "name", unique=true)
+    @Column(name = "NAME", unique=true)
     private String name;    /*Az engedély neve*/           
     
     @JsonIgnore
     @JoinTable(name = "users_authorities", joinColumns = {
-        @JoinColumn(name = "authority_id", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "user_id", referencedColumnName = "id")})
+        @JoinColumn(name = "authority_id", referencedColumnName = "ID")}, inverseJoinColumns = {
+        @JoinColumn(name = "user_id", referencedColumnName = "ID")})
     @ManyToMany
     private List<User> userList;    /*Azon felhasználók listája akik rendelkeznek az engedéllyel*/
     

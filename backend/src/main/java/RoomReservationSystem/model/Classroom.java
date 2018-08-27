@@ -33,36 +33,36 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "classrooms")
+@Table(name = "CLASSROOMS")
 public class Classroom extends BaseEntity {
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "name")
+    @Column(name = "NAME")
     private String name;    /*Az osztályterem neve*/
     
     @Basic(optional = false)
     @NotNull
-    @Column(name = "has_pc")
+    @Column(name = "HAS_PC")
     private boolean hasPc; /*Van-e PC*/
     
     @Basic(optional = false)
     @NotNull
-    @Column(name = "has_projector")
+    @Column(name = "HAS_PROJECTOR")
     private boolean hasProjector; /*Van-e projektor*/
     
     @Basic(optional = false)
     @NotNull
-    @Column(name = "chairs")
+    @Column(name = "CHAIRS")
     private int chairs; /*A teremben található székek száma*/
     
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "classroom")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "classroom", targetEntity = Reservation.class)
     private List<Reservation> reservationList; /*Az osztályteremhez tartozó foglalások listája*/
     
     @JsonIgnore
-    @JoinColumn(name = "building", referencedColumnName = "id")
+    @JoinColumn(name = "BUILDING", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Building building; /*Az épület, amelyben a terem található*/
     

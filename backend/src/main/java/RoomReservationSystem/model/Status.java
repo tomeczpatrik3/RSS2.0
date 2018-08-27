@@ -27,7 +27,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "statuses")
+@Table(name = "STATUSES")
 public class Status extends BaseEntity {
 
     @Basic(optional = false)
@@ -42,6 +42,6 @@ public class Status extends BaseEntity {
     private String message; /*A státuszhoz tartozó üzenet*/
     
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "status")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "status", targetEntity = Reservation.class)
     private List<Reservation> reservationList; /*Az adott státusszal rendelkező foglalások egy listában*/
 }

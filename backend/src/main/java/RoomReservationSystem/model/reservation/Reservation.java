@@ -8,14 +8,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
@@ -23,89 +27,32 @@ import lombok.NoArgsConstructor;
  * @author Tomecz Patrik
  */
 @Data
+@EqualsAndHashCode(callSuper=true)
 @AllArgsConstructor
 @NoArgsConstructor
-@MappedSuperclass
-public class Reservation extends BaseEntity {    
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "RESERVATION_TYPE")
+public abstract class Reservation extends BaseEntity {    
     
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "note")
+    @Column(name = "NOTE")
     private String note;  /*A foglaláshoz tartozó megjegyzés*/
      
     @JsonIgnore
-    @JoinColumn(name = "classroom", referencedColumnName = "id")
+    @JoinColumn(name = "CLASSROOM", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Classroom classroom;    /*A foglalás helye (tanterem)*/
     
     @JsonIgnore
-    @JoinColumn(name = "user", referencedColumnName = "id")
+    @JoinColumn(name = "USERS", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private User user;  /*A felhasználó aki foglalt*/
     
     @JsonIgnore
-    @JoinColumn(name = "status", referencedColumnName = "id")
+    @JoinColumn(name = "STATUSES", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Status status;  /*A foglalás státusza*/
-    
-//    @JsonIgnore
-//    @JoinColumn(name = "type", referencedColumnName = "id")
-//    @ManyToOne(optional = false)    
-//    private Type type;  /*A foglalás típusa*/
-
-//    
-//    @JsonIgnore
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservation")
-//    private List<ReservationDate> dateList; /*A foglalt dátumok*/
- 
-//    /**
-//     * A ReservationDTO objektum Reservation objektummá konvertálását végrehajtó megtódus
-//     * @param name              A foglalás neve
-//     * @param type              A foglalás típusa
-//     * @param note              A foglaláshoz tartozó megjegyzés
-//     * @param classroom         A foglaláshoz tartozó tanterem
-//     * @param subject           A foglaláshoz tartozó tantárgy
-//     * @param user              A foglaláshoz tartozó felhasználó
-//     * @param status            A foglaláshoz tartozó státusz
-//     * @param semester          A foglaláshoz tartozó félév
-//     * @return                  A Reservation objektum
-//     */
-//    public static Reservation toReservation(
-//            User user,
-//            Semester semester,
-//            Subject subject,
-//            Classroom classroom,
-//            Status status,
-//            Type type,
-//            String name,
-//            String note
-//        ) {
-//        return new Reservation(
-//                name,
-//                note,
-//                classroom,
-//                subject,
-//                user,
-//                status,
-//                type,
-//                semester,
-//                Collections.emptyList()
-//        );
-//    }
-//    
-//    /**
-//     * Egy adott foglaláshoz tartozó dátumok String tömbbé konvertálása:
-//     * @return  A dátumok egy String tömbben
-//     */
-//    public String[] getDates() {
-//        String[] dates = new String[dateList.size()*2];
-//        int i = 0;
-//        for (ReservationDate resDate: dateList) {
-//            dates[i] = getDateTimeString(resDate.getStartDateTime());
-//            dates[i+1] = getDateTimeString(resDate.getEndDateTime());
-//            i+=2;
-//        }
-//        return dates;
-//    }
 }
