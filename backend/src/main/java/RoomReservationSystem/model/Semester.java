@@ -2,7 +2,7 @@ package RoomReservationSystem.model;
 
 import RoomReservationSystem.model.reservation.Reservation;
 import RoomReservationSystem.dto.SemesterDTO;
-import RoomReservationSystem.model.reservation.SemesterReservation;
+import RoomReservationSystem.model.reservation.SemesterClassReservation;
 import RoomReservationSystem.util.DateUtils;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -55,8 +55,8 @@ public class Semester extends BaseEntity{
     private Date endDate; /*A szemeszter vége (dátum)*/
     
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "semester", targetEntity = SemesterReservation.class)
-    private List<SemesterReservation> reservationList; /*A szemeszterhez tartozó foglalások listája*/
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "semester", targetEntity = SemesterClassReservation.class)
+    private List<SemesterClassReservation> reservationList; /*A szemeszterhez tartozó foglalások listája*/
     
     /**
      * A SemesterDTO objektum Semester objektummá konvertálását végrehajtó megtódus

@@ -12,7 +12,7 @@ import RoomReservationSystem.dto.SubjectDTO;
 import static RoomReservationSystem.dto.SubjectDTO.toSubjectDTO;
 import RoomReservationSystem.dto.UserDTO;
 import static RoomReservationSystem.dto.UserDTO.toUserDTO;
-import RoomReservationSystem.model.reservation.SemesterReservation;
+import RoomReservationSystem.model.reservation.SemesterClassReservation;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -51,7 +51,7 @@ public class SemesterReservationDTO extends ReservationDTO{
      * @param   reservation     A SemesterReservation objektum
      * @return           A SemesterReservationDTO objektum
      */
-    public static SemesterReservationDTO toSemesterReservationDTO(SemesterReservation reservation) {
+    public static SemesterReservationDTO toSemesterReservationDTO(SemesterClassReservation reservation) {
         return new SemesterReservationDTO(
                 toUserDTO(reservation.getUser()),
                 toBuildingDTO(reservation.getClassroom().getBuilding()),
@@ -68,7 +68,7 @@ public class SemesterReservationDTO extends ReservationDTO{
      * @param   reservations    A SemesterReservation objektumok egy listában
      * @return                  A SemesterReservationDTO objektumok egy listában
      */
-    public static List<SemesterReservationDTO> toSemesterReservationDTOList(List<SemesterReservation> reservations) {
+    public static List<SemesterReservationDTO> toSemesterReservationDTOList(List<SemesterClassReservation> reservations) {
         List<SemesterReservationDTO> reservationDTOs = new ArrayList<>();
         reservations.forEach((reservation) -> {
             reservationDTOs.add(toSemesterReservationDTO(reservation));

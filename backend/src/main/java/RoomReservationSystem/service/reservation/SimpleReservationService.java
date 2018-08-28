@@ -3,7 +3,7 @@ package RoomReservationSystem.service.reservation;
 import RoomReservationSystem.dto.reservation.SimpleReservationDTO;
 import RoomReservationSystem.model.Classroom;
 import RoomReservationSystem.model.Subject;
-import RoomReservationSystem.model.reservation.SimpleReservation;
+import RoomReservationSystem.model.reservation.SimpleClassReservation;
 import java.util.Date;
 import java.util.List;
 
@@ -13,15 +13,15 @@ import java.util.List;
  * @author SimpleReservationomecz Patrik
  */
 public interface SimpleReservationService {
-    SimpleReservation save(SimpleReservationDTO reservation);
-    void delete(SimpleReservation reservation);
-    SimpleReservation findById(int id);
-    SimpleReservation setStatus(int id, String status);
-    List<SimpleReservation> getAll();
-    List<SimpleReservation> findByUsername(String username);
-    List<SimpleReservation> findByStatus(String statusName);
-    List<SimpleReservation> findByClassroom(Classroom classroom);
-    List<SimpleReservation> findBySubject(Subject subject);
+    SimpleClassReservation save(SimpleReservationDTO reservation);
+    void delete(SimpleClassReservation reservation);
+    SimpleClassReservation findById(int id);
+    SimpleClassReservation setStatus(int id, String status);
+    List<SimpleClassReservation> getAll();
+    List<SimpleClassReservation> findByUsername(String username);
+    List<SimpleClassReservation> findByStatus(String statusName);
+    List<SimpleClassReservation> findByClassroom(Classroom classroom);
+    List<SimpleClassReservation> findBySubject(Subject subject);
     //List<SimpleReservation> findByDate(Date date);
     //List<SimpleReservation> findByClassroomAndDate(String building, String classroom, Date date);
 }

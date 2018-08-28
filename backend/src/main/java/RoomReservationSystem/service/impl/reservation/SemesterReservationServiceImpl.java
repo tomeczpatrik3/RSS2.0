@@ -5,8 +5,8 @@ import RoomReservationSystem.model.Classroom;
 import RoomReservationSystem.model.Status;
 import RoomReservationSystem.model.Subject;
 import RoomReservationSystem.model.User;
-import RoomReservationSystem.model.reservation.SemesterReservation;
-import static RoomReservationSystem.model.reservation.SemesterReservation.toSemesterReservation;
+import RoomReservationSystem.model.reservation.SemesterClassReservation;
+import static RoomReservationSystem.model.reservation.SemesterClassReservation.toSemesterReservation;
 import RoomReservationSystem.repository.reservation.SemesterReservationRepository;
 import RoomReservationSystem.service.ClassroomService;
 import RoomReservationSystem.service.SemesterService;
@@ -48,7 +48,7 @@ public class SemesterReservationServiceImpl implements SemesterReservationServic
      * @param reservation A foglalás amit törölni szeretnénk
      */
     @Override
-    public void delete(SemesterReservation reservation) {
+    public void delete(SemesterClassReservation reservation) {
         repository.delete(reservation);
     }
 
@@ -58,8 +58,8 @@ public class SemesterReservationServiceImpl implements SemesterReservationServic
      * @return A mentett foglalás
      */
     @Override
-    public SemesterReservation save(SemesterReservationDTO semesterReservationDTO) {
-        SemesterReservation reservation = repository.save(
+    public SemesterClassReservation save(SemesterReservationDTO semesterReservationDTO) {
+        SemesterClassReservation reservation = repository.save(
                 toSemesterReservation(
                         userService.findByUsername(semesterReservationDTO.getUser().getUsername()), /*A foglaláshoz tartozó felhasználó*/
                         subjectService.findByCode(semesterReservationDTO.getSubject().getCode()), /*A foglaláshoz tartozó tantárgy*/
@@ -81,7 +81,7 @@ public class SemesterReservationServiceImpl implements SemesterReservationServic
      * @return A foglalás ha létezik, null egyébként
      */
     @Override
-    public SemesterReservation findById(int id) {
+    public SemesterClassReservation findById(int id) {
         return repository.findById(id);
     }
 
@@ -90,7 +90,7 @@ public class SemesterReservationServiceImpl implements SemesterReservationServic
      * @return A foglalások egy listában
      */
     @Override
-    public List<SemesterReservation> getAll() {
+    public List<SemesterClassReservation> getAll() {
         return repository.findAll();
     }
 
@@ -101,7 +101,7 @@ public class SemesterReservationServiceImpl implements SemesterReservationServic
      * @return Az adott felhasználó által történt foglalások egy listában
      */
     @Override
-    public List<SemesterReservation> findByUsername(String username) {
+    public List<SemesterClassReservation> findByUsername(String username) {
         User user = userService.findByUsername(username);
         return repository.findByUser(user);
     }
@@ -112,7 +112,7 @@ public class SemesterReservationServiceImpl implements SemesterReservationServic
      * @return Az adott státusszal rendelkező foglalások
      */
     @Override
-    public List<SemesterReservation> findByStatus(String statusName) {
+    public List<SemesterClassReservation> findByStatus(String statusName) {
         Status status = statusService.findByName(statusName);
         return repository.findByStatus(status);
     }
@@ -124,8 +124,8 @@ public class SemesterReservationServiceImpl implements SemesterReservationServic
      * @return A megváltoztatott státusszal rendelkező foglalás
      */
     @Override
-    public SemesterReservation setStatus(int id, String statusName) {
-        SemesterReservation res = repository.findById(id);
+    public SemesterClassReservation setStatus(int id, String statusName) {
+        SemesterClassReservation res = repository.findById(id);
         res.setStatus(statusService.findByName(statusName));
         return res;
     }
@@ -136,7 +136,7 @@ public class SemesterReservationServiceImpl implements SemesterReservationServic
      * @return A foglalások egy listában
      */
     @Override
-    public List<SemesterReservation> findByClassroom(Classroom classroom) {
+    public List<SemesterClassReservation> findByClassroom(Classroom classroom) {
         return repository.findByClassroom(classroom);
     }
 
@@ -146,7 +146,7 @@ public class SemesterReservationServiceImpl implements SemesterReservationServic
      * @return A foglalások egy listában
      */
     @Override
-    public List<SemesterReservation> findBySubject(Subject subject) {
+    public List<SemesterClassReservation> findBySubject(Subject subject) {
         return repository.findBySubject(subject);
     }
     
@@ -156,7 +156,7 @@ public class SemesterReservationServiceImpl implements SemesterReservationServic
      * @return A foglalások egy listában
      */    
     @Override
-    public List<SemesterReservation> findBySemester(String semester) {
+    public List<SemesterClassReservation> findBySemester(String semester) {
         return repository.findBySemester(semesterService.findByName(semester));
     }
 

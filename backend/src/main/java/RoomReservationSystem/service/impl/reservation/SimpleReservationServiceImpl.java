@@ -5,8 +5,8 @@ import RoomReservationSystem.model.Classroom;
 import RoomReservationSystem.model.Status;
 import RoomReservationSystem.model.Subject;
 import RoomReservationSystem.model.User;
-import RoomReservationSystem.model.reservation.SimpleReservation;
-import static RoomReservationSystem.model.reservation.SimpleReservation.toSimpleReservation;
+import RoomReservationSystem.model.reservation.SimpleClassReservation;
+import static RoomReservationSystem.model.reservation.SimpleClassReservation.toSimpleReservation;
 import RoomReservationSystem.repository.reservation.SimpleReservationRepository;
 import RoomReservationSystem.service.ClassroomService;
 import RoomReservationSystem.service.StatusService;
@@ -44,7 +44,7 @@ public class SimpleReservationServiceImpl implements SimpleReservationService {
      * @param reservation A foglalás amit törölni szeretnénk
      */
     @Override
-    public void delete(SimpleReservation reservation) {
+    public void delete(SimpleClassReservation reservation) {
         repository.delete(reservation);
     }
 
@@ -54,8 +54,8 @@ public class SimpleReservationServiceImpl implements SimpleReservationService {
      * @return A mentett foglalás
      */
     @Override
-    public SimpleReservation save(SimpleReservationDTO simpleReservationDTO) {
-        SimpleReservation reservation = repository.save(
+    public SimpleClassReservation save(SimpleReservationDTO simpleReservationDTO) {
+        SimpleClassReservation reservation = repository.save(
                 toSimpleReservation(
                         userService.findByUsername(simpleReservationDTO.getUser().getUsername()), /*A foglaláshoz tartozó felhasználó*/
                         subjectService.findByCode(simpleReservationDTO.getSubject().getCode()), /*A foglaláshoz tartozó tantárgy*/
@@ -76,7 +76,7 @@ public class SimpleReservationServiceImpl implements SimpleReservationService {
      * @return A foglalás ha létezik, null egyébként
      */
     @Override
-    public SimpleReservation findById(int id) {
+    public SimpleClassReservation findById(int id) {
         return repository.findById(id);
     }
 
@@ -85,7 +85,7 @@ public class SimpleReservationServiceImpl implements SimpleReservationService {
      * @return A foglalások egy listában
      */
     @Override
-    public List<SimpleReservation> getAll() {
+    public List<SimpleClassReservation> getAll() {
         return repository.findAll();
     }
 
@@ -96,7 +96,7 @@ public class SimpleReservationServiceImpl implements SimpleReservationService {
      * @return Az adott felhasználó által történt foglalások egy listában
      */
     @Override
-    public List<SimpleReservation> findByUsername(String username) {
+    public List<SimpleClassReservation> findByUsername(String username) {
         User user = userService.findByUsername(username);
         return repository.findByUser(user);
     }
@@ -107,7 +107,7 @@ public class SimpleReservationServiceImpl implements SimpleReservationService {
      * @return Az adott státusszal rendelkező foglalások
      */
     @Override
-    public List<SimpleReservation> findByStatus(String statusName) {
+    public List<SimpleClassReservation> findByStatus(String statusName) {
         Status status = statusService.findByName(statusName);
         return repository.findByStatus(status);
     }
@@ -119,8 +119,8 @@ public class SimpleReservationServiceImpl implements SimpleReservationService {
      * @return A megváltoztatott státusszal rendelkező foglalás
      */
     @Override
-    public SimpleReservation setStatus(int id, String statusName) {
-        SimpleReservation res = repository.findById(id);
+    public SimpleClassReservation setStatus(int id, String statusName) {
+        SimpleClassReservation res = repository.findById(id);
         res.setStatus(statusService.findByName(statusName));
         return res;
     }
@@ -131,7 +131,7 @@ public class SimpleReservationServiceImpl implements SimpleReservationService {
      * @return A foglalások egy listában
      */
     @Override
-    public List<SimpleReservation> findByClassroom(Classroom classroom) {
+    public List<SimpleClassReservation> findByClassroom(Classroom classroom) {
         return repository.findByClassroom(classroom);
     }
 
@@ -141,7 +141,7 @@ public class SimpleReservationServiceImpl implements SimpleReservationService {
      * @return A foglalások egy listában
      */
     @Override
-    public List<SimpleReservation> findBySubject(Subject subject) {
+    public List<SimpleClassReservation> findBySubject(Subject subject) {
         return repository.findBySubject(subject);
     }
 

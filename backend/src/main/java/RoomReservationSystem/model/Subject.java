@@ -2,6 +2,7 @@ package RoomReservationSystem.model;
 
 import RoomReservationSystem.model.reservation.Reservation;
 import RoomReservationSystem.dto.SubjectDTO;
+import RoomReservationSystem.model.reservation.ClassReservation;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -47,8 +48,8 @@ public class Subject extends BaseEntity {
     private String code;    /*A tantárgy kódja (tárgykód)*/
     
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subject", targetEntity = Reservation.class)
-    private List<Reservation> reservationList; /*Az adott tantárgyra vonatkozó foglalások egy listában*/
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subject", targetEntity = ClassReservation.class)
+    private List<ClassReservation> reservationList; /*Az adott tantárgyra vonatkozó foglalások egy listában*/
     
     /**
      * A SubjectDTO objektum Subject objektummá konvertálását végrehajtó megtódus

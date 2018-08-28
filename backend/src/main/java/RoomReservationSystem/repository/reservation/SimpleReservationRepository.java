@@ -4,7 +4,7 @@ import RoomReservationSystem.model.Classroom;
 import RoomReservationSystem.model.Status;
 import RoomReservationSystem.model.Subject;
 import RoomReservationSystem.model.User;
-import RoomReservationSystem.model.reservation.SimpleReservation;
+import RoomReservationSystem.model.reservation.SimpleClassReservation;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -14,10 +14,10 @@ import org.springframework.stereotype.Repository;
  * @author Tomecz Patrik
  */
 @Repository
-public interface SimpleReservationRepository extends JpaRepository<SimpleReservation, Integer> {
-    SimpleReservation findById(int id);
-    List<SimpleReservation> findByUser(User user);
-    List<SimpleReservation> findByStatus(Status status);
-    List<SimpleReservation> findByClassroom(Classroom classroom);
-    List<SimpleReservation> findBySubject(Subject subject);
+public interface SimpleReservationRepository extends JpaRepository<SimpleClassReservation, Integer> {
+    SimpleClassReservation findById(int id);
+    List<SimpleClassReservation> findByUser(User user);
+    List<SimpleClassReservation> findByStatus(Status status);
+    List<SimpleClassReservation> findByClassroom(Classroom classroom);
+    List<SimpleClassReservation> findBySubject(Subject subject);
 }

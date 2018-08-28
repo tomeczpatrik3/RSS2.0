@@ -14,13 +14,12 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 /**
  * A foglalásokhoz tartozó ősosztály
@@ -28,11 +27,10 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @EqualsAndHashCode(callSuper=true)
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "RESERVATION_TYPE")
+@Table(name = "RESERVATIONS")
 public abstract class Reservation extends BaseEntity {    
     
     @Basic(optional = false)
@@ -55,4 +53,20 @@ public abstract class Reservation extends BaseEntity {
     @JoinColumn(name = "STATUSES", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Status status;  /*A foglalás státusza*/
+    
+    protected Reservation(            
+            User user,
+            Classroom classroom,
+            Status status,
+            String note) {
+        super();
+        this.user = user;
+        this.classroom = classroom;
+        this.status = status;
+        this.note = note;
+    }
+    
+    protected Reservation() {
+        super();
+    }
 }

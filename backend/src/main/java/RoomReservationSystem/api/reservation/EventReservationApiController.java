@@ -9,7 +9,7 @@ import RoomReservationSystem.dto.reservation.EventReservationDTO;
 import static RoomReservationSystem.dto.reservation.EventReservationDTO.toEventReservationDTO;
 import static RoomReservationSystem.dto.reservation.EventReservationDTO.toEventReservationDTOList;
 import RoomReservationSystem.model.reservation.EventReservation;
-import RoomReservationSystem.model.reservation.SemesterReservation;
+import RoomReservationSystem.model.reservation.SemesterClassReservation;
 import RoomReservationSystem.service.StatusService;
 import RoomReservationSystem.service.reservation.EventReservationService;
 import java.util.List;

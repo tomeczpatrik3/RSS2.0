@@ -6,7 +6,7 @@ import static RoomReservationSystem.config.ErrorMessageConstants.concatErrors;
 import RoomReservationSystem.dto.reservation.SemesterReservationDTO;
 import static RoomReservationSystem.dto.reservation.SemesterReservationDTO.toSemesterReservationDTOList;
 import static RoomReservationSystem.dto.reservation.SemesterReservationDTO.toSemesterReservationDTO;
-import RoomReservationSystem.model.reservation.SemesterReservation;
+import RoomReservationSystem.model.reservation.SemesterClassReservation;
 import RoomReservationSystem.service.StatusService;
 import RoomReservationSystem.service.reservation.SemesterReservationService;
 import java.util.List;
@@ -125,7 +125,7 @@ public class SemesterReservationApiController extends ReservationApiController {
 //        baseReservationValidator.validate(semesterReservationDTO, bindingResult);
 //        semesterReservationValidator.validate(semesterReservationDTO, bindingResult);
         if (!bindingResult.hasErrors()) {
-            SemesterReservation saved = semesterService.save(semesterReservationDTO);
+            SemesterClassReservation saved = semesterService.save(semesterReservationDTO);
             return ResponseEntity.status(HttpStatus.CREATED).body(toSemesterReservationDTO(saved));           
         }
         else {

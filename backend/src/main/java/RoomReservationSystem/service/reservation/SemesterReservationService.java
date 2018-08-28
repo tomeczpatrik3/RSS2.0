@@ -3,7 +3,7 @@ package RoomReservationSystem.service.reservation;
 import RoomReservationSystem.dto.reservation.SemesterReservationDTO;
 import RoomReservationSystem.model.Classroom;
 import RoomReservationSystem.model.Subject;
-import RoomReservationSystem.model.reservation.SemesterReservation;
+import RoomReservationSystem.model.reservation.SemesterClassReservation;
 import java.util.List;
 
 /**
@@ -12,14 +12,14 @@ import java.util.List;
  * @author Tomecz Patrik
  */
 public interface SemesterReservationService {
-    SemesterReservation save(SemesterReservationDTO reservation);
-    void delete(SemesterReservation reservation);
-    SemesterReservation findById(int id);
-    SemesterReservation setStatus(int id, String status);
-    List<SemesterReservation> getAll();
-    List<SemesterReservation> findByUsername(String username);
-    List<SemesterReservation> findByStatus(String statusName);
-    List<SemesterReservation> findByClassroom(Classroom classroom);
-    List<SemesterReservation> findBySemester(String semester);
-    List<SemesterReservation> findBySubject(Subject subject);
+    SemesterClassReservation save(SemesterReservationDTO reservation);
+    void delete(SemesterClassReservation reservation);
+    SemesterClassReservation findById(int id);
+    SemesterClassReservation setStatus(int id, String status);
+    List<SemesterClassReservation> getAll();
+    List<SemesterClassReservation> findByUsername(String username);
+    List<SemesterClassReservation> findByStatus(String statusName);
+    List<SemesterClassReservation> findByClassroom(Classroom classroom);
+    List<SemesterClassReservation> findBySemester(String semester);
+    List<SemesterClassReservation> findBySubject(Subject subject);
 }

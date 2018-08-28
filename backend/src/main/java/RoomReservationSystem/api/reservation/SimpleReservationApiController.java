@@ -6,7 +6,7 @@ import static RoomReservationSystem.config.ErrorMessageConstants.concatErrors;
 import RoomReservationSystem.dto.reservation.SimpleReservationDTO;
 import static RoomReservationSystem.dto.reservation.SimpleReservationDTO.toSimpleReservationDTO;
 import static RoomReservationSystem.dto.reservation.SimpleReservationDTO.toSimpleReservationDTOList;
-import RoomReservationSystem.model.reservation.SimpleReservation;
+import RoomReservationSystem.model.reservation.SimpleClassReservation;
 import RoomReservationSystem.service.StatusService;
 import RoomReservationSystem.service.reservation.SimpleReservationService;
 import java.util.List;
@@ -125,7 +125,7 @@ public class SimpleReservationApiController extends ReservationApiController {
 //        baseReservationValidator.validate(simpleReservationDTO, bindingResult);
 //        simpleReservationValidator.validate(simpleReservationDTO, bindingResult);
         if (!bindingResult.hasErrors()) {
-            SimpleReservation saved = simpleService.save(simpleReservationDTO);
+            SimpleClassReservation saved = simpleService.save(simpleReservationDTO);
             return ResponseEntity.status(HttpStatus.CREATED).body(toSimpleReservationDTO(saved));           
         }
         else {
