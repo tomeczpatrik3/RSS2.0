@@ -9,3 +9,7 @@ inheritance: https://www.thoughts-on-java.org/complete-guide-inheritance-strateg
 		-- Óra foglalás // Ide kell egy õsosztály
 			-- Egyszeri alkalom
 			-- Szemeszter
+
+JPA CUSTOM QUERY: https://docs.spring.io/spring-data/jpa/docs/current/reference/html/s
+
+SERVICES, ENDPOINTS FOR EVERY QUERY

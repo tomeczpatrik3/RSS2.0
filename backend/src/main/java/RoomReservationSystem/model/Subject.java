@@ -1,6 +1,5 @@
 package RoomReservationSystem.model;
 
-import RoomReservationSystem.model.reservation.Reservation;
 import RoomReservationSystem.dto.SubjectDTO;
 import RoomReservationSystem.model.reservation.ClassReservation;
 
