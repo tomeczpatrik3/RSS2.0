@@ -22,6 +22,4 @@ public abstract class ReservationDTO {
     private ClassroomDTO classroom;     /*A tanterem amire a foglalás vonatkozik*/
     private StatusDTO status;           /*A foglalás státusza*/
     private String note;                /*A foglaláshoz tartozó jegyzet*/           
-    
-//    private String[] dates;             /*A foglaláshoz tartozó időpontok*/
 }

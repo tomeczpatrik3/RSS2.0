@@ -3,6 +3,7 @@ package RoomReservationSystem.model.reservation;
 import RoomReservationSystem.model.Classroom;
 import RoomReservationSystem.model.Status;
 import RoomReservationSystem.model.User;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
@@ -33,10 +34,11 @@ public class EventReservation extends Reservation {
             User user,
             Classroom classroom,
             Status status,
+            List<ReservationDate> dateList,
             String name,
             String note
     ) {
-        super(user, classroom, status, note);
+        super(user, classroom, status, dateList, note);
         this.name = name;
     }
     
@@ -48,9 +50,10 @@ public class EventReservation extends Reservation {
             User user,
             Classroom classroom,
             Status status,
+            List<ReservationDate> dateList,
             String name,
             String note
     ) {
-        return new EventReservation(user, classroom, status, name, note);
+        return new EventReservation(user, classroom, status, dateList, name, note);
     }
 }

@@ -12,6 +12,7 @@ import RoomReservationSystem.service.StatusService;
 import RoomReservationSystem.service.SubjectService;
 import RoomReservationSystem.service.UserService;
 import RoomReservationSystem.service.reservation.EventReservationService;
+import java.util.Collections;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,6 +62,7 @@ public class EventReservationServiceImpl implements EventReservationService {
                                 eventReservationDTO.getClassroom().getName(),
                                 eventReservationDTO.getBuilding().getName()),
                         statusService.findByName("PENDING"), /*A foglalás státusza*/
+                        Collections.emptyList(),
                         eventReservationDTO.getName(), /*A foglalás neve*/
                         eventReservationDTO.getNote() /*A foglaláshoz tartozó megjegyzés*/
                 )

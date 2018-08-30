@@ -10,6 +10,7 @@ import RoomReservationSystem.dto.UserDTO;
 import static RoomReservationSystem.dto.UserDTO.toUserDTO;
 import RoomReservationSystem.model.reservation.EventReservation;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;

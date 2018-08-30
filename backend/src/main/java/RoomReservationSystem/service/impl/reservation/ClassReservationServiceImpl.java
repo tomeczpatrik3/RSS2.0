@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import RoomReservationSystem.repository.reservation.ClassReservationRepository;
 import RoomReservationSystem.service.reservation.ClassReservationService;
+import java.util.Collections;
 
 /**
  * A tanórákra vonatkozó foglalásokkal kapcsolatos műveletekért felelős osztály
@@ -63,6 +64,7 @@ public class ClassReservationServiceImpl implements ClassReservationService {
                                 classReservationDTO.getClassroom().getName(),
                                 classReservationDTO.getBuilding().getName()),
                         statusService.findByName("PENDING"), /*A foglalás státusza*/
+                        Collections.emptyList(),
                         classReservationDTO.getNote() /*A foglaláshoz tartozó megjegyzés*/
                 )
         );

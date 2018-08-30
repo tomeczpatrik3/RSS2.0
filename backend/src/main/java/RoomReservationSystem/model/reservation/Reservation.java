@@ -65,11 +65,13 @@ public abstract class Reservation extends BaseEntity {
             User user,
             Classroom classroom,
             Status status,
+            List<ReservationDate> dateList,
             String note) {
         super();
         this.user = user;
         this.classroom = classroom;
         this.status = status;
+        this.dateList = dateList;
         this.note = note;
     }
     

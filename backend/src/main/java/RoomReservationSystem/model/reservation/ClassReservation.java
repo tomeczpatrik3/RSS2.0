@@ -5,6 +5,7 @@ import RoomReservationSystem.model.Status;
 import RoomReservationSystem.model.Subject;
 import RoomReservationSystem.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.List;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -31,8 +32,9 @@ public class ClassReservation extends Reservation {
             Subject subject,
             Classroom classroom,
             Status status,
+            List<ReservationDate> dateList,
             String note) {
-        super(user, classroom, status, note);
+        super(user, classroom, status, dateList, note);
         this.subject = subject;
     }
     
@@ -45,8 +47,9 @@ public class ClassReservation extends Reservation {
             Subject subject,
             Classroom classroom,
             Status status,
+            List<ReservationDate> dateList,
             String note
     ) {
-        return new ClassReservation(user, subject, classroom, status, note);
+        return new ClassReservation(user, subject, classroom, status, dateList, note);
     }
 }
