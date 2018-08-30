@@ -6,12 +6,15 @@ import RoomReservationSystem.model.Status;
 import RoomReservationSystem.model.User;
 import RoomReservationSystem.model.reservation.EventReservation;
 import static RoomReservationSystem.model.reservation.EventReservation.toEventReservation;
+import RoomReservationSystem.model.reservation.ReservationDate;
 import RoomReservationSystem.repository.reservation.EventReservationRepository;
 import RoomReservationSystem.service.ClassroomService;
 import RoomReservationSystem.service.StatusService;
 import RoomReservationSystem.service.SubjectService;
 import RoomReservationSystem.service.UserService;
 import RoomReservationSystem.service.reservation.EventReservationService;
+import static RoomReservationSystem.util.DateUtils.getDateTime;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,16 +60,24 @@ public class EventReservationServiceImpl implements EventReservationService {
     public EventReservation save(EventReservationDTO eventReservationDTO) {
         EventReservation reservation = repository.save(
                 toEventReservation(
-                        userService.findByUsername(eventReservationDTO.getUser().getUsername()), /*A foglaláshoz tartozó felhasználó*/
+                        userService.findByUsername(eventReservationDTO.getUsername()), /*A foglaláshoz tartozó felhasználó*/
                         classroomService.findByNameAndBuildingName( /*A foglaláshoz tartozó tanterem*/
-                                eventReservationDTO.getClassroom().getName(),
-                                eventReservationDTO.getBuilding().getName()),
+                                eventReservationDTO.getClassroom(),
+                                eventReservationDTO.getBuilding()),
                         statusService.findByName("PENDING"), /*A foglalás státusza*/
                         Collections.emptyList(),
                         eventReservationDTO.getName(), /*A foglalás neve*/
                         eventReservationDTO.getNote() /*A foglaláshoz tartozó megjegyzés*/
                 )
         );
+        
+        ReservationDate rDate = new ReservationDate(
+                reservation, 
+                getDateTime(eventReservationDTO.getStart()),
+                getDateTime(eventReservationDTO.getEnd())
+        );
+        
+        reservation.setDateList(Arrays.asList(rDate));
         
         return reservation;
     }

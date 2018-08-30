@@ -17,9 +17,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public abstract class ReservationDTO {
-    private UserDTO user;               /*A felhasználó akihez a foglalás tarotzik*/
-    private BuildingDTO building;       /*Az épület, amiben a tanterem található*/
-    private ClassroomDTO classroom;     /*A tanterem amire a foglalás vonatkozik*/
-    private StatusDTO status;           /*A foglalás státusza*/
+    private String username;               /*A felhasználó akihez a foglalás tarotzik*/
+    private String building;       /*Az épület, amiben a tanterem található*/
+    private String classroom;     /*A tanterem amire a foglalás vonatkozik*/
+    private String status;           /*A foglalás státusza*/
     private String note;                /*A foglaláshoz tartozó jegyzet*/           
 }

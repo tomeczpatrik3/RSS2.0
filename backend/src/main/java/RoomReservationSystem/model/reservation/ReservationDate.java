@@ -15,6 +15,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.joda.time.DateTime;
 
 /**
  * A foglalásokhoz tartozó dátumokat tartalmazó osztály
@@ -36,11 +37,11 @@ public class ReservationDate extends BaseEntity{
     @NotNull
     @Column(name = "START")
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date start; /*A foglalás kezdete (dátum)*/
+    private DateTime start; /*A foglalás kezdete (dátum)*/
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "END")
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date end; /*A foglalás vége (dátum)*/
+    private DateTime end; /*A foglalás vége (dátum)*/
 }
