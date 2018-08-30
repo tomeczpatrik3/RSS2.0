@@ -5,10 +5,8 @@ import RoomReservationSystem.model.Status;
 import RoomReservationSystem.model.Subject;
 import RoomReservationSystem.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.Data;
@@ -21,9 +19,8 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper=true)
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "RESERVATION_TYPE")
-public abstract class ClassReservation extends Reservation {
+@DiscriminatorValue("CLASS")
+public class ClassReservation extends Reservation {
     @JsonIgnore
     @JoinColumn(name = "SUBJECT", referencedColumnName = "ID", nullable = true)
     @ManyToOne(optional = true)
@@ -41,5 +38,15 @@ public abstract class ClassReservation extends Reservation {
     
     protected ClassReservation() {
         super();
+    }
+    
+    public static ClassReservation toClassReservation(
+           User user,
+            Subject subject,
+            Classroom classroom,
+            Status status,
+            String note
+    ) {
+        return new ClassReservation(user, subject, classroom, status, note);
     }
 }

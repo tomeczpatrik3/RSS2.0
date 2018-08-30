@@ -6,9 +6,9 @@ inheritance: https://www.thoughts-on-java.org/complete-guide-inheritance-strateg
 
 		-- Esemény foglalás
 
-		-- Óra foglalás // Ide kell egy õsosztály
-			-- Egyszeri alkalom
-			-- Szemeszter
+		-- Óra foglalás -- Egyszeri alkalom/ Szemeszterre vonatkozó
+
+--> Minden foglaláshoz tartozik egy ReservationDate lista, amiben a dátumokat tároljuk
 
 JPA CUSTOM QUERY: https://docs.spring.io/spring-data/jpa/docs/current/reference/html/s
 

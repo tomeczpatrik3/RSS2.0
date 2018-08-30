@@ -2,14 +2,12 @@ package RoomReservationSystem.api.reservation;
 
 import static RoomReservationSystem.config.ErrorMessageConstants.RESERVATION_NOT_EXISTS;
 import static RoomReservationSystem.config.ErrorMessageConstants.STATUS_NOT_EXISTS;
-import RoomReservationSystem.model.reservation.Reservation;
 
 import static RoomReservationSystem.config.ErrorMessageConstants.concatErrors;
 import RoomReservationSystem.dto.reservation.EventReservationDTO;
 import static RoomReservationSystem.dto.reservation.EventReservationDTO.toEventReservationDTO;
 import static RoomReservationSystem.dto.reservation.EventReservationDTO.toEventReservationDTOList;
 import RoomReservationSystem.model.reservation.EventReservation;
-import RoomReservationSystem.model.reservation.SemesterClassReservation;
 import RoomReservationSystem.service.StatusService;
 import RoomReservationSystem.service.reservation.EventReservationService;
 import java.util.List;

@@ -1,20 +1,13 @@
 package RoomReservationSystem.model;
 
 import RoomReservationSystem.dto.SemesterDTO;
-import RoomReservationSystem.model.reservation.SemesterClassReservation;
 import RoomReservationSystem.util.DateUtils;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import java.util.Collections;
-import java.util.List;
 import java.util.Date;
 
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
@@ -56,10 +49,6 @@ public class Semester extends BaseEntity{
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date endDate; /*A szemeszter vége (dátum)*/
     
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "semester", targetEntity = SemesterClassReservation.class)
-    private List<SemesterClassReservation> reservationList; /*A szemeszterhez tartozó foglalások listája*/
-    
     /**
      * A SemesterDTO objektum Semester objektummá konvertálását végrehajtó megtódus
      * @param   semesterDTO A SemesterDTO objektum
@@ -69,7 +58,7 @@ public class Semester extends BaseEntity{
         return new Semester(
                 semesterDTO.getName(),
                 DateUtils.getDate(semesterDTO.getStartDate()),
-                DateUtils.getDate(semesterDTO.getEndDate()),
-                Collections.emptyList());
+                DateUtils.getDate(semesterDTO.getEndDate())
+        );
     }
 }
