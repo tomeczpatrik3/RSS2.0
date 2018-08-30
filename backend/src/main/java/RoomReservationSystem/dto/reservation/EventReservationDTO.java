@@ -29,8 +29,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class EventReservationDTO extends ReservationDTO {
 
-    private String name;
-    /*A foglalás neve*/
+    private String name; /*A foglalás neve*/
     private String start;
     private String end;
 
