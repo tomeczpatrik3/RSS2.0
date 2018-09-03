@@ -36,12 +36,10 @@ public class ReservationDate extends BaseEntity{
     @Basic(optional = false)
     @NotNull
     @Column(name = "START")
-    @Temporal(javax.persistence.TemporalType.DATE)
     private DateTime start; /*A foglalás kezdete (dátum)*/
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "END")
-    @Temporal(javax.persistence.TemporalType.DATE)
     private DateTime end; /*A foglalás vége (dátum)*/
 }

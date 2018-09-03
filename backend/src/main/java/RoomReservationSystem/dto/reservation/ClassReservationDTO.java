@@ -23,7 +23,11 @@ public class ClassReservationDTO extends ReservationDTO {
     private String subjectCode;
     /*A tantárgy amire a foglalás vonatkozik*/
     private String start;
+    /*A foglalás kezdete*/
     private String end;
+    /*A foglalás vége*/
+    private boolean semester;
+    /*A foglalás típusa*/
 
     public ClassReservationDTO(
             String username,
@@ -33,12 +37,14 @@ public class ClassReservationDTO extends ReservationDTO {
             String subjectCode,
             String start,
             String end,
+            boolean semester,
             String note
     ) {
         super(username, building, classroom, status, note);
         this.subjectCode = subjectCode;
         this.start = start;
         this.end = end;
+        this.semester = semester;
     }
 
     /**
@@ -59,6 +65,7 @@ public class ClassReservationDTO extends ReservationDTO {
                     reservation.getSubject().getCode(),
                     rDate.getStart().toString(),
                     rDate.getEnd().toString(),
+                    false,
                     reservation.getNote()
             );
         } else {

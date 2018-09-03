@@ -33,7 +33,7 @@ import RoomReservationSystem.validation.ClassReservationValidator;
 @RequestMapping(value="/api/simpleReservation")
 public class ClassReservationApiController extends ReservationApiController {
     @Autowired
-    ClassReservationService simpleService;
+    ClassReservationService classService;
     
     @Autowired
     StatusService statusService;
@@ -51,7 +51,7 @@ public class ClassReservationApiController extends ReservationApiController {
     @GetMapping
     @Override
     public List<ClassReservationDTO> getAccepted(){
-        return toClassReservationDTOList(simpleService.findByStatus("ACCEPTED"));
+        return toClassReservationDTOList(classService.findByStatus("ACCEPTED"));
     }
     
     /**
@@ -63,7 +63,7 @@ public class ClassReservationApiController extends ReservationApiController {
     @GetMapping("/findByUsername/{username}")
     @Override
     public List<ClassReservationDTO> findByUsername(@PathVariable String username){
-	return toClassReservationDTOList(simpleService.findByUsername(username));
+	return toClassReservationDTOList(classService.findByUsername(username));
     }
     
     /**
@@ -76,7 +76,7 @@ public class ClassReservationApiController extends ReservationApiController {
     @Override
     public ResponseEntity findByStatus(@PathVariable String status){
         if (statusService.findByName(status) != null)
-            return ResponseEntity.status(HttpStatus.OK).body(toClassReservationDTOList(simpleService.findByStatus(status)));
+            return ResponseEntity.status(HttpStatus.OK).body(toClassReservationDTOList(classService.findByStatus(status)));
         else
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(STATUS_NOT_EXISTS);  
     } 
@@ -115,8 +115,8 @@ public class ClassReservationApiController extends ReservationApiController {
     @GetMapping("/setStatus")
     @Override
     public ResponseEntity setStatus(@RequestParam("id") int id, @RequestParam("status") String status){
-	if (simpleService.findById(id) != null)
-            return ResponseEntity.ok(toClassReservationDTO(simpleService.setStatus(id, status)));
+	if (classService.findById(id) != null)
+            return ResponseEntity.ok(toClassReservationDTO(classService.setStatus(id, status)));
         else
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(RESERVATION_NOT_EXISTS);
     }
@@ -133,7 +133,7 @@ public class ClassReservationApiController extends ReservationApiController {
         baseRValidator.validate(classReservationDTO, bindingResult);
         classRValidator.validate(classReservationDTO, bindingResult);
         if (!bindingResult.hasErrors()) {
-            ClassReservation saved = simpleService.save(classReservationDTO);
+            ClassReservation saved = classService.save(classReservationDTO);
             return ResponseEntity.status(HttpStatus.CREATED).body(toClassReservationDTO(saved));           
         }
         else {
