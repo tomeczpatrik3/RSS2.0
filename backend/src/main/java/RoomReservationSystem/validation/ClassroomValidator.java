@@ -45,6 +45,11 @@ public class ClassroomValidator implements Validator {
         ValidationUtils.rejectIfEmpty(errors, "building", "classroom.building.empty", CLASSROOM_BUILDING_EMPTY);
 
         ClassroomDTO classroom = (ClassroomDTO) target;
+        
+        /*Épület meglétének ellenőrzése*/
+        if (buildingService.findByName(classroom.getBuilding()) == null) {
+            errors.rejectValue("building", "classroom.building.notExists", BUILDING_NOT_EXISTS);
+        }
 
         /*Terem létezésének ellenőrzése*/
         if (classroomService.findByNameAndBuildingName( classroom.getName(), classroom.getBuilding() ) != null) {
@@ -59,11 +64,6 @@ public class ClassroomValidator implements Validator {
         /*Székek számának validálása*/
         if (classroom.getChairs() < 0) {
             errors.rejectValue("chairs", "classroom.chairs.value", CLASSROOM_CHAIRS_VALUE);
-        }
-        
-        /*Épület meglétének ellenőrzése*/
-        if (buildingService.findByName(classroom.getBuilding()) == null) {
-            errors.rejectValue("building", "classroom.building.notExists", BUILDING_NOT_EXISTS);
         }
     }
 }

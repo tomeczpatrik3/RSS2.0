@@ -5,11 +5,7 @@ import RoomReservationSystem.dto.reservation.ClassReservationDTO;
 
 import RoomReservationSystem.service.SemesterService;
 import RoomReservationSystem.service.SubjectService;
-
-import static RoomReservationSystem.util.RegexUtils.isValidDate;
-import static RoomReservationSystem.util.RegexUtils.isValidSemester;
-import static RoomReservationSystem.util.RegexUtils.isValidTime;
-import static RoomReservationSystem.util.TimeUtils.isBefore;
+import static RoomReservationSystem.util.RegexUtils.areValidDates;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,41 +38,36 @@ public class ClassReservationValidator implements Validator {
      */
     @Override
     public void validate(Object target, Errors errors) {
-//        ValidationUtils.rejectIfEmpty(errors, "semesterName", "simpleReservation.semesterName.empty", SEMESTER_NAME_EMPTY);
-//        ValidationUtils.rejectIfEmpty(errors, "subjectCode", "simpleReservation.subjectCode.empty", SUBJECT_CODE_EMPTY);
-//        ValidationUtils.rejectIfEmpty(errors, "date", "simpleReservation.date.empty", DATE_EMPTY);
-//        ValidationUtils.rejectIfEmpty(errors, "startTime", "simpleReservation.startTime.empty", START_TIME_EMPTY);
-//        ValidationUtils.rejectIfEmpty(errors, "endTime", "simpleReservation.endTime.empty", END_TIME_EMPTY);
+        ValidationUtils.rejectIfEmpty(errors, "semester", "classReservation.semester.empty", SEMESTER_NAME_EMPTY);
+        ValidationUtils.rejectIfEmpty(errors, "subjectCode", "classReservation.subjectCode.empty", SUBJECT_CODE_EMPTY);
+        ValidationUtils.rejectIfEmpty(errors, "startDates", "classReservation.startDates.empty", START_TIME_EMPTY);
+        ValidationUtils.rejectIfEmpty(errors, "endDates", "classReservation.endDates.empty", END_TIME_EMPTY);
 
         ClassReservationDTO reservation = (ClassReservationDTO)target;     
         
+        /*Szemeszter validálása*/
+        if (reservation.getSemester() != null && semesterService.findByName(reservation.getSemester()) == null) {
+            errors.rejectValue("semester", "classReservation.semester.notExists", SEMESTER_NOT_EXISTS);
+        }
+        
         /*Tantárgy kód validálása*/
-        if (reservation.getSubject() != null && reservation.getSubject().getCode() != null) {
-            if (reservation.getSubject().getCode().length()<4 || reservation.getSubject().getCode().length() > 10) {
-                errors.rejectValue("subjectCode", "semesterReservation.subjectCode.size", SUBJECT_CODE_SIZE);
+        if (reservation.getSubjectCode() != null) {
+            if (reservation.getSubjectCode().length()<4 || reservation.getSubjectCode().length() > 10) {
+                errors.rejectValue("subjectCode", "classReservation.subjectCode.size", SUBJECT_CODE_SIZE);
             }
-            if (subjectService.findByCode(reservation.getSubject().getCode()) == null) {
-                errors.rejectValue("subjectCode", "semesterReservation.subjectCode.notExists", SUBJECT_NOT_EXISTS);
+            if (subjectService.findByCode(reservation.getSubjectCode()) == null) {
+                errors.rejectValue("subjectCode", "classReservation.subjectCode.notExists", SUBJECT_NOT_EXISTS);
             }
         } 
         
-        /*Dátum validálása*/
-//        if (reservation.getDate() != null && !isValidDate(reservation.getDate())) {
-//            errors.rejectValue("date", "simpleReservation.date.invalidFormat", DATE_INVALID_FORMAT);
-//        }
+        /*Dátumok validálása*/
+        if (reservation.getStartDates() != null && !areValidDates(reservation.getStartDates())) {
+            errors.rejectValue("startDates", "classReservation.startDates.invalidFormat", DATE_INVALID_FORMAT);
+        }
         
-        /*Idők validálása*/
-//        if (reservation.getStartTime() != null && !isValidTime(reservation.getStartTime())) {
-//            errors.rejectValue("startTime", "simpleReservation.startTime.invalidFormat", TIME_INVALID_FORMAT);
-//        }
-//
-//        if (reservation.getEndTime()!= null && !isValidTime(reservation.getEndTime())) {
-//            errors.rejectValue("endTime", "simpleReservation.endTime.invalidFormat", TIME_INVALID_FORMAT);
-//        }
-//        
-//        if (reservation.getStartTime() != null && reservation.getEndTime()!= null 
-//                && !isBefore(reservation.getStartTime(), reservation.getEndTime()) ) {
-//            errors.rejectValue("startTime", "simpleReservation.startTime.invalid", START_TIME_BEFORE_END_TIME);
-//        }
+        if (reservation.getEndDates() != null && !areValidDates(reservation.getEndDates())) {
+            errors.rejectValue("endDates", "classReservation.endDates.invalidFormat", DATE_INVALID_FORMAT);
+        }
+        
     }
 }

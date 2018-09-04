@@ -8,9 +8,7 @@ import java.util.regex.Pattern;
  */
 public class RegexUtils {
     /*Dátumok ellenőrzésére szolgáló reguláris kifejezés*/
-    private static final Pattern DATE_REGEX = Pattern.compile("^[\\d]{4}-[\\d]{2}-[\\d]{2}$");
-    /*Idő ellenőrzésére szolgáló reguláris kifejezés*/
-    private static final Pattern TIME_REGEX = Pattern.compile("^[\\d]{2}:[\\d]{2}$");
+    private static final Pattern DATE_REGEX = Pattern.compile("^[\\d]{4}-[\\d]{2}-[\\d]{2} [\\d]{2}:[\\d]{2}$");
     /*E-mail ellenőrzésére szolgáló reguláris kifejezés*/
     private static final Pattern EMAIL_REGEX = Pattern.compile("^[\\w\\d._-]+@[\\w\\d.-]+\\.[\\w\\d]{2,6}$");
     /*Szemeszter ellenőrzésére szolgáló reguláris kifejezés*/
@@ -25,13 +23,13 @@ public class RegexUtils {
         return DATE_REGEX.matcher(dateString).matches();
     }
     
-    /**
-     * Egy idő String formátumát ellenőrző metódus
-     * @param   timeString  Az idő
-     * @return              Igaz, ha az idő megfelel a formátumnak, hamis egyébként
-     */
-    public static boolean isValidTime(String timeString) {
-        return TIME_REGEX.matcher(timeString).matches();
+    public static boolean areValidDates(String[] dates) {
+        boolean l = true;
+        int i = 0;
+        while (l && i<dates.length) {
+            l &= isValidDate(dates[i]);
+        }
+        return l;
     }
     
     /**

@@ -1,13 +1,14 @@
 package RoomReservationSystem.dto.reservation;
 
 import RoomReservationSystem.model.reservation.ClassReservation;
-import RoomReservationSystem.model.reservation.ReservationDate;
+import RoomReservationSystem.util.DateUtils;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+
 
 /**
  * A tantárgyakra vonatkozó foglalásokhoz tartozó DTO osztály
@@ -22,12 +23,13 @@ public class ClassReservationDTO extends ReservationDTO {
 
     private String subjectCode;
     /*A tantárgy amire a foglalás vonatkozik*/
-    private String start;
+    private String[] startDates;
     /*A foglalás kezdete*/
-    private String end;
+    private String[] endDates;
     /*A foglalás vége*/
-    private boolean semester;
-    /*A foglalás típusa*/
+    private String semester;
+
+    /*A szemeszter*/
 
     public ClassReservationDTO(
             String username,
@@ -35,15 +37,15 @@ public class ClassReservationDTO extends ReservationDTO {
             String classroom,
             String status,
             String subjectCode,
-            String start,
-            String end,
-            boolean semester,
+            String[] startDates,
+            String[] endDates,
+            String semester,
             String note
     ) {
         super(username, building, classroom, status, note);
         this.subjectCode = subjectCode;
-        this.start = start;
-        this.end = end;
+        this.startDates = startDates;
+        this.endDates = endDates;
         this.semester = semester;
     }
 
@@ -55,22 +57,17 @@ public class ClassReservationDTO extends ReservationDTO {
      * @return A ClassReservationDTO objektum
      */
     public static ClassReservationDTO toClassReservationDTO(ClassReservation reservation) {
-        if (reservation.getDateList() != null && reservation.getDateList().size() == 1) {
-            ReservationDate rDate = reservation.getDateList().get(0);
-            return new ClassReservationDTO(
-                    reservation.getUser().getUsername(),
-                    reservation.getClassroom().getBuilding().getName(),
-                    reservation.getClassroom().getName(),
-                    reservation.getStatus().getName(),
-                    reservation.getSubject().getCode(),
-                    rDate.getStart().toString(),
-                    rDate.getEnd().toString(),
-                    false,
-                    reservation.getNote()
-            );
-        } else {
-            return null;
-        }
+        return new ClassReservationDTO(
+                reservation.getUser().getUsername(),
+                reservation.getClassroom().getBuilding().getName(),
+                reservation.getClassroom().getName(),
+                reservation.getStatus().getName(),
+                reservation.getSubject().getCode(),
+                DateUtils.getStartDates(reservation),
+                DateUtils.getEndDates(reservation),
+                reservation.getSemester().getName(),
+                reservation.getNote()
+        );
     }
 
     /**

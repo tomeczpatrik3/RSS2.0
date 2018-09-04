@@ -33,7 +33,6 @@ public class BuildingValidator implements Validator {
      */
     @Override
     public void validate(Object target, Errors errors) {
-        
         ValidationUtils.rejectIfEmpty(errors, "name", "buildingDTO.name.empty", BUILDING_NAME_EMPTY);
 
         BuildingDTO building = (BuildingDTO) target;

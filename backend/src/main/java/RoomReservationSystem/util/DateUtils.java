@@ -1,10 +1,14 @@
 package RoomReservationSystem.util;
 
+import RoomReservationSystem.model.reservation.ClassReservation;
+import RoomReservationSystem.model.reservation.ReservationDate;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -132,6 +136,39 @@ public class DateUtils {
         }        
     }
     
+    public static String[] getStartDates(ClassReservation reservation) {
+        List<ReservationDate> dates = reservation.getDateList();
+        List<String> dateStrs = new ArrayList<>();
+        for (ReservationDate date: dates) {
+            dateStrs.add(date.getStart().toString());
+        }
+        return (String[]) dateStrs.toArray();
+    }
+    
+    public static String[] getEndDates(ClassReservation reservation) {
+        List<ReservationDate> dates = reservation.getDateList();
+        List<String> dateStrs = new ArrayList<>();
+        for (ReservationDate date: dates) {
+            dateStrs.add(date.getEnd().toString());
+        }
+        return (String[]) dateStrs.toArray();
+    }
+    
+    public static List<ReservationDate> getReservationDates(ClassReservation reservation, String[] startDates, String[] endDates) {
+        if (startDates.length != endDates.length)
+            return null;
+        
+        List<ReservationDate> dates = new ArrayList<>();
+        for (int i=0; i<startDates.length; i++) {
+            dates.add(new ReservationDate(
+                    reservation,
+                    getDateTime(startDates[i]),
+                    getDateTime(endDates[i])
+            ));
+        }
+        
+        return dates;
+    }
 }
 
 

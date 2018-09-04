@@ -73,8 +73,8 @@ public class EventReservationServiceImpl implements EventReservationService {
         
         ReservationDate rDate = new ReservationDate(
                 reservation, 
-                getDateTime(eventReservationDTO.getStart()),
-                getDateTime(eventReservationDTO.getEnd())
+                getDateTime(eventReservationDTO.getStartDate()),
+                getDateTime(eventReservationDTO.getEndDate())
         );
         
         reservation.setDateList(Arrays.asList(rDate));

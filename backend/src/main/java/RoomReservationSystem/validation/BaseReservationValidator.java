@@ -42,44 +42,37 @@ public class BaseReservationValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         ValidationUtils.rejectIfEmpty(errors, "username", "baseReservation.username.empty", USERNAME_EMPTY);
-        ValidationUtils.rejectIfEmpty(errors, "buildingName", "baseReservation.buildingName.empty", BUILDING_NAME_EMTPY);
-        ValidationUtils.rejectIfEmpty(errors, "roomName", "baseReservation.roomName.empty", ROOM_NAME_EMPTY);
-        //ValidationUtils.rejectIfEmpty(errors, "note", "eventReservation.note.empty", NOTE_EMPTY);
-        
+        ValidationUtils.rejectIfEmpty(errors, "building", "baseReservation.building.empty", BUILDING_NAME_EMTPY);
+        ValidationUtils.rejectIfEmpty(errors, "classroom", "baseReservation.classroom.empty", ROOM_NAME_EMPTY);
+
         ReservationDTO reservation = (ReservationDTO)target;     
         
         /*Felhasználó meglétének ellenőrzése*/
-        if (reservation.getUser().getUsername() != null && userService.findByUsername(reservation.getUser().getUsername()) == null) {
+        if (reservation.getUsername() != null && userService.findByUsername(reservation.getUsername()) == null) {
             errors.rejectValue("username", "baseReservation.username.notExists", USER_NOT_EXISTS);
         }
         
-        /*
         if (reservation.getUsername() != null && reservation.getUsername().length() < 5 || reservation.getUsername().length() > 30 ) {
             errors.rejectValue("username", "baseReservation.username.size", USERNAME_SIZE);
         }
-        */
         
         /*Épület meglétének ellenőrzése*/
-        if (reservation.getBuilding().getName() != null && buildingService.findByName(reservation.getBuilding().getName()) == null) {
+        if (reservation.getBuilding()!= null && buildingService.findByName(reservation.getBuilding()) == null) {
             errors.rejectValue("buildingName", "baseReservation.buildingName.notExists", BUILDING_NOT_EXISTS);
         }
         
-        /*
-        if (reservation.getBuildingName() != null && reservation.getBuildingName().length() < 3 || reservation.getBuildingName().length() > 30 ) {
+        if (reservation.getBuilding() != null && reservation.getBuilding().length() < 3 || reservation.getBuilding().length() > 30 ) {
             errors.rejectValue("buildingName", "baseReservation.buildingName.size", BUILDING_NAME_SIZE);
         }
-        */
         
         /*Terem meglétének ellenőrzése*/
         if (reservation.getClassroom() != null && reservation.getBuilding() != null 
-                && classroomService.findByNameAndBuildingName(reservation.getClassroom().getName(), reservation.getBuilding().getName()) == null) {
+                && classroomService.findByNameAndBuildingName(reservation.getClassroom(), reservation.getBuilding()) == null) {
             errors.rejectValue("roomName", "baseReservation.roomName.notExists", ROOM_NOT_EXISTS);
         }
         
-        /*
-        if (reservation.getRoomName() != null && reservation.getRoomName().length() < 3 || reservation.getRoomName().length() > 30 ) {
+        if (reservation.getClassroom() != null && reservation.getClassroom().length() < 3 || reservation.getClassroom().length() > 30 ) {
             errors.rejectValue("roomName", "baseReservation.roomName.size", ROOM_NAME_SIZE);
         }
-        */
     }
 }

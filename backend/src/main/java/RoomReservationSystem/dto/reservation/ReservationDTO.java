@@ -1,10 +1,5 @@
 package RoomReservationSystem.dto.reservation;
 
-import RoomReservationSystem.dto.BuildingDTO;
-import RoomReservationSystem.dto.ClassroomDTO;
-import RoomReservationSystem.dto.StatusDTO;
-import RoomReservationSystem.dto.UserDTO;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

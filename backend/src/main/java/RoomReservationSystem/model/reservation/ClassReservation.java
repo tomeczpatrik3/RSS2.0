@@ -1,6 +1,7 @@
 package RoomReservationSystem.model.reservation;
 
 import RoomReservationSystem.model.Classroom;
+import RoomReservationSystem.model.Semester;
 import RoomReservationSystem.model.Status;
 import RoomReservationSystem.model.Subject;
 import RoomReservationSystem.model.User;
@@ -25,17 +26,24 @@ public class ClassReservation extends Reservation {
     @JsonIgnore
     @JoinColumn(name = "SUBJECT", referencedColumnName = "ID", nullable = true)
     @ManyToOne(optional = true)
-    private Subject subject;    /*A foglalás tantárgy*/
+    private Subject subject;    /*A tantárgy*/
+    
+    @JsonIgnore
+    @JoinColumn(name = "SEMESTER", referencedColumnName = "ID", nullable = true)
+    @ManyToOne(optional = true)
+    private Semester semester;    /*A szemeszter*/    
     
     protected ClassReservation(            
             User user,
             Subject subject,
             Classroom classroom,
             Status status,
+            Semester semester,
             List<ReservationDate> dateList,
             String note) {
         super(user, classroom, status, dateList, note);
         this.subject = subject;
+        this.semester = semester;
     }
     
     protected ClassReservation() {
@@ -47,9 +55,10 @@ public class ClassReservation extends Reservation {
             Subject subject,
             Classroom classroom,
             Status status,
+            Semester semester,
             List<ReservationDate> dateList,
             String note
     ) {
-        return new ClassReservation(user, subject, classroom, status, dateList, note);
+        return new ClassReservation(user, subject, classroom, status, semester, dateList, note);
     }
 }

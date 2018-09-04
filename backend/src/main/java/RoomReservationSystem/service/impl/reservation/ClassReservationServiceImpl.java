@@ -16,8 +16,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import RoomReservationSystem.repository.reservation.ClassReservationRepository;
+import RoomReservationSystem.service.SemesterService;
 import RoomReservationSystem.service.reservation.ClassReservationService;
 import static RoomReservationSystem.util.DateUtils.getDateTime;
+import static RoomReservationSystem.util.DateUtils.getReservationDates;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -43,6 +45,9 @@ public class ClassReservationServiceImpl implements ClassReservationService {
     @Autowired
     private StatusService statusService;
     
+    @Autowired
+    private SemesterService semesterService;
+    
     /**
      * A foglalások törlését megvalósító függvény
      * @param reservation A foglalás amit törölni szeretnénk
@@ -67,18 +72,13 @@ public class ClassReservationServiceImpl implements ClassReservationService {
                                 classReservationDTO.getClassroom(),
                                 classReservationDTO.getBuilding()),
                         statusService.findByName("PENDING"), /*A foglalás státusza*/
+                        semesterService.findByName(classReservationDTO.getSemester()),
                         Collections.emptyList(),
                         classReservationDTO.getNote() /*A foglaláshoz tartozó megjegyzés*/
                 )
         );
         
-        ReservationDate rDate = new ReservationDate(
-                reservation, 
-                getDateTime(classReservationDTO.getStart()),
-                getDateTime(classReservationDTO.getEnd())
-        );
-        
-        reservation.setDateList(Arrays.asList(rDate));
+        reservation.setDateList(getReservationDates(reservation, classReservationDTO.getStartDates(), classReservationDTO.getEndDates()));
         
         return reservation;
     }
