@@ -13,7 +13,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import static org.mockito.Matchers.any;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -43,14 +46,12 @@ public class AuthorityServiceImplTest {
      */
     @Test
     public void testSave() {
-        System.out.println("save");
+        Mockito.when(service.save(any(Authority.class))).thenReturn(authority);
         
-        Authority result = service.save(authority);
+        Authority exceptedResult = service.save(authority);
         
-        Assert.assertNotNull(result);
-        //assertEquals(expResult, result);
-        
-        //fail("The test case is a prototype.");
+        Assert.assertNotNull(exceptedResult);
+        Assert.assertEquals(exceptedResult, authority);
     }
 
     /**

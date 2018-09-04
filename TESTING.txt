@@ -2,3 +2,9 @@ SPRING UNIT TESTING:
 
 https://www.youtube.com/watch?v=8S8o46avgAw
 
+https://stackoverflow.com/questions/31028359/spring-jparepository-save-does-not-mock-using-mockito
+
+https://stackoverflow.com/questions/51247796/how-to-mock-jpa-repositorys-save-method-in-unit-tests
+
+https://www.tutorialspoint.com/mockito/mockito_junit_integration.htm
+
