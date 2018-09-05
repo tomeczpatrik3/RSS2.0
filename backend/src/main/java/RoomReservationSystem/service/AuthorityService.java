@@ -1,5 +1,8 @@
 package RoomReservationSystem.service;
 
+import RoomReservationSystem.exception.AuthorityAlredyExistsException;
+import RoomReservationSystem.exception.AuthorityNotExistsException;
+import RoomReservationSystem.exception.InvalidParameterException;
 import RoomReservationSystem.model.Authority;
 
 /**
@@ -8,8 +11,8 @@ import RoomReservationSystem.model.Authority;
  * @author Tomecz Patrik
  */
 public interface AuthorityService {
-    void delete(Authority authority);
-    Authority save(Authority authority);
-    Authority findByName(String name);
-    Authority findById(int id);
+    void delete(Authority authority) throws InvalidParameterException, AuthorityNotExistsException;
+    Authority save(Authority authority) throws InvalidParameterException, AuthorityAlredyExistsException;
+    Authority findByName(String name) throws InvalidParameterException, AuthorityNotExistsException;
+    Authority findById(int id) throws AuthorityNotExistsException;
 }

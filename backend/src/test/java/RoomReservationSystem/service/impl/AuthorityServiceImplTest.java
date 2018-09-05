@@ -5,6 +5,8 @@
  */
 package RoomReservationSystem.service.impl;
 
+import RoomReservationSystem.exception.AuthorityAlredyExistsException;
+import RoomReservationSystem.exception.InvalidParameterException;
 import RoomReservationSystem.model.Authority;
 import RoomReservationSystem.repository.AuthorityRepository;
 import java.util.Collections;
@@ -19,39 +21,48 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 public class AuthorityServiceImplTest {
-   
+
     private static final Integer AUTHORITY_ID = 99;
     private static final String AUTHORITY_NAME = "TEST_AUTHORITY";
-    
+
     @Mock
     private AuthorityRepository repository;
-    
+
     @InjectMocks
     private AuthorityServiceImpl service;
-    
+
     private Authority authority;
-    
+
     @Before
     public void setUp() {
+
+    }
+
+    /**
+     * Test of save method, of class AuthorityServiceImpl.
+     *
+     * @throws RoomReservationSystem.exception.AuthorityAlredyExistsException
+     */
+    @Test()
+    public void testSave() throws Exception {
         authority = new Authority();
         authority.setId(AUTHORITY_ID);
         authority.setName(AUTHORITY_NAME);
         authority.setUserList(Collections.EMPTY_LIST);
-    }
-    
-    /**
-     * Test of save method, of class AuthorityServiceImpl.
-     */
-    @Test
-    public void testSave() {
-        Mockito.when(service.save(any(Authority.class))).thenReturn(authority);
+        
+        Mockito.when(service.save(authority)).thenReturn(authority);
         
         Authority exceptedResult = service.save(authority);
-        
+
         Assert.assertNotNull(exceptedResult);
         Assert.assertEquals(exceptedResult, authority);
+    }
+
+    @Test(expected = InvalidParameterException.class)
+    public void testSaveInvalidParameterException() throws Exception {
+        service.save(null);
     }
 
     /**
@@ -66,7 +77,6 @@ public class AuthorityServiceImplTest {
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
-
     /**
      * Test of findByName method, of class AuthorityServiceImpl.
      */
@@ -81,7 +91,6 @@ public class AuthorityServiceImplTest {
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
-
     /**
      * Test of findById method, of class AuthorityServiceImpl.
      */
@@ -96,5 +105,4 @@ public class AuthorityServiceImplTest {
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
-    
 }
