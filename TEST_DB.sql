@@ -1,15 +1,19 @@
+﻿SET FOREIGN_KEY_CHECKS = 0; 
+
+TRUNCATE TABLE `roomreservationdb`.`users_authorities`;
+TRUNCATE TABLE `roomreservationdb`.`users`;
 TRUNCATE TABLE `roomreservationdb`.`authorities`;
+TRUNCATE TABLE `roomreservationdb`.`classrooms`;
+TRUNCATE TABLE `roomreservationdb`.`buildings`;
+TRUNCATE TABLE `roomreservationdb`.`semesters`;
+TRUNCATE TABLE `roomreservationdb`.`subjects`;
 
 INSERT INTO `roomreservationdb`.`authorities` (`id`, `name`) VALUES ('1', 'ROLE_USER');
 INSERT INTO `roomreservationdb`.`authorities` (`id`, `name`) VALUES ('2', 'ROLE_ADMIN');
 INSERT INTO `roomreservationdb`.`authorities` (`id`, `name`) VALUES ('3', 'ROLE_GUEST');
 
-TRUNCATE TABLE `roomreservationdb`.`buildings`;
-
 INSERT INTO `roomreservationdb`.`buildings` (`id`, `name`) VALUES ('1', 'ÉSZAKI');
 INSERT INTO `roomreservationdb`.`buildings` (`id`, `name`) VALUES ('2', 'DÉLI');
-
-TRUNCATE TABLE `roomreservationdb`.`classrooms`;
 
 INSERT INTO `roomreservationdb`.`classrooms` (`id`, `chairs`, `has_pc`, `has_projector`, `name`, `building`) VALUES ('1', '300', 0, 1, 'Bolyai János előadó', 2);
 INSERT INTO `roomreservationdb`.`classrooms` (`id`, `chairs`, `has_pc`, `has_projector`, `name`, `building`) VALUES ('2', '250', 0, 1, 'Mogyoródi József előadó', 2);
@@ -46,15 +50,11 @@ INSERT INTO `roomreservationdb`.`classrooms` (`id`, `chairs`, `has_pc`, `has_pro
 INSERT INTO `roomreservationdb`.`classrooms` (`id`, `chairs`, `has_pc`, `has_projector`, `name`, `building`) VALUES ('33', '25', 1, 1, '00-803/2 Programozási Nyelvi Labor/2', 2);
 INSERT INTO `roomreservationdb`.`classrooms` (`id`, `chairs`, `has_pc`, `has_projector`, `name`, `building`) VALUES ('34', '100', 1, 1, '00-807 Adatbázis labor', 2);
 
-TRUNCATE TABLE `roomreservationdb`.`semesters`;
-
 INSERT INTO `roomreservationdb`.`semesters` (`id`, `end_date`, `name`, `start_date`) VALUES ('1', '2017-09-03 00:00:00', '2017-2018/1', '2018-02-02 23:59:59');
 INSERT INTO `roomreservationdb`.`semesters` (`id`, `end_date`, `name`, `start_date`) VALUES ('2', '2018-02-03 00:00:00', '2017-2018/2', '2018-09-02 23:59:59');
 INSERT INTO `roomreservationdb`.`semesters` (`id`, `end_date`, `name`, `start_date`) VALUES ('3', '2017-02-03 00:00:00', '2016-2017/2', '2017-09-02 23:59:59');
 INSERT INTO `roomreservationdb`.`semesters` (`id`, `end_date`, `name`, `start_date`) VALUES ('4', '2016-09-03 00:00:00', '2016-2017/1', '2017-02-02 23:59:59');
 INSERT INTO `roomreservationdb`.`semesters` (`id`, `end_date`, `name`, `start_date`) VALUES ('5', '2016-02-03 00:00:00', '2015-2016/2', '2016-09-02 23:59:59');
-
-TRUNCATE TABLE `roomreservationdb`.`subjects`;
 
 INSERT INTO `roomreservationdb`.`subjects` (`id`, `code`, `name`) VALUES ('1', 'IP-08cAN1E ', 'Analízis 1 EA');
 INSERT INTO `roomreservationdb`.`subjects` (`id`, `code`, `name`) VALUES ('2', 'IP-08cAN1G', 'Analízis 1 Gyakorlat');
@@ -80,3 +80,15 @@ INSERT INTO `roomreservationdb`.`subjects` (`id`, `code`, `name`) VALUES ('21', 
 INSERT INTO `roomreservationdb`.`subjects` (`id`, `code`, `name`) VALUES ('22', 'etolo1b17ea', 'Etológia 1 EA');
 INSERT INTO `roomreservationdb`.`subjects` (`id`, `code`, `name`) VALUES ('23', 'mikrobb18ea', 'Mikrobiológia EA');
 INSERT INTO `roomreservationdb`.`subjects` (`id`, `code`, `name`) VALUES ('24', 'mikrobb18la', 'Mikrobiológiai gyakorlat GY');
+
+
+/*
+-- admin - admin
+INSERT INTO `roomreservationdb`.`users` (`id`, `email`, `name`, `password`, `username`) VALUES ('1', 'admin@admin.com',	'ADMIN', '$2a$10$I2RfKrz8AonAKpxm.8OWS.AWnIg7iwnay81awm3AB0lotLlDOXMZm', 'admin');
+
+INSERT INTO `roomreservationdb`.`users_authorities` (`authority_id`, `user_id`) VALUES ('1', '1');
+INSERT INTO `roomreservationdb`.`users_authorities` (`authority_id`, `user_id`) VALUES ('2', '1');
+INSERT INTO `roomreservationdb`.`users_authorities` (`authority_id`, `user_id`) VALUES ('3', '1');
+*/
+
+SET FOREIGN_KEY_CHECKS = 1; 

@@ -5,39 +5,36 @@
  */
 package RoomReservationSystem.service.impl;
 
-import RoomReservationSystem.exception.AuthorityAlredyExistsException;
-import RoomReservationSystem.exception.InvalidParameterException;
 import RoomReservationSystem.model.Authority;
-import RoomReservationSystem.repository.AuthorityRepository;
 import java.util.Collections;
 import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import static org.mockito.Matchers.any;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class AuthorityServiceImplTest {
+    private static final String AUTHORITY_NAME = "TEST_AUTH";
 
-    private static final Integer AUTHORITY_ID = 99;
-    private static final String AUTHORITY_NAME = "TEST_AUTHORITY";
-
-    @Mock
-    private AuthorityRepository repository;
-
-    @InjectMocks
+    @Autowired
     private AuthorityServiceImpl service;
 
     private Authority authority;
+    private Authority exceptedResult;
 
     @Before
     public void setUp() {
+        authority = new Authority();
+        authority.setName(AUTHORITY_NAME);
+        authority.setUserList(Collections.EMPTY_LIST);
 
+        exceptedResult = null;
     }
 
     /**
@@ -46,51 +43,46 @@ public class AuthorityServiceImplTest {
      * @throws RoomReservationSystem.exception.AuthorityAlredyExistsException
      */
     @Test()
-    public void testSave() throws Exception {
-        authority = new Authority();
-        authority.setId(AUTHORITY_ID);
-        authority.setName(AUTHORITY_NAME);
-        authority.setUserList(Collections.EMPTY_LIST);
-        
-        Mockito.when(service.save(authority)).thenReturn(authority);
-        
-        Authority exceptedResult = service.save(authority);
+    public void testSave() throws Exception {        
+        exceptedResult = service.save(authority);
 
+        //Ellenőrzések:
         Assert.assertNotNull(exceptedResult);
         Assert.assertEquals(exceptedResult, authority);
+        
+        service.removeByName(exceptedResult.getName());
     }
 
-    @Test(expected = InvalidParameterException.class)
-    public void testSaveInvalidParameterException() throws Exception {
-        service.save(null);
-    }
-
+//    @Test(expected = InvalidParameterException.class)
+//    public void testSaveInvalidParameterException() throws Exception {
+//        Mockito.when(service.save(null)).thenThrow(new InvalidParameterException(""));
+//        service.save(null);
+//    }
     /**
      * Test of delete method, of class AuthorityServiceImpl.
+     *
+     * @throws java.lang.Exception
      */
-//    @Test
-//    public void testDelete() {
-//        System.out.println("delete");
-//        Authority authority = null;
-//        AuthorityServiceImpl instance = new AuthorityServiceImpl();
-//        instance.delete(authority);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
+    @Test
+    public void testDelete() throws Exception{        
+        exceptedResult = service.save(authority);
+        service.removeByName(exceptedResult.getName());
+    }
     /**
      * Test of findByName method, of class AuthorityServiceImpl.
+     *
+     * @throws java.lang.Exception
      */
-//    @Test
-//    public void testFindByName() {
-//        System.out.println("findByName");
-//        String name = "";
-//        AuthorityServiceImpl instance = new AuthorityServiceImpl();
-//        Authority expResult = null;
-//        Authority result = instance.findByName(name);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
+    @Test
+    public void testFindByName() throws Exception {
+        service.save(authority);
+        exceptedResult = service.findByName(AUTHORITY_NAME);
+        
+        assertNotNull(exceptedResult);
+        assertEquals(authority, exceptedResult);
+        
+        service.removeByName(exceptedResult.getName());
+    }
     /**
      * Test of findById method, of class AuthorityServiceImpl.
      */

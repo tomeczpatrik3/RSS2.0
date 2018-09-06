@@ -1,6 +1,7 @@
 package RoomReservationSystem.service;
 
 import RoomReservationSystem.dto.UserDTO;
+import RoomReservationSystem.exception.InvalidParameterException;
 import RoomReservationSystem.model.User;
 
 import java.util.List;

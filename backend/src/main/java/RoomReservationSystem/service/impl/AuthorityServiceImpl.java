@@ -34,19 +34,6 @@ public class AuthorityServiceImpl implements AuthorityService{
     }
     
     /**
-     * Az engedély törlésére szolgáló függvény
-     * @param authority Az engedély amit szeretnénk törölni
-     * @throws RoomReservationSystem.exception.InvalidParameterException
-     */
-    @Override
-    public void delete(Authority authority) throws InvalidParameterException{
-        if (authority == null)
-            throw new InvalidParameterException("Null paraméter!");
-        else
-            authorityRepository.delete(authority);
-    }
-    
-    /**
      * Az engedély név alapján történő keresését lehetővé tevő függvény
      * @param   name    A keresendő engedély neve
      * @return          A névnek megfelelő engedély ha létezik, null egyébként  
@@ -75,5 +62,18 @@ public class AuthorityServiceImpl implements AuthorityService{
             return authorityRepository.findById(id);
         else
             throw new AuthorityNotExistsException("Ilyen azonosítóval rendelkező engedély nem létezik!");
+    }
+    
+    /**
+     * Az engedély törlésére szolgáló függvény
+     * @param name Az engedély neve
+     * @throws RoomReservationSystem.exception.InvalidParameterException
+     */
+    @Override
+    public void removeByName(String name) throws InvalidParameterException{
+        if (name == null)
+            throw new InvalidParameterException("Null paraméter!");
+        else
+            authorityRepository.removeByName(name);
     }
 }

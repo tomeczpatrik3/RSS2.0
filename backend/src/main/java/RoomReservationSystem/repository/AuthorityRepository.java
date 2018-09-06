@@ -1,6 +1,7 @@
 package RoomReservationSystem.repository;
 
 import RoomReservationSystem.model.Authority;
+import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,4 +13,7 @@ import org.springframework.stereotype.Repository;
 public interface AuthorityRepository extends JpaRepository<Authority, Integer> {
     Authority findById(int id);
     Authority findByName(String name);
+    
+    @Transactional
+    void removeByName(String name);
 }
