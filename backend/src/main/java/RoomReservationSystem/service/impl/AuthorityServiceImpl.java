@@ -2,7 +2,6 @@ package RoomReservationSystem.service.impl;
 
 import RoomReservationSystem.exception.AuthorityAlredyExistsException;
 import RoomReservationSystem.exception.AuthorityNotExistsException;
-import RoomReservationSystem.exception.InvalidParameterException;
 import RoomReservationSystem.model.Authority;
 import RoomReservationSystem.repository.AuthorityRepository;
 import RoomReservationSystem.service.AuthorityService;
@@ -23,28 +22,28 @@ public class AuthorityServiceImpl implements AuthorityService{
      * Az engedély mentésére szolgáló függvény
      * @param   authority   Az engedély, amit szeretnénk eltárolni
      * @return              Az eltárolt engedély       
-     * @throws RoomReservationSystem.exception.InvalidParameterException           
+     * @throws RoomReservationSystem.exception.AuthorityAlredyExistsException                
      */
     @Override
-    public Authority save(Authority authority) throws InvalidParameterException{
-        return authorityRepository.save(authority);
+    public Authority save(Authority authority) throws AuthorityAlredyExistsException{
+        if ( authorityRepository.findByName(authority.getName()) == null)
+            return authorityRepository.save(authority);
+        else
+            throw new AuthorityAlredyExistsException(String.format("Ilyen névvel (%s) rendelkező engedély már létezik!", authority.getName().toUpperCase()));
     }
     
     /**
      * Az engedély név alapján történő keresését lehetővé tevő függvény
      * @param   name    A keresendő engedély neve
      * @return          A névnek megfelelő engedély ha létezik, null egyébként  
-     * @throws RoomReservationSystem.exception.InvalidParameterException  
      * @throws RoomReservationSystem.exception.AuthorityNotExistsException  
      */
     @Override
-    public Authority findByName(String name) throws InvalidParameterException, AuthorityNotExistsException{
-        if (name == null)
-            throw new InvalidParameterException("Null paraméter!");
-        else if ( authorityRepository.findByName(name) != null)
+    public Authority findByName(String name) throws AuthorityNotExistsException{
+        if ( authorityRepository.findByName(name) != null)
             return authorityRepository.findByName(name);
         else
-            throw new AuthorityNotExistsException("Ilyen névvel rendelkező engedély nem létezik!");
+            throw new AuthorityNotExistsException(String.format("Ilyen névvel (%s) rendelkező engedély nem létezik!", name));
     }
     
     /**
@@ -58,19 +57,19 @@ public class AuthorityServiceImpl implements AuthorityService{
         if (authorityRepository.findById(id) != null)
             return authorityRepository.findById(id);
         else
-            throw new AuthorityNotExistsException("Ilyen azonosítóval rendelkező engedély nem létezik!");
+            throw new AuthorityNotExistsException(String.format("Ilyen azonosítóval (%d) rendelkező engedély nem létezik!", id));
     }
     
     /**
      * Az engedély törlésére szolgáló függvény
      * @param name Az engedély neve
-     * @throws RoomReservationSystem.exception.InvalidParameterException
+     * @throws RoomReservationSystem.exception.AuthorityNotExistsException
      */
     @Override
-    public void removeByName(String name) throws InvalidParameterException{
-        if (name == null)
-            throw new InvalidParameterException("Null paraméter!");
-        else
+    public void removeByName(String name) throws AuthorityNotExistsException {
+        if ( authorityRepository.findByName(name) != null)
             authorityRepository.removeByName(name);
+        else
+            throw new AuthorityNotExistsException(String.format("Ilyen névvel (%s) rendelkező engedély nem létezik!", name));
     }
 }

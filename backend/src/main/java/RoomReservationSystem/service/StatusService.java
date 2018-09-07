@@ -1,5 +1,6 @@
 package RoomReservationSystem.service;
 
+import RoomReservationSystem.exception.StatusNotExistsException;
 import RoomReservationSystem.model.Status;
 
 /**
@@ -8,5 +9,5 @@ import RoomReservationSystem.model.Status;
  * @author Tomecz Patrik
  */
 public interface StatusService {
-    Status findByName(String name);
+    Status findByName(String name) throws StatusNotExistsException;
 }

@@ -1,6 +1,8 @@
 package RoomReservationSystem.service;
 
 import RoomReservationSystem.dto.SubjectDTO;
+import RoomReservationSystem.exception.SubjectAlredyExistsException;
+import RoomReservationSystem.exception.SubjectNotExistsException;
 import RoomReservationSystem.model.Subject;
 
 import java.util.List;
@@ -11,11 +13,10 @@ import java.util.List;
  * @author Tomecz Patrik
  */
 public interface SubjectService {
-    void delete(Subject subject);
-    void deleteByCode(String code);
-    Subject save(Subject subject);
-    Subject findByCode(String code);
-    Subject findById(int id);
+    void deleteByCode(String code) throws SubjectNotExistsException;
+    Subject save(Subject subject) throws SubjectAlredyExistsException;
+    Subject findByCode(String code) throws SubjectNotExistsException;
+    Subject findById(int id) throws SubjectNotExistsException;
     List<Subject> findAll();
     List<Subject> findByName(String name);
     List<String> getSubjectNames();

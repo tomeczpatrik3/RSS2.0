@@ -1,6 +1,8 @@
 package RoomReservationSystem.service;
 
 import RoomReservationSystem.dto.SemesterDTO;
+import RoomReservationSystem.exception.SemesterAlredyExistsException;
+import RoomReservationSystem.exception.SemesterNotExistsException;
 import RoomReservationSystem.model.Semester;
 import java.util.List;
 
@@ -12,9 +14,8 @@ import java.util.List;
 public interface SemesterService {
     List<Semester> getAll();
     List<String> getNames();
-    Semester save(Semester semester);
-    Semester findByName(String name);
-    void delete(Semester semester);
-    void deleteByName(String name);
+    Semester save(Semester semester) throws SemesterAlredyExistsException;
+    Semester findByName(String name) throws SemesterNotExistsException;
+    void deleteByName(String name) throws SemesterNotExistsException;
     Semester findByDTO(SemesterDTO semesterDTO);
 }

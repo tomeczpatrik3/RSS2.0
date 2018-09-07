@@ -32,7 +32,7 @@ public class BuildingServiceImpl implements BuildingService {
     @Override
     public void deleteByName(String name) throws BuildingNotExistsException{
         if (buildingRepository.findByName(name) == null)
-            throw new BuildingNotExistsException("Nincs ilyen névvel rendelkező épület!");
+            throw new BuildingNotExistsException(String.format("Nem létezik ilyen névvel (%s) rendelkező épület!", name));
         else
             buildingRepository.deleteByName(name);
     }
@@ -46,7 +46,7 @@ public class BuildingServiceImpl implements BuildingService {
     @Override
     public Building save(Building building) throws BuildingAlredyExistsException{
         if (buildingRepository.findByName(building.getName()) != null)
-            throw new BuildingAlredyExistsException("Már létezik névvel rendelkező épület!");
+            throw new BuildingAlredyExistsException(String.format("Már létezik ilyen névvel (%s) rendelkező épület!", building.getName()));
         else
             return buildingRepository.save(building);
     }
@@ -61,7 +61,7 @@ public class BuildingServiceImpl implements BuildingService {
     public Building findByName(String name) throws BuildingNotExistsException {
         Building building = buildingRepository.findByName(name);
         if (building == null)
-            throw new BuildingNotExistsException("Nem létezik ilyen névvel rendelkező épület!");
+            throw new BuildingNotExistsException(String.format("Nem létezik ilyen névvel (%s) rendelkező épület!", name));
         else
             return building;
     }
@@ -76,7 +76,7 @@ public class BuildingServiceImpl implements BuildingService {
     public Building findById(int id) throws BuildingNotExistsException{
         Building building = buildingRepository.findById(id);
         if (building == null)
-            throw new BuildingNotExistsException("Nem létezik ilyen azonosítóval rendelkező épület!");
+            throw new BuildingNotExistsException(String.format("Nem létezik ilyen azonosítóval (%d) rendelkező épület!", id));
         else
             return building;
     }
@@ -99,9 +99,9 @@ public class BuildingServiceImpl implements BuildingService {
         List<Building> buildings = buildingRepository.findAll();
         List<String> buildingNames = new ArrayList<>();
         
-        for (Building building: buildings) {
+        buildings.forEach((building) -> {
             buildingNames.add(building.getName());
-        }
+        });
         
         return buildingNames;
     }

@@ -4,6 +4,8 @@ import RoomReservationSystem.dto.UserDTO;
 import RoomReservationSystem.exception.AuthorityAlredyExistsException;
 import RoomReservationSystem.exception.AuthorityNotExistsException;
 import RoomReservationSystem.exception.InvalidParameterException;
+import RoomReservationSystem.exception.UserAlredyExistsException;
+import RoomReservationSystem.exception.UserNotExistsException;
 import RoomReservationSystem.model.Authority;
 import RoomReservationSystem.model.User;
 import RoomReservationSystem.repository.UserRepository;
@@ -13,7 +15,6 @@ import static RoomReservationSystem.model.User.toUser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -64,11 +65,19 @@ public class UserServiceImpl implements UserService {
      *
      * @param userDTO A felhasználó adatai
      * @return A regisztrált felhasználó
+     * @throws RoomReservationSystem.exception.UserAlredyExistsException
+     * @throws RoomReservationSystem.exception.AuthorityNotExistsException
+     * @throws RoomReservationSystem.exception.AuthorityAlredyExistsException
      */
     @Override
-    public User register(UserDTO userDTO) {
-        try {
+    public User register(UserDTO userDTO) throws UserAlredyExistsException, AuthorityNotExistsException, AuthorityAlredyExistsException {
+        if (userRepository.findByUsername(userDTO.getUsername()) != null) {
+            throw new UserAlredyExistsException(String.format("Ilyen felhasználónévvel (%s) rendelkező felhasználó már létezik!", userDTO.getUsername()));
+        } else if (userRepository.findByEmail(userDTO.getEmail()) != null) {
+            throw new UserAlredyExistsException(String.format("Ilyen e-mail címmel (%s) rendelkező felhasználó már létezik!", userDTO.getEmail()));
+        } else {
             Authority userAuth = authorityService.findByName("ROLE_USER");
+            authorityService.removeByName("ROLE_USER");
 
             User user = userRepository.save(toUser(
                     userDTO,
@@ -80,9 +89,6 @@ public class UserServiceImpl implements UserService {
             authorityService.save(userAuth);
 
             return user;
-        } catch (InvalidParameterException | AuthorityNotExistsException | AuthorityAlredyExistsException ex) {
-            Logger.getLogger(UserServiceImpl.class.getName()).log(Level.WARNING, ex.getMessage(), ex);
-            return null;
         }
     }
 
@@ -92,10 +98,16 @@ public class UserServiceImpl implements UserService {
      *
      * @param email A felhasználó e-mail címe
      * @return A felhasználó ha létezik, null egyébként
+     * @throws RoomReservationSystem.exception.UserNotExistsException
      */
     @Override
-    public User findByEmail(String email) {
-        return userRepository.findByEmail(email);
+    public User findByEmail(String email) throws UserNotExistsException {
+        User found = userRepository.findByEmail(email);
+        if (found != null) {
+            return found;
+        } else {
+            throw new UserNotExistsException(String.format("Ilyen e-mail címmel (%s) rendelkező felhasználó nem létezik!", email));
+        }
     }
 
     /**
@@ -103,10 +115,16 @@ public class UserServiceImpl implements UserService {
      *
      * @param id A felhasználó id-ja
      * @return A felhasználó ha létezik, null egyébként
+     * @throws RoomReservationSystem.exception.UserNotExistsException
      */
     @Override
-    public User findById(int id) {
-        return this.userRepository.findById(id);
+    public User findById(int id) throws UserNotExistsException {
+        User found = userRepository.findById(id);
+        if (found != null) {
+            return found;
+        } else {
+            throw new UserNotExistsException(String.format("Ilyen azonosítóval (%d) rendelkező felhasználó nem létezik!", id));
+        }
     }
 
     /**
@@ -115,10 +133,16 @@ public class UserServiceImpl implements UserService {
      *
      * @param username A felhasználó felhasználóneve
      * @return A felhasználó ha létezik, null egyébként
+     * @throws RoomReservationSystem.exception.UserNotExistsException
      */
     @Override
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public User findByUsername(String username) throws UserNotExistsException {
+        User found = userRepository.findByUsername(username);
+        if (found != null) {
+            return found;
+        } else {
+            throw new UserNotExistsException(String.format("Ilyen felhasználónévvel (%s) rendelkező felhasználó nem létezik!", username));
+        }
     }
 
     /**
@@ -126,20 +150,15 @@ public class UserServiceImpl implements UserService {
      * függvény
      *
      * @param username A felhasználó felhasználóneve
+     * @throws RoomReservationSystem.exception.UserNotExistsException
      */
     @Override
-    public void deleteByUsername(String username) {
-        userRepository.deleteByUsername(username);
-    }
-
-    /**
-     * A felhasználó törlését megvalósító függvény
-     *
-     * @param user A törleni kívánt felhasználó
-     */
-    @Override
-    public void delete(User user) {
-        userRepository.delete(user);
+    public void deleteByUsername(String username) throws UserNotExistsException {
+        if (userRepository.findByUsername(username) != null) {
+            userRepository.deleteByUsername(username);
+        } else {
+            throw new UserNotExistsException(String.format("Ilyen felhasználónévvel (%s) rendelkező felhasználó nem létezik!", username));
+        }
     }
 
     /**

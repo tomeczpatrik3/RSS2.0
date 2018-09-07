@@ -9,8 +9,13 @@ import static RoomReservationSystem.dto.SubjectDTO.toSubjectDTOList;
 import static RoomReservationSystem.config.ErrorMessageConstants.SUBJECT_NOT_EXISTS;
 import static RoomReservationSystem.config.ErrorMessageConstants.concatErrors;
 import static RoomReservationSystem.dto.SubjectDTO.toSubjectDTO;
+import RoomReservationSystem.exception.SubjectAlredyExistsException;
+import RoomReservationSystem.exception.SubjectNotExistsException;
+import static RoomReservationSystem.util.ExceptionUtils.handleException;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,40 +31,45 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * A tantárgyakhoz tartozó végpontokat tartalmazó osztály
+ *
  * @author Tomecz Patrik
  */
 @RestController
-@RequestMapping(value="/api/subject")
+@RequestMapping(value = "/api/subject")
 public class SubjectApiController {
-    
+
     @Autowired
     private SubjectService subjectService;
-    
+
     @Autowired
     private SubjectValidator subjectValidator;
-    
+
     /**
-     * A függvény ami visszaadja egy listában az összes adatbázisban található tantárgyat
+     * A függvény ami visszaadja egy listában az összes adatbázisban található
+     * tantárgyat
+     *
      * @return A tantárgyak egy listában
      */
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping
-    public List<SubjectDTO> getAll(){
+    public List<SubjectDTO> getAll() {
         return toSubjectDTOList(subjectService.findAll());
     }
-    
+
     /**
      * A függvény ami visszaadja egy listában a tantárgyak neveit
+     *
      * @return A tantárgyak nevei egy listában
      */
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping("/getSubjectNames")
-    public List<String> getSubjectNames(){
+    public List<String> getSubjectNames() {
         return subjectService.getSubjectNames();
     }
-    
+
     /**
      * A függvény ami létrehozza a megfelelő tantárgyat
+     *
      * @param subjectDTO A tantárgy
      * @param bindingResult
      * @return A megfelelő válasz entitás
@@ -69,16 +79,21 @@ public class SubjectApiController {
     public ResponseEntity createSubject(@RequestBody SubjectDTO subjectDTO, BindingResult bindingResult) {
         subjectValidator.validate(subjectDTO, bindingResult);
         if (!bindingResult.hasErrors()) {
-            Subject saved = subjectService.save(toSubject(subjectDTO));
-            return ResponseEntity.status(HttpStatus.CREATED).body(toSubjectDTO(saved));           
-        }
-        else {
+            try {
+                Subject saved = subjectService.save(toSubject(subjectDTO));
+                return ResponseEntity.status(HttpStatus.CREATED).body(toSubjectDTO(saved));
+            } catch (SubjectAlredyExistsException | NullPointerException ex) {
+                return handleException(ex);
+            }
+
+        } else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
-        }          
+        }
     }
-    
+
     /**
      * A függvény ami firssíti a megfelelő tantárgyat
+     *
      * @param subjectDTO A tantárgy
      * @param bindingResult
      * @return A megfelelő válasz entitás
@@ -88,29 +103,32 @@ public class SubjectApiController {
     public ResponseEntity updateSubject(@RequestBody SubjectDTO subjectDTO, BindingResult bindingResult) {
         subjectValidator.validate(subjectDTO, bindingResult);
         if (!bindingResult.hasErrors()) {
-            subjectService.delete( subjectService.findByCode(subjectDTO.getCode()) );
-            Subject saved = subjectService.save(toSubject(subjectDTO));
-            return ResponseEntity.status(HttpStatus.CREATED).body(toSubjectDTO(saved));            
-        }
-        else {
+            try {
+                subjectService.deleteByCode(subjectDTO.getCode());
+                Subject saved = subjectService.save(toSubject(subjectDTO));
+                return ResponseEntity.status(HttpStatus.CREATED).body(toSubjectDTO(saved));
+            } catch (SubjectNotExistsException | SubjectAlredyExistsException | NullPointerException ex) {
+                return handleException(ex);
+            }
+        } else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
         }
     }
-    
+
     /**
-     * A függvény ami törli az adott kódhoz tartozó tantárgyat	
+     * A függvény ami törli az adott kódhoz tartozó tantárgyat
+     *
      * @param code A tárgykód
      * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/deleteByCode")
     public ResponseEntity deleteByCode(@RequestParam String code) {
-        if ( subjectService.findByCode( code ) != null ) {
+        try {
             subjectService.deleteByCode(code);
-            return new ResponseEntity(HttpStatus.OK);          
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (SubjectNotExistsException | NullPointerException ex) {
+            return handleException(ex);
         }
-        else {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(SUBJECT_NOT_EXISTS);
-        }
-    }  
+    }
 }

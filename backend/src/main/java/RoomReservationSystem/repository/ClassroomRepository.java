@@ -21,5 +21,5 @@ public interface ClassroomRepository extends JpaRepository<Classroom, Integer> {
     List<Classroom> findByChairsGreaterThan(int number);
     List<Classroom> findByChairsBetween(int from, int to);
     List<Classroom> findByBuilding(Building building);
-    void deleteByName(String name);
+    void deleteByNameAndBuilding(String name, Building building);
 }

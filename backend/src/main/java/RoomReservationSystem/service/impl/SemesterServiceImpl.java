@@ -1,6 +1,8 @@
 package RoomReservationSystem.service.impl;
 
 import RoomReservationSystem.dto.SemesterDTO;
+import RoomReservationSystem.exception.SemesterAlredyExistsException;
+import RoomReservationSystem.exception.SemesterNotExistsException;
 import RoomReservationSystem.model.Semester;
 import RoomReservationSystem.repository.SemesterRepository;
 import RoomReservationSystem.service.SemesterService;
@@ -31,10 +33,16 @@ public class SemesterServiceImpl implements SemesterService {
      * A félév mentését megvalósító függvény
      * @param   semester    A menteni kívánt félév
      * @return              A mentett félév
+     * @throws RoomReservationSystem.exception.SemesterAlredyExistsException
      */
     @Override
-    public Semester save(Semester semester) {
-        return semesterRepository.save(semester);
+    public Semester save(Semester semester) throws SemesterAlredyExistsException {
+        Semester found = semesterRepository.findByName(semester.getName());
+        if (found != null)
+            return semesterRepository.save(semester);
+        else
+            throw new SemesterAlredyExistsException(String.format("Ilyen névvel (%s) rendelkező szemeszter már létezik!", semester.getName()));
+        
     }
     
     /**
@@ -54,28 +62,28 @@ public class SemesterServiceImpl implements SemesterService {
      * A félévek név szerint történő keresését megvalósító függvény
      * @param   name    A félév neve
      * @return          A félév ha létezik, null egyébként
+     * @throws RoomReservationSystem.exception.SemesterNotExistsException
      */
     @Override
-    public Semester findByName(String name){
-        return semesterRepository.findByName(name);
-    }
-    
-    /**
-     * A félévek törlését megvalósító függvény
-     * @param   semester    A törölni kívánt félév
-     */
-    @Override
-    public void delete(Semester semester) {
-        semesterRepository.delete(semester);
+    public Semester findByName(String name) throws SemesterNotExistsException{
+        Semester found = semesterRepository.findByName(name);
+        if (found != null)
+            return found;
+        else
+            throw new SemesterNotExistsException(String.format("Ilyen névvel (%s) rendelkező szemeszter nem létezik!", name));
     }
     
     /**
      * A félévek név alapján történő törlését megvalósító függvény
      * @param   name    A félév neve
+     * @throws RoomReservationSystem.exception.SemesterNotExistsException
      */
     @Override
-    public void deleteByName(String name) {
-        semesterRepository.deleteByName(name);
+    public void deleteByName(String name) throws SemesterNotExistsException{
+        if (semesterRepository.findByName(name) != null)
+            semesterRepository.deleteByName(name);
+        else
+            throw new SemesterNotExistsException(String.format("Ilyen névvel (%s) rendelkező szemeszter nem létezik!", name));
     }
     
     /**

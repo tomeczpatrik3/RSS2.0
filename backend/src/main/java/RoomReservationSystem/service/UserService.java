@@ -1,7 +1,10 @@
 package RoomReservationSystem.service;
 
 import RoomReservationSystem.dto.UserDTO;
-import RoomReservationSystem.exception.InvalidParameterException;
+import RoomReservationSystem.exception.AuthorityAlredyExistsException;
+import RoomReservationSystem.exception.AuthorityNotExistsException;
+import RoomReservationSystem.exception.UserAlredyExistsException;
+import RoomReservationSystem.exception.UserNotExistsException;
 import RoomReservationSystem.model.User;
 
 import java.util.List;
@@ -15,12 +18,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  * @author Tomecz Patrik
  */
 public interface UserService extends UserDetailsService {
-    void deleteByUsername(String username);
-    void delete(User user);
-    User register(UserDTO user);
-    User findByEmail(String email);
-    User findByUsername(String username) throws UsernameNotFoundException;
-    User findById(int id);
+    void deleteByUsername(String username) throws UserNotExistsException;
+    User register(UserDTO user) throws UserAlredyExistsException, AuthorityNotExistsException, AuthorityAlredyExistsException;
+    User findByEmail(String email) throws UserNotExistsException;
+    User findByUsername(String username) throws UsernameNotFoundException, UserNotExistsException;
+    User findById(int id) throws UserNotExistsException;
     List<User> findAll();
     List<User> findByName(String name);
     List<String> getNames();

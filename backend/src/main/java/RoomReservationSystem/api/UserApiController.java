@@ -8,13 +8,21 @@ import static RoomReservationSystem.config.ErrorMessageConstants.USER_NOT_EXISTS
 import static RoomReservationSystem.config.ErrorMessageConstants.concatErrors;
 import static RoomReservationSystem.dto.UserDTO.toUserDTO;
 import static RoomReservationSystem.dto.UserDTO.toUserDTOList;
+import RoomReservationSystem.exception.AuthorityAlredyExistsException;
+import RoomReservationSystem.exception.AuthorityNotExistsException;
+import RoomReservationSystem.exception.UserAlredyExistsException;
+import RoomReservationSystem.exception.UserNotExistsException;
+import static RoomReservationSystem.util.ExceptionUtils.handleException;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,116 +33,138 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * A felhasználókhoz tartozó végpontokat tartalmazó osztály
+ *
  * @author Tomecz Patrik
  */
 @RestController
-@RequestMapping(value="/api/user")
+@RequestMapping(value = "/api/user")
 public class UserApiController {
-    
+
     @Autowired
     UserValidator userValidator;
-    
+
     @Autowired
     UserService userService;
-    
+
     /**
-     * A függvény ami visszaadja egy listában az összes adatbázisban található felhasználót
+     * A függvény ami visszaadja egy listában az összes adatbázisban található
+     * felhasználót
+     *
      * @return A felhasználók egy listában
      */
     //@PreAuthorize("hasRole('ADMIN')")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping
-    public List<UserDTO> getAll(){
+    public List<UserDTO> getAll() {
         return toUserDTOList(userService.findAll());
     }
-    
+
     /**
-     * A függvény ami visszaadja egy listában az összes adatbázisban található felhasználó nevét
+     * A függvény ami visszaadja egy listában az összes adatbázisban található
+     * felhasználó nevét
+     *
      * @return A felhasználónevek egy listában
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/getNames")
-    public List<String> getNames(){
+    public List<String> getNames() {
         return userService.getNames();
     }
-    
+
     /**
      * A függvény ami visszaadja a felhasználónévhez tartozó felhasználót
+     *
      * @param username A felhasználónév
      * @return A megfelelő felhasználó
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findByUsername")
-    public ResponseEntity findByUsername(@RequestParam String username){
-	if (userService.findByUsername(username) != null)
+    public ResponseEntity findByUsername(@RequestParam String username) {
+        try {
             return ResponseEntity.ok(toUserDTO(userService.findByUsername(username)));
-        else
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(USER_NOT_EXISTS);
+        } catch (UsernameNotFoundException | UserNotExistsException | NullPointerException ex) {
+            return handleException(ex);
+        }
     }
-    
+
     /**
      * A függvény ami visszaadja egy listában az adott nevű felhasználókat
+     *
      * @param name A név
      * @return A megfelelő felhasználók egy listában
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findByName")
-    public List<UserDTO> findByName(@RequestParam String name){
-	return toUserDTOList(userService.findByName(name));
+    public List<UserDTO> findByName(@RequestParam String name
+    ) {
+        return toUserDTOList(userService.findByName(name));
     }
-    
+
     /**
      * A függvény ami létrehozza a megfelelő felhasználót
+     *
      * @param userDTO A felhasználó
      * @param bindingResult
      * @return A megfelelő válasz entitás
      */
     @PostMapping("/createUser")
-    public ResponseEntity createUser(@RequestBody UserDTO userDTO, BindingResult bindingResult) {
+    public ResponseEntity createUser(@RequestBody UserDTO userDTO, BindingResult bindingResult
+    ) {
         userValidator.validate(userDTO, bindingResult);
         if (!bindingResult.hasErrors()) {
-            User registered = userService.register(userDTO);
-            return ResponseEntity.status(HttpStatus.CREATED).body(toUserDTO(registered));
-        }
-        else {
+            try {
+                User registered = userService.register(userDTO);
+                return ResponseEntity.status(HttpStatus.CREATED).body(toUserDTO(registered));
+            } catch (UserAlredyExistsException | AuthorityNotExistsException | AuthorityAlredyExistsException | NullPointerException ex) {
+                return handleException(ex);
+            }
+
+        } else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
         }
     }
-    
+
     /**
      * A függvény ami firssíti a megfelelő felhasználót
+     *
      * @param userDTO A felhasználó
      * @param bindingResult
      * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/updateUser")
-    public ResponseEntity updateUser(@RequestBody UserDTO userDTO, BindingResult bindingResult) {
+    public ResponseEntity updateUser(@RequestBody UserDTO userDTO, BindingResult bindingResult
+    ) {
         userValidator.validate(userDTO, bindingResult);
         if (!bindingResult.hasErrors()) {
-            userService.delete( userService.findByUsername(userDTO.getName()) );
-            User saved = userService.register(userDTO);
-            return ResponseEntity.status(HttpStatus.CREATED).body(saved);           
-        }
-        else {
+            try {
+                userService.deleteByUsername(userDTO.getUsername());
+                User saved = userService.register(userDTO);
+                return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+            } catch (UserNotExistsException | UserAlredyExistsException | AuthorityNotExistsException | AuthorityAlredyExistsException | NullPointerException ex) {
+                return handleException(ex);
+            }
+
+        } else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
         }
     }
-    
+
     /**
-     * A függvény ami törli az adott felhasználónévhez tartozó felhasználót	
+     * A függvény ami törli az adott felhasználónévhez tartozó felhasználót
+     *
      * @param username A felhasználónév
      * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/deleteByUsername")
-    public ResponseEntity deleteByUsername(@RequestParam String username) {
-        if ( userService.findByUsername( username ) != null ) {
+    public ResponseEntity deleteByUsername(@RequestParam String username
+    ) {
+        try {
             userService.deleteByUsername(username);
-            return new ResponseEntity(HttpStatus.OK);           
-        }
-        else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(USER_NOT_EXISTS);
-        }
-    }   
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (UserNotExistsException | NullPointerException ex) {
+            return handleException(ex);
+        } 
+    }
 }

@@ -1,6 +1,9 @@
 package RoomReservationSystem.service;
 
 import RoomReservationSystem.dto.ClassroomDTO;
+import RoomReservationSystem.exception.BuildingNotExistsException;
+import RoomReservationSystem.exception.ClassroomAlredyExistsException;
+import RoomReservationSystem.exception.ClassroomNotExistsException;
 import RoomReservationSystem.model.Building;
 import RoomReservationSystem.model.Classroom;
 
@@ -12,11 +15,10 @@ import java.util.List;
  * @author Tomecz Patrik
  */
 public interface ClassroomService {
-    void delete(Classroom classroom);
-    void deleteByName(String name);
-    Classroom save(Classroom classroom);
-    Classroom findByNameAndBuildingName(String name, String buildingName);
-    Classroom findById(int id);
+    void deleteByNameAndBuildingName(String name, String buildingName) throws ClassroomNotExistsException, BuildingNotExistsException;
+    Classroom save(Classroom classroom) throws ClassroomAlredyExistsException;
+    Classroom findByNameAndBuildingName(String name, String buildingName) throws ClassroomNotExistsException, BuildingNotExistsException;
+    Classroom findById(int id) throws ClassroomNotExistsException;
     List<Classroom> findByName(String name);
     List<Classroom> findAll();
     List<Classroom> findByHasPc(boolean hasPC);
@@ -25,6 +27,6 @@ public interface ClassroomService {
     List<Classroom> findByChairsGreaterThan(int num);
     List<Classroom> findByChairsBetween(int from, int to);
     List<Classroom> findByBuilding(Building building);
-    List<Classroom> findByBuildingName(String buildingName);
-    Classroom findByDTO(ClassroomDTO classroomDTO);
+    List<Classroom> findByBuildingName(String buildingName)  throws BuildingNotExistsException;
+    Classroom findByDTO(ClassroomDTO classroomDTO)  throws BuildingNotExistsException;
 }

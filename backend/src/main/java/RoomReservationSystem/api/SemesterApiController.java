@@ -5,11 +5,16 @@ import static RoomReservationSystem.config.ErrorMessageConstants.concatErrors;
 import RoomReservationSystem.dto.SemesterDTO;
 import static RoomReservationSystem.dto.SemesterDTO.toSemesterDTO;
 import static RoomReservationSystem.dto.SemesterDTO.toSemesterDTOList;
+import RoomReservationSystem.exception.SemesterAlredyExistsException;
+import RoomReservationSystem.exception.SemesterNotExistsException;
 import RoomReservationSystem.model.Semester;
 import static RoomReservationSystem.model.Semester.toSemester;
 import RoomReservationSystem.service.SemesterService;
+import static RoomReservationSystem.util.ExceptionUtils.handleException;
 import RoomReservationSystem.validation.SemesterValidator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,40 +29,45 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * A szemeszterekhez tartozó végpontokat tartalmazó osztály
+ *
  * @author Tomecz Patrik
  */
 @RestController
-@RequestMapping(value="/api/semester")
+@RequestMapping(value = "/api/semester")
 public class SemesterApiController {
-    
+
     @Autowired
     private SemesterService semesterService;
-    
+
     @Autowired
     private SemesterValidator semesterValidator;
-    
+
     /**
-     * A függvény ami visszaadja egy listában az összes adatbázisban található szemesztert
+     * A függvény ami visszaadja egy listában az összes adatbázisban található
+     * szemesztert
+     *
      * @return A szemeszterek egy listában
      */
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping
-    public List<SemesterDTO> getAll(){
+    public List<SemesterDTO> getAll() {
         return toSemesterDTOList(semesterService.getAll());
     }
-    
+
     /**
      * A függvény ami visszaadja egy listában az szemeszterek neveit
+     *
      * @return A szemeszterek nevei egy listában
      */
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping("/getSemesterNames")
-    public List<String> getSemesterNames(){
+    public List<String> getSemesterNames() {
         return semesterService.getNames();
     }
-    
+
     /**
      * A függvény ami létrehozza a megfelelő szemesztert
+     *
      * @param semesterDTO A szemeszter
      * @param bindingResult
      * @return A megfelelő válasz entitás
@@ -67,29 +77,32 @@ public class SemesterApiController {
     public ResponseEntity createSemester(@RequestBody SemesterDTO semesterDTO, BindingResult bindingResult) {
         semesterValidator.validate(semesterDTO, bindingResult);
         if (!bindingResult.hasErrors()) {
-            Semester saved = semesterService.save(toSemester(semesterDTO));
-            return ResponseEntity.status(HttpStatus.CREATED).body(toSemesterDTO(saved));           
-        }
-        else {
+            try {
+                Semester saved = semesterService.save(toSemester(semesterDTO));
+                return ResponseEntity.status(HttpStatus.CREATED).body(toSemesterDTO(saved));
+            } catch (SemesterAlredyExistsException | NullPointerException ex) {
+                return handleException(ex);
+            }
+
+        } else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
-        }          
+        }
     }
-    
+
     /**
      * A függvény ami törli az adott névhez tartozó szemesztert
+     *
      * @param name A név
      * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/deleteByName")
     public ResponseEntity deleteByName(@RequestParam String name) {
-        if ( semesterService.findByName( name ) != null ) {
+        try {
             semesterService.deleteByName(name);
-            return new ResponseEntity(HttpStatus.OK);          
-        }
-        else {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(SUBJECT_NOT_EXISTS);
-        }
-    }  
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (SemesterNotExistsException | NullPointerException ex) {
+            return handleException(ex);
+        } 
+    }
 }
-
