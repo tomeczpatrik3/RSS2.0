@@ -1,6 +1,8 @@
 package RoomReservationSystem.service;
 
 import RoomReservationSystem.dto.BuildingDTO;
+import RoomReservationSystem.exception.BuildingAlredyExistsException;
+import RoomReservationSystem.exception.BuildingNotExistsException;
 import RoomReservationSystem.model.Building;
 
 import java.util.List;
@@ -11,11 +13,10 @@ import java.util.List;
  * @author Tomecz Patrik
  */
 public interface BuildingService {
-    void delete(Building building);
-    void deleteByName(String name);
-    Building save(Building building);
-    Building findByName(String name);
-    Building findById(int id);
+    void deleteByName(String name) throws BuildingNotExistsException;
+    Building save(Building building) throws BuildingAlredyExistsException;
+    Building findByName(String name) throws BuildingNotExistsException;
+    Building findById(int id) throws BuildingNotExistsException;
     List<Building> findAll();
     List<String> getNames();
     Building findByDTO(BuildingDTO buildingDTO);

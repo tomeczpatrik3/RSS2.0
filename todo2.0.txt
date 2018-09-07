@@ -16,3 +16,6 @@ inheritance: https://www.thoughts-on-java.org/complete-guide-inheritance-strateg
 JPA CUSTOM QUERY: https://docs.spring.io/spring-data/jpa/docs/current/reference/html/s
 
 SERVICES, ENDPOINTS FOR EVERY QUERY
+
+
+--> Exceptions, Services, ApiControllers as in Building classes

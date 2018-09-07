@@ -27,10 +27,7 @@ public class AuthorityServiceImpl implements AuthorityService{
      */
     @Override
     public Authority save(Authority authority) throws InvalidParameterException{
-        if (authority == null)
-            throw new InvalidParameterException("Null paraméter!");
-        else
-            return authorityRepository.save(authority);
+        return authorityRepository.save(authority);
     }
     
     /**

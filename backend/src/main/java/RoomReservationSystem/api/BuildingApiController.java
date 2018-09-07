@@ -4,11 +4,13 @@ import RoomReservationSystem.dto.BuildingDTO;
 import RoomReservationSystem.model.Building;
 import RoomReservationSystem.validation.BuildingValidator;
 import RoomReservationSystem.service.BuildingService;
-import static RoomReservationSystem.config.ErrorMessageConstants.BUILDING_NOT_EXISTS;
 import static RoomReservationSystem.config.ErrorMessageConstants.concatErrors;
 import static RoomReservationSystem.dto.BuildingDTO.toBuildingDTO;
 import static RoomReservationSystem.dto.BuildingDTO.toBuildingDTOList;
+import RoomReservationSystem.exception.BuildingAlredyExistsException;
+import RoomReservationSystem.exception.BuildingNotExistsException;
 import static RoomReservationSystem.model.Building.toBuilding;
+import static RoomReservationSystem.util.ExceptionUtils.handleException;
 
 import java.util.List;
 
@@ -66,10 +68,11 @@ public class BuildingApiController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findByName/{name}")
     public ResponseEntity findByName(@PathVariable String name){
-	if (buildingService.findByName(name) != null)
+        try {
             return ResponseEntity.ok(toBuildingDTO(buildingService.findByName(name)));
-        else
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(BUILDING_NOT_EXISTS);
+        } catch (BuildingNotExistsException | NullPointerException ex) {
+            return handleException(ex);
+        }  
     }
     
     /**
@@ -80,10 +83,11 @@ public class BuildingApiController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findById/{id}")
     public ResponseEntity findById(@PathVariable int id){
-	if (buildingService.findById(id) != null)
+	try {
             return ResponseEntity.ok(toBuildingDTO(buildingService.findById(id)));
-        else
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(BUILDING_NOT_EXISTS);  
+        } catch (BuildingNotExistsException | NullPointerException ex) {
+            return handleException(ex);
+        }  
     }
     
     /**
@@ -97,10 +101,12 @@ public class BuildingApiController {
     public ResponseEntity createBuilding(@RequestBody BuildingDTO buildingDTO, BindingResult bindingResult) {
         buildingValidator.validate(buildingDTO, bindingResult);
         if ( !bindingResult.hasErrors() ) {
-            Building saved = buildingService.save(
-                    toBuilding(buildingDTO)
-            );
-            return ResponseEntity.status(HttpStatus.CREATED).body(toBuildingDTO(saved));
+            try {
+                Building saved = buildingService.save(toBuilding(buildingDTO));
+                return ResponseEntity.status(HttpStatus.CREATED).body(toBuildingDTO(saved));
+            } catch (BuildingAlredyExistsException | NullPointerException ex) {
+                return handleException(ex);
+            }
         }
         else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
@@ -115,12 +121,11 @@ public class BuildingApiController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/deleteByName/{name}")
     public ResponseEntity deleteByName(@PathVariable String name){
-	if ( buildingService.findByName( name ) != null ) {
+        try {
             buildingService.deleteByName(name);
             return new ResponseEntity(HttpStatus.OK);            
-        }
-        else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(BUILDING_NOT_EXISTS);
+        } catch (BuildingNotExistsException | NullPointerException ex) {
+            return handleException(ex);
         }
     }
 }
