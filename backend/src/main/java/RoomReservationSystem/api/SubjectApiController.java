@@ -6,16 +6,13 @@ import RoomReservationSystem.service.SubjectService;
 import RoomReservationSystem.validation.SubjectValidator;
 import static RoomReservationSystem.model.Subject.toSubject;
 import static RoomReservationSystem.dto.SubjectDTO.toSubjectDTOList;
-import static RoomReservationSystem.config.ErrorMessageConstants.SUBJECT_NOT_EXISTS;
-import static RoomReservationSystem.config.ErrorMessageConstants.concatErrors;
 import static RoomReservationSystem.dto.SubjectDTO.toSubjectDTO;
 import RoomReservationSystem.exception.SubjectAlredyExistsException;
 import RoomReservationSystem.exception.SubjectNotExistsException;
 import static RoomReservationSystem.util.ExceptionUtils.handleException;
+import static RoomReservationSystem.util.ValidationUtils.concatErrors;
 
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

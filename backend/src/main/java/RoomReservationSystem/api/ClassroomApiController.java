@@ -5,7 +5,6 @@ import RoomReservationSystem.model.Classroom;
 import RoomReservationSystem.validation.ClassroomValidator;
 import RoomReservationSystem.service.BuildingService;
 import RoomReservationSystem.service.ClassroomService;
-import static RoomReservationSystem.config.ErrorMessageConstants.concatErrors;
 import static RoomReservationSystem.dto.ClassroomDTO.toClassroomDTO;
 import static RoomReservationSystem.dto.ClassroomDTO.toClassroomDTOList;
 import RoomReservationSystem.exception.BuildingNotExistsException;
@@ -13,6 +12,7 @@ import RoomReservationSystem.exception.ClassroomAlredyExistsException;
 import RoomReservationSystem.exception.ClassroomNotExistsException;
 import static RoomReservationSystem.model.Classroom.toClassroom;
 import static RoomReservationSystem.util.ExceptionUtils.handleException;
+import static RoomReservationSystem.util.ValidationUtils.concatErrors;
 import java.util.Collections;
 
 import java.util.List;

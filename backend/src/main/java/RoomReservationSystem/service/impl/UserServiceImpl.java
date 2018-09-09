@@ -3,7 +3,6 @@ package RoomReservationSystem.service.impl;
 import RoomReservationSystem.dto.UserDTO;
 import RoomReservationSystem.exception.AuthorityAlredyExistsException;
 import RoomReservationSystem.exception.AuthorityNotExistsException;
-import RoomReservationSystem.exception.InvalidParameterException;
 import RoomReservationSystem.exception.UserAlredyExistsException;
 import RoomReservationSystem.exception.UserNotExistsException;
 import RoomReservationSystem.model.Authority;
@@ -16,8 +15,6 @@ import static RoomReservationSystem.model.User.toUser;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -106,19 +106,4 @@ public class ErrorMessageConstants {
     //SEMESTER:
     public static final String SEMESTER_EMPTY = "A félévet meg kell adni!";
     */
-    
-    
-    /**
-     * A hibaüzenetek konkatenálását végző függvény
-     * @param   bindingResult   A validálás eredménye
-     * @return                  A hibaüzenet(ek) szövegként
-     */
-    public static String concatErrors(BindingResult bindingResult) {
-        StringBuilder errors = new StringBuilder();
-        errors.append("Hiba történt: \n");
-        bindingResult.getAllErrors().forEach((err) -> {
-            errors.append(err.getDefaultMessage());
-        });
-        return errors.toString();
-    }
 }

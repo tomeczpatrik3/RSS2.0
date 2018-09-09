@@ -4,13 +4,13 @@ import RoomReservationSystem.dto.BuildingDTO;
 import RoomReservationSystem.model.Building;
 import RoomReservationSystem.validation.BuildingValidator;
 import RoomReservationSystem.service.BuildingService;
-import static RoomReservationSystem.config.ErrorMessageConstants.concatErrors;
 import static RoomReservationSystem.dto.BuildingDTO.toBuildingDTO;
 import static RoomReservationSystem.dto.BuildingDTO.toBuildingDTOList;
 import RoomReservationSystem.exception.BuildingAlredyExistsException;
 import RoomReservationSystem.exception.BuildingNotExistsException;
 import static RoomReservationSystem.model.Building.toBuilding;
 import static RoomReservationSystem.util.ExceptionUtils.handleException;
+import static RoomReservationSystem.util.ValidationUtils.concatErrors;
 
 import java.util.List;
 

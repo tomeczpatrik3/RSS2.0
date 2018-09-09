@@ -4,8 +4,6 @@ import RoomReservationSystem.dto.UserDTO;
 import RoomReservationSystem.model.User;
 import RoomReservationSystem.service.UserService;
 import RoomReservationSystem.validation.UserValidator;
-import static RoomReservationSystem.config.ErrorMessageConstants.USER_NOT_EXISTS;
-import static RoomReservationSystem.config.ErrorMessageConstants.concatErrors;
 import static RoomReservationSystem.dto.UserDTO.toUserDTO;
 import static RoomReservationSystem.dto.UserDTO.toUserDTOList;
 import RoomReservationSystem.exception.AuthorityAlredyExistsException;
@@ -13,10 +11,9 @@ import RoomReservationSystem.exception.AuthorityNotExistsException;
 import RoomReservationSystem.exception.UserAlredyExistsException;
 import RoomReservationSystem.exception.UserNotExistsException;
 import static RoomReservationSystem.util.ExceptionUtils.handleException;
+import static RoomReservationSystem.util.ValidationUtils.concatErrors;
 
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

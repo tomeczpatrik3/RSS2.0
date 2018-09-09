@@ -1,9 +1,6 @@
 package RoomReservationSystem.api.reservation;
 
-import static RoomReservationSystem.config.ErrorMessageConstants.RESERVATION_NOT_EXISTS;
-import static RoomReservationSystem.config.ErrorMessageConstants.STATUS_NOT_EXISTS;
 
-import static RoomReservationSystem.config.ErrorMessageConstants.concatErrors;
 import RoomReservationSystem.dto.reservation.EventReservationDTO;
 import static RoomReservationSystem.dto.reservation.EventReservationDTO.toEventReservationDTO;
 import static RoomReservationSystem.dto.reservation.EventReservationDTO.toEventReservationDTOList;
@@ -17,6 +14,7 @@ import RoomReservationSystem.model.reservation.EventReservation;
 import RoomReservationSystem.service.StatusService;
 import RoomReservationSystem.service.reservation.EventReservationService;
 import static RoomReservationSystem.util.ExceptionUtils.handleException;
+import static RoomReservationSystem.util.ValidationUtils.concatErrors;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;

@@ -1,8 +1,5 @@
 package RoomReservationSystem.api.reservation;
 
-import static RoomReservationSystem.config.ErrorMessageConstants.RESERVATION_NOT_EXISTS;
-import static RoomReservationSystem.config.ErrorMessageConstants.STATUS_NOT_EXISTS;
-import static RoomReservationSystem.config.ErrorMessageConstants.concatErrors;
 import RoomReservationSystem.dto.reservation.ClassReservationDTO;
 import static RoomReservationSystem.dto.reservation.ClassReservationDTO.toClassReservationDTO;
 import static RoomReservationSystem.dto.reservation.ClassReservationDTO.toClassReservationDTOList;
@@ -30,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import RoomReservationSystem.service.reservation.ClassReservationService;
 import static RoomReservationSystem.util.ExceptionUtils.handleException;
+import static RoomReservationSystem.util.ValidationUtils.concatErrors;
 import RoomReservationSystem.validation.BaseReservationValidator;
 import RoomReservationSystem.validation.ClassReservationValidator;
 import java.util.Collections;
