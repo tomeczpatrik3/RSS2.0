@@ -1,6 +1,12 @@
 package RoomReservationSystem.service.impl.reservation;
 
 import RoomReservationSystem.dto.reservation.EventReservationDTO;
+import RoomReservationSystem.exception.BuildingNotExistsException;
+import RoomReservationSystem.exception.ClassroomNotExistsException;
+import RoomReservationSystem.exception.EventReservationNotExistsException;
+import RoomReservationSystem.exception.SemesterNotExistsException;
+import RoomReservationSystem.exception.StatusNotExistsException;
+import RoomReservationSystem.exception.UserNotExistsException;
 import RoomReservationSystem.model.Classroom;
 import RoomReservationSystem.model.Status;
 import RoomReservationSystem.model.User;
@@ -55,9 +61,15 @@ public class EventReservationServiceImpl implements EventReservationService {
      * A foglalás mentését megvalósító függvény
      * @param eventReservationDTO Az eseményre vonatkozó foglalás
      * @return A mentett foglalás
+     * @throws RoomReservationSystem.exception.UserNotExistsException
+     * @throws RoomReservationSystem.exception.ClassroomNotExistsException
+     * @throws RoomReservationSystem.exception.StatusNotExistsException
+     * @throws RoomReservationSystem.exception.SemesterNotExistsException
+     * @throws RoomReservationSystem.exception.BuildingNotExistsException
      */
     @Override
-    public EventReservation save(EventReservationDTO eventReservationDTO) {
+    public EventReservation save(EventReservationDTO eventReservationDTO)
+    throws UserNotExistsException, ClassroomNotExistsException, StatusNotExistsException, SemesterNotExistsException, BuildingNotExistsException{
         EventReservation reservation = repository.save(
                 toEventReservation(
                         userService.findByUsername(eventReservationDTO.getUsername()), /*A foglaláshoz tartozó felhasználó*/
@@ -106,22 +118,31 @@ public class EventReservationServiceImpl implements EventReservationService {
      * függvény
      * @param username A felhasználónév
      * @return Az adott felhasználó által történt foglalások egy listában
+     * @throws RoomReservationSystem.exception.UserNotExistsException
      */
     @Override
-    public List<EventReservation> findByUsername(String username) {
+    public List<EventReservation> findByUsername(String username) throws UserNotExistsException {
         User user = userService.findByUsername(username);
-        return repository.findByUser(user);
+        if (user != null)
+            return repository.findByUser(user);
+        else
+            throw new UserNotExistsException(String.format("Ilyen felhasználónévvel (%s) rendelkező felhasználó nem létezik!", username));
+        
     }
 
     /**
      * A foglalások státusz alapján történő keresését megvalósító függvény
      * @param statusName A keresendő státusz
      * @return Az adott státusszal rendelkező foglalások
+     * @throws RoomReservationSystem.exception.StatusNotExistsException
      */
     @Override
-    public List<EventReservation> findByStatus(String statusName) {
+    public List<EventReservation> findByStatus(String statusName) throws StatusNotExistsException {
         Status status = statusService.findByName(statusName);
-        return repository.findByStatus(status);
+        if (status != null)
+            return repository.findByStatus(status);
+        else
+            throw new StatusNotExistsException(String.format("Ilyen névvel (%s) rendelkező státusz nem létezik!", statusName));
     }
 
     /**
@@ -129,12 +150,25 @@ public class EventReservationServiceImpl implements EventReservationService {
      * @param id A foglalás id-ja
      * @param statusName Az új státusz
      * @return A megváltoztatott státusszal rendelkező foglalás
+     * @throws RoomReservationSystem.exception.StatusNotExistsException
+     * @throws RoomReservationSystem.exception.EventReservationNotExistsException
      */
     @Override
-    public EventReservation setStatus(int id, String statusName) {
+    public EventReservation setStatus(int id, String statusName) throws StatusNotExistsException, EventReservationNotExistsException {
         EventReservation res = repository.findById(id);
-        res.setStatus(statusService.findByName(statusName));
-        return res;
+        Status status = statusService.findByName(statusName);
+        if (res != null) {
+            if (status != null) {
+                res.setStatus(status);
+                return res;
+            }
+            else {
+                throw new StatusNotExistsException(String.format("Ilyen névvel (%s) rendelkező státusz nem létezik", statusName));
+            }  
+        }
+        else {
+            throw new EventReservationNotExistsException(String.format("Ilyen azonosítóval (%d) rendelkező foglalás nem létezik", id));
+        }
     }
 
     /**
@@ -151,10 +185,15 @@ public class EventReservationServiceImpl implements EventReservationService {
      * A foglalások név alapján történő kiválasztását megvalósító függvény
      * @param name A foglalás neve
      * @return A foglalások egy listában
+     * @throws RoomReservationSystem.exception.EventReservationNotExistsException
      */    
     @Override
-    public EventReservation findByName(String name) {
-        return repository.findByName(name);
+    public EventReservation findByName(String name) throws EventReservationNotExistsException {
+        EventReservation res = repository.findByName(name);
+        if (res != null)
+            return res;
+        else
+            throw new EventReservationNotExistsException(String.format("Ilyen névvel (%s) rendelkező foglalás nem létezik", name));
     }
 
     /**
