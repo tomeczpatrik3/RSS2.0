@@ -74,7 +74,6 @@ public class UserServiceImpl implements UserService {
             throw new UserAlredyExistsException(String.format("Ilyen e-mail címmel (%s) rendelkező felhasználó már létezik!", userDTO.getEmail()));
         } else {
             Authority userAuth = authorityService.findByName("ROLE_USER");
-            authorityService.removeByName("ROLE_USER");
 
             User user = userRepository.save(toUser(
                     userDTO,

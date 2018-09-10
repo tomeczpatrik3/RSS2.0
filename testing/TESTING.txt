@@ -10,3 +10,9 @@ https://www.tutorialspoint.com/mockito/mockito_junit_integration.htm
 
 http://www.springboottutorial.com/unit-testing-for-spring-boot-rest-services
 
+ENDPOINTS:
+
+https://medium.com/@codebyjeff/using-postman-environment-variables-auth-tokens-ea9c4fe9d3d7
+
+https://dzone.com/articles/testing-apis-using-postman
+

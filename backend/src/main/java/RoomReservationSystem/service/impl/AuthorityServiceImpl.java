@@ -26,10 +26,10 @@ public class AuthorityServiceImpl implements AuthorityService{
      */
     @Override
     public Authority save(Authority authority) throws AuthorityAlredyExistsException{
-        if ( authorityRepository.findByName(authority.getName()) == null)
+//        if ( authorityRepository.findByName(authority.getName()) == null)
             return authorityRepository.save(authority);
-        else
-            throw new AuthorityAlredyExistsException(String.format("Ilyen névvel (%s) rendelkező engedély már létezik!", authority.getName().toUpperCase()));
+//        else
+//            throw new AuthorityAlredyExistsException(String.format("Ilyen névvel (%s) rendelkező engedély már létezik!", authority.getName().toUpperCase()));
     }
     
     /**
