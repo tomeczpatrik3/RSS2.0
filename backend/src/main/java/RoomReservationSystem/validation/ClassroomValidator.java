@@ -46,16 +46,6 @@ public class ClassroomValidator implements Validator {
 
         ClassroomDTO classroom = (ClassroomDTO) target;
         
-        /*Épület meglétének ellenőrzése*/
-        if (buildingService.findByName(classroom.getBuilding()) == null) {
-            errors.rejectValue("building", "classroom.building.notExists", BUILDING_NOT_EXISTS);
-        }
-
-        /*Terem létezésének ellenőrzése*/
-        if (classroomService.findByNameAndBuildingName( classroom.getName(), classroom.getBuilding() ) != null) {
-            errors.rejectValue("name", "classroom.name.alredyExists", CLASSROOM_ALREDY_EXISTS);
-        }
-        
         /*Terem nevének validálása*/
         if (classroom.getName() != null && classroom.getName().length()<3 ||  classroom.getName().length()>30) {
             errors.rejectValue("name", "classroom.name.size", CLASSROOM_NAME_SIZE);

@@ -2,6 +2,7 @@ package RoomReservationSystem.validation;
 
 import static RoomReservationSystem.config.ErrorMessageConstants.*;
 import RoomReservationSystem.dto.reservation.EventReservationDTO;
+import static RoomReservationSystem.util.DateUtils.isBefore;
 
 import static RoomReservationSystem.util.RegexUtils.isValidDate;
 
@@ -48,6 +49,10 @@ public class EventReservationValidator implements Validator {
          
         if (reservation.getEndDate() != null && !isValidDate(reservation.getEndDate())) {
             errors.rejectValue("endDate", "eventReservation.endDate.invalidFormat", DATE_INVALID_FORMAT);
+        }
+        
+        if (reservation.getStartDate() != null && reservation.getEndDate() != null && !isBefore(reservation.getStartDate(), reservation.getEndDate())) {
+            errors.rejectValue("endDate", "eventReservation.endDate.endDateBeforeStartDate", END_DATE_BEFORE_START_DATE);
         }
     }
 }

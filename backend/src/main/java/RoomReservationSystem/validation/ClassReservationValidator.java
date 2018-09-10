@@ -5,7 +5,9 @@ import RoomReservationSystem.dto.reservation.ClassReservationDTO;
 
 import RoomReservationSystem.service.SemesterService;
 import RoomReservationSystem.service.SubjectService;
+import static RoomReservationSystem.util.DateUtils.areBefore;
 import static RoomReservationSystem.util.RegexUtils.areValidDates;
+import static RoomReservationSystem.util.RegexUtils.isValidSemester;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,20 +47,19 @@ public class ClassReservationValidator implements Validator {
 
         ClassReservationDTO reservation = (ClassReservationDTO)target;     
         
-        /*Szemeszter validálása*/
-        if (reservation.getSemester() != null && semesterService.findByName(reservation.getSemester()) == null) {
-            errors.rejectValue("semester", "classReservation.semester.notExists", SEMESTER_NOT_EXISTS);
+        /*Szemeszter nevének ellenőrzése*/
+        if (reservation.getSemester()!= null && reservation.getSemester().length() != 11 ) {
+            errors.rejectValue("semester", "classReservation.semester.size", SEMESTER_NAME_SIZE);
+        }
+
+        if (reservation.getSemester() != null && !isValidSemester(reservation.getSemester()) ) {
+            errors.rejectValue("semester", "classReservation.semester.invalidFormat", SEMESTER_INVALID_FORMAT);
         }
         
         /*Tantárgy kód validálása*/
-        if (reservation.getSubjectCode() != null) {
-            if (reservation.getSubjectCode().length()<4 || reservation.getSubjectCode().length() > 10) {
-                errors.rejectValue("subjectCode", "classReservation.subjectCode.size", SUBJECT_CODE_SIZE);
-            }
-            if (subjectService.findByCode(reservation.getSubjectCode()) == null) {
-                errors.rejectValue("subjectCode", "classReservation.subjectCode.notExists", SUBJECT_NOT_EXISTS);
-            }
-        } 
+        if (reservation.getSubjectCode()!= null && reservation.getSubjectCode().length()<4 || reservation.getSubjectCode().length() > 10) {
+            errors.rejectValue("subjectCode", "classReservation.subjectCode.size", SUBJECT_CODE_SIZE);
+        }
         
         /*Dátumok validálása*/
         if (reservation.getStartDates() != null && !areValidDates(reservation.getStartDates())) {
@@ -69,5 +70,8 @@ public class ClassReservationValidator implements Validator {
             errors.rejectValue("endDates", "classReservation.endDates.invalidFormat", DATE_INVALID_FORMAT);
         }
         
+        if (reservation.getStartDates() != null && reservation.getEndDates() != null && !areBefore(reservation.getStartDates(), reservation.getEndDates())) {
+            errors.rejectValue("endDates", "classReservation.endDates.endDateBeforeStartDate", END_DATE_BEFORE_START_DATE);
+        }
     }
 }

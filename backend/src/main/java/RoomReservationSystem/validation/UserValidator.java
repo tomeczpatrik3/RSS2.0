@@ -38,16 +38,7 @@ public class UserValidator implements Validator {
         ValidationUtils.rejectIfEmpty(errors, "password", "user.password.empty", PASSWORD_EMPTY);
         ValidationUtils.rejectIfEmpty(errors, "email", "user.email.empty", EMAIL_EMPTY);
 
-        UserDTO user = (UserDTO) target;
-
-        /*Felhasználónlév és e-mail cím használatban létének ellenőrzése*/
-        if ( this.userService.findByUsername(user.getUsername()) != null ) {
-            errors.rejectValue("username", "user.username.alredyExists", USERNAME_ALREDY_EXISTS);
-        }
-        
-        if ( this.userService.findByEmail(user.getEmail()) != null ) {
-            errors.rejectValue("email", "user.email.alredyExists", EMAIL_ALREDY_EXISTS);
-        }        
+        UserDTO user = (UserDTO) target;     
         
         /*A felhasználó nevének validálása*/
         if (user.getName() != null && user.getName().length() < 5 ||

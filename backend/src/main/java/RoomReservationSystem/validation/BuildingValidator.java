@@ -13,23 +13,25 @@ import org.springframework.validation.Validator;
 
 /**
  * Az épületek adatainak ellenőrzését végző osztály
+ *
  * @author Tomecz Patrik
  */
 @Service
 public class BuildingValidator implements Validator {
-    
+
     @Autowired
     BuildingService buildingService;
-    
+
     @Override
     public boolean supports(Class<?> clazz) {
-      return clazz == BuildingDTO.class;
+        return clazz == BuildingDTO.class;
     }
 
     /**
      * A validálást végző függvény
-     * @param   target  Az objektum amit validálunk
-     * @param   errors  A hibák, ha vannak
+     *
+     * @param target Az objektum amit validálunk
+     * @param errors A hibák, ha vannak
      */
     @Override
     public void validate(Object target, Errors errors) {
@@ -37,15 +39,9 @@ public class BuildingValidator implements Validator {
 
         BuildingDTO building = (BuildingDTO) target;
 
-        /*Épület meglétének ellernőrzése*/
-        if (this.buildingService.findByName( building.getName() ) != null) {
-            errors.rejectValue("name", "buildingDTO.name.alredyExists", BUILDING_ALREDY_EXISTS);
-        }
-        
         /*Épület nevének validálása*/
-        if (building.getName() != null && building.getName().length()<3 ||  building.getName().length()>30) {
+        if (building.getName() != null && building.getName().length() < 3 || building.getName().length() > 30) {
             errors.rejectValue("name", "buildingDTO.name.size", BUILDING_NAME_SIZE);
         }
-
     }
 }

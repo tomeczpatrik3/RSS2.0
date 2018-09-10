@@ -1,7 +1,5 @@
 package RoomReservationSystem.config;
 
-import org.springframework.validation.BindingResult;
-
 /**
  * A validálással kapcsolatos hibaüzeneteket tartalmazó osztály
  * @author Tomecz Patrik
@@ -18,8 +16,6 @@ public class ErrorMessageConstants {
     public static final String START_TIME_EMPTY = "Az esemény kezdete nem lehet üres!";
     public static final String END_TIME_EMPTY = "Az esemény vége nem lehet üres!";
     public static final String DAY_EMPTY = "A nap nem lehet üres!";
-    
-    public static final String START_TIME_BEFORE_END_TIME = "A befejezési idő nem lehet korábban mint a kezdési!";
     
     public static final String SEMESTER_NAME_EMPTY = "A szemeszter nem lehet üres!";
     public static final String SEMESTER_START_DATE_EMPTY = "A félév kezdetének dátuma nem lehet üres!";
@@ -85,25 +81,5 @@ public class ErrorMessageConstants {
     public static final String EMAIL_ALREDY_EXISTS = "Ez az e-mail cím már használatban van!";
     
     public static final String RESERVATION_NOT_EXISTS = "Ilyen foglalás nem létezik!";
-    
-    public static final String TYPE_NOT_EXISTS = "Nem létezik ilyen foglalás típus!";
-    public static final String STATUS_NOT_EXISTS = "Nem létezik ilyen foglalás státusz!";
-    public static final String TYPE_OR_STATUS_NOT_EXISTS = "Nem létezik ilyen foglalás típus vagy státusz!";
-   
-    //-------------
-
-    /*
-     public static final String RESERVATION_ALREDY_EXISTS = "Ilyen foglalás már létezik!";
-    public static final String RESERVATION_DATES_EMPTY = "A foglaláshoz tartozó időpontokat meg kell adni!";
-
-    //SUBJECT:
-    public static final String SUBJECT_EMPTY = "A tantárgyat meg kell adni!";
-    
-
-    //USER:
-    public static final String USER_EMTPY = "A felhasználót meg kell adni!";
-    
-    //SEMESTER:
-    public static final String SEMESTER_EMPTY = "A félévet meg kell adni!";
-    */
+    public static final String END_DATE_BEFORE_START_DATE = "A befejezés időpontja nem előzheti meg a kezdés időpontját!";
 }

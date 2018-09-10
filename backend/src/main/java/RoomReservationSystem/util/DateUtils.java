@@ -4,11 +4,11 @@ import RoomReservationSystem.model.reservation.ClassReservation;
 import RoomReservationSystem.model.reservation.ReservationDate;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -31,7 +31,7 @@ public class DateUtils {
         return DATE_TIME_FORMAT.parseDateTime(dateTimeString);
     }
     
-    /**
+        /**
      * Megfelelő formátumú szöveg Date objektummá konvertálása
      * @param   dateString  A dátum szöveges reprezentációja
      * @return              A dátum, ha nem váltódik ki hiba
@@ -39,118 +39,54 @@ public class DateUtils {
     public static Date getDate(String dateString) {
         try {
             return DATE_FORMAT.parse(dateString);
-        }
-        catch (ParseException ex) {
+        } catch (ParseException ex) {
+            Logger.getLogger(DateUtils.class.getName()).log(Level.WARNING, ex.getMessage(), ex);
             return null;
         }
-    }
-    
-    /**
-     * Egy adott naphoz tartozó DayOfWeek objektum lekérdezését megvalósító függvény
-     * @param   day A nap szöveges formátumban
-     * @return      A megfelelő DayOfWeek objektum
-     */
-    public static DayOfWeek getDayOfWeek(String day) {
-        switch (day.toUpperCase()) {
-            case "HÉTFŐ":
-                return DayOfWeek.MONDAY;
-            case "KEDD":
-                return DayOfWeek.TUESDAY;
-            case "SZERDA":
-                return DayOfWeek.WEDNESDAY;
-            case "CSÜTÖRTÖK":
-                return DayOfWeek.THURSDAY;
-            case "PÉNTEK":
-                return DayOfWeek.FRIDAY;
-            case "SZOMBAT":
-                return DayOfWeek.SATURDAY;
-            default:
-                return DayOfWeek.SUNDAY;                
-        }
-    }
-    
-    /**
-     * LocalDate és time (String) objektumokból DateTimeString előállításáért felelős függvény
-     * @param date  A LocalDate objektum
-     * @param time  Az idő String reprezentációban (óó:pp)
-     * @return      A DateTime mintának megfelelő String objektum
-     */
-    public static String getDateTimeString(LocalDate date, String time) {
-        String year = formatNumber(date.getYear());
-        String month = formatNumber(date.getMonthValue());
-        String day = formatNumber(date.getDayOfMonth());
-        String hour = time.split(":")[0];
-        String minute = time.split(":")[1];
-        return String.format("%s-%s-%s %s:%s:00", year, month, day, hour, minute);
-    }
-    
-    /**
-     * DateTime objektumból DateTimeString előállításáért felelős objektum
-     * @param   dateTime    A DateTime objektum
-     * @return              A DateTime mintának megfelelő String objektum
-     */
-    public static String getDateTimeString(DateTime dateTime) {
-        String year = formatNumber(dateTime.year().get());
-        String month = formatNumber(dateTime.monthOfYear().get());
-        String day = formatNumber(dateTime.dayOfMonth().get());
-        String hour = formatNumber(dateTime.getHourOfDay());
-        String minute = formatNumber(dateTime.getMinuteOfHour());
-        String second = formatNumber(dateTime.getSecondOfMinute());
-        
-        return String.format("%s-%s-%s %s:%s:%s", year, month, day, hour, minute, second);
-    }
-    
-    /**
-     * Date (String) és time (String) objektumokból DateTimeString előállításáért felelős függvény
-     * @param   date    A dátum szöveges reprezentációja
-     * @param   time    Az idő szöveges reprezentációja
-     * @return          A DateTime mintának megfelelő String objektum
-     */
-    public static String getDateTimeString(String date, String time) {
-        return String.format("%s %s:00", date, time);
-    }
-    
-    private static String formatNumber(int number) {
-        if (number<10)
-            return String.format("0%d", number);
-        else
-            return String.format("%d", number);
     }
     
     /**
      * A függvény amely leellenőrzi, hogy a paraméterben kapott két
      * dátum (String) közül az első megelőzi-e a másodikat
      * (korábban van-e?)
-     * @param dateStringA   Az első dátum szöveges reprezentációja
-     * @param dateStringB   A második dátum szöveges reprezentációja
+     * @param startDateStr   Az első dátum szöveges reprezentációja
+     * @param endDateStr   A második dátum szöveges reprezentációja
      * @return              Igaz, ha az első dátum korábban van mint a második, hamis egyébként
      */
-    public static boolean isBefore(String dateStringA, String dateStringB) {
-        try {
-            Date startDate =  DATE_FORMAT.parse(dateStringA);
-            Date endDate = DATE_FORMAT.parse(dateStringB);
-            
-            return startDate.before(endDate);
-        } catch (ParseException ex) {
+    public static boolean isBefore(String startDateStr, String endDateStr) {
+        DateTime startDate =  DATE_TIME_FORMAT.parseDateTime(startDateStr);
+        DateTime endDate = DATE_TIME_FORMAT.parseDateTime(endDateStr);
+        return startDate.isBefore(endDate);        
+    }
+    
+    public static boolean areBefore(String[] startDates, String[] endDates) {
+        if (startDates.length != endDates.length)
             return false;
-        }        
+        else {
+            boolean l = true;
+            int i = 0;
+            while (l && i<startDates.length) {
+                l &= isBefore(startDates[i], endDates[i]);
+            }
+            return l;
+        }
     }
     
     public static String[] getStartDates(ClassReservation reservation) {
         List<ReservationDate> dates = reservation.getDateList();
         List<String> dateStrs = new ArrayList<>();
-        for (ReservationDate date: dates) {
+        dates.forEach((date) -> {
             dateStrs.add(date.getStart().toString());
-        }
+        });
         return (String[]) dateStrs.toArray();
     }
     
     public static String[] getEndDates(ClassReservation reservation) {
         List<ReservationDate> dates = reservation.getDateList();
         List<String> dateStrs = new ArrayList<>();
-        for (ReservationDate date: dates) {
+        dates.forEach((date) -> {
             dateStrs.add(date.getEnd().toString());
-        }
+        });
         return (String[]) dateStrs.toArray();
     }
     

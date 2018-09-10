@@ -43,10 +43,6 @@ public class SubjectValidator implements Validator {
             errors.rejectValue("subjectCode", "subject.code.size", SUBJECT_CODE_SIZE);
         }
         
-        if (subjectService.findByCode(subject.getCode()) != null) {
-            errors.rejectValue("code", "subject.code.alredyExists", SUBJECT_ALREDY_EXISTS);
-        }
-        
         /*Tantárgy nevének validálása*/
         if (subject.getName() != null && subject.getName().length() < 5 ||
                 subject.getName().length() > 30) {

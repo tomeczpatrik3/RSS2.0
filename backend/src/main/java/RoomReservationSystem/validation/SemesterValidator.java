@@ -40,12 +40,7 @@ public class SemesterValidator implements Validator {
         ValidationUtils.rejectIfEmpty(errors, "endDate", "semester.endDate.empty", SEMESTER_END_DATE_EMPTY);
         
         SemesterDTO semesterDTO = (SemesterDTO) target;
-
-        /*Szemeszter létezésének ellenőrzése*/
-        if (semesterService.findByName(semesterDTO.getName()) != null) {
-            errors.rejectValue("name", "semester.name.alredyExists", SEMESTER_ALREDY_EXISTS);
-        }
-        
+ 
         /*Szemeszter nevének ellenőrzése*/
         if (semesterDTO.getName() != null && semesterDTO.getName().length() != 11 ) {
             errors.rejectValue("name", "semester.name.size", SEMESTER_NAME_SIZE);
