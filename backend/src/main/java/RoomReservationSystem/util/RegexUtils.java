@@ -8,11 +8,11 @@ import java.util.regex.Pattern;
  */
 public class RegexUtils {
     /*Dátumok ellenőrzésére szolgáló reguláris kifejezés*/
-    private static final Pattern DATE_REGEX = Pattern.compile("^[\\d]{4}-[\\d]{2}-[\\d]{2} [\\d]{2}:[\\d]{2}$");
+    private static final Pattern DATE_REGEX = Pattern.compile("^[\\d]{4}-[\\d]{2}-[\\d]{2}$");
     /*E-mail ellenőrzésére szolgáló reguláris kifejezés*/
     private static final Pattern EMAIL_REGEX = Pattern.compile("^[\\w\\d._-]+@[\\w\\d.-]+\\.[\\w\\d]{2,6}$");
     /*Szemeszter ellenőrzésére szolgáló reguláris kifejezés*/
-    private static final Pattern SEMESTER_REGEX = Pattern.compile("^[\\d]{4}-[\\d]{4}-[\\d]{1}$");
+    private static final Pattern SEMESTER_REGEX = Pattern.compile("^[\\d]{4}-[\\d]{4}/[\\d]{1}$");
     
     /**
      * Egy dátum String formátumát ellenőrző metódus

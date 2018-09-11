@@ -1,0 +1,274 @@
+{
+	"variables": [],
+	"info": {
+		"name": "ClassroomTest",
+		"_postman_id": "a657b942-60de-ee75-3122-0f94c73deb61",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getAll()",
+			"request": {
+				"url": "{{api}}/classroom/",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "findByName()",
+			"request": {
+				"url": "{{api}}/classroom/findByName/Gróh terem",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "findByBuildingName()",
+			"request": {
+				"url": "{{api}}/classroom/findByBuildingName/ÉSZAKI",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "findByHasPC(true)",
+			"request": {
+				"url": "{{api}}/classroom/findByHasPC/true",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "findByHasPC(false)",
+			"request": {
+				"url": "{{api}}/classroom/findByHasPC/false",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "findByHasProjector(false)",
+			"request": {
+				"url": "{{api}}/classroom/findByHasProjector/false",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "findByHasProjector(true)",
+			"request": {
+				"url": "{{api}}/classroom/findByHasProjector/true",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "findByChairsLessThan(30)",
+			"request": {
+				"url": "{{api}}/classroom/findByChairsLessThan/30",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "findByChairsGreaterThan(30)",
+			"request": {
+				"url": "{{api}}/classroom/findByChairsGreaterThan/30",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "findByChairsBetween(30, 50)",
+			"request": {
+				"url": {
+					"raw": "{{api}}/classroom/findByChairsBetween?from=30&to=50",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"classroom",
+						"findByChairsBetween"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "30",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "to",
+							"value": "50",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "createClassroom()",
+			"request": {
+				"url": "{{api}}/classroom/createClassroom",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Teszt terem\",\n\t\"hasPC\": true,\n\t\"hasProjector\": false,\n\t\"chairs\": 99,\n\t\"building\": \"DÉLI\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "deleteByNameAndBuildingName()",
+			"request": {
+				"url": {
+					"raw": "{{api}}/classroom/deleteByNameAndBuildingName?roomName=Teszt terem&buildingName=DÉLI",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"classroom",
+						"deleteByNameAndBuildingName"
+					],
+					"query": [
+						{
+							"key": "roomName",
+							"value": "Teszt terem",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "buildingName",
+							"value": "DÉLI",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

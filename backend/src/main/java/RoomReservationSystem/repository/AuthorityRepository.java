@@ -7,13 +7,16 @@ import org.springframework.stereotype.Repository;
 
 /**
  * Az engedélyekért felelős repó
+ *
  * @author Tomecz Patrik
  */
 @Repository
 public interface AuthorityRepository extends JpaRepository<Authority, Integer> {
+
     Authority findById(int id);
+
     Authority findByName(String name);
-    
+
     @Transactional
     void removeByName(String name);
 }

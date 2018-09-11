@@ -38,7 +38,7 @@ public class SemesterServiceImpl implements SemesterService {
     @Override
     public Semester save(Semester semester) throws SemesterAlredyExistsException {
         Semester found = semesterRepository.findByName(semester.getName());
-        if (found != null)
+        if (found == null)
             return semesterRepository.save(semester);
         else
             throw new SemesterAlredyExistsException(String.format("Ilyen névvel (%s) rendelkező szemeszter már létezik!", semester.getName()));

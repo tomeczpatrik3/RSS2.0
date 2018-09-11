@@ -10,13 +10,19 @@ import org.springframework.stereotype.Repository;
 
 /**
  * Az eseményekre vonatkozó foglalásokért felelős repó
+ *
  * @author Tomecz Patrik
  */
 @Repository
 public interface EventReservationRepository extends JpaRepository<EventReservation, Integer> {
+
     EventReservation findById(int id);
+
     EventReservation findByName(String name);
+
     List<EventReservation> findByUser(User user);
+
     List<EventReservation> findByStatus(Status status);
+
     List<EventReservation> findByClassroom(Classroom classroom);
 }

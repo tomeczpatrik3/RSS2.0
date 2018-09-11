@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -125,7 +126,7 @@ public class ClassroomApiController {
      * @return A megfelelő termek egy listában
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @GetMapping("/findByChairsLessThan/{chair}")
+    @GetMapping("/findByChairsLessThan/{chairs}")
     public List<ClassroomDTO> findByChairsLessThan(@PathVariable int chairs) {
         return toClassroomDTOList(classroomService.findByChairsLessThan(chairs));
     }
@@ -138,7 +139,7 @@ public class ClassroomApiController {
      * @return A megfelelő termek egy listában
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @GetMapping("/findByChairsGreaterThan/{chair}")
+    @GetMapping("/findByChairsGreaterThan/{chairs}")
     public List<ClassroomDTO> findByChairsGreaterThan(@PathVariable int chairs) {
         return toClassroomDTOList(classroomService.findByChairsGreaterThan(chairs));
     }
@@ -153,7 +154,7 @@ public class ClassroomApiController {
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findByChairsBetween")
-    public List<ClassroomDTO> findByChairsBetween(@PathVariable int from, @PathVariable int to) {
+    public List<ClassroomDTO> findByChairsBetween(@RequestParam(value="from", required=true) int from, @RequestParam(value="to", required=true) int to) {
         return toClassroomDTOList(classroomService.findByChairsBetween(from, to));
     }
 
@@ -186,15 +187,17 @@ public class ClassroomApiController {
     /**
      * A függvény ami törli az adott névhez és épülethez tartozó termet
      *
-     * @param name A terem neve
+     * @param roomName A terem neve
      * @param buildingName Az épület neve
      * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @PostMapping("/deleteByRoomName/")
-    public ResponseEntity deleteByRoomNameAndBuildingName(@PathVariable String name, @PathVariable String buildingName) {
+    @PostMapping("/deleteByNameAndBuildingName")
+    public ResponseEntity deleteByNameAndBuildingName(
+            @RequestParam(value="roomName", required=true) String roomName,
+            @RequestParam(value="buildingName", required=true) String buildingName) {
         try {
-            classroomService.deleteByNameAndBuildingName(name, buildingName);
+            classroomService.deleteByNameAndBuildingName(roomName, buildingName);
             return new ResponseEntity(HttpStatus.OK);
         } catch (ClassroomNotExistsException | BuildingNotExistsException | NullPointerException ex) {
             return handleException(ex);

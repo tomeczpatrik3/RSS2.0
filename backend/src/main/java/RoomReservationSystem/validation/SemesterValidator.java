@@ -4,7 +4,7 @@ import RoomReservationSystem.dto.SemesterDTO;
 import RoomReservationSystem.service.SemesterService;
 
 import static RoomReservationSystem.config.ErrorMessageConstants.*;
-import static RoomReservationSystem.util.DateUtils.isBefore;
+import static RoomReservationSystem.util.DateUtils.isBeforeDate;
 import static RoomReservationSystem.util.RegexUtils.isValidDate;
 import static RoomReservationSystem.util.RegexUtils.isValidSemester;
 
@@ -60,7 +60,7 @@ public class SemesterValidator implements Validator {
         }
         
         if (semesterDTO.getStartDate()!=null && semesterDTO.getEndDate()!=null && 
-                !isBefore(semesterDTO.getStartDate(), semesterDTO.getEndDate()) ) {
+                !isBeforeDate(semesterDTO.getStartDate(), semesterDTO.getEndDate()) ) {
             errors.rejectValue("startDate", "semester.startDate.invalidFormat", SEMESTER_END_DATE_BEFORE_START_DATE);
         }
     }

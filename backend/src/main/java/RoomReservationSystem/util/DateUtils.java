@@ -59,6 +59,12 @@ public class DateUtils {
         return startDate.isBefore(endDate);        
     }
     
+    public static boolean isBeforeDate(String startDateStr, String endDateStr) {
+        Date startDate = getDate(startDateStr);
+        Date endDate = getDate(endDateStr);
+        return startDate.before(endDate);
+    }
+    
     public static boolean areBefore(String[] startDates, String[] endDates) {
         if (startDates.length != endDates.length)
             return false;
