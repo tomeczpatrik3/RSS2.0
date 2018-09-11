@@ -51,4 +51,12 @@ public class Authority extends BaseEntity{
     public void addUser(User user) {
         userList.add(user);
     }
+    
+    /**
+     * Engedély megvonása a felhasználótól
+     * @param   user    A felhasználó
+     */
+    public void removeUser(User user) {
+        userList.remove(user);
+    }
 }

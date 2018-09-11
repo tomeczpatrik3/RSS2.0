@@ -150,7 +150,12 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void deleteByUsername(String username) throws UserNotExistsException {
-        if (userRepository.findByUsername(username) != null) {
+        User found = userRepository.findByUsername(username);
+        if (found != null) {
+            found.getAuthorityList().forEach((authority) -> {
+                authority.removeUser(found);
+            });
+            
             userRepository.deleteByUsername(username);
         } else {
             throw new UserNotExistsException(String.format("Ilyen felhasználónévvel (%s) rendelkező felhasználó nem létezik!", username));
