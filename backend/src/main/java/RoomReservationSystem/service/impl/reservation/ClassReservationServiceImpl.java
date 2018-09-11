@@ -8,9 +8,7 @@ import RoomReservationSystem.exception.SemesterNotExistsException;
 import RoomReservationSystem.exception.StatusNotExistsException;
 import RoomReservationSystem.exception.SubjectNotExistsException;
 import RoomReservationSystem.exception.UserNotExistsException;
-import RoomReservationSystem.model.Classroom;
 import RoomReservationSystem.model.Status;
-import RoomReservationSystem.model.Subject;
 import RoomReservationSystem.model.User;
 import RoomReservationSystem.model.reservation.ClassReservation;
 import static RoomReservationSystem.model.reservation.ClassReservation.toClassReservation;
@@ -29,11 +27,12 @@ import java.util.Collections;
 
 /**
  * A tanórákra vonatkozó foglalásokkal kapcsolatos műveletekért felelős osztály
+ *
  * @author Tomecz Patrik
  */
 @Service
 public class ClassReservationServiceImpl implements ClassReservationService {
-    
+
     @Autowired
     private ClassReservationRepository repository;
 
@@ -48,21 +47,13 @@ public class ClassReservationServiceImpl implements ClassReservationService {
 
     @Autowired
     private StatusService statusService;
-    
+
     @Autowired
     private SemesterService semesterService;
-    
-    /**
-     * A foglalások törlését megvalósító függvény
-     * @param reservation A foglalás amit törölni szeretnénk
-     */
-    @Override
-    public void delete(ClassReservation reservation) {
-        repository.delete(reservation);
-    }
 
-     /**
+    /**
      * A foglalás mentését megvalósító függvény
+     *
      * @param classReservationDTO Az egyszerű foglalás
      * @return A mentett foglalás
      * @throws RoomReservationSystem.exception.UserNotExistsException
@@ -73,8 +64,8 @@ public class ClassReservationServiceImpl implements ClassReservationService {
      * @throws RoomReservationSystem.exception.BuildingNotExistsException
      */
     @Override
-    public ClassReservation save(ClassReservationDTO classReservationDTO) 
-    throws UserNotExistsException, SubjectNotExistsException, ClassroomNotExistsException, StatusNotExistsException, SemesterNotExistsException, BuildingNotExistsException{
+    public ClassReservation save(ClassReservationDTO classReservationDTO)
+            throws UserNotExistsException, SubjectNotExistsException, ClassroomNotExistsException, StatusNotExistsException, SemesterNotExistsException, BuildingNotExistsException {
         ClassReservation reservation = repository.save(
                 toClassReservation(
                         userService.findByUsername(classReservationDTO.getUsername()), /*A foglaláshoz tartozó felhasználó*/
@@ -88,29 +79,33 @@ public class ClassReservationServiceImpl implements ClassReservationService {
                         classReservationDTO.getNote() /*A foglaláshoz tartozó megjegyzés*/
                 )
         );
-        
+
         reservation.setDateList(getReservationDates(reservation, classReservationDTO.getStartDates(), classReservationDTO.getEndDates()));
-        
+
         return reservation;
     }
 
     /**
      * A foglalás id alapján történő keresését megvalósító függvény
+     *
      * @param id A foglalás id-je
      * @return A foglalás ha létezik, null egyébként
-     * @throws RoomReservationSystem.exception.ClassReservationNotExistsException
+     * @throws
+     * RoomReservationSystem.exception.ClassReservationNotExistsException
      */
     @Override
     public ClassReservation findById(int id) throws ClassReservationNotExistsException {
         ClassReservation res = repository.findById(id);
-        if (res != null)
+        if (res != null) {
             return res;
-        else
+        } else {
             throw new ClassReservationNotExistsException(String.format("Ilyen azonosítóval (%d) rendelkező foglalás nem létezik", id));
+        }
     }
 
     /**
      * A foglalások lekérdezését megvalósító függvény
+     *
      * @return A foglalások egy listában
      */
     @Override
@@ -121,6 +116,7 @@ public class ClassReservationServiceImpl implements ClassReservationService {
     /**
      * A foglalások felhasználónév alapján történő keresését megvalósító
      * függvény
+     *
      * @param username A felhasználónév
      * @return Az adott felhasználó által történt foglalások egy listában
      * @throws RoomReservationSystem.exception.UserNotExistsException
@@ -128,34 +124,39 @@ public class ClassReservationServiceImpl implements ClassReservationService {
     @Override
     public List<ClassReservation> findByUsername(String username) throws UserNotExistsException {
         User user = userService.findByUsername(username);
-        if (user != null)
+        if (user != null) {
             return repository.findByUser(user);
-        else
+        } else {
             throw new UserNotExistsException(String.format("Ilyen felhasználónévvel (%s) rendelkező felhasználó nem létezik!", username));
+        }
     }
 
     /**
      * A foglalások státusz alapján történő keresését megvalósító függvény
+     *
      * @param statusName A keresendő státusz
      * @return Az adott státusszal rendelkező foglalások
      * @throws RoomReservationSystem.exception.StatusNotExistsException
      */
     @Override
-    public List<ClassReservation> findByStatus(String statusName) throws StatusNotExistsException{
+    public List<ClassReservation> findByStatus(String statusName) throws StatusNotExistsException {
         Status status = statusService.findByName(statusName);
-        if (status != null)
+        if (status != null) {
             return repository.findByStatus(status);
-        else
+        } else {
             throw new StatusNotExistsException(String.format("Ilyen névvel (%s) rendelkező státusz nem létezik!", statusName));
+        }
     }
 
     /**
      * Egy foglalás státuszának megváltoztatását megvalósító függvény
+     *
      * @param id A foglalás id-ja
      * @param statusName Az új státusz
      * @return A megváltoztatott státusszal rendelkező foglalás
      * @throws RoomReservationSystem.exception.StatusNotExistsException
-     * @throws RoomReservationSystem.exception.ClassReservationNotExistsException
+     * @throws
+     * RoomReservationSystem.exception.ClassReservationNotExistsException
      */
     @Override
     public ClassReservation setStatus(int id, String statusName) throws StatusNotExistsException, ClassReservationNotExistsException {
@@ -165,63 +166,101 @@ public class ClassReservationServiceImpl implements ClassReservationService {
             if (status != null) {
                 res.setStatus(status);
                 return res;
-            }
-            else {
+            } else {
                 throw new StatusNotExistsException(String.format("Ilyen névvel (%s) rendelkező státusz nem létezik", statusName));
-            }  
-        }
-        else {
+            }
+        } else {
             throw new ClassReservationNotExistsException(String.format("Ilyen azonosítóval (%d) rendelkező foglalás nem létezik", id));
         }
     }
 
     /**
      * A foglalások tanterem alapján történő kiválasztását megvalósító függvény
+     *
+     * @param building
      * @param classroom A tanterem
      * @return A foglalások egy listában
+     * @throws RoomReservationSystem.exception.ClassroomNotExistsException
+     * @throws RoomReservationSystem.exception.BuildingNotExistsException
      */
     @Override
-    public List<ClassReservation> findByClassroom(Classroom classroom) {
-        return repository.findByClassroom(classroom);
+    public List<ClassReservation> findByBuildingAndClassroom(String building, String classroom) throws ClassroomNotExistsException, BuildingNotExistsException {
+        return repository.findByClassroom(classroomService.findByNameAndBuildingName(classroom, building));
     }
 
     /**
      * A foglalások tantárgy alapján történő kiválasztását megvalósító függvény
-     * @param subject A tantárgy
+     *
+     * @param subjectCode
      * @return A foglalások egy listában
+     * @throws RoomReservationSystem.exception.SubjectNotExistsException
      */
     @Override
-    public List<ClassReservation> findBySubject(Subject subject) {
-        return repository.findBySubject(subject);
+    public List<ClassReservation> findBySubjectCode(String subjectCode) throws SubjectNotExistsException {
+        return repository.findBySubject(subjectService.findByCode(subjectCode));
     }
 
     /**
-     * A foglalások egy adott dátum alapján történő kiválasztását megvalósító
-     * függvény
      *
-     * @param date A dátum
-     * @return A foglalások egy listában
+     * @param semester
+     * @return
+     * @throws SemesterNotExistsException
      */
-//    @Override
-//    public List<SimpleReservation> findByDate(Date date) {
-//        return reservationDateService.findByDate(date);
-//    }
+    @Override
+    public List<ClassReservation> findBySemester(String semester) throws SemesterNotExistsException {
+        return repository.findBySemester(semesterService.findByName(semester));
+    }
 
     /**
-     * A foglalások egy adott tanterem és adott dátum alapján történő
-     * kiválasztását megvalósító függvény
+     * Egy adott felhasználóhoz tartozó foglalások törlése
      *
-     * @param building Az épület amiben a tanterem található
-     * @param classroom A tanterem
-     * @param date A dátum
-     * @return A foglalások egy listában
+     * @param username A felhasználónév
+     * @throws UserNotExistsException
      */
-//    @Override
-//    public List<SimpleReservation> findByClassroomAndDate(String building, String classroom, Date date) {
-//        List<SimpleReservation> foundByClassroom = findByClassroom(
-//                classroomService.findByNameAndBuildingName(classroom, building)
-//        );
-//        List<SimpleReservation> foundByDate = findByDate(date);
-//        return intersect(foundByClassroom, foundByDate);
-//    }
+    @Override
+    public void deleteByUsername(String username) throws UserNotExistsException {
+        repository.deleteByUser(userService.findByUsername(username));
+    }
+
+    /**
+     *
+     * @param building
+     * @param classroom
+     * @throws ClassroomNotExistsException
+     * @throws BuildingNotExistsException
+     */
+    @Override
+    public void deleteByBuildingAndClassroom(String building, String classroom) throws ClassroomNotExistsException, BuildingNotExistsException {
+        repository.deleteByClassroom(classroomService.findByNameAndBuildingName(classroom, building));
+    }
+
+    /**
+     *
+     * @param subjectCode
+     * @throws SubjectNotExistsException
+     */
+    @Override
+    public void deleteBySubjectCode(String subjectCode) throws SubjectNotExistsException {
+        repository.deleteBySubject(subjectService.findByCode(subjectCode));
+    }
+
+    /**
+     *
+     * @param semester
+     * @throws SemesterNotExistsException
+     */
+    @Override
+    public void deleteBySemester(String semester) throws SemesterNotExistsException {
+        repository.deleteBySemester(semesterService.findByName(semester));
+    }
+
+    /**
+     *
+     * @param status
+     * @throws StatusNotExistsException
+     */
+    @Override
+    public void deleteByStatus(String status) throws StatusNotExistsException {
+        repository.deleteByStatus(statusService.findByName(status));
+    }
 }

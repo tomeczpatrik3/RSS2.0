@@ -9,25 +9,44 @@ import RoomReservationSystem.exception.StatusNotExistsException;
 import RoomReservationSystem.exception.SubjectNotExistsException;
 import RoomReservationSystem.exception.UserNotExistsException;
 import RoomReservationSystem.model.Classroom;
+import RoomReservationSystem.model.Semester;
 import RoomReservationSystem.model.Subject;
 import RoomReservationSystem.model.reservation.ClassReservation;
 import java.util.List;
 
 /**
- * A tanórákra vonatkozó foglalásokkal kapcsolatos műveletekért felelős interfész
- * Részletes információ a függvényekről a megválósításnál
+ * A tanórákra vonatkozó foglalásokkal kapcsolatos műveletekért felelős
+ * interfész Részletes információ a függvényekről a megválósításnál
+ *
  * @author SimpleReservationomecz Patrik
  */
 public interface ClassReservationService {
+
     ClassReservation save(ClassReservationDTO reservation) throws UserNotExistsException, SubjectNotExistsException, ClassroomNotExistsException, StatusNotExistsException, SemesterNotExistsException, BuildingNotExistsException;
-    void delete(ClassReservation reservation);
+
     ClassReservation findById(int id) throws ClassReservationNotExistsException;
+
     ClassReservation setStatus(int id, String status) throws StatusNotExistsException, ClassReservationNotExistsException;
+
     List<ClassReservation> getAll();
+
     List<ClassReservation> findByUsername(String username) throws UserNotExistsException;
+
     List<ClassReservation> findByStatus(String statusName) throws StatusNotExistsException;
-    List<ClassReservation> findByClassroom(Classroom classroom) throws ClassroomNotExistsException;
-    List<ClassReservation> findBySubject(Subject subject) throws SubjectNotExistsException;
-    //List<SimpleReservation> findByDate(Date date);
-    //List<SimpleReservation> findByClassroomAndDate(String building, String classroom, Date date);
+
+    List<ClassReservation> findByBuildingAndClassroom(String building, String classroom) throws ClassroomNotExistsException, BuildingNotExistsException;
+
+    List<ClassReservation> findBySubjectCode(String subjectCode) throws SubjectNotExistsException;
+
+    List<ClassReservation> findBySemester(String semester) throws SemesterNotExistsException;
+    
+    void deleteByUsername(String username) throws UserNotExistsException;
+    
+    void deleteByBuildingAndClassroom(String building, String classroom) throws ClassroomNotExistsException, BuildingNotExistsException ;
+    
+    void deleteBySubjectCode(String subjectCode) throws SubjectNotExistsException;
+            
+    void deleteBySemester(String semester) throws SemesterNotExistsException;
+    
+    void deleteByStatus(String status) throws StatusNotExistsException;
 }

@@ -1,11 +1,13 @@
 package RoomReservationSystem.repository.reservation;
 
 import RoomReservationSystem.model.Classroom;
+import RoomReservationSystem.model.Semester;
 import RoomReservationSystem.model.Status;
 import RoomReservationSystem.model.Subject;
 import RoomReservationSystem.model.User;
 import RoomReservationSystem.model.reservation.ClassReservation;
 import java.util.List;
+import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -26,4 +28,21 @@ public interface ClassReservationRepository extends JpaRepository<ClassReservati
     List<ClassReservation> findByClassroom(Classroom classroom);
 
     List<ClassReservation> findBySubject(Subject subject);
+    
+    List<ClassReservation> findBySemester(Semester semester);
+    
+    @Transactional
+    void deleteByUser(User user);
+    
+    @Transactional
+    void deleteByClassroom(Classroom classroom);
+    
+    @Transactional
+    void deleteBySubject(Subject subject);
+            
+    @Transactional
+    void deleteBySemester(Semester semester);
+    
+    @Transactional
+    void deleteByStatus(Status status);
 }
