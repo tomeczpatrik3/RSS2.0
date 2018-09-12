@@ -15,19 +15,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 public abstract class ReservationApiController {
      /**
      * A függvény ami visszaadja az elfogadott foglalásokat
-     * @param <T> Valamilyen ReservationDTO-ból származó típus
      * @return A megfelelő foglalások egy listában
      */
-    public abstract <T extends ReservationDTO> List<T> getAccepted();
+    public abstract ResponseEntity getAccepted();
     
     
     /**
      * A függvény ami visszaadja az adott felhasználóhoz tartozó foglalásokat
-     * @param <T> Valamilyen ReservationDTO-ból származó típus
      * @param username A felhasználónév
      * @return A megfelelő foglalások egy listában
      */
-    public abstract <T extends ReservationDTO> List<T> findByUsername(@PathVariable String username);
+    public abstract ResponseEntity findByUsername(@PathVariable String username);
     
     /**
      * A függvény ami visszaadja az adott státusszal rendelkező foglalásokat
@@ -37,33 +35,33 @@ public abstract class ReservationApiController {
     public abstract ResponseEntity findByStatus(@PathVariable String status);
     
     /**
-     * A függvény ami visszaadja az adott terem kiválasztott időpontjára vonatkozó foglalásokat
-     * @param <T> Valamilyen ReservationDTO-ból származó típus
+     * A függvény ami visszaadja az adott épület adott terméhez tartozó foglalásokat
      * @param building Az épület
      * @param classroom A terem
-     * @param date  A dátum
-     * @return A megfelelő foglalások egy listában
+     * @return
      */
-    public abstract <T extends ReservationDTO> List<T> findByClassroomAndDate(
-            @RequestParam("building") String building,
-            @RequestParam("classroom") String classroom,
-            @RequestParam("date") String date
-    );
-    
+    public abstract ResponseEntity findByBuildingAndClassroom(@RequestParam(value="building", required=true) String building, @RequestParam(value="classroom", required=true) String classroom);
+
     /**
      * A függvény ami beállítja egy adott foglalást státuszát a paraméterben átadott értékre
      * @param id A foglalás azonosítója
      * @param status A státusz
      * @return A megfelelő válasz entitás
      */
-    public abstract ResponseEntity setStatus(@RequestParam("id") int id, @RequestParam("status") String status);
+    public abstract ResponseEntity setStatus(@RequestParam(value="id", required=true) int id, @RequestParam(value="status", required=true) String status);
     
-    /**
-     * A függvény ami létrehozza a megfelelő eseményre vonatkozó foglalást
-     * @param <T> Valamilyen ReservationDTO-ból származó típus
-     * @param reservationDTO A foglalás
-     * @param bindingResult
-     * @return A megfelelő válasz entitás
-     */
-    //public abstract <T extends ReservationDTO> ResponseEntity createReservation(@RequestBody T reservationDTO, BindingResult bindingResult);
+//    /**
+//     * A függvény ami létrehozza a megfelelő eseményre vonatkozó foglalást
+//     * @param <T> Valamilyen ReservationDTO-ból származó típus
+//     * @param reservationDTO A foglalás
+//     * @param bindingResult
+//     * @return A megfelelő válasz entitás
+//     */
+//    public abstract <T extends ReservationDTO> ResponseEntity createReservation(@RequestBody T reservationDTO, BindingResult bindingResult);
+    
+    public abstract ResponseEntity deleteByUsername(@RequestParam(value="username", required=true) String username);
+    
+    public abstract ResponseEntity deleteByBuildingAndClassroom(@RequestParam(value="building", required=true) String building, @RequestParam(value="classroom", required=true) String classroom);
+    
+    public abstract ResponseEntity deleteByStatus(@RequestParam(value="status", required=true) String status);             
 }

@@ -62,12 +62,11 @@ public class ClassReservationApiController extends ReservationApiController {
      */
     @GetMapping
     @Override
-    public List<ClassReservationDTO> getAccepted() {
+    public ResponseEntity getAccepted() {
         try {
-            return toClassReservationDTOList(classService.findByStatus("ACCEPTED"));
+            return ResponseEntity.status(HttpStatus.OK).body(toClassReservationDTOList(classService.findByStatus("ACCEPTED")));
         } catch (StatusNotExistsException | NullPointerException ex) {
-            Logger.getLogger(ClassReservationApiController.class.getName()).log(Level.WARNING, ex.getMessage(), ex);
-            return Collections.EMPTY_LIST;
+            return handleException(ex);
         }
 
     }
@@ -81,12 +80,11 @@ public class ClassReservationApiController extends ReservationApiController {
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping("/findByUsername/{username}")
     @Override
-    public List<ClassReservationDTO> findByUsername(@PathVariable String username) {
+    public ResponseEntity findByUsername(@PathVariable String username) {
         try {
-            return toClassReservationDTOList(classService.findByUsername(username));
+            return ResponseEntity.status(HttpStatus.OK).body(toClassReservationDTOList(classService.findByUsername(username)));
         } catch (UserNotExistsException | NullPointerException ex) {
-            Logger.getLogger(ClassReservationApiController.class.getName()).log(Level.WARNING, ex.getMessage(), ex);
-            return Collections.EMPTY_LIST;
+            return handleException(ex);
         }
     }
 
@@ -107,30 +105,40 @@ public class ClassReservationApiController extends ReservationApiController {
         }
     }
 
-    /**
-     * A függvény ami visszaadja az adott terem kiválasztott időpontjára
-     * vonatkozó foglalásokat
-     *
-     * @param building Az épület
-     * @param classroom A terem
-     * @param date A dátum
-     * @return A megfelelő foglalások egy listában
-     */
-    @PreAuthorize("hasAuthority('ROLE_USER')")
-    @GetMapping("/findByClassroomAndDate")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping("/findByBuildingAndClassroom")
     @Override
-    public List<ClassReservationDTO> findByClassroomAndDate(
-            @RequestParam("building") String building,
-            @RequestParam("classroom") String classroom,
-            @RequestParam("date") String date
-    ) {
-//	return toReservationDTOList(
-//                eventService.findByClassroomAndDate(
-//                        building,
-//                        classroom,
-//                        getDate(date)
-//                ));
-        return null;
+    public ResponseEntity findByBuildingAndClassroom(@RequestParam(value = "building", required = true) String building, @RequestParam(value = "classroom", required = true) String classroom) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(toClassReservationDTOList(classService.findByBuildingAndClassroom(building, classroom)));
+        } catch (ClassroomNotExistsException | BuildingNotExistsException | NullPointerException ex) {
+            return handleException(ex);
+        }
+    }
+
+    /**
+     *
+     * @param subjectCode
+     * @return
+     */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping("/findBySubjectCode")
+    public ResponseEntity findBySubjectCode(@RequestParam(value = "subjectCode", required = true) String subjectCode) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(toClassReservationDTOList(classService.findBySubjectCode(subjectCode)));
+        } catch (SubjectNotExistsException | NullPointerException ex) {
+            return handleException(ex);
+        }
+    }
+
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping("/findBySemester")
+    public ResponseEntity findBySemester(@RequestParam(value = "semester", required = true) String semester) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(toClassReservationDTOList(classService.findBySemester(semester)));
+        } catch (SemesterNotExistsException | NullPointerException ex) {
+            return handleException(ex);
+        }
     }
 
     /**
@@ -170,9 +178,67 @@ public class ClassReservationApiController extends ReservationApiController {
                 return ResponseEntity.status(HttpStatus.CREATED).body(toClassReservationDTO(saved));
             } catch (UserNotExistsException | SubjectNotExistsException | ClassroomNotExistsException | StatusNotExistsException | SemesterNotExistsException | BuildingNotExistsException ex) {
                 return handleException(ex);
-            } 
+            }
         } else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
+        }
+    }
+
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping("/deleteByUsername")
+    @Override
+    public ResponseEntity deleteByUsername(@RequestParam(value = "username", required = true) String username) {
+        try {
+            classService.deleteByUsername(username);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (UserNotExistsException | NullPointerException ex) {
+            return handleException(ex);
+        }
+    }
+
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping("/deleteByBuildingAndClassroom")
+    @Override
+    public ResponseEntity deleteByBuildingAndClassroom(@RequestParam(value = "building", required = true) String building, @RequestParam(value = "classroom", required = true) String classroom) {
+        try {
+            classService.deleteByBuildingAndClassroom(building, classroom);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (ClassroomNotExistsException | BuildingNotExistsException | NullPointerException ex) {
+            return handleException(ex);
+        }
+    }
+
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping("/deleteBySubjectCode")
+    public ResponseEntity deleteBySubjectCode(@RequestParam(value = "subjectCode", required = true) String subjectCode) {
+        try {
+            classService.deleteBySubjectCode(subjectCode);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (SubjectNotExistsException | NullPointerException ex) {
+            return handleException(ex);
+        }
+    }
+
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping("/deleteBySemester")
+    public ResponseEntity deleteBySemester(@RequestParam(value = "semester", required = true) String semester) {
+        try {
+            classService.deleteBySemester(semester);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (SemesterNotExistsException | NullPointerException ex) {
+            return handleException(ex);
+        }
+    }
+
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping("/deleteByStatus")
+    @Override
+    public ResponseEntity deleteByStatus(@RequestParam(value = "status", required = true) String status) {
+        try {
+            classService.deleteByStatus(status);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (StatusNotExistsException | NullPointerException ex) {
+            return handleException(ex);
         }
     }
 

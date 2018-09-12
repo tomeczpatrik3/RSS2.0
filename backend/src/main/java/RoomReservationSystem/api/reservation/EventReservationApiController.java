@@ -1,6 +1,5 @@
 package RoomReservationSystem.api.reservation;
 
-
 import RoomReservationSystem.dto.reservation.EventReservationDTO;
 import static RoomReservationSystem.dto.reservation.EventReservationDTO.toEventReservationDTO;
 import static RoomReservationSystem.dto.reservation.EventReservationDTO.toEventReservationDTOList;
@@ -55,12 +54,11 @@ public class EventReservationApiController extends ReservationApiController {
      */
     @GetMapping
     @Override
-    public List<EventReservationDTO> getAccepted() {
+    public ResponseEntity getAccepted() {
         try {
-            return toEventReservationDTOList(eventService.findByStatus("ACCEPTED"));
+            return ResponseEntity.status(HttpStatus.OK).body(toEventReservationDTOList(eventService.findByStatus("ACCEPTED")));
         } catch (StatusNotExistsException | NullPointerException ex) {
-            Logger.getLogger(ClassReservationApiController.class.getName()).log(Level.WARNING, ex.getMessage(), ex);
-            return Collections.EMPTY_LIST;
+            return handleException(ex);
         }
 
     }
@@ -74,14 +72,12 @@ public class EventReservationApiController extends ReservationApiController {
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping("/findByUsername/{username}")
     @Override
-    public List<EventReservationDTO> findByUsername(@PathVariable String username) {
+    public ResponseEntity findByUsername(@PathVariable String username) {
         try {
-            return toEventReservationDTOList(eventService.findByUsername(username));
+            return ResponseEntity.status(HttpStatus.OK).body(toEventReservationDTOList(eventService.findByUsername(username)));
         } catch (UserNotExistsException | NullPointerException ex) {
-            Logger.getLogger(ClassReservationApiController.class.getName()).log(Level.WARNING, ex.getMessage(), ex);
-            return Collections.EMPTY_LIST;
+            return handleException(ex);
         }
-
     }
 
     /**
@@ -101,30 +97,31 @@ public class EventReservationApiController extends ReservationApiController {
         }
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping("/findByBuildingAndClassroom")
+    @Override
+    public ResponseEntity findByBuildingAndClassroom(@RequestParam(value = "building", required = true) String building, @RequestParam(value = "classroom", required = true) String classroom) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(toEventReservationDTOList(eventService.findByBuildingAndClassroom(building, classroom)));
+        } catch (ClassroomNotExistsException | BuildingNotExistsException | NullPointerException ex) {
+            return handleException(ex);
+        }
+    }
+
     /**
-     * A függvény ami visszaadja az adott terem kiválasztott időpontjára
-     * vonatkozó foglalásokat
+     * A függvény ami visszaadja az adott névhez tartozó foglalást
      *
-     * @param building Az épület
-     * @param classroom A terem
-     * @param date A dátum
-     * @return A megfelelő foglalások egy listában
+     * @param name A foglalás neve
+     * @return A megfelelő foglalás
      */
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    @GetMapping("/findByClassroomAndDate")
-    @Override
-    public List<EventReservationDTO> findByClassroomAndDate(
-            @RequestParam("building") String building,
-            @RequestParam("classroom") String classroom,
-            @RequestParam("date") String date
-    ) {
-//	return toReservationDTOList(
-//                eventService.findByClassroomAndDate(
-//                        building,
-//                        classroom,
-//                        getDate(date)
-//                ));
-        return null;
+    @GetMapping("/findByName/{username}")
+    public ResponseEntity findByName(@PathVariable String name) {
+        try {
+            return ResponseEntity.ok(toEventReservationDTO(eventService.findByName(name)));
+        } catch (EventReservationNotExistsException | NullPointerException ex) {
+            return handleException(ex);
+        }
     }
 
     /**
@@ -170,17 +167,48 @@ public class EventReservationApiController extends ReservationApiController {
         }
     }
 
-    /**
-     * A függvény ami visszaadja az adott névhez tartozó foglalást
-     *
-     * @param name A foglalás neve
-     * @return A megfelelő foglalás
-     */
-    @PreAuthorize("hasAuthority('ROLE_USER')")
-    @GetMapping("/findByName/{username}")
-    public ResponseEntity findByName(@PathVariable String name) {
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping("/deleteByUsername")
+    @Override
+    public ResponseEntity deleteByUsername(@RequestParam(value = "username", required = true) String username) {
         try {
-            return ResponseEntity.ok(toEventReservationDTO(eventService.findByName(name)));
+            eventService.deleteByUsername(username);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (UserNotExistsException | NullPointerException ex) {
+            return handleException(ex);
+        }
+    }
+
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping("/deleteByBuildingAndClassroom")
+    @Override
+    public ResponseEntity deleteByBuildingAndClassroom(@RequestParam(value = "building", required = true) String building, @RequestParam(value = "classroom", required = true) String classroom) {
+        try {
+            eventService.deleteByBuildingAndClassroom(building, classroom);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (ClassroomNotExistsException | BuildingNotExistsException | NullPointerException ex) {
+            return handleException(ex);
+        }
+    }
+
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping("/deleteByStatus")
+    @Override
+    public ResponseEntity deleteByStatus(@RequestParam(value = "status", required = true) String status) {
+        try {
+            eventService.deleteByStatus(status);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (StatusNotExistsException | NullPointerException ex) {
+            return handleException(ex);
+        }
+    }
+
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping("/deleteByName")
+    public ResponseEntity deleteByName(@RequestParam(value = "name", required = true) String name) {
+        try {
+            eventService.deleteByName(name);
+            return new ResponseEntity(HttpStatus.OK);
         } catch (EventReservationNotExistsException | NullPointerException ex) {
             return handleException(ex);
         }
