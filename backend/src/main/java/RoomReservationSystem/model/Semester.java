@@ -24,45 +24,51 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-
 /**
  * Szemeszter entitás
+ *
  * @author Tomecz Patrik
  */
 @Data
-@EqualsAndHashCode(callSuper=true)
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "SEMESTERS")
-public class Semester extends BaseEntity{
+public class Semester extends BaseEntity {
 
+    /*Az szemeszter neve (pl: 2017-2018/2)*/
     @Basic(optional = false)
     @NotNull
     @Size(min = 11, max = 11)
-    @Column(name = "NAME", unique=true)
-    private String name; /*Az szemeszter neve (pl: 2017-2018-2)*/    
-    
+    @Column(name = "NAME", unique = true)
+    private String name;
+
+    /*A szemeszter kezdete (dátum)*/
     @Basic(optional = false)
     @NotNull
     @Column(name = "START_DATE")
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date startDate; /*A szemeszter kezdete (dátum)*/
-    
+    private Date startDate;
+
+    /*A szemeszter vége (dátum)*/
     @Basic(optional = false)
     @NotNull
     @Column(name = "END_DATE")
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date endDate; /*A szemeszter vége (dátum)*/
-    
+    private Date endDate;
+
+    /*Az adott szemeszterhez tartozó foglalások egy listában*/
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "semester", targetEntity = ClassReservation.class)
-    private List<ClassReservation> reservationList; /*Az adott szemeszterhez tartozó foglalások egy listában*/
-    
+    private List<ClassReservation> reservationList;
+
     /**
-     * A SemesterDTO objektum Semester objektummá konvertálását végrehajtó megtódus
-     * @param   semesterDTO A SemesterDTO objektum
-     * @return              A Semester objektum
+     * A SemesterDTO objektum Semester objektummá konvertálását végrehajtó
+     * megtódus
+     *
+     * @param semesterDTO A SemesterDTO objektum
+     * @return A Semester objektum
      */
     public static Semester toSemester(SemesterDTO semesterDTO) {
         return new Semester(

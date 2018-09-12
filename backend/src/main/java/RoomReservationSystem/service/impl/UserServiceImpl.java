@@ -155,7 +155,7 @@ public class UserServiceImpl implements UserService {
             found.getAuthorityList().forEach((authority) -> {
                 authority.removeUser(found);
             });
-            
+
             userRepository.deleteByUsername(username);
         } else {
             throw new UserNotExistsException(String.format("Ilyen felhasználónévvel (%s) rendelkező felhasználó nem létezik!", username));

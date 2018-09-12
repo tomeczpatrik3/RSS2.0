@@ -6,10 +6,7 @@ import RoomReservationSystem.exception.ClassroomNotExistsException;
 import RoomReservationSystem.exception.EventReservationNotExistsException;
 import RoomReservationSystem.exception.SemesterNotExistsException;
 import RoomReservationSystem.exception.StatusNotExistsException;
-import RoomReservationSystem.exception.SubjectNotExistsException;
 import RoomReservationSystem.exception.UserNotExistsException;
-import RoomReservationSystem.model.Classroom;
-import RoomReservationSystem.model.reservation.ClassReservation;
 import RoomReservationSystem.model.reservation.EventReservation;
 import java.util.List;
 
@@ -36,12 +33,12 @@ public interface EventReservationService {
     List<EventReservation> findByStatus(String statusName) throws StatusNotExistsException;
 
     List<EventReservation> findByBuildingAndClassroom(String building, String classroom) throws ClassroomNotExistsException, BuildingNotExistsException;
-    
+
     void deleteByUsername(String username) throws UserNotExistsException;
-    
-    void deleteByBuildingAndClassroom(String building, String classroom) throws ClassroomNotExistsException, BuildingNotExistsException ;
-    
+
+    void deleteByBuildingAndClassroom(String building, String classroom) throws ClassroomNotExistsException, BuildingNotExistsException;
+
     void deleteByStatus(String status) throws StatusNotExistsException;
-    
+
     void deleteByName(String name) throws EventReservationNotExistsException;
 }

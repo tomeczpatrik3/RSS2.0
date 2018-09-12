@@ -13,8 +13,6 @@ import RoomReservationSystem.exception.UserNotExistsException;
 import static RoomReservationSystem.util.ExceptionUtils.handleException;
 import static RoomReservationSystem.util.ValidationUtils.concatErrors;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -162,6 +160,6 @@ public class UserApiController {
             return new ResponseEntity(HttpStatus.OK);
         } catch (UserNotExistsException | NullPointerException ex) {
             return handleException(ex);
-        } 
+        }
     }
 }

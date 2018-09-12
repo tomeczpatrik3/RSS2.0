@@ -31,87 +31,116 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * Felhasználó entitás
+ *
  * @author Tomecz Patrik
  */
 @Data
-@EqualsAndHashCode(callSuper=true)
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "USERS")
 public class User extends BaseEntity implements UserDetails {
 
+    /*Felhasználónév*/
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "USERNAME", unique=true)
-    private String username; /*Felhasználónév*/
-    
+    @Column(name = "USERNAME", unique = true)
+    private String username;
+
+    /*Jelszó*/
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "PASSWORD")
-    private String password; /*Jelszó*/
-    
+    private String password;
+
+    /*A felhasználó neve*/
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "NAME")
-    private String name;    /*A felhasználó neve*/
-    
+    private String name;
+
+    /*A felhasználó e-mail címe*/
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "EMAIL", unique=true)
-    private String email;   /*A felhasználó e-mail címe*/
-    
+    @Column(name = "EMAIL", unique = true)
+    private String email;
+
+    /*A felhasználóhoz tartozó engedélyek listája*/
     @JsonIgnore
     @ManyToMany(mappedBy = "userList")
-    private List<Authority> authorityList; /*A felhasználóhoz tartozó engedélyek listája*/
-    
+    private List<Authority> authorityList;
+
+    /*A felhasználóhoz tartozó foglalások listája*/
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", targetEntity = Reservation.class)
-    private List<Reservation> reservationList; /*A felhasználóhoz tartozó foglalások listája*/
+    private List<Reservation> reservationList;
 
     /**
      * A felhasználóhoz tartozó engedélyek lekérdezése
-     * @return  Az engedélyek egy Collection-ben
+     *
+     * @return Az engedélyek egy Collection-ben
      */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        for (Authority authority: authorityList) {
+        authorityList.forEach((authority) -> {
             authorities.add(new SimpleGrantedAuthority(authority.getName()));
-        }
+        });
         return authorities;
     }
 
+    /**
+     * Az isAccountNonExpired() függvény
+     *
+     * @return Igaz
+     */
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    /**
+     * Az isAccountNonLocked() függvény
+     *
+     * @return Igaz
+     */
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
+    /**
+     * Az isCredentialsNonExpired() függvény
+     *
+     * @return Igaz
+     */
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
+    /**
+     * Az isEnabled() függvény
+     *
+     * @return Igaz
+     */
     @Override
     public boolean isEnabled() {
         return true;
     }
-    
+
     /**
      * A UserDTO objektum User objektummá konvertálását végrehajtó megtódus
-     * @param   userDTO             A UserDTO objektum 
-     * @param   encodedPassword     A kódolt jelszó
-     * @param   authorityList       Az engedélyek egy listában
-     * @return                      A User objektum
+     *
+     * @param userDTO A UserDTO objektum
+     * @param encodedPassword A kódolt jelszó
+     * @param authorityList Az engedélyek egy listában
+     * @return A User objektum
      */
     public static User toUser(UserDTO userDTO, String encodedPassword, List<Authority> authorityList) {
         return new User(

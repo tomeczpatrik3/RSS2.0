@@ -26,51 +26,60 @@ import lombok.NoArgsConstructor;
 
 /**
  * Osztályterem entitás
+ *
  * @author Tomecz Patrik
  */
 @Data
-@EqualsAndHashCode(callSuper=true)
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "CLASSROOMS")
 public class Classroom extends BaseEntity {
 
+    /*Az osztályterem neve*/
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "NAME")
-    private String name;    /*Az osztályterem neve*/
-    
+    private String name;
+
+    /*Van-e PC*/
     @Basic(optional = false)
     @NotNull
     @Column(name = "HAS_PC")
-    private boolean hasPc; /*Van-e PC*/
-    
+    private boolean hasPc;
+
+    /*Van-e projektor*/
     @Basic(optional = false)
     @NotNull
     @Column(name = "HAS_PROJECTOR")
-    private boolean hasProjector; /*Van-e projektor*/
-    
+    private boolean hasProjector;
+
+    /*A teremben található székek száma*/
     @Basic(optional = false)
     @NotNull
     @Column(name = "CHAIRS")
-    private int chairs; /*A teremben található székek száma*/
-    
+    private int chairs;
+
+    /*Az osztályteremhez tartozó foglalások listája*/
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "classroom", targetEntity = Reservation.class)
-    private List<Reservation> reservationList; /*Az osztályteremhez tartozó foglalások listája*/
-    
+    private List<Reservation> reservationList;
+
+    /*Az épület, amelyben a terem található*/
     @JsonIgnore
     @JoinColumn(name = "BUILDING", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-    private Building building; /*Az épület, amelyben a terem található*/
-    
+    private Building building;
+
     /**
-     * A ClassroomDTO objektum Classroom objektummá konvertálását végrehajtó megtódus
-     * @param   classroomDTO    A ClassroomDTO objektum
-     * @param   building        Az épület amiben a terem található
-     * @return                  A Classroom objektum
+     * A ClassroomDTO objektum Classroom objektummá konvertálását végrehajtó
+     * megtódus
+     *
+     * @param classroomDTO A ClassroomDTO objektum
+     * @param building Az épület amiben a terem található
+     * @return A Classroom objektum
      */
     public static Classroom toClassroom(ClassroomDTO classroomDTO, Building building) {
         return new Classroom(
@@ -82,5 +91,5 @@ public class Classroom extends BaseEntity {
                 building
         );
     }
-    
+
 }

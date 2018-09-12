@@ -6,15 +6,22 @@ import lombok.NoArgsConstructor;
 
 /**
  * A foglalásokhoz tartozó DTO ősosztály
+ *
  * @author Tomecz Patrik
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public abstract class ReservationDTO {
-    private String username;               /*A felhasználó akihez a foglalás tarotzik*/
-    private String building;       /*Az épület, amiben a tanterem található*/
-    private String classroom;     /*A tanterem amire a foglalás vonatkozik*/
-    private String status;           /*A foglalás státusza*/
-    private String note;                /*A foglaláshoz tartozó jegyzet*/           
+
+    /*A felhasználó akihez a foglalás tarotzik*/
+    private String username;
+    /*Az épület, amiben a tanterem található*/
+    private String building;
+    /*A tanterem amire a foglalás vonatkozik*/
+    private String classroom;
+    /*A foglalás státusza*/
+    private String status;
+    /*A foglaláshoz tartozó jegyzet*/
+    private String note;
 }

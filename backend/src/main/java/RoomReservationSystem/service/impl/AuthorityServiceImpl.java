@@ -11,65 +11,74 @@ import org.springframework.stereotype.Service;
 
 /**
  * Az engedélyekkel kapcsolatos műveletekért felelős osztály
+ *
  * @author Tomecz Patrik
  */
 @Service
-public class AuthorityServiceImpl implements AuthorityService{
+public class AuthorityServiceImpl implements AuthorityService {
+
     @Autowired
     private AuthorityRepository authorityRepository;
-    
+
     /**
      * Az engedély mentésére szolgáló függvény
-     * @param   authority   Az engedély, amit szeretnénk eltárolni
-     * @return              Az eltárolt engedély       
-     * @throws RoomReservationSystem.exception.AuthorityAlredyExistsException                
+     *
+     * @param authority Az engedély, amit szeretnénk eltárolni
+     * @return Az eltárolt engedély
+     * @throws RoomReservationSystem.exception.AuthorityAlredyExistsException
      */
     @Override
-    public Authority save(Authority authority) throws AuthorityAlredyExistsException{
+    public Authority save(Authority authority) throws AuthorityAlredyExistsException {
 //        if ( authorityRepository.findByName(authority.getName()) == null)
-            return authorityRepository.save(authority);
+        return authorityRepository.save(authority);
 //        else
 //            throw new AuthorityAlredyExistsException(String.format("Ilyen névvel (%s) rendelkező engedély már létezik!", authority.getName().toUpperCase()));
     }
-    
+
     /**
      * Az engedély név alapján történő keresését lehetővé tevő függvény
-     * @param   name    A keresendő engedély neve
-     * @return          A névnek megfelelő engedély ha létezik, null egyébként  
-     * @throws RoomReservationSystem.exception.AuthorityNotExistsException  
-     */
-    @Override
-    public Authority findByName(String name) throws AuthorityNotExistsException{
-        if ( authorityRepository.findByName(name) != null)
-            return authorityRepository.findByName(name);
-        else
-            throw new AuthorityNotExistsException(String.format("Ilyen névvel (%s) rendelkező engedély nem létezik!", name));
-    }
-    
-    /**
-     * Az engedély id alapján történő keresését lehetővé tevő függvény
-     * @param   id  A keresendő engedély id-je
-     * @return      Az id-nek megfelő engedély ha létezik, null egyébként
+     *
+     * @param name A keresendő engedély neve
+     * @return A névnek megfelelő engedély ha létezik, null egyébként
      * @throws RoomReservationSystem.exception.AuthorityNotExistsException
      */
     @Override
-    public Authority findById(int id) throws AuthorityNotExistsException{
-        if (authorityRepository.findById(id) != null)
-            return authorityRepository.findById(id);
-        else
-            throw new AuthorityNotExistsException(String.format("Ilyen azonosítóval (%d) rendelkező engedély nem létezik!", id));
+    public Authority findByName(String name) throws AuthorityNotExistsException {
+        if (authorityRepository.findByName(name) != null) {
+            return authorityRepository.findByName(name);
+        } else {
+            throw new AuthorityNotExistsException(String.format("Ilyen névvel (%s) rendelkező engedély nem létezik!", name));
+        }
     }
-    
+
+    /**
+     * Az engedély id alapján történő keresését lehetővé tevő függvény
+     *
+     * @param id A keresendő engedély id-je
+     * @return Az id-nek megfelő engedély ha létezik, null egyébként
+     * @throws RoomReservationSystem.exception.AuthorityNotExistsException
+     */
+    @Override
+    public Authority findById(int id) throws AuthorityNotExistsException {
+        if (authorityRepository.findById(id) != null) {
+            return authorityRepository.findById(id);
+        } else {
+            throw new AuthorityNotExistsException(String.format("Ilyen azonosítóval (%d) rendelkező engedély nem létezik!", id));
+        }
+    }
+
     /**
      * Az engedély törlésére szolgáló függvény
+     *
      * @param name Az engedély neve
      * @throws RoomReservationSystem.exception.AuthorityNotExistsException
      */
     @Override
     public void removeByName(String name) throws AuthorityNotExistsException {
-        if ( authorityRepository.findByName(name) != null)
+        if (authorityRepository.findByName(name) != null) {
             authorityRepository.removeByName(name);
-        else
+        } else {
             throw new AuthorityNotExistsException(String.format("Ilyen névvel (%s) rendelkező engedély nem létezik!", name));
+        }
     }
 }

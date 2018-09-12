@@ -11,28 +11,34 @@ import lombok.NoArgsConstructor;
 
 /**
  * A tantárgyakhoz tartozó DTO osztály
+ *
  * @author Tomecz Patrik
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class SubjectDTO {
-    private String name;    /*A tantárgy neve*/
-    private String code;    /*A tantárgy kódja*/
-    
+
+    /*A tantárgy neve*/
+    private String name;
+    /*A tantárgy kódja*/
+    private String code;
+
     /**
      * A Subject objektumból SubjectDTO objektum létrehozásáért felelős metódus
-     * @param   subject     A Subject objektum
-     * @return              A SubjectDTO objektum
+     *
+     * @param subject A Subject objektum
+     * @return A SubjectDTO objektum
      */
     public static SubjectDTO toSubjectDTO(Subject subject) {
         return new SubjectDTO(subject.getName(), subject.getCode());
     }
-    
+
     /**
      * Több Subject objektum SubjectDTO objektummá alakításáért felelős metódus
-     * @param   subjects    A Subject objektumok egy listában
-     * @return              A SubjectDTO objektumok egy listában
+     *
+     * @param subjects A Subject objektumok egy listában
+     * @return A SubjectDTO objektumok egy listában
      */
     public static List<SubjectDTO> toSubjectDTOList(List<Subject> subjects) {
         List<SubjectDTO> subjectDTOs = new ArrayList<>();

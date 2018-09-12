@@ -20,28 +20,32 @@ import lombok.NoArgsConstructor;
 
 /**
  * Státusz entitás
+ *
  * @author Tomecz Patrik
  */
 @Data
-@EqualsAndHashCode(callSuper=true)
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "STATUSES")
 public class Status extends BaseEntity {
 
+    /*A státusz neve*/
     @Basic(optional = false)
     @NotNull
-    @Column(name = "name", unique=true)
-    private String name; /*A státusz neve*/
-    
+    @Column(name = "name", unique = true)
+    private String name;
+
+    /*A státuszhoz tartozó üzenet*/
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "message")
-    private String message; /*A státuszhoz tartozó üzenet*/
-    
+    private String message;
+
+    /*Az adott státusszal rendelkező foglalások egy listában*/
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "status", targetEntity = Reservation.class)
-    private List<Reservation> reservationList; /*Az adott státusszal rendelkező foglalások egy listában*/
+    private List<Reservation> reservationList;
 }

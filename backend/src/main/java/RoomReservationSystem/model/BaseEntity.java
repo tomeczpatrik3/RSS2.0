@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * Az alap osztály amelyből minden entitás leszármazik
+ *
  * @author Tomecz Patrik
  */
 @Data
@@ -22,10 +23,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @MappedSuperclass
 public abstract class BaseEntity implements Serializable {
-    
+
+    /*Az azonosító*/
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "ID")    /*Egyértelmű azonosító*/
+    @Column(name = "ID")
+    /*Egyértelmű azonosító*/
     protected Integer id;
 }

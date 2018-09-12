@@ -26,17 +26,16 @@ public interface EventReservationRepository extends JpaRepository<EventReservati
     List<EventReservation> findByStatus(Status status);
 
     List<EventReservation> findByClassroom(Classroom classroom);
-    
+
     @Transactional
     void deleteByUser(User user);
-    
+
     @Transactional
     void deleteByClassroom(Classroom classroom);
-    
+
     @Transactional
     void deleteByStatus(Status status);
-    
+
     @Transactional
     void deleteByName(String name);
-    
 }

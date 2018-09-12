@@ -13,18 +13,28 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 /**
- * A felhasználókkal kapcsolatos műveletekért felelős interfész
- * Részletes információ a függvényekről a megválósításnál
+ * A felhasználókkal kapcsolatos műveletekért felelős interfész Részletes
+ * információ a függvényekről a megválósításnál
+ *
  * @author Tomecz Patrik
  */
 public interface UserService extends UserDetailsService {
-    void deleteByUsername(String username) throws UserNotExistsException;
+
     User register(UserDTO user) throws UserAlredyExistsException, AuthorityNotExistsException, AuthorityAlredyExistsException;
+
     User findByEmail(String email) throws UserNotExistsException;
+
     User findByUsername(String username) throws UsernameNotFoundException, UserNotExistsException;
+
     User findById(int id) throws UserNotExistsException;
+
     List<User> findAll();
+
     List<User> findByName(String name);
+
     List<String> getNames();
+
     User findByDTO(UserDTO userDTO);
+
+    void deleteByUsername(String username) throws UserNotExistsException;
 }

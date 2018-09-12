@@ -20,11 +20,25 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class EventReservationDTO extends ReservationDTO {
 
-    private String name;
     /*A foglalás neve*/
+    private String name;
+    /*A foglalás kezdete*/
     private String startDate;
+    /*A foglalás vége*/
     private String endDate;
 
+    /**
+     * Az osztály konstukrota
+     *
+     * @param username A felhasználónév
+     * @param building Az épület
+     * @param classroom A tanterem
+     * @param status A státusz
+     * @param name A név
+     * @param startDate A kezdeti dátum
+     * @param endDate A befejezési dátum
+     * @param note A megjegyzés
+     */
     public EventReservationDTO(
             String username,
             String building,

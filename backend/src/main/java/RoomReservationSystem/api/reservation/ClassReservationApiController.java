@@ -12,7 +12,6 @@ import RoomReservationSystem.exception.SubjectNotExistsException;
 import RoomReservationSystem.exception.UserNotExistsException;
 import RoomReservationSystem.model.reservation.ClassReservation;
 import RoomReservationSystem.service.StatusService;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,9 +29,6 @@ import static RoomReservationSystem.util.ExceptionUtils.handleException;
 import static RoomReservationSystem.util.ValidationUtils.concatErrors;
 import RoomReservationSystem.validation.BaseReservationValidator;
 import RoomReservationSystem.validation.ClassReservationValidator;
-import java.util.Collections;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * A tanórákra vonatkozó foglalásokhoz tartozó végpontokat tartalmazó osztály
@@ -105,6 +101,14 @@ public class ClassReservationApiController extends ReservationApiController {
         }
     }
 
+    /**
+     * A függvény ami visszaadja egy adott épület adott tanterméhez tartozó
+     * foglalásokat
+     *
+     * @param building Az épület
+     * @param classroom A tanterem
+     * @return A megfelelő válasz entitás
+     */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findByBuildingAndClassroom")
     @Override
@@ -117,9 +121,10 @@ public class ClassReservationApiController extends ReservationApiController {
     }
 
     /**
+     * A függvény ami visszaadja egy adott tantárgyhoz tartozó foglalásokat
      *
-     * @param subjectCode
-     * @return
+     * @param subjectCode A tárgykód
+     * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findBySubjectCode")
@@ -131,6 +136,12 @@ public class ClassReservationApiController extends ReservationApiController {
         }
     }
 
+    /**
+     * A függvény ami visszaadja egy adott szemeszterhez tartozó foglalásokat
+     *
+     * @param semester A szemeszter neve
+     * @return A megfelelő válasz entitás
+     */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findBySemester")
     public ResponseEntity findBySemester(@RequestParam(value = "semester", required = true) String semester) {
@@ -184,6 +195,12 @@ public class ClassReservationApiController extends ReservationApiController {
         }
     }
 
+    /**
+     * A függvény ami törli az adott felhasználóhoz tartozó foglalásokat
+     *
+     * @param username A felhasználó neve
+     * @return A megfelelő válasz entitás
+     */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/deleteByUsername")
     @Override
@@ -196,6 +213,14 @@ public class ClassReservationApiController extends ReservationApiController {
         }
     }
 
+    /**
+     * A függvény ami törli az adott épület adott tanterméhez tartozó
+     * foglalásokat
+     *
+     * @param building Az épület
+     * @param classroom A tanterem
+     * @return A megfelelő válasz entitás
+     */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/deleteByBuildingAndClassroom")
     @Override
@@ -208,6 +233,12 @@ public class ClassReservationApiController extends ReservationApiController {
         }
     }
 
+    /**
+     * A függvény ami törli az adott tantrágyhoz tartozó foglalásokat
+     *
+     * @param subjectCode A tárgykód
+     * @return A megfelelő válasz entitás
+     */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/deleteBySubjectCode")
     public ResponseEntity deleteBySubjectCode(@RequestParam(value = "subjectCode", required = true) String subjectCode) {
@@ -219,6 +250,12 @@ public class ClassReservationApiController extends ReservationApiController {
         }
     }
 
+    /**
+     * A függvény ami törli az adott szemeszterhez tartozó foglalásokat
+     *
+     * @param semester A szemeszter
+     * @return A megfelelő válasz entitás
+     */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/deleteBySemester")
     public ResponseEntity deleteBySemester(@RequestParam(value = "semester", required = true) String semester) {
@@ -230,6 +267,12 @@ public class ClassReservationApiController extends ReservationApiController {
         }
     }
 
+    /**
+     * A függvény ami törli az adott státuszhoz tartozó foglalásokat
+     *
+     * @param status A státusz
+     * @return A megfelelő válasz entitás
+     */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/deleteByStatus")
     @Override

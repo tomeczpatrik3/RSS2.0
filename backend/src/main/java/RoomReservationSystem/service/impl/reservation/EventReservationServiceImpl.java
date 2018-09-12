@@ -216,9 +216,10 @@ public class EventReservationServiceImpl implements EventReservationService {
     }
 
     /**
+     * Egy adott épület adott tanterméhez tartozó foglalások törlése
      *
-     * @param building
-     * @param classroom
+     * @param building Az épület
+     * @param classroom A tanterem
      * @throws ClassroomNotExistsException
      * @throws BuildingNotExistsException
      */
@@ -228,8 +229,9 @@ public class EventReservationServiceImpl implements EventReservationService {
     }
 
     /**
+     * Egy adott státuszhoz tartozó foglalások törlése
      *
-     * @param status
+     * @param status A státusz
      * @throws StatusNotExistsException
      */
     @Override
@@ -238,8 +240,9 @@ public class EventReservationServiceImpl implements EventReservationService {
     }
 
     /**
+     * Egy adott névhez tartozó foglalások törlése
      *
-     * @param name
+     * @param name A név
      * @throws EventReservationNotExistsException
      */
     @Override

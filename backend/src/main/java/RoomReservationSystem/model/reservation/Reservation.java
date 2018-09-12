@@ -26,42 +26,57 @@ import lombok.EqualsAndHashCode;
 
 /**
  * A foglalásokhoz tartozó ősosztály
+ *
  * @author Tomecz Patrik
  */
 @Data
-@EqualsAndHashCode(callSuper=true)
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "RESERVATION_TYPE")
 @Table(name = "RESERVATIONS")
-public abstract class Reservation extends BaseEntity {    
-    
+public abstract class Reservation extends BaseEntity {
+
+    /*A foglaláshoz tartozó megjegyzés*/
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "NOTE")
-    private String note;  /*A foglaláshoz tartozó megjegyzés*/
-     
+    private String note;
+
+    /*A foglalás helye (tanterem)*/
     @JsonIgnore
     @JoinColumn(name = "CLASSROOM", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-    private Classroom classroom;    /*A foglalás helye (tanterem)*/
-    
+    private Classroom classroom;
+
+    /*A felhasználó aki foglalt*/
     @JsonIgnore
     @JoinColumn(name = "USERS", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-    private User user;  /*A felhasználó aki foglalt*/
-    
+    private User user;
+
+    /*A foglalás státusza*/
     @JsonIgnore
     @JoinColumn(name = "STATUSES", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-    private Status status;  /*A foglalás státusza*/
-    
+    private Status status;
+
+    /*A foglalás dátuma(i)*/
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservation", targetEntity = ReservationDate.class)
-    private List<ReservationDate> dateList; /*A foglalás dátuma(i)*/
-    
-    protected Reservation(            
+    private List<ReservationDate> dateList;
+
+    /**
+     * Az osztály konstruktora
+     *
+     * @param user A felhasználó
+     * @param classroom A tanterem
+     * @param status A státusz
+     * @param dateList A foglalás lista
+     * @param note A megjegyzés
+     */
+    protected Reservation(
             User user,
             Classroom classroom,
             Status status,
@@ -74,7 +89,10 @@ public abstract class Reservation extends BaseEntity {
         this.dateList = dateList;
         this.note = note;
     }
-    
+
+    /**
+     * Az osztály üres konstruktora
+     */
     protected Reservation() {
         super();
     }

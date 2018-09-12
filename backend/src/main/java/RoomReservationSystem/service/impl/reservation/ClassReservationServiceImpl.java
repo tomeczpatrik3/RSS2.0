@@ -201,9 +201,11 @@ public class ClassReservationServiceImpl implements ClassReservationService {
     }
 
     /**
+     * A foglalások szemeszter alapján történő kiválasztását megvalósító
+     * függvény
      *
-     * @param semester
-     * @return
+     * @param semester A szemeszter
+     * @return A foglalások egy listában
      * @throws SemesterNotExistsException
      */
     @Override
@@ -223,9 +225,10 @@ public class ClassReservationServiceImpl implements ClassReservationService {
     }
 
     /**
+     * Egy adott épület adott tanterméhez tartozó foglalások törlése
      *
-     * @param building
-     * @param classroom
+     * @param building Az épület
+     * @param classroom A tanterem
      * @throws ClassroomNotExistsException
      * @throws BuildingNotExistsException
      */
@@ -235,8 +238,9 @@ public class ClassReservationServiceImpl implements ClassReservationService {
     }
 
     /**
+     * Egy adott tantárgyhoz tartozó foglalások törlése
      *
-     * @param subjectCode
+     * @param subjectCode A tárgykód
      * @throws SubjectNotExistsException
      */
     @Override
@@ -245,8 +249,9 @@ public class ClassReservationServiceImpl implements ClassReservationService {
     }
 
     /**
+     * Egy adott szemeszterhez tartozó foglalások törlése
      *
-     * @param semester
+     * @param semester A szemeszter
      * @throws SemesterNotExistsException
      */
     @Override
@@ -255,8 +260,9 @@ public class ClassReservationServiceImpl implements ClassReservationService {
     }
 
     /**
+     * Egy adott státuszhoz tartozó foglalások törlése
      *
-     * @param status
+     * @param status A státusz
      * @throws StatusNotExistsException
      */
     @Override

@@ -8,9 +8,6 @@ import RoomReservationSystem.exception.SemesterNotExistsException;
 import RoomReservationSystem.exception.StatusNotExistsException;
 import RoomReservationSystem.exception.SubjectNotExistsException;
 import RoomReservationSystem.exception.UserNotExistsException;
-import RoomReservationSystem.model.Classroom;
-import RoomReservationSystem.model.Semester;
-import RoomReservationSystem.model.Subject;
 import RoomReservationSystem.model.reservation.ClassReservation;
 import java.util.List;
 
@@ -39,14 +36,14 @@ public interface ClassReservationService {
     List<ClassReservation> findBySubjectCode(String subjectCode) throws SubjectNotExistsException;
 
     List<ClassReservation> findBySemester(String semester) throws SemesterNotExistsException;
-    
+
     void deleteByUsername(String username) throws UserNotExistsException;
-    
-    void deleteByBuildingAndClassroom(String building, String classroom) throws ClassroomNotExistsException, BuildingNotExistsException ;
-    
+
+    void deleteByBuildingAndClassroom(String building, String classroom) throws ClassroomNotExistsException, BuildingNotExistsException;
+
     void deleteBySubjectCode(String subjectCode) throws SubjectNotExistsException;
-            
+
     void deleteBySemester(String semester) throws SemesterNotExistsException;
-    
+
     void deleteByStatus(String status) throws StatusNotExistsException;
 }

@@ -14,10 +14,6 @@ import RoomReservationSystem.service.StatusService;
 import RoomReservationSystem.service.reservation.EventReservationService;
 import static RoomReservationSystem.util.ExceptionUtils.handleException;
 import static RoomReservationSystem.util.ValidationUtils.concatErrors;
-import java.util.Collections;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
@@ -50,7 +46,7 @@ public class EventReservationApiController extends ReservationApiController {
     /**
      * A függvény ami visszaadja az elfogadott foglalásokat
      *
-     * @return A megfelelő foglalások egy listában
+     * @return A megfelelő válasz entitás
      */
     @GetMapping
     @Override
@@ -67,7 +63,7 @@ public class EventReservationApiController extends ReservationApiController {
      * A függvény ami visszaadja az adott felhasználóhoz tartozó foglalásokat
      *
      * @param username A felhasználónév
-     * @return A megfelelő foglalások egy listában
+     * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping("/findByUsername/{username}")
@@ -97,6 +93,14 @@ public class EventReservationApiController extends ReservationApiController {
         }
     }
 
+    /**
+     * A függvény ami visszaadja egy adott épület adott tanterméhez tartozó
+     * foglalásokat
+     *
+     * @param building Az épület
+     * @param classroom A tanterem
+     * @return A megfelelő válasz entitás
+     */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findByBuildingAndClassroom")
     @Override
@@ -167,6 +171,12 @@ public class EventReservationApiController extends ReservationApiController {
         }
     }
 
+    /**
+     * A függvény ami törli az adott felhasználóhoz tartozó foglalásokat
+     *
+     * @param username A felhasználó neve
+     * @return A megfelelő válasz entitás
+     */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/deleteByUsername")
     @Override
@@ -179,6 +189,14 @@ public class EventReservationApiController extends ReservationApiController {
         }
     }
 
+    /**
+     * A függvény ami törli az adott épület adott tanterméhez tartozó
+     * foglalásokat
+     *
+     * @param building Az épület
+     * @param classroom A tanterem
+     * @return A megfelelő válasz entitás
+     */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/deleteByBuildingAndClassroom")
     @Override
@@ -191,6 +209,12 @@ public class EventReservationApiController extends ReservationApiController {
         }
     }
 
+    /**
+     * A függvény ami törli az adott státuszhoz tartozó foglalásokat
+     *
+     * @param status A státusz
+     * @return A megfelelő válasz entitás
+     */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/deleteByStatus")
     @Override
@@ -203,6 +227,12 @@ public class EventReservationApiController extends ReservationApiController {
         }
     }
 
+    /**
+     * A függvény ami törli az adott névhez tartozó foglalást
+     *
+     * @param name A név
+     * @return A megfelelő válasz entitás
+     */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/deleteByName")
     public ResponseEntity deleteByName(@RequestParam(value = "name", required = true) String name) {

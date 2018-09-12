@@ -13,10 +13,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BuildingRepository extends JpaRepository<Building, Integer> {
 
-    @Transactional
-    void deleteByName(String name);
-
     Building findByName(String name);
 
     Building findById(int id);
+
+    @Transactional
+    void deleteByName(String name);
 }

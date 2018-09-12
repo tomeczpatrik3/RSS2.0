@@ -10,25 +10,29 @@ import org.springframework.stereotype.Service;
 
 /**
  * A státuszokkal kapcsolatos műveletekért felelős osztály
+ *
  * @author Tomecz Patrik
  */
 @Service
 public class StatusServiceImpl implements StatusService {
+
     @Autowired
     private StatusRepository statusRepository;
-    
+
     /**
      * A státusz név alapján történő keresését megvalósító függvény
-     * @param   name    A státusz neve
-     * @return          A státusz ha létezik, null egyébként
+     *
+     * @param name A státusz neve
+     * @return A státusz ha létezik, null egyébként
      * @throws RoomReservationSystem.exception.StatusNotExistsException
      */
     @Override
-    public Status findByName(String name) throws StatusNotExistsException{
+    public Status findByName(String name) throws StatusNotExistsException {
         Status found = statusRepository.findByName(name);
-        if (found != null)
+        if (found != null) {
             return found;
-        else
+        } else {
             throw new StatusNotExistsException(String.format("Ilyen névvel (%s) rendelkező státusz nem létezik!", name));
+        }
     }
 }

@@ -19,27 +19,32 @@ import org.joda.time.DateTime;
 
 /**
  * A foglalásokhoz tartozó dátumokat tartalmazó osztály
+ *
  * @author Tomecz Patrik
  */
 @Data
-@EqualsAndHashCode(callSuper=true)
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "RESERVATION_DATES")
-public class ReservationDate extends BaseEntity{
+public class ReservationDate extends BaseEntity {
+
+    /*A foglalás státusza*/
     @JsonIgnore
     @JoinColumn(name = "RESERVATION", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-    private Reservation reservation;  /*A foglalás státusza*/
-    
+    private Reservation reservation;
+
+    /*A foglalás kezdete (dátum)*/
     @Basic(optional = false)
     @NotNull
     @Column(name = "START")
-    private DateTime start; /*A foglalás kezdete (dátum)*/
-    
+    private DateTime start;
+
+    /*A foglalás vége (dátum)*/
     @Basic(optional = false)
     @NotNull
     @Column(name = "END")
-    private DateTime end; /*A foglalás vége (dátum)*/
+    private DateTime end;
 }

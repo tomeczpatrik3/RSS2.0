@@ -6,7 +6,6 @@ import RoomReservationSystem.exception.SubjectNotExistsException;
 import RoomReservationSystem.model.Subject;
 import RoomReservationSystem.repository.SubjectRepository;
 import RoomReservationSystem.service.SubjectService;
-import static RoomReservationSystem.model.Subject.toSubject;
 
 import java.util.ArrayList;
 import java.util.List;

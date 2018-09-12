@@ -11,7 +11,6 @@ import RoomReservationSystem.service.SemesterService;
 import static RoomReservationSystem.util.ExceptionUtils.handleException;
 import static RoomReservationSystem.util.ValidationUtils.concatErrors;
 import RoomReservationSystem.validation.SemesterValidator;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -100,6 +99,6 @@ public class SemesterApiController {
             return new ResponseEntity(HttpStatus.OK);
         } catch (SemesterNotExistsException | NullPointerException ex) {
             return handleException(ex);
-        } 
+        }
     }
 }

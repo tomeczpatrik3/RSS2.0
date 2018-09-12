@@ -13,11 +13,6 @@ import RoomReservationSystem.exception.ClassroomNotExistsException;
 import static RoomReservationSystem.model.Classroom.toClassroom;
 import static RoomReservationSystem.util.ExceptionUtils.handleException;
 import static RoomReservationSystem.util.ValidationUtils.concatErrors;
-import java.util.Collections;
-
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -153,7 +148,7 @@ public class ClassroomApiController {
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findByChairsBetween")
-    public ResponseEntity findByChairsBetween(@RequestParam(value="from", required=true) int from, @RequestParam(value="to", required=true) int to) {
+    public ResponseEntity findByChairsBetween(@RequestParam(value = "from", required = true) int from, @RequestParam(value = "to", required = true) int to) {
         return ResponseEntity.ok(toClassroomDTOList(classroomService.findByChairsBetween(from, to)));
     }
 
@@ -193,8 +188,8 @@ public class ClassroomApiController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/deleteByNameAndBuildingName")
     public ResponseEntity deleteByNameAndBuildingName(
-            @RequestParam(value="roomName", required=true) String roomName,
-            @RequestParam(value="buildingName", required=true) String buildingName) {
+            @RequestParam(value = "roomName", required = true) String roomName,
+            @RequestParam(value = "buildingName", required = true) String buildingName) {
         try {
             classroomService.deleteByNameAndBuildingName(roomName, buildingName);
             return new ResponseEntity(HttpStatus.OK);

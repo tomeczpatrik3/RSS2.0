@@ -28,21 +28,21 @@ public interface ClassReservationRepository extends JpaRepository<ClassReservati
     List<ClassReservation> findByClassroom(Classroom classroom);
 
     List<ClassReservation> findBySubject(Subject subject);
-    
+
     List<ClassReservation> findBySemester(Semester semester);
-    
+
     @Transactional
     void deleteByUser(User user);
-    
+
     @Transactional
     void deleteByClassroom(Classroom classroom);
-    
+
     @Transactional
     void deleteBySubject(Subject subject);
-            
+
     @Transactional
     void deleteBySemester(Semester semester);
-    
+
     @Transactional
     void deleteByStatus(Status status);
 }

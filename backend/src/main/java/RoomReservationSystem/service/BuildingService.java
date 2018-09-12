@@ -8,16 +8,24 @@ import RoomReservationSystem.model.Building;
 import java.util.List;
 
 /**
- * Az épületekkel kapcsolatos műveletekért felelős interfész
- * Részletes információ a függvényekről a megválósításnál
+ * Az épületekkel kapcsolatos műveletekért felelős interfész Részletes
+ * információ a függvényekről a megválósításnál
+ *
  * @author Tomecz Patrik
  */
 public interface BuildingService {
-    void deleteByName(String name) throws BuildingNotExistsException;
+
     Building save(Building building) throws BuildingAlredyExistsException;
+
     Building findByName(String name) throws BuildingNotExistsException;
+
     Building findById(int id) throws BuildingNotExistsException;
+
     List<Building> findAll();
+
     List<String> getNames();
+
     Building findByDTO(BuildingDTO buildingDTO);
+
+    void deleteByName(String name) throws BuildingNotExistsException;
 }

@@ -9,7 +9,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-
 /**
  * A tantárgyakra vonatkozó foglalásokhoz tartozó DTO osztály
  *
@@ -21,16 +20,28 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ClassReservationDTO extends ReservationDTO {
 
-    private String subjectCode;
     /*A tantárgy amire a foglalás vonatkozik*/
-    private String[] startDates;
+    private String subjectCode;
     /*A foglalás kezdete*/
-    private String[] endDates;
+    private String[] startDates;
     /*A foglalás vége*/
+    private String[] endDates;
+    /*A szemeszter*/
     private String semester;
 
-    /*A szemeszter*/
-
+    /**
+     * Az osztály konstruktora
+     *
+     * @param username A felhasználónév
+     * @param building Az épület
+     * @param classroom A tanterem
+     * @param status A státusz
+     * @param subjectCode A tárgykód
+     * @param startDates A kezdeti dátumok
+     * @param endDates A befejezési dátumok
+     * @param semester A szemeszter
+     * @param note A megjegyzés
+     */
     public ClassReservationDTO(
             String username,
             String building,

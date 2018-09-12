@@ -15,21 +15,32 @@ import lombok.EqualsAndHashCode;
 
 /**
  * Az eseményekre vonatkozó foglalásokhoz tartozó osztály
+ *
  * @author Tomecz Patrik
  */
 @Data
-@EqualsAndHashCode(callSuper=true)
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @DiscriminatorValue("EVENT")
-//@Table(name = "EVENT_RESERVATIONS")
 public class EventReservation extends Reservation {
-    
+
+    /*A foglalás neve*/
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "NAME")
-    private String name;  /*A foglalás neve*/
+    private String name;
 
+    /**
+     * Az osztály konstruktora
+     *
+     * @param user A felhasználó
+     * @param classroom A tanterem
+     * @param status A státusz
+     * @param dateList A foglalás lista
+     * @param name A foglalás neve
+     * @param note A megjegyzés
+     */
     public EventReservation(
             User user,
             Classroom classroom,
@@ -41,11 +52,25 @@ public class EventReservation extends Reservation {
         super(user, classroom, status, dateList, note);
         this.name = name;
     }
-    
+
+    /**
+     * Az osztály üres konstruktora
+     */
     public EventReservation() {
         super();
     }
-    
+
+    /**
+     * Az EventReservation objektum létrehozásáért felelős metódus
+     *
+     * @param user A felhasználó
+     * @param classroom A tanterem
+     * @param status A státusz
+     * @param dateList A foglalás lista
+     * @param name A foglalás neve
+     * @param note A megjegyzés
+     * @return A megfelelő EventReservation objektum
+     */
     public static EventReservation toEventReservation(
             User user,
             Classroom classroom,

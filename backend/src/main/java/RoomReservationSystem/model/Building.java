@@ -23,30 +23,35 @@ import lombok.NoArgsConstructor;
 
 /**
  * Épület entitás
+ *
  * @author Tomecz Patrik
  */
 @Data
-@EqualsAndHashCode(callSuper=true)
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "BUILDINGS")
 public class Building extends BaseEntity {
 
+    /*Az épület neve*/
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "NAME", unique=true)
-    private String name; /*Az épület neve*/
+    @Column(name = "NAME", unique = true)
+    private String name;
     
+    /*Az épülethez tartozó tantermek listája*/
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "building", targetEntity = Classroom.class)
-    private List<Classroom> classroomList;  /*Az épülethez tartozó tantermek listája*/
-    
+    private List<Classroom> classroomList;
+
     /**
-     * A BuildingDTO objektum Building objektummá konvertálását végrehajtó megtódus
-     * @param   buildingDTO     A BuildingDTO objektum
-     * @return                  A Building objektum
+     * A BuildingDTO objektum Building objektummá konvertálását végrehajtó
+     * megtódus
+     *
+     * @param buildingDTO A BuildingDTO objektum
+     * @return A Building objektum
      */
     public static Building toBuilding(BuildingDTO buildingDTO) {
         return new Building(

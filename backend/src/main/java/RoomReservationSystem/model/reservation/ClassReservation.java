@@ -16,24 +16,39 @@ import lombok.EqualsAndHashCode;
 
 /**
  * A tanórákra vonatkozó foglalásokhoz tartozó ősosztály
+ *
  * @author Tomecz Patrik
  */
 @Data
-@EqualsAndHashCode(callSuper=true)
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @DiscriminatorValue("CLASS")
 public class ClassReservation extends Reservation {
+
+    /*A tantárgy*/
     @JsonIgnore
     @JoinColumn(name = "SUBJECT", referencedColumnName = "ID", nullable = true)
     @ManyToOne(optional = true)
-    private Subject subject;    /*A tantárgy*/
-    
+    private Subject subject;
+
+    /*A szemeszter*/
     @JsonIgnore
     @JoinColumn(name = "SEMESTER", referencedColumnName = "ID", nullable = true)
     @ManyToOne(optional = true)
-    private Semester semester;    /*A szemeszter*/    
-    
-    protected ClassReservation(            
+    private Semester semester;
+
+    /**
+     * Az osztály konstruktora
+     *
+     * @param user A felhasználó
+     * @param subject A tantárgy
+     * @param classroom A tanterem
+     * @param status A státusz
+     * @param semester A szemeszter
+     * @param dateList A foglalás lista
+     * @param note A megjegyzés
+     */
+    protected ClassReservation(
             User user,
             Subject subject,
             Classroom classroom,
@@ -45,13 +60,28 @@ public class ClassReservation extends Reservation {
         this.subject = subject;
         this.semester = semester;
     }
-    
+
+    /**
+     * Az osztály üres konstruktora
+     */
     protected ClassReservation() {
         super();
     }
-    
+
+    /**
+     * A ClassReservation objektum létrehozásáért felelős metódus
+     *
+     * @param user A felhasználó
+     * @param subject A tantárgy
+     * @param classroom A tanterem
+     * @param status A státusz
+     * @param semester A szemeszter
+     * @param dateList A foglalás lista
+     * @param note A megjegyzés
+     * @return A megfelelő ClassReservation objektum
+     */
     public static ClassReservation toClassReservation(
-           User user,
+            User user,
             Subject subject,
             Classroom classroom,
             Status status,

@@ -5,13 +5,18 @@ import RoomReservationSystem.exception.AuthorityNotExistsException;
 import RoomReservationSystem.model.Authority;
 
 /**
- * Az engedélyekkel kapcsolatos műveletekért felelős interfész
- * Részletes információ a függvényekről a megválósításnál
+ * Az engedélyekkel kapcsolatos műveletekért felelős interfész Részletes
+ * információ a függvényekről a megválósításnál
+ *
  * @author Tomecz Patrik
  */
 public interface AuthorityService {
-    void removeByName(String name) throws AuthorityNotExistsException;
+
     Authority save(Authority authority) throws AuthorityAlredyExistsException;
-    Authority findByName(String name) throws  AuthorityNotExistsException;
+
+    Authority findByName(String name) throws AuthorityNotExistsException;
+
     Authority findById(int id) throws AuthorityNotExistsException;
+
+    void removeByName(String name) throws AuthorityNotExistsException;
 }

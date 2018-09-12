@@ -3,7 +3,7 @@ package RoomReservationSystem.util;
 import java.util.regex.Pattern;
 
 /**
- * A reguláris kifejezésekkel történő ellenőrzést megvalósító osztály
+ * A reguláris kifejezésekkel történő ellenőrzést megvalósító segéd osztály
  * @author Tomecz Patrik
  */
 public class RegexUtils {
@@ -23,6 +23,11 @@ public class RegexUtils {
         return DATE_REGEX.matcher(dateString).matches();
     }
     
+    /**
+     * 
+     * @param dates A dátumokat tartalmazó tömb
+     * @return Igaz, ha a dátumok megfelelnek a formátumnak, hamis egyébként
+     */
     public static boolean areValidDates(String[] dates) {
         boolean l = true;
         int i = 0;
