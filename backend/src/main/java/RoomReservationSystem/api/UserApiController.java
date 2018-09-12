@@ -52,8 +52,8 @@ public class UserApiController {
     //@PreAuthorize("hasRole('ADMIN')")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping
-    public List<UserDTO> getAll() {
-        return toUserDTOList(userService.findAll());
+    public ResponseEntity getAll() {
+        return ResponseEntity.ok(toUserDTOList(userService.findAll()));
     }
 
     /**
@@ -64,8 +64,8 @@ public class UserApiController {
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/getNames")
-    public List<String> getNames() {
-        return userService.getNames();
+    public ResponseEntity getNames() {
+        return ResponseEntity.ok(userService.getNames());
     }
 
     /**
@@ -92,9 +92,9 @@ public class UserApiController {
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findByName")
-    public List<UserDTO> findByName(@RequestParam String name
+    public ResponseEntity findByName(@RequestParam String name
     ) {
-        return toUserDTOList(userService.findByName(name));
+        return ResponseEntity.ok(toUserDTOList(userService.findByName(name)));
     }
 
     /**

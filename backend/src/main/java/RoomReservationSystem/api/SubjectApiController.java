@@ -49,8 +49,8 @@ public class SubjectApiController {
      */
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping
-    public List<SubjectDTO> getAll() {
-        return toSubjectDTOList(subjectService.findAll());
+    public ResponseEntity getAll() {
+        return ResponseEntity.ok(toSubjectDTOList(subjectService.findAll()));
     }
 
     /**
@@ -60,8 +60,8 @@ public class SubjectApiController {
      */
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping("/getSubjectNames")
-    public List<String> getSubjectNames() {
-        return subjectService.getSubjectNames();
+    public ResponseEntity getSubjectNames() {
+        return ResponseEntity.ok(subjectService.getSubjectNames());
     }
 
     /**

@@ -47,8 +47,8 @@ public class SemesterApiController {
      */
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping
-    public List<SemesterDTO> getAll() {
-        return toSemesterDTOList(semesterService.getAll());
+    public ResponseEntity getAll() {
+        return ResponseEntity.ok(toSemesterDTOList(semesterService.getAll()));
     }
 
     /**
@@ -58,8 +58,8 @@ public class SemesterApiController {
      */
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping("/getSemesterNames")
-    public List<String> getSemesterNames() {
-        return semesterService.getNames();
+    public ResponseEntity getSemesterNames() {
+        return ResponseEntity.ok(semesterService.getNames());
     }
 
     /**

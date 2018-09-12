@@ -58,8 +58,8 @@ public class ClassroomApiController {
      */
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping
-    public List<ClassroomDTO> getAll() {
-        return toClassroomDTOList(classroomService.findAll());
+    public ResponseEntity getAll() {
+        return ResponseEntity.ok(toClassroomDTOList(classroomService.findAll()));
     }
 
     /**
@@ -71,8 +71,8 @@ public class ClassroomApiController {
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findByName/{name}")
-    public List<ClassroomDTO> findByName(@PathVariable String name) {
-        return toClassroomDTOList(classroomService.findByName(name));
+    public ResponseEntity findByName(@PathVariable String name) {
+        return ResponseEntity.ok(toClassroomDTOList(classroomService.findByName(name)));
     }
 
     /**
@@ -83,12 +83,11 @@ public class ClassroomApiController {
      */
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping("/findByBuildingName/{buildingName}")
-    public List<ClassroomDTO> findByBuildingName(@PathVariable String buildingName) {
+    public ResponseEntity findByBuildingName(@PathVariable String buildingName) {
         try {
-            return toClassroomDTOList(classroomService.findByBuildingName(buildingName));
+            return ResponseEntity.ok(toClassroomDTOList(classroomService.findByBuildingName(buildingName)));
         } catch (BuildingNotExistsException ex) {
-            Logger.getLogger(ClassroomApiController.class.getName()).log(Level.WARNING, ex.getMessage(), ex);
-            return Collections.EMPTY_LIST;
+            return handleException(ex);
         }
     }
 
@@ -101,8 +100,8 @@ public class ClassroomApiController {
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findByHasPC/{hasPC}")
-    public List<ClassroomDTO> findByHasPC(@PathVariable boolean hasPC) {
-        return toClassroomDTOList(classroomService.findByHasPc(hasPC));
+    public ResponseEntity findByHasPC(@PathVariable boolean hasPC) {
+        return ResponseEntity.ok(toClassroomDTOList(classroomService.findByHasPc(hasPC)));
     }
 
     /**
@@ -114,8 +113,8 @@ public class ClassroomApiController {
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findByHasProjector/{hasProjector}")
-    public List<ClassroomDTO> findByHasProjector(@PathVariable boolean hasProjector) {
-        return toClassroomDTOList(classroomService.findByHasProjector(hasProjector));
+    public ResponseEntity findByHasProjector(@PathVariable boolean hasProjector) {
+        return ResponseEntity.ok(toClassroomDTOList(classroomService.findByHasProjector(hasProjector)));
     }
 
     /**
@@ -127,8 +126,8 @@ public class ClassroomApiController {
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findByChairsLessThan/{chairs}")
-    public List<ClassroomDTO> findByChairsLessThan(@PathVariable int chairs) {
-        return toClassroomDTOList(classroomService.findByChairsLessThan(chairs));
+    public ResponseEntity findByChairsLessThan(@PathVariable int chairs) {
+        return ResponseEntity.ok(toClassroomDTOList(classroomService.findByChairsLessThan(chairs)));
     }
 
     /**
@@ -140,8 +139,8 @@ public class ClassroomApiController {
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findByChairsGreaterThan/{chairs}")
-    public List<ClassroomDTO> findByChairsGreaterThan(@PathVariable int chairs) {
-        return toClassroomDTOList(classroomService.findByChairsGreaterThan(chairs));
+    public ResponseEntity findByChairsGreaterThan(@PathVariable int chairs) {
+        return ResponseEntity.ok(toClassroomDTOList(classroomService.findByChairsGreaterThan(chairs)));
     }
 
     /**
@@ -154,8 +153,8 @@ public class ClassroomApiController {
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findByChairsBetween")
-    public List<ClassroomDTO> findByChairsBetween(@RequestParam(value="from", required=true) int from, @RequestParam(value="to", required=true) int to) {
-        return toClassroomDTOList(classroomService.findByChairsBetween(from, to));
+    public ResponseEntity findByChairsBetween(@RequestParam(value="from", required=true) int from, @RequestParam(value="to", required=true) int to) {
+        return ResponseEntity.ok(toClassroomDTOList(classroomService.findByChairsBetween(from, to)));
     }
 
     /**

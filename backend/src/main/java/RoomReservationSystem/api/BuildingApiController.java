@@ -46,8 +46,8 @@ public class BuildingApiController {
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping
-    public List<BuildingDTO> getAll(){
-        return toBuildingDTOList(buildingService.findAll());
+    public ResponseEntity getAll(){
+        return ResponseEntity.ok(toBuildingDTOList(buildingService.findAll()));
     }
     
     /**
@@ -56,8 +56,8 @@ public class BuildingApiController {
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/getNames")
-    public List<String> getNames(){
-        return buildingService.getNames();
+    public ResponseEntity getNames(){
+        return ResponseEntity.ok(buildingService.getNames());
     }  
     
     /**
