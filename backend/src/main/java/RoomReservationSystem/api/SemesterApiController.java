@@ -65,7 +65,7 @@ public class SemesterApiController {
      * A függvény ami létrehozza a megfelelő szemesztert
      *
      * @param semesterDTO A szemeszter
-     * @param bindingResult
+     * @param bindingResult A BindingResult objektum
      * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")

@@ -99,7 +99,7 @@ public class UserApiController {
      * A függvény ami létrehozza a megfelelő felhasználót
      *
      * @param userDTO A felhasználó
-     * @param bindingResult
+     * @param bindingResult A BindingResult objektum
      * @return A megfelelő válasz entitás
      */
     @PostMapping("/createUser")
@@ -123,7 +123,7 @@ public class UserApiController {
      * A függvény ami firssíti a megfelelő felhasználót
      *
      * @param userDTO A felhasználó
-     * @param bindingResult
+     * @param bindingResult A BindingResult objektum
      * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")

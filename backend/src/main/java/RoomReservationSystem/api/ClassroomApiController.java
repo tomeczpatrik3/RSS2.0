@@ -156,7 +156,7 @@ public class ClassroomApiController {
      * A függvény ami létrehozza a megfelelő termet
      *
      * @param classroomDTO A terem
-     * @param bindingResult
+     * @param bindingResult A BindingResult objektum
      * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
@@ -202,7 +202,7 @@ public class ClassroomApiController {
      * A függvény ami firssíti a megfelelő termet
      *
      * @param classroomDTO A terem
-     * @param bindingResult
+     * @param bindingResult A BindingResult objektum
      * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")

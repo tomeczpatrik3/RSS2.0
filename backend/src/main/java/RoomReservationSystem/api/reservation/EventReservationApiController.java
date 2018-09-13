@@ -151,7 +151,7 @@ public class EventReservationApiController extends ReservationApiController {
      * A függvény ami létrehozza a megfelelő eseményre vonatkozó foglalást
      *
      * @param eventReservationDTO A foglalás
-     * @param bindingResult
+     * @param bindingResult A BindingResult objektum
      * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_USER')")

@@ -66,7 +66,7 @@ public class SubjectApiController {
      * A függvény ami létrehozza a megfelelő tantárgyat
      *
      * @param subjectDTO A tantárgy
-     * @param bindingResult
+     * @param bindingResult A BindingResult objektum
      * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
@@ -90,7 +90,7 @@ public class SubjectApiController {
      * A függvény ami firssíti a megfelelő tantárgyat
      *
      * @param subjectDTO A tantárgy
-     * @param bindingResult
+     * @param bindingResult A BindingResult objektum
      * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")

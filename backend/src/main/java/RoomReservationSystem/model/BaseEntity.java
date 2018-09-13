@@ -24,7 +24,9 @@ import lombok.NoArgsConstructor;
 @MappedSuperclass
 public abstract class BaseEntity implements Serializable {
 
-    /*Az azonosító*/
+    /**
+     *Az azonosító
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)

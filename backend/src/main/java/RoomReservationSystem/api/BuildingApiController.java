@@ -99,7 +99,7 @@ public class BuildingApiController {
      * A függvény ami létrehozza a megfelelő épületet
      *
      * @param buildingDTO Az épület
-     * @param bindingResult
+     * @param bindingResult A BindingResult objektum
      * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")

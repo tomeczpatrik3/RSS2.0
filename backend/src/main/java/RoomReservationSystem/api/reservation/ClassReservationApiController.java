@@ -175,7 +175,7 @@ public class ClassReservationApiController extends ReservationApiController {
      * A függvény ami létrehozza a megfelelő tanórára vonatkozó foglalást
      *
      * @param classReservationDTO A foglalás
-     * @param bindingResult
+     * @param bindingResult A BindingResult objektum
      * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_USER')")

@@ -40,7 +40,7 @@ public abstract class ReservationApiController {
      *
      * @param building Az épület
      * @param classroom A terem
-     * @return
+     * @return A megfelelő válasz entitás
      */
     public abstract ResponseEntity findByBuildingAndClassroom(@RequestParam(value = "building", required = true) String building, @RequestParam(value = "classroom", required = true) String classroom);
 
