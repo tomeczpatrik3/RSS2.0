@@ -29,6 +29,5 @@ public abstract class BaseEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID")
-    /*Egyértelmű azonosító*/
     protected Integer id;
 }

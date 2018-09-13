@@ -19,6 +19,10 @@ import static RoomReservationSystem.security.SecurityConstants.RESERVATIONS_URL;
 import java.util.Arrays;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 
+/**
+ *
+ * @author tomeczp
+ */
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurity extends WebSecurityConfigurerAdapter {     
@@ -26,6 +30,11 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    /**
+     *
+     * @param userDetailsService
+     * @param bCryptPasswordEncoder
+     */
     public WebSecurity(
             UserDetailsService userDetailsService,
             BCryptPasswordEncoder bCryptPasswordEncoder) {
@@ -33,6 +42,11 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
+    /**
+     *
+     * @param http
+     * @throws Exception
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         final JWTAuthenticationFilter authenticationFilter = new JWTAuthenticationFilter(authenticationManager());
@@ -49,6 +63,11 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
+    /**
+     *
+     * @param auth
+     * @throws Exception
+     */
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
@@ -57,6 +76,12 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     /*
         CORS config:
     */
+
+    /**
+     *
+     * @return
+     */
+
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();

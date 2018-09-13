@@ -22,6 +22,12 @@ public class BuildingValidator implements Validator {
     @Autowired
     BuildingService buildingService;
 
+    /**
+     * A függvény amely az objektum típusát
+     *
+     * @param clazz Az objektum
+     * @return Igaz, ha az objektum megfelelő típusú, hamis egyébként
+     */
     @Override
     public boolean supports(Class<?> clazz) {
         return clazz == BuildingDTO.class;

@@ -20,15 +20,30 @@ import javax.servlet.ServletContext;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-
+/**
+ *
+ * @author tomeczp
+ */
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
     private UserServiceImpl userService;
     
+    /**
+     *
+     * @param authManager
+     */
     public JWTAuthorizationFilter(AuthenticationManager authManager) {
         super(authManager);
     }
 
+    /**
+     *
+     * @param req
+     * @param res
+     * @param chain
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest req,
                                     HttpServletResponse res,

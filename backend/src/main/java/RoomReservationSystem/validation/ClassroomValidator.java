@@ -14,30 +14,38 @@ import org.springframework.validation.Validator;
 
 /**
  * Az osztálytermek adatainak ellenőrzését végző osztály
+ *
  * @author Tomecz Patrik
  */
 @Service
 public class ClassroomValidator implements Validator {
-    
+
     @Autowired
     ClassroomService classroomService;
-    
+
     @Autowired
     BuildingService buildingService;
-    
+
+    /**
+     * A függvény amely az objektum típusát
+     *
+     * @param clazz Az objektum
+     * @return Igaz, ha az objektum megfelelő típusú, hamis egyébként
+     */
     @Override
     public boolean supports(Class<?> clazz) {
-      return clazz == ClassroomDTO.class;
+        return clazz == ClassroomDTO.class;
     }
 
     /**
      * A validálást végző függvény
-     * @param   target  Az objektum amit validálunk
-     * @param   errors  A hibák, ha vannak
+     *
+     * @param target Az objektum amit validálunk
+     * @param errors A hibák, ha vannak
      */
     @Override
     public void validate(Object target, Errors errors) {
-        
+
         ValidationUtils.rejectIfEmpty(errors, "name", "classroom.name.empty", CLASSROOM_NAME_EMPTY);
         ValidationUtils.rejectIfEmpty(errors, "hasPC", "classroom.hasPC.empty", CLASSROOM_HAS_PC_EMPTY);
         ValidationUtils.rejectIfEmpty(errors, "hasProjector", "classroom.hasProjector.empty", CLASSROOM_HAS_PROJECTOR_EMPTY);
@@ -45,9 +53,9 @@ public class ClassroomValidator implements Validator {
         ValidationUtils.rejectIfEmpty(errors, "building", "classroom.building.empty", CLASSROOM_BUILDING_EMPTY);
 
         ClassroomDTO classroom = (ClassroomDTO) target;
-        
+
         /*Terem nevének validálása*/
-        if (classroom.getName() != null && classroom.getName().length()<3 ||  classroom.getName().length()>30) {
+        if (classroom.getName() != null && classroom.getName().length() < 3 || classroom.getName().length() > 30) {
             errors.rejectValue("name", "classroom.name.size", CLASSROOM_NAME_SIZE);
         }
 
