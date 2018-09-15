@@ -1,0 +1,78 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+body {
+    background-image: url("./assets/bg2.jpg");
+} 
+
+.card {
+    margin: auto;
+    width: 70%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.form-card {
+    width: 60%;
+}
+
+.form-group {
+    padding-top: 7px;
+    padding-right: 30px;
+    padding-left: 10px;
+}
+
+.btn-padding {
+    padding-top: 10px;
+    padding-right: 30px;
+    padding-left: 10px;   
+    padding-bottom: 10px; 
+}
+
+/*
+body {
+    margin: auto;
+    width: 70%;
+}
+*/
+
+h2 {
+    padding-top: 15px;  
+    margin: auto;
+    text-align: left;
+}
+
+/* Hibaüzenet: */
+.alert {
+    margin-top: 10px;
+}
+
+/* Táblázatok: */
+.table {
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;  
+    border: 2px solid black;  
+}
+
+/* Cards: */
+.card-block {
+    padding: 10px 10px 10px;
+}
+
+/* Navbar Buttons: */
+.nav-item {
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.navbar-text {
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+/* Navabr border: */
+.navbar {
+    border-bottom: 1px solid;
+}

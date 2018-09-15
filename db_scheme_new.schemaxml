@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemadesigner version="6.5">
+<source>
+<database charset="utf8" collation="utf8_general_ci">roomreservationdb</database>
+</source>
+<canvas zoom="100">
+<tables>
+<table name="authorities" view="colnames">
+<left>899</left>
+<top>411</top>
+<width>78</width>
+<height>112</height>
+<sql_create_table>CREATE TABLE `authorities` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_nb3atvjf9ov5d0egnuk47o5e` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="buildings" view="colnames">
+<left>55</left>
+<top>194</top>
+<width>78</width>
+<height>112</height>
+<sql_create_table>CREATE TABLE `buildings` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_lf8jhhsls7j5q6n95vlbnlhe7` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="classrooms" view="colnames">
+<left>182</left>
+<top>222</top>
+<width>125</width>
+<height>180</height>
+<sql_create_table>CREATE TABLE `classrooms` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `chairs` int(11) NOT NULL,
+  `has_pc` bit(1) NOT NULL,
+  `has_projector` bit(1) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `building` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKlj1lfjtnb25trjy7u16qnul6v` (`building`),
+  CONSTRAINT `FKlj1lfjtnb25trjy7u16qnul6v` FOREIGN KEY (`building`) REFERENCES `buildings` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="reservations" view="colnames">
+<left>325</left>
+<top>165</top>
+<width>142</width>
+<height>265</height>
+<sql_create_table>CREATE TABLE `reservations` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `day` varchar(255) NOT NULL,
+  `end_date` datetime NOT NULL,
+  `end_time` varchar(255) NOT NULL,
+  `last_modification` datetime NOT NULL,
+  `start_date` datetime NOT NULL,
+  `start_time` varchar(255) NOT NULL,
+  `classroom` int(11) NOT NULL,
+  `status` int(11) NOT NULL,
+  `subject` int(11) NOT NULL,
+  `user` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKt95ee9ji25fmarld5y3ec6kk9` (`classroom`),
+  KEY `FK6b2e26rfpbgo7pob7tvpi1iyh` (`status`),
+  KEY `FKa71du7jlpfq5yf9gyg3b99amw` (`subject`),
+  KEY `FK2cdwgt04qlahsefjllvkjs648` (`user`),
+  CONSTRAINT `FK2cdwgt04qlahsefjllvkjs648` FOREIGN KEY (`user`) REFERENCES `users` (`id`),
+  CONSTRAINT `FK6b2e26rfpbgo7pob7tvpi1iyh` FOREIGN KEY (`status`) REFERENCES `statuses` (`id`),
+  CONSTRAINT `FKa71du7jlpfq5yf9gyg3b99amw` FOREIGN KEY (`subject`) REFERENCES `subjects` (`id`),
+  CONSTRAINT `FKt95ee9ji25fmarld5y3ec6kk9` FOREIGN KEY (`classroom`) REFERENCES `classrooms` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="statuses" view="colnames">
+<left>494</left>
+<top>111</top>
+<width>97</width>
+<height>129</height>
+<sql_create_table>CREATE TABLE `statuses` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `message` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_9ob63rkqg8ppaon1l37w8id2p` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="subjects" view="colnames">
+<left>512</left>
+<top>256</top>
+<width>78</width>
+<height>129</height>
+<sql_create_table>CREATE TABLE `subjects` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_rg7x1lyii7kdyycw98d45vep5` (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="users" view="colnames">
+<left>528</left>
+<top>414</top>
+<width>103</width>
+<height>163</height>
+<sql_create_table>CREATE TABLE `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_6dotkott2kjsp8vw4d0m25fb7` (`email`),
+  UNIQUE KEY `UK_r43af9ap4edm43mmtq01oddj6` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="users_authorities" view="colnames">
+<left>707</left>
+<top>438</top>
+<width>114</width>
+<height>112</height>
+<sql_create_table>CREATE TABLE `users_authorities` (
+  `authority_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  KEY `FKq3lq694rr66e6kpo2h84ad92q` (`user_id`),
+  KEY `FKdsfxx5g8x8mnxne1fe0yxhjhq` (`authority_id`),
+  CONSTRAINT `FKdsfxx5g8x8mnxne1fe0yxhjhq` FOREIGN KEY (`authority_id`) REFERENCES `authorities` (`id`),
+  CONSTRAINT `FKq3lq694rr66e6kpo2h84ad92q` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+</tables>
+</canvas>
+</schemadesigner>

@@ -1,0 +1,107 @@
+Lombok:
+
+--@Data is a convenient shortcut annotation that bundles the features of @ToString, @EqualsAndHashCode, @Getter / @Setter and @RequiredArgsConstructor together:
+
+Postman:
+--Api Servicek unit teszteléséhez
+
+MySqlConnector :
+
+SQLyog: Kapcsolatok generálásara
+-- Netbeansben: new --> other --> persistence --> entity class from db
+
+JSON VALIDATOR:
+-- https://jsonlint.com/
+
+BACKEND TUTORIALOK:
+--http://www.baeldung.com/security-spring
+
+VALIDALAS: (modelek)
+--https://stackoverflow.com/questions/12146298/spring-mvc-how-to-perform-validation
+--http://www.logicbig.com/tutorials/spring-framework/spring-web-mvc/mvc-validator-interface/ (EZ ALAPJAN)
+
+ANGULAR MODULES:
+--https://angular-2-training-book.rangle.io/handout/modules/feature-modules.html
+
+ROUTING (alap):
+--https://github.com/horvathgyozo/alkfejl-2017/blob/master/06/README.md
+
+MODULES, MODULE LOADING TYPES:
+--https://johnpapa.net/introducing-angular-modules-feature-modules-2/
+--https://www.ibm.com/developerworks/library/wa-load-feature-modules-in-angular4/index.html
+
+AUTHENTICATION, TOKENS:
+--https://ryanchenkie.com/angular-authentication-using-the-http-client-and-http-interceptors
+--https://realpython.com/blog/python/user-authentication-with-angular-4-and-flask/
+--https://blog.angular-university.io/angular-jwt-authentication/
+--http://jasonwatmore.com/post/2016/08/16/angular-2-jwt-authentication-example-tutorial
+
+GUARDS:
+--https://blog.thoughtram.io/angular/2016/07/18/guards-in-angular-2.html
+
+SPRING JWT:
+--https://www.youtube.com/watch?v=-HYrUs1ZCLI
+
+NGBMODULE FOR MODAL:
+--https://www.npmjs.com/package/@ng-bootstrap/ng-bootstrap
+EXAMPLE NG MODAL:
+--https://ng-bootstrap.github.io/#/components/modal/examples
+WORKING NG BOOTSTRAP MODAL:
+--https://stackoverflow.com/questions/48232092/bootstrap-4-0-modal-not-working-with-angular-4
+
+ANGULAR MATERIAL:
+npm install --save @angular/material @angular/cdk
+npm install --save @angular/animations
+
+styles.css:
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";
+
+PW ENCODE:
+--http://www.baeldung.com/spring-security-registration-password-encoding-bcrypt
+
+SECURITY CONFIG:
+--http://www.baeldung.com/java-config-spring-security
+--www.baeldung.com/spring-security-basic-authentication
+
+SPRING AUTH JWT TUT:
+--https://auth0.com/blog/securing-spring-boot-with-jwts/
+--https://auth0.com/blog/implementing-jwt-authentication-on-spring-boot/
+
+KOMPLETT SPRING PROJECT:
+--https://github.com/bfwg/springboot-jwt-starter
+
+MYSQL CONFIG:
+--root pw: elteSzakdoga18
+
+--admin acc: 
+	id: admin
+	pw: elteSzakdoga18
+	
+LOGGING:
+--https://www.mkyong.com/spring-boot/spring-boot-slf4j-logging-example/
+--logger létrehozása:
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
+
+To fix org.hibernate.LazyInitializationException Error:
+--https://stackoverflow.com/questions/46259878/org-hibernate-lazyinitializationexception-failed-to-lazily-initialize-a-collect
+--spring.jpa.properties.hibernate.enable_lazy_load_no_trans=true
+
+Filter esetén Service inicializálása:
+--https://stackoverflow.com/questions/32494398/unable-to-autowire-the-service-inside-my-authentication-filter-in-spring
+    if (userService == null) {
+        ServletContext servletContext = req.getServletContext();
+        WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(servletContext);
+        userService = webApplicationContext.getBean(UserServiceImpl.class);
+    }
+	
+
+//TODO:
+
+--> RESERVATION VALIDATION DATES!!
+--> RESET RES FORM AFTER SUBMIT
+--> TICKETS:
+	-- validation
+	-- ticketek elbirlasa admin oldalon
+	-- sajat foglalasaim statusza ticketek alapjan
+	-- ticket uzenetek definialasa

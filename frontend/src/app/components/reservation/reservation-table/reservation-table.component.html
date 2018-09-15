@@ -1,0 +1,27 @@
+<div class="container">
+    <h2>Foglalások:</h2>
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Tanár</th>
+          <th scope="col">Épület</th>
+          <th scope="col">Terem</th>
+          <th scope="col">Tantárgy</th>
+          <th scope="col">Státusz</th>
+          <th scope="col">Megjegyzés</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let reservation of reservations; let i = index">
+          <th scope="row">{{i+1}}</th>
+          <td>{{reservation.user.name}}</td>
+          <td>{{reservation.classroom.building}}</td>
+          <td>{{reservation.classroom.name}}</td>
+          <td>{{reservation.subject.code}} | {{reservation.subject.name}}</td>
+          <td>{{reservation.status}}</td>
+          <td>{{reservation.note}}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>

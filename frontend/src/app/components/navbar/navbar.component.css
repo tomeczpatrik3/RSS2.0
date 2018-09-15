@@ -1,0 +1,7 @@
+.dropdown-item.active {
+    background-color: #484848;
+}
+
+.dropdown-item:active:focus {
+    background-color: #484848;
+}

@@ -1,0 +1,23 @@
+SPRING UNIT TESTING:
+
+https://www.youtube.com/watch?v=8S8o46avgAw
+
+https://stackoverflow.com/questions/31028359/spring-jparepository-save-does-not-mock-using-mockito
+
+https://stackoverflow.com/questions/51247796/how-to-mock-jpa-repositorys-save-method-in-unit-tests
+
+https://www.tutorialspoint.com/mockito/mockito_junit_integration.htm
+
+http://www.springboottutorial.com/unit-testing-for-spring-boot-rest-services
+
+ENDPOINTS:
+
+https://medium.com/@codebyjeff/using-postman-environment-variables-auth-tokens-ea9c4fe9d3d7
+
+https://dzone.com/articles/testing-apis-using-postman
+
+
+----
+
+https://www.baeldung.com/spring-boot-testing
+
