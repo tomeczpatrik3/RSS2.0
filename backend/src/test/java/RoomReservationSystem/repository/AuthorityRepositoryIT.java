@@ -4,6 +4,8 @@ import RoomReservationSystem.model.Authority;
 import java.util.Collections;
 import org.junit.After;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,7 +35,7 @@ public class AuthorityRepositoryIT {
 
     private final String NAME = "TEST_AUTHORITY";
     private final Authority TEST_AUTH = new Authority(NAME, Collections.EMPTY_LIST);
-
+    
     @Before
     public void setUp() {
         entityManager.persist(TEST_AUTH);
@@ -42,8 +44,6 @@ public class AuthorityRepositoryIT {
 
     @After
     public void tearDown() {
-        entityManager.remove(TEST_AUTH);
-        entityManager.flush();
         entityManager.clear();
     }
 
@@ -51,10 +51,12 @@ public class AuthorityRepositoryIT {
     public void testFindByName() {
         Authority found = repository.findByName("TEST_AUTHORITY");
 
-        //assertThat(found.getName()).isEqualTo(TEST_AUTH.getName());
-        assertEquals(found.getName(), TEST_AUTH.getName());
-        assertEquals(found.getId(), TEST_AUTH.getId());
+        assertNotNull(found);
         assertEquals(TEST_AUTH, found);
+        
+        found = repository.findByName("HIBA");
+        
+        assertNull(found);
     }
 
     @Test
@@ -62,14 +64,19 @@ public class AuthorityRepositoryIT {
         Authority found = repository.findById(
                 repository.findByName(NAME).getId());
 
+        assertNotNull(found);
         assertEquals(TEST_AUTH, found);
     }
 
-//    @Test
-//    public void testRemoveByName() {
-//        repository.removeByName(NAME);
-//        Authority found = repository.findByName(NAME);
-//
-//        assertNull(found);
-//    }
+    @Test
+    public void testRemoveByName() {
+        Authority testRemove = new Authority("TEST_REMOVE", Collections.EMPTY_LIST);
+        entityManager.persist(testRemove);
+        entityManager.flush();
+        
+        repository.removeByName("TEST_REMOVE");
+        Authority found = repository.findByName("TEST_REMOVE");
+
+        assertNull(found);
+    }
 }
