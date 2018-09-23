@@ -44,7 +44,8 @@ public class BuildingRepositoryIT {
 
     @After
     public void tearDown() {
-        entityManager.clear();
+        entityManager.remove(TEST_BUILDING);
+        entityManager.flush();
     }
 
     /**
