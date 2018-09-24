@@ -19,3 +19,14 @@ https://dzone.com/articles/testing-apis-using-postman
 -----
 
 https://www.baeldung.com/spring-boot-testing
+
+-----
+
+
+JSONPATH: https://www.pluralsight.com/blog/tutorials/introduction-to-jsonpath
+ResultActions: https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/ResultActions.html
+Testing with security: https://stackoverflow.com/questions/37817599/spring-boot-1-4-testing-with-security-enabled
+https://stackoverflow.com/questions/45241566/spring-boot-unit-tests-with-jwt-token-security
+
+https://stackoverflow.com/questions/49258766/spring-boot-2-0-x-disable-security-for-certain-profile
+https://stackoverflow.com/questions/38168163/setting-up-mockmvc-with-webmvctest-in-spring-boot-1-4-mvc-testing

@@ -16,13 +16,16 @@ import org.springframework.context.annotation.Bean;
 
 import static RoomReservationSystem.security.SecurityConstants.REGISTER_URL;
 import static RoomReservationSystem.security.SecurityConstants.RESERVATIONS_URL;
+import com.sun.media.jfxmedia.logging.Logger;
 import java.util.Arrays;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 
 /**
  *
  * @author tomeczp
  */
+@Profile("LIVE")
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurity extends WebSecurityConfigurerAdapter {     

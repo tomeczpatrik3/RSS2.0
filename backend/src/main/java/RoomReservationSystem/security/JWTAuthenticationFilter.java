@@ -100,6 +100,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         User user = (User)auth.getPrincipal();
         Claims claims = Jwts.claims().setSubject(user.getUsername());
+        
         //Az angular szamara:
         claims.put("authorities", user.getAuthorities().stream().map(s -> s.toString()).collect(Collectors.toList()));
         
