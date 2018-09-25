@@ -1,0 +1,294 @@
+{
+	"info": {
+		"_postman_id": "34964643-970d-4828-bc07-3399d853a06c",
+		"name": "UserTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getAll()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1cd5821a-4f35-43a9-a939-56950a5c9f8a",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A felhasználók száma\"] = data.length === 1;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/user/",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"user",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getNames()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "58fe3b4c-dc18-4085-b57c-75845f2e1e5f",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A felhasználók neveinek száma\"] = data.length === 1;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/user/getNames",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"user",
+						"getNames"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findByUsername()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ca859511-41a5-4c38-9b07-68b03b01ca97",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A felhasználó felhasználóneve\"] = data.username === \"TEST\";",
+							"tests[\"A felhasználó neve\"] = data.name === \"TEST_USER\";",
+							"tests[\"A felhasználó e-mail címe\"] = data.email === \"TESTING@TESTING.COM\";"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/user/findByUsername?username=TEST",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"user",
+						"findByUsername"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "TEST"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findByName()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "63023f9d-4641-4339-849d-db303ed3b4b2",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A felhasználók száma\"] = data.length === 1;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/user/findByName?name=TEST_USER",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"user",
+						"findByName"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "TEST_USER"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createUser()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9cc2cd9d-3a72-4dd8-a4fe-ad7231dacdfe",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 201\"] = responseCode.code === 201;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A létrehozott felhasználó felhasználóneve\"] = data.username === \"testuser\";",
+							"tests[\"A létrehozott felhasználó neve\"] = data.name === \"TEST TEST\";",
+							"tests[\"A létrehozott felhasználó e-mail címe\"] = data.email === \"test@test.com\";"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"testuser\",\n\t\"password\": \"testuser\",\n\t\"name\": \"TEST TEST\",\n\t\"email\": \"test@test.com\"\n}"
+				},
+				"url": {
+					"raw": "{{api}}/user/createUser",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"user",
+						"createUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteByUsername()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0c1f5aba-b243-4a34-8f89-25fe7a7b0ff8",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/user/deleteByUsername?username=testuser",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"user",
+						"deleteByUsername"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "testuser"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

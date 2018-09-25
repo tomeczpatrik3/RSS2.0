@@ -1,0 +1,191 @@
+{
+	"info": {
+		"_postman_id": "167621d0-6980-48cf-b29e-d5449ede4102",
+		"name": "SubjectTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getAll()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3dd9472f-803a-47ef-b871-ad3e5d5c6664",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A tantárgyak száma\"] = data.length === 24;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/subject/",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"subject",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getSubjectNames()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "36025e29-a0fe-400e-b97c-e0f879023d84",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A tantárgyak neveinek száma\"] = data.length === 24;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/subject/getSubjectNames",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"subject",
+						"getSubjectNames"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createSubject()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "16685545-9b74-416f-8149-0631727195ab",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 201\"] = responseCode.code === 201;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A létrehozott tantárgy neve\"] = data.name === \"Teszt tantárgy\";",
+							"tests[\"A létrehozott tantárgy kódja\"] = data.code === \"test01\";"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Teszt tantárgy\",\n\t\"code\": \"test01\"\n}"
+				},
+				"url": {
+					"raw": "{{api}}/subject/createSubject",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"subject",
+						"createSubject"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteByCode()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3f3c7dc4-c76c-49f4-8596-d7f49ca1952a",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/subject/deleteByCode?code=test01",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"subject",
+						"deleteByCode"
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "test01"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

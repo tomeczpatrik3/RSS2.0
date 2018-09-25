@@ -81,6 +81,7 @@ INSERT INTO `roomreservationdb`.`subjects` (`id`, `code`, `name`) VALUES ('22', 
 INSERT INTO `roomreservationdb`.`subjects` (`id`, `code`, `name`) VALUES ('23', 'mikrobb18ea', 'Mikrobiológia EA');
 INSERT INTO `roomreservationdb`.`subjects` (`id`, `code`, `name`) VALUES ('24', 'mikrobb18la', 'Mikrobiológiai gyakorlat GY');
 
+INSERT INTO `roomreservationdb`.`users` (`id`, `email`, `name`, `password`, `username`) VALUES ('999', 'TESTING@TESTING.COM',	'TEST_USER', 'itsOnlyATest', 'TEST');
 
 /*
 -- admin - admin
