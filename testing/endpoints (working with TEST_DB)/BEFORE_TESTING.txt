@@ -1,3 +1,10 @@
 1 -- run the test_db.sql script
 2 -- create an admin user, give him admin role
 3 -- refresh the environment with the new bearer token, after logging in with admin
+
+	ui: newman -- npm install newman --global;
+
+4 -- open cmd in test folder
+5 -- newman run collection-name.json  -e environment-name.json --insecure 
+	eg.: newman run BuildingTest.postman_collection.json  -e TestEnvironment.postman_environment.json --insecure 
+	or: newman run BuildingTest.postman_collection.json  -e TestEnvironment.postman_environment.json --insecure  > results\building.txt
