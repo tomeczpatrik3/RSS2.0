@@ -13,6 +13,8 @@ import RoomReservationSystem.exception.ClassroomNotExistsException;
 import static RoomReservationSystem.model.Classroom.toClassroom;
 import static RoomReservationSystem.util.ExceptionUtils.handleException;
 import static RoomReservationSystem.util.ValidationUtils.concatErrors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -85,6 +87,22 @@ public class ClassroomApiController {
             return handleException(ex);
         }
     }
+    
+    /**
+     * A függvény ami visszaadja az adott épülethez és névhez tartozó tantermet
+     * @param name A terem neve
+     * @param buildingName Az épület neve
+     * @return A megfelelő termek egy listában
+     */
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @GetMapping("/findByNameAndBuildingName")
+    public ResponseEntity findByNameAndBuildingName(@RequestParam(value = "name", required = true) String name, @RequestParam(value = "buildingName", required = true) String buildingName) {
+        try {
+            return ResponseEntity.ok(toClassroomDTO(classroomService.findByNameAndBuildingName(name, buildingName)));
+        } catch (ClassroomNotExistsException | BuildingNotExistsException ex) {
+            return handleException(ex);
+        }
+    }    
 
     /**
      * A függvény ami visszaadja a PC-vel rendelkező (vagy nem rendelkező)

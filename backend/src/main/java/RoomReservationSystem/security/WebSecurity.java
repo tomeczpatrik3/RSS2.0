@@ -25,7 +25,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
  *
  * @author tomeczp
  */
-@Profile("LIVE")
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurity extends WebSecurityConfigurerAdapter {     

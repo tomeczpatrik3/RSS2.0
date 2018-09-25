@@ -16,6 +16,8 @@ https://medium.com/@codebyjeff/using-postman-environment-variables-auth-tokens-e
 
 https://dzone.com/articles/testing-apis-using-postman
 
+https://medium.com/aubergine-solutions/api-testing-using-postman-323670c89f6d
+
 -----
 
 https://www.baeldung.com/spring-boot-testing
