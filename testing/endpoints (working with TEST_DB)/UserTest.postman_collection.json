@@ -11,7 +11,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "1cd5821a-4f35-43a9-a939-56950a5c9f8a",
+						"id": "ad65cd3b-c763-4a62-a3c9-232235538dad",
 						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
@@ -19,7 +19,7 @@
 							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
 							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
 							"",
-							"tests[\"A felhasználók száma\"] = data.length === 1;"
+							"tests[\"A felhasználók száma\"] = data.length === 2;"
 						]
 					}
 				}
@@ -55,7 +55,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "58fe3b4c-dc18-4085-b57c-75845f2e1e5f",
+						"id": "e7f31187-8d5c-45a7-9625-96f6e4b56643",
 						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
@@ -63,7 +63,7 @@
 							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
 							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
 							"",
-							"tests[\"A felhasználók neveinek száma\"] = data.length === 1;"
+							"tests[\"A felhasználók neveinek száma\"] = data.length === 2;"
 						]
 					}
 				}

@@ -1,0 +1,3 @@
+1 -- run the test_db.sql script
+2 -- create an admin user, give him admin role
+3 -- refresh the environment with the new bearer token, after logging in with admin
