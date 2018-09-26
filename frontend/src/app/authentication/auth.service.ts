@@ -26,6 +26,10 @@ export class AuthService {
 
     }
 
+    /**
+     * A belépést megvalósító függvény
+     * @param accountCredentials A belépéshez tartozó információk
+     */
     login(accountCredentials: AccountCredentials) {
         return this.userService.login(accountCredentials).subscribe(
             (response:HttpResponse<any>) =>  {
@@ -37,9 +41,10 @@ export class AuthService {
         );
     }
 
-    /*
-        Token dekódolása:
-    */
+    /**
+     * A token dekódolását végző függvény
+     * @param token A token
+     */
     private getDecodedAccesToken(token) {
         try{
             return this.jwtHelper.decodeToken(token);
@@ -49,9 +54,11 @@ export class AuthService {
         }        
     }
     
-    /*
-        Session adatok tárolása:
-    */
+    /**
+     * A session beállításáért felelős függvény
+     * (A localStorage beállítása a HttpResponse alapján)
+     * @param response A válasz
+     */
     private setSession(response: HttpResponse<any>) {
         const token = this.getDecodedAccesToken(response.headers.get('Authorization'));
         
@@ -64,9 +71,10 @@ export class AuthService {
         this.loginStatus.next(true);
     }
 
-    /*
-        Kiejelentkezéskor töröljük a tokeneket:
-    */
+    /**
+     * A kijelentkezést végrehajtó függvény
+     * (A localStorage visszaállítása)
+     */
     logout() {
         localStorage.removeItem("username");
         localStorage.removeItem("authorities");
@@ -77,9 +85,9 @@ export class AuthService {
         this.loginStatus.next(false);
     }
 
-    /*
-        
-    */
+    /**
+     * A függvény ami ellenőrzi hogy a felhasználó be van-e jelentkezve
+     */
     isLoggedIn() {
         const token = localStorage.getItem('token');
         if (token) {
@@ -91,17 +99,24 @@ export class AuthService {
         
     }
 
+    /**
+     *  A függvény ami ellenőrzi hogy a felhasználó ki van-e jelentkezve
+     */
     isLoggedOut() {
         return !this.isLoggedIn();
     }
 
+    /**
+     * Az engedélyek lekérdezését megvalósító függvény
+     */
     getAuthorities(): string[] {
         return localStorage.getItem('authorities').split(',');
     }
 
-    /*
-        Speciális engedély meglétének lekérdezése:
-    */
+    /**
+     * Egy adott engedély meglétét ellenőrző függvény
+     * @param authority Az engedély
+     */
     hasAuthority(authority: string): boolean {
         const authorities = localStorage.getItem('authorities');
         if (authority == Authorities.ROLE_GUEST)
@@ -114,9 +129,9 @@ export class AuthService {
             return false;
     }
 
-    /*
-        Felhasználónév lekérdezése:
-    */
+    /**
+     * A felhasználónév lekérdezését megvalósító függvény
+     */
     getUsername(): string {
         return localStorage.getItem('username');
     }

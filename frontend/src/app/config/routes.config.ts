@@ -1,3 +1,6 @@
+/**
+ * Az api végpontokat tartalmazó osztály
+ */
 export class Routes {
     static USER: 							                      string = 'user';
     static USER_LOGIN: 							                      string = 'user/login';
