@@ -119,7 +119,7 @@ public class EventReservationApiController extends ReservationApiController {
      * @return A megfelelő foglalás
      */
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    @GetMapping("/findByName/{username}")
+    @GetMapping("/findByName/{name}")
     public ResponseEntity findByName(@PathVariable String name) {
         try {
             return ResponseEntity.ok(toEventReservationDTO(eventService.findByName(name)));

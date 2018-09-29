@@ -113,14 +113,14 @@ public class SubjectApiController {
     /**
      * A függvény ami törli az adott kódhoz tartozó tantárgyat
      *
-     * @param code A tárgykód
+     * @param subjectCode A tárgykód
      * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @PostMapping("/deleteByCode")
-    public ResponseEntity deleteByCode(@RequestParam String code) {
+    @GetMapping("/deleteByCode")
+    public ResponseEntity deleteByCode(@RequestParam(value = "subjectCode", required = true) String subjectCode) {
         try {
-            subjectService.deleteByCode(code);
+            subjectService.deleteByCode(subjectCode);
             return new ResponseEntity(HttpStatus.OK);
         } catch (SubjectNotExistsException | NullPointerException ex) {
             return handleException(ex);

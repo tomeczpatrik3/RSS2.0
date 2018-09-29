@@ -5,7 +5,7 @@ import { AddReservationBaseComponent } from '../add-reservaion-base.component';
 import { AuthService } from '../../../authentication/auth.service';
 import { ClassroomService } from '../../../services/classroom.service';
 import { SubjectService } from '../../../services/subject.service';
-import { ReservationService } from '../../../services/reservation.service';
+import { ReservationService } from '../../../services/reservation/eventReservation.service';
 import { BuildingService } from '../../../services/building.service';
 import { SemesterService } from '../../../services/semester.service';
 import { DialogService } from '../../../services/dialog.service';

@@ -74,7 +74,7 @@ public class UserApiController {
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findByUsername")
-    public ResponseEntity findByUsername(@RequestParam String username) {
+    public ResponseEntity findByUsername(@RequestParam(value = "username", required = true) String username) {
         try {
             return ResponseEntity.ok(toUserDTO(userService.findByUsername(username)));
         } catch (UsernameNotFoundException | UserNotExistsException | NullPointerException ex) {
@@ -90,8 +90,7 @@ public class UserApiController {
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findByName")
-    public ResponseEntity findByName(@RequestParam String name
-    ) {
+    public ResponseEntity findByName(@RequestParam(value = "name", required = true) String name) {
         return ResponseEntity.ok(toUserDTOList(userService.findByName(name)));
     }
 
@@ -152,9 +151,8 @@ public class UserApiController {
      * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @PostMapping("/deleteByUsername")
-    public ResponseEntity deleteByUsername(@RequestParam String username
-    ) {
+    @GetMapping("/deleteByUsername")
+    public ResponseEntity deleteByUsername(@RequestParam(value = "username", required = true) String username) {
         try {
             userService.deleteByUsername(username);
             return new ResponseEntity(HttpStatus.OK);

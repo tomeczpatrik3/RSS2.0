@@ -13,8 +13,6 @@ import RoomReservationSystem.exception.ClassroomNotExistsException;
 import static RoomReservationSystem.model.Classroom.toClassroom;
 import static RoomReservationSystem.util.ExceptionUtils.handleException;
 import static RoomReservationSystem.util.ValidationUtils.concatErrors;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -199,17 +197,17 @@ public class ClassroomApiController {
     /**
      * A függvény ami törli az adott névhez és épülethez tartozó termet
      *
-     * @param roomName A terem neve
+     * @param name A terem neve
      * @param buildingName Az épület neve
      * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @PostMapping("/deleteByNameAndBuildingName")
+    @GetMapping("/deleteByNameAndBuildingName")
     public ResponseEntity deleteByNameAndBuildingName(
-            @RequestParam(value = "roomName", required = true) String roomName,
+            @RequestParam(value = "name", required = true) String name,
             @RequestParam(value = "buildingName", required = true) String buildingName) {
         try {
-            classroomService.deleteByNameAndBuildingName(roomName, buildingName);
+            classroomService.deleteByNameAndBuildingName(name, buildingName);
             return new ResponseEntity(HttpStatus.OK);
         } catch (ClassroomNotExistsException | BuildingNotExistsException | NullPointerException ex) {
             return handleException(ex);

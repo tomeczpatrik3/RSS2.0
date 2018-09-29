@@ -36,7 +36,7 @@ import RoomReservationSystem.validation.ClassReservationValidator;
  * @author Tomecz Patrik
  */
 @RestController
-@RequestMapping(value = "/api/simpleReservation")
+@RequestMapping(value = "/api/classReservation")
 public class ClassReservationApiController extends ReservationApiController {
 
     @Autowired
