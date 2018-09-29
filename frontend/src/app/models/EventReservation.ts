@@ -1,30 +1,26 @@
 import { BaseReservation } from "./BaseReservation";
 
+/**
+ * Az esemény foglalás entitás
+ */
 export class EventReservation extends BaseReservation {
-    eventName:      string;
-    date:           string;
-    startTime:      string;
-    endTime:        string;
+  name: string;
+  startDate: string;
+  endDate: string;
 
-    public constructor(
-        username:       string,
-        buildingName:   string,
-        roomName:       string,
-        note:           string,
-        eventName:      string,
-        date:           string,
-        startTime:      string,
-        endTime:        string
-    ) {
-        super(
-            username,
-            buildingName,
-            roomName,
-            note
-        );
-        this.eventName = eventName;
-        this.date = date;
-        this.startTime = startTime;
-        this.endTime = endTime;
-    }
+  public constructor(
+    username: string,
+    building: string,
+    classroom: string,
+    status: string,
+    note: string,
+    eventName: string,
+    startDate: string,
+    endDate: string
+  ) {
+    super(username, building, classroom, status, note);
+    this.name = name;
+    this.startDate = startDate;
+    this.endDate = endDate;
+  }
 }

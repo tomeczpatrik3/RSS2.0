@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot } from '@angular/router';
 import { AuthService } from '../authentication/auth.service';
 
-
+/**
+ * Az engedélyek ellenőrzéséért felelős guard
+ */
 @Injectable()
 export class RoleGuardService implements CanActivate {
     constructor(
@@ -10,6 +12,7 @@ export class RoleGuardService implements CanActivate {
         public router: Router
     ) {}
   
+    
     canActivate(route: ActivatedRouteSnapshot): boolean {
         // this will be passed from the route config
         // on the data property

@@ -1,7 +1,10 @@
+/**
+ * Az épület entitás
+ */
 export class Building {
-    name: string;
+  name: string;
 
-    public constructor (name?: string) {
-        this.name = name || "";
-    }
+  public constructor(name?: string) {
+    this.name = name || "";
+  }
 }

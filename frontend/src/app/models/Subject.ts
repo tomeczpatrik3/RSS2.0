@@ -1,9 +1,12 @@
+/**
+ * A tantárgy entitás
+ */
 export class Subject {
-    name: string;
-    code: string;
-    
-    public constructor (name?: string, code?: string) {
-        this.name = name || "";
-        this.code = code || "";
-    }
+  name: string;
+  code: string;
+
+  public constructor(name?: string, code?: string) {
+    this.name = name || "";
+    this.code = code || "";
+  }
 }
