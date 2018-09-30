@@ -31,7 +31,7 @@ export class SubjectService {
 
   deleteByCode(subjectCode: string): Observable<any> {
     return <Observable<any>>(
-      this.http.get(
+      this.http.delete(
         Routes.getUrl(Routes.SUBJECT_DELETE_BY_CODE) +
           `?subjectCode=${subjectCode}`
       )

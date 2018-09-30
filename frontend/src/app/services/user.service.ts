@@ -54,7 +54,7 @@ export class UserService {
 
   deleteByUsername(username: string): Observable<any> {
     return <Observable<any>>(
-      this.http.get(
+      this.http.delete(
         Routes.getUrl(Routes.USER_DELETE_BY_USERNAME) + `?username=${username}`
       )
     );

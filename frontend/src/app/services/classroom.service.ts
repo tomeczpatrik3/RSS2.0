@@ -92,8 +92,8 @@ export class ClassroomService {
     );
   }
 
-  createClassroom(classroom: Classroom) {
-    return <Observable<Classroom[]>>(
+  createClassroom(classroom: Classroom): Observable<Classroom> {
+    return <Observable<Classroom>>(
       this.http.post(
         Routes.getUrl(Routes.CLASSROOM_CREATE_CLASSROOM),
         classroom
@@ -101,9 +101,9 @@ export class ClassroomService {
     );
   }
 
-  deleteByNameAndBuildingName(name: string, buildingName: string) {
-    return <Observable<Classroom[]>>(
-      this.http.get(
+  deleteByNameAndBuildingName(name: string, buildingName: string): Observable<any> {
+    return <Observable<any>>(
+      this.http.delete(
         Routes.getUrl(Routes.CLASSROOM_DELETE_BY_NAME_AND_BUILDING_NAME) +
           `?name=${name}&buildingName=${buildingName}`
       )

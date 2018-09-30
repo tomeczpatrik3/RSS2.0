@@ -29,6 +29,7 @@ import static RoomReservationSystem.util.ExceptionUtils.handleException;
 import static RoomReservationSystem.util.ValidationUtils.concatErrors;
 import RoomReservationSystem.validation.BaseReservationValidator;
 import RoomReservationSystem.validation.ClassReservationValidator;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 /**
  * A tanórákra vonatkozó foglalásokhoz tartozó végpontokat tartalmazó osztály
@@ -202,7 +203,7 @@ public class ClassReservationApiController extends ReservationApiController {
      * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @GetMapping("/deleteByUsername")
+    @DeleteMapping("/deleteByUsername")
     @Override
     public ResponseEntity deleteByUsername(@RequestParam(value = "username", required = true) String username) {
         try {
@@ -222,7 +223,7 @@ public class ClassReservationApiController extends ReservationApiController {
      * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @GetMapping("/deleteByBuildingAndClassroom")
+    @DeleteMapping("/deleteByBuildingAndClassroom")
     @Override
     public ResponseEntity deleteByBuildingAndClassroom(@RequestParam(value = "building", required = true) String building, @RequestParam(value = "classroom", required = true) String classroom) {
         try {
@@ -240,7 +241,7 @@ public class ClassReservationApiController extends ReservationApiController {
      * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @GetMapping("/deleteBySubjectCode")
+    @DeleteMapping("/deleteBySubjectCode")
     public ResponseEntity deleteBySubjectCode(@RequestParam(value = "subjectCode", required = true) String subjectCode) {
         try {
             classService.deleteBySubjectCode(subjectCode);
@@ -257,7 +258,7 @@ public class ClassReservationApiController extends ReservationApiController {
      * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @GetMapping("/deleteBySemester")
+    @DeleteMapping("/deleteBySemester")
     public ResponseEntity deleteBySemester(@RequestParam(value = "semester", required = true) String semester) {
         try {
             classService.deleteBySemester(semester);
@@ -274,7 +275,7 @@ public class ClassReservationApiController extends ReservationApiController {
      * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @GetMapping("/deleteByStatus")
+    @DeleteMapping("/deleteByStatus")
     @Override
     public ResponseEntity deleteByStatus(@RequestParam(value = "status", required = true) String status) {
         try {

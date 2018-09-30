@@ -35,15 +35,15 @@ export class BuildingService {
     );
   }
 
-  deleteByName(name: string): Observable<Building> {
-    return <Observable<Building>>(
-      this.http.get(Routes.getUrl(Routes.BUILDING_DELETE_BY_NAME) + "/" + name)
-    );
-  }
-
   createBuilding(building: Building): Observable<Building> {
     return <Observable<Building>>(
       this.http.post(Routes.getUrl(Routes.BUILDING_CREATE_BUILDING), building)
+    );
+  }
+
+  deleteByName(name: string): Observable<any> {
+    return <Observable<any>>(
+      this.http.delete(Routes.getUrl(Routes.BUILDING_DELETE_BY_NAME) + "/" + name)
     );
   }
 }

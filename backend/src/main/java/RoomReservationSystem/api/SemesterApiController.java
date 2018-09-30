@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -92,8 +93,8 @@ public class SemesterApiController {
      * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @PostMapping("/deleteByName")
-    public ResponseEntity deleteByName(@RequestParam String name) {
+    @DeleteMapping("/deleteByName")
+    public ResponseEntity deleteByName(@RequestParam(value = "name", required = true) String name) {
         try {
             semesterService.deleteByName(name);
             return new ResponseEntity(HttpStatus.OK);

@@ -29,9 +29,11 @@ export class SemesterService {
     );
   }
 
-  deleteByName(name: string): Observable<Semester> {
-    return <Observable<Semester>>(
-      this.http.post(Routes.getUrl(Routes.SEMESTER_DELETE_BY_NAME), name)
+  deleteByName(name: string): Observable<any> {
+    return <Observable<any>>(
+      this.http.delete(
+        Routes.getUrl(Routes.SEMESTER_DELETE_BY_NAME) + `?name=${name}`
+      )
     );
   }
 }

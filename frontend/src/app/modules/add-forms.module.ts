@@ -6,7 +6,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ClassroomService } from '../services/classroom.service';
 import { UserService } from '../services/user.service';
-import { ReservationService } from '../services/reservation.service';
+import { ClassReservationService } from '../services/classReservation.service';
+import { EventReservationService } from '../services/eventReservation.service';
 import { SubjectService } from '../services/subject.service';
 import { BuildingService} from '../services/building.service';
 import { SemesterService } from '../services/semester.service';
@@ -44,7 +45,8 @@ import { AddReservationBaseComponent } from '../components/reservation/add-reser
   providers: [
       ClassroomService,
       UserService,
-      ReservationService,
+      ClassReservationService,
+      EventReservationService,
       SubjectService,
       BuildingService,
       SemesterService

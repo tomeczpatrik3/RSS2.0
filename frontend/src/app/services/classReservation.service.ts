@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Routes } from "../../config/routes.config";
+import { Routes } from "../config/routes.config";
 import { Observable } from "rxjs/Observable";
-import { ClassReservation } from "../../models/ClassReservation";
+import { ClassReservation } from "../models/ClassReservation";
 
 /**
  * A tanórákra vonatkozó foglalásokhoz tartozó service osztály
@@ -87,7 +87,7 @@ export class ClassReservationService {
 
   deleteByUsername(username: string): Observable<any> {
     return <Observable<any>>(
-      this.http.get(
+      this.http.delete(
         Routes.getUrl(Routes.CLASS_RESERVATION_DELETE_BY_USERNAME) +
           "/" +
           username
@@ -100,7 +100,7 @@ export class ClassReservationService {
     classroom: string
   ): Observable<any> {
     return <Observable<any>>(
-      this.http.get(
+      this.http.delete(
         Routes.getUrl(
           Routes.CLASS_RESERVATION_DELETE_BY_BUILDING_AND_CLASSROOM
         ) + `?building=${building}&classroom=${classroom}`
@@ -110,7 +110,7 @@ export class ClassReservationService {
 
   deleteBySubjectCode(subjectCode: string): Observable<any> {
     return <Observable<any>>(
-      this.http.get(
+      this.http.delete(
         Routes.getUrl(Routes.CLASS_RESERVATION_DELETE_BY_SUBJECT_CODE) +
           `?subjectCode=${subjectCode}`
       )
@@ -119,7 +119,7 @@ export class ClassReservationService {
 
   deleteBySemester(semester: string): Observable<any> {
     return <Observable<any>>(
-      this.http.get(
+      this.http.delete(
         Routes.getUrl(Routes.CLASS_RESERVATION_DELETE_BY_SEMESTER) +
           `?semester=${semester}`
       )
@@ -128,7 +128,7 @@ export class ClassReservationService {
 
   deleteByStatus(status: string): Observable<any> {
     return <Observable<any>>(
-      this.http.get(
+      this.http.delete(
         Routes.getUrl(Routes.CLASS_RESERVATION_DELETE_BY_STATUS) +
           `?status=${status}`
       )

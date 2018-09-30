@@ -20,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -178,7 +179,7 @@ public class EventReservationApiController extends ReservationApiController {
      * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @GetMapping("/deleteByUsername")
+    @DeleteMapping("/deleteByUsername")
     @Override
     public ResponseEntity deleteByUsername(@RequestParam(value = "username", required = true) String username) {
         try {
@@ -198,7 +199,7 @@ public class EventReservationApiController extends ReservationApiController {
      * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @GetMapping("/deleteByBuildingAndClassroom")
+    @DeleteMapping("/deleteByBuildingAndClassroom")
     @Override
     public ResponseEntity deleteByBuildingAndClassroom(@RequestParam(value = "building", required = true) String building, @RequestParam(value = "classroom", required = true) String classroom) {
         try {
@@ -216,7 +217,7 @@ public class EventReservationApiController extends ReservationApiController {
      * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @GetMapping("/deleteByStatus")
+    @DeleteMapping("/deleteByStatus")
     @Override
     public ResponseEntity deleteByStatus(@RequestParam(value = "status", required = true) String status) {
         try {
@@ -234,7 +235,7 @@ public class EventReservationApiController extends ReservationApiController {
      * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @GetMapping("/deleteByName")
+    @DeleteMapping("/deleteByName")
     public ResponseEntity deleteByName(@RequestParam(value = "name", required = true) String name) {
         try {
             eventService.deleteByName(name);
