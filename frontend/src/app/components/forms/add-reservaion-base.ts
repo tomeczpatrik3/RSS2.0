@@ -5,7 +5,6 @@ import { Semester } from "../../models/Semester";
 import { AuthService } from "../../authentication/auth.service";
 import { ClassroomService } from "../../services/classroom.service";
 import { SubjectService } from "../../services/subject.service";
-import { ReservationService } from "../../services/reservation/eventReservation.service";
 import { BuildingService } from "../../services/building.service";
 import { SemesterService } from "../../services/semester.service";
 import { FormBuilder } from "@angular/forms";
@@ -16,7 +15,7 @@ import { Classroom } from "../../models/Classroom";
 import { InfoDialogComponent } from "../dialogs/info-dialog/info-dialog.component";
 
 @Injectable()
-export abstract class AddReservationBaseComponent implements OnInit {
+export abstract class AddReservation implements OnInit {
     rooms:      Classroom[];
     subjects:   Subject[];
     buildings:  Building[];
@@ -38,7 +37,6 @@ export abstract class AddReservationBaseComponent implements OnInit {
     protected authService:        AuthService,
     protected classroomService:   ClassroomService,
     protected subjectService:     SubjectService,
-    protected reservationService: ReservationService,
     protected buildingService:    BuildingService,
     protected semesterService:    SemesterService,
     protected builder:            FormBuilder,

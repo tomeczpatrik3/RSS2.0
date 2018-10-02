@@ -1,24 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ValidatorService } from '../../../services/validator.service';
-import { AddReservationBaseComponent } from '../add-reservaion-base.component';
 import { AuthService } from '../../../authentication/auth.service';
 import { ClassroomService } from '../../../services/classroom.service';
 import { SubjectService } from '../../../services/subject.service';
-import { ReservationService } from '../../../services/reservation/eventReservation.service';
+import { EventReservationService } from '../../../services/eventReservation.service';
 import { BuildingService } from '../../../services/building.service';
 import { SemesterService } from '../../../services/semester.service';
 import { DialogService } from '../../../services/dialog.service';
 import { Router } from '@angular/router';
 import { EventReservation } from '../../../models/EventReservation';
 import { InfoDialogComponent } from '../../dialogs/info-dialog/info-dialog.component';
+import { AddReservation } from '../add-reservaion-base';
 
 @Component({
   selector: 'app-add-event-reservation',
   templateUrl: './add-event-reservation.component.html',
   styleUrls: ['./add-event-reservation.component.css']
 })
-export class AddEventReservationComponent extends AddReservationBaseComponent {
+export class AddEventReservationComponent extends AddReservation{
 
   /**
    * Az egyes formcontrollok:
@@ -76,7 +76,7 @@ export class AddEventReservationComponent extends AddReservationBaseComponent {
     protected authService:        AuthService,
     protected classroomService:   ClassroomService,
     protected subjectService:     SubjectService,
-    protected reservationService: ReservationService,
+    protected eventReservationService: EventReservationService,
     protected buildingService:    BuildingService,
     protected semesterService:    SemesterService,
     protected builder:            FormBuilder,
@@ -88,7 +88,6 @@ export class AddEventReservationComponent extends AddReservationBaseComponent {
       authService,
       classroomService,
       subjectService,
-      reservationService,
       buildingService,
       semesterService,
       builder,
@@ -119,7 +118,7 @@ export class AddEventReservationComponent extends AddReservationBaseComponent {
   protected addReservation() {
     console.log(this.formToReservation());
 
-    this.reservationService.createEventReservation(this.formToReservation()).subscribe(
+    this.eventReservationService.createEventReservation(this.formToReservation()).subscribe(
       res => console.log(res),
       error => {
         this.dialogService.openDialog("Foglalás hozzáadása:", this.dialogService.addBr(error.error), InfoDialogComponent);

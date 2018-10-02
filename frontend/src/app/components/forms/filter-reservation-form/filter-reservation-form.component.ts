@@ -12,7 +12,7 @@ import { SubjectService } from '../../../services/subject.service';
 })
 export class FilterReservationFormComponent implements OnInit {
 
-  filterValues: string[] = ['Tantárgy neve', 'Tanár neve', 'Terem neve'];
+  filterValues: string[] = ['Tantárgy neve', 'Tanár neve'];
   values: string[];
 
   selectedFilter = new FormControl('', [
@@ -49,12 +49,6 @@ export class FilterReservationFormComponent implements OnInit {
          this.userService.getNames().subscribe(
            res => this.values = res
          )
-         break; 
-      } 
-      case this.filterValues[2]: { 
-        this.classroomService.getRoomNames().subscribe(
-          res => this.values = res
-        )
          break; 
       } 
    } 
