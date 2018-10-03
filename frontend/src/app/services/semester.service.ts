@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
 import { Routes } from "../config/routes.config";
+import { Observable } from "rxjs/Observable";
+import { HttpClient } from "@angular/common/http";
 import { Semester } from "../models/Semester";
-import { Observable } from "rxjs/observable";
 
 /**
  * Az szemeszterekhez tartozó service osztály
@@ -28,7 +28,7 @@ export class SemesterService {
       this.http.post(Routes.getUrl(Routes.SEMESTER_CREATE_SEMESTER), semester)
     );
   }
-
+  
   deleteByName(name: string): Observable<any> {
     return <Observable<any>>(
       this.http.delete(

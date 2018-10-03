@@ -10,18 +10,11 @@ import { RoutingModule } from './routing/routing.module';
 import { AppComponent } from './components/app/app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { LoginFormComponent } from './components/login-form/login-form.component';
-import { AddUserFormComponent } from './components/user/add-user-form/add-user-form.component';
-import { AddClassroomFormComponent } from './components/classroom/add-classroom-form/add-classroom-form.component';
-import { AddReservationFormComponent } from './components/reservation/add-reservation-form/add-reservation-form.component';
-import { SubjectTableComponent } from './components/subject/subject-table/subject-table.component';
-import { AddSubjectFormComponent } from './components/subject/add-subject-form/add-subject-form.component';
-import { FilterReservationFormComponent } from './components/reservation/filter-reservation-form/filter-reservation-form.component';
 
 import { ValidatorService } from './services/validator.service';
 import { MaterialModule } from './modules/material.module';
 import { TablesModule } from './modules/tables.module';
-import { AddFormsModule } from './modules/add-forms.module';
+import { AddFormsModule } from './modules/forms.module';
 import { AuthService } from './authentication/auth.service';
 import { DialogService } from './services/dialog.service';
 
@@ -37,21 +30,16 @@ import { InfoDialogComponent } from './components/dialogs/info-dialog/info-dialo
 import { LogoutComponent } from './components/logout/logout.component';
 
 import { UpperCasePipe } from '@angular/common';
-import { DailyViewComponent } from './components/reservation/daily-view/daily-view.component';
 import { EditReservationDialogComponent } from './components/dialogs/edit-reservation-dialog/edit-reservation-dialog.component';
-import { TypeService } from './services/type.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     NavbarComponent,
-    LoginFormComponent,
-    FilterReservationFormComponent,
     InfoDialogComponent,
     QuestionDialogComponent,
     LogoutComponent,
-    DailyViewComponent,
     EditReservationDialogComponent,
   ],
   imports: [
@@ -85,8 +73,6 @@ import { TypeService } from './services/type.service';
     RoleGuardService,
     FormGuardService,
     NavigationService,
-
-    TypeService,
   ],
   entryComponents: [
     InfoDialogComponent,

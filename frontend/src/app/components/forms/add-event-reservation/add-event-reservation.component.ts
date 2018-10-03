@@ -1,24 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ValidatorService } from '../../../services/validator.service';
+import { AddReservation } from '../add-reservaion';
 import { AuthService } from '../../../authentication/auth.service';
 import { ClassroomService } from '../../../services/classroom.service';
 import { SubjectService } from '../../../services/subject.service';
-import { EventReservationService } from '../../../services/eventReservation.service';
+import { EventReservationService } from '../../../services/event-reservation.service';
 import { BuildingService } from '../../../services/building.service';
 import { SemesterService } from '../../../services/semester.service';
 import { DialogService } from '../../../services/dialog.service';
 import { Router } from '@angular/router';
 import { EventReservation } from '../../../models/EventReservation';
 import { InfoDialogComponent } from '../../dialogs/info-dialog/info-dialog.component';
-import { AddReservation } from '../add-reservaion-base';
 
 @Component({
   selector: 'app-add-event-reservation',
   templateUrl: './add-event-reservation.component.html',
   styleUrls: ['./add-event-reservation.component.css']
 })
-export class AddEventReservationComponent extends AddReservation{
+export class AddEventReservationComponent extends AddReservation {
 
   /**
    * Az egyes formcontrollok:
@@ -98,7 +98,7 @@ export class AddEventReservationComponent extends AddReservation{
   }
 
   protected formToReservation() {
-    return new EventReservation(
+    return EventReservation.build(
       this.authService.getUsername(),
       this.building.value,
       this.room.value,
@@ -107,7 +107,7 @@ export class AddEventReservationComponent extends AddReservation{
       this.date.value,
       this.startTime.value,
       this.endTime.value
-    )
+    );
   }
 
   /**

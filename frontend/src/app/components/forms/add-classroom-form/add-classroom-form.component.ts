@@ -22,7 +22,7 @@ export class AddClassroomFormComponent implements OnInit {
   building = new FormControl('', [
     Validators.required,
     Validators.minLength(3),
-    Validators.maxLength(15)
+    Validators.maxLength(30)
   ]);
 
   roomName = new FormControl('', [
@@ -70,7 +70,7 @@ export class AddClassroomFormComponent implements OnInit {
     );
   }
 
-  formToClassroom(): Classroom {
+  formToClassroom(): Classroom {    
     return new Classroom(
       this.classroomForm.value.roomName,
       this.classroomForm.value.pc,

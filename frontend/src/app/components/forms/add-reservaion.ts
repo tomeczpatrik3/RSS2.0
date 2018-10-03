@@ -13,6 +13,7 @@ import { ValidatorService } from "../../services/validator.service";
 import { Router } from "@angular/router";
 import { Classroom } from "../../models/Classroom";
 import { InfoDialogComponent } from "../dialogs/info-dialog/info-dialog.component";
+import { Day } from "../../models/Day";
 
 @Injectable()
 export abstract class AddReservation implements OnInit {
@@ -111,6 +112,6 @@ export abstract class AddReservation implements OnInit {
    */
   protected getDayOfWeek(date) {
     var dayOfWeek = new Date(date).getDay();
-    return isNaN(dayOfWeek) ? null : ['Vasárnap', 'Hétfő', 'Kedd', 'Szerda', 'Csütörtök', 'Péntek', 'Szombat'][dayOfWeek];
+    return isNaN(dayOfWeek) ? null : Day[dayOfWeek];
   }
 }

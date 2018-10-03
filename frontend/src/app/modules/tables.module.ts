@@ -17,8 +17,8 @@ import { BuildingTableComponent } from '../components/tables/building-table/buil
 import { SemesterTableComponent } from '../components/tables/semester-table/semester-table.component';
 import { ClassReservationTableComponent } from '../components/tables/class-reservation-table/class-reservation-table.component';
 import { EventReservationTableComponent } from '../components/tables/event-reservation-table/event-reservation-table.component';
-import { ClassReservationService } from '../services/classReservation.service';
-import { EventReservationService } from '../services/eventReservation.service';
+import { ClassReservationService } from '../services/class-reservation.service';
+import { EventReservationService } from '../services/event-reservation.service';
 
 @NgModule({
   imports: [

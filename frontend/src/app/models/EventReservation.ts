@@ -23,4 +23,26 @@ export class EventReservation extends BaseReservation {
     this.startDate = startDate;
     this.endDate = endDate;
   }
+
+  public static build(
+    username: string,
+    building: string,
+    classroom: string,
+    note: string,
+    eventName: string,
+    date: string,
+    startTime: string,
+    endTime: string
+  ): EventReservation {
+    return new EventReservation(
+      username,
+      building,
+      classroom,
+      "PENDING",
+      note,
+      eventName,
+      `${date} ${startTime}`,
+      `${date} ${endTime}`
+    );
+  }
 }

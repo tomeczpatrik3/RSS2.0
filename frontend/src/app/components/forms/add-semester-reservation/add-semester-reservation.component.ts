@@ -4,17 +4,16 @@ import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms'
 import { AuthService } from '../../../authentication/auth.service';
 import { ClassroomService } from '../../../services/classroom.service';
 import { SubjectService } from '../../../services/subject.service';
-import { ReservationService } from '../../../services/reservation.service';
+import { ClassReservationService } from '../../../services/class-reservation.service';
 import { BuildingService } from '../../../services/building.service';
 import { SemesterService } from '../../../services/semester.service';
 import { DialogService } from '../../../services/dialog.service';
 import { ValidatorService } from '../../../services/validator.service';
 
 import { Router } from '@angular/router';
-import { AddReservationBaseComponent } from '../add-reservaion-base.component';
-import { SimpleReservation } from '../../../models/SimpleReservation';
+import { AddReservation } from '../add-reservaion';
+import { ClassReservation } from '../../../models/ClassReservation';
 import { Semester } from '../../../models/Semester';
-import { SemesterReservation } from '../../../models/SemesterReservation';
 import { InfoDialogComponent } from '../../dialogs/info-dialog/info-dialog.component';
 
 @Component({
@@ -22,7 +21,7 @@ import { InfoDialogComponent } from '../../dialogs/info-dialog/info-dialog.compo
   templateUrl: './add-semester-reservation.component.html',
   styleUrls: ['./add-semester-reservation.component.css']
 })
-export class AddSemesterReservationComponent extends AddReservationBaseComponent {
+export class AddSemesterReservationComponent extends AddReservation {
 
 /**
    * Az egyes formcontrollok:
@@ -82,7 +81,7 @@ export class AddSemesterReservationComponent extends AddReservationBaseComponent
     protected authService:        AuthService,
     protected classroomService:   ClassroomService,
     protected subjectService:     SubjectService,
-    protected reservationService: ReservationService,
+    protected classReservationService: ClassReservationService,
     protected buildingService:    BuildingService,
     protected semesterService:    SemesterService,
     protected builder:            FormBuilder,
@@ -94,7 +93,6 @@ export class AddSemesterReservationComponent extends AddReservationBaseComponent
       authService,
       classroomService,
       subjectService,
-      reservationService,
       buildingService,
       semesterService,
       builder,
@@ -105,7 +103,7 @@ export class AddSemesterReservationComponent extends AddReservationBaseComponent
   }
 
   protected formToReservation() {
-    return new SemesterReservation(
+    return ClassReservation.buildSemester(
       this.authService.getUsername(),
       this.building.value,
       this.room.value,
@@ -124,7 +122,7 @@ export class AddSemesterReservationComponent extends AddReservationBaseComponent
    * - siker esetén jelezzük a sikert dialog segítségével
    */
   protected addReservation() {
-    this.reservationService.createSemesterReservation(this.formToReservation()).subscribe(
+    this.classReservationService.createClassReservation(this.formToReservation()).subscribe(
       res => console.log(res),
       error => {
         this.dialogService.openDialog("Foglalás hozzáadása:", this.dialogService.addBr(error.error), InfoDialogComponent);

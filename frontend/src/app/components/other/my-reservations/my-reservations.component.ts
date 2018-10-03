@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ReservationService } from '../../../services/reservation.service';
 import { AuthService } from '../../../authentication/auth.service';
-import { ClassReservation } from '../../../models/ClassReservation';
-import { EventReservation } from '../../../models/EventReservation';
-import { ClassReservationService } from '../../../services/classReservation.service';
 
 @Component({
   selector: 'app-my-reservations',

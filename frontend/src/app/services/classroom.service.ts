@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
-import { Classroom } from "../models/Classroom";
 import { Routes } from "../config/routes.config";
 import { Observable } from "rxjs/Observable";
 import { HttpClient } from "@angular/common/http";
+import { Classroom } from "../models/Classroom";
+
 
 /**
  * Az tantermekhez tartozó service osztály
