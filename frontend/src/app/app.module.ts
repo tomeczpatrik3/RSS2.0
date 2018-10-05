@@ -32,6 +32,7 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { UpperCasePipe } from '@angular/common';
 import { EditReservationDialogComponent } from './components/dialogs/edit-reservation-dialog/edit-reservation-dialog.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,

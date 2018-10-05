@@ -9,6 +9,8 @@ import { ReservationService } from '../services/reservation.service';
 import { SubjectService } from '../services/subject.service';
 import { BuildingService } from '../services/building.service';
 import { SemesterService } from '../services/semester.service';
+import { ClassReservationService } from '../services/class-reservation.service';
+import { EventReservationService } from '../services/event-reservation.service';
 
 import { ClassroomTableComponent } from '../components/tables/classroom-table/classroom-table.component';
 import { UserTableComponent } from '../components/tables/user-table/user-table.component';
@@ -17,8 +19,9 @@ import { BuildingTableComponent } from '../components/tables/building-table/buil
 import { SemesterTableComponent } from '../components/tables/semester-table/semester-table.component';
 import { ClassReservationTableComponent } from '../components/tables/class-reservation-table/class-reservation-table.component';
 import { EventReservationTableComponent } from '../components/tables/event-reservation-table/event-reservation-table.component';
-import { ClassReservationService } from '../services/class-reservation.service';
-import { EventReservationService } from '../services/event-reservation.service';
+
+import {MyReservationsComponent} from '../components/other/my-reservations/my-reservations.component';
+import { ReservationsComponent } from '../components/other/reservations/reservations.component';
 
 @NgModule({
   imports: [
@@ -32,7 +35,9 @@ import { EventReservationService } from '../services/event-reservation.service';
     BuildingTableComponent,
     SemesterTableComponent,
     ClassReservationTableComponent,
-    EventReservationTableComponent
+    EventReservationTableComponent,
+    MyReservationsComponent,
+    ReservationsComponent
   ], //Komponensek, pipe-ok
   providers: [
       ClassroomService,
@@ -50,7 +55,9 @@ import { EventReservationService } from '../services/event-reservation.service';
     BuildingTableComponent,
     SemesterTableComponent,
     ClassReservationTableComponent,
-    EventReservationTableComponent
+    EventReservationTableComponent,
+    MyReservationsComponent,
+    ReservationsComponent
   ] //Amit akarunk, hogy más komponens használhasson
 })
 export class TablesModule {}

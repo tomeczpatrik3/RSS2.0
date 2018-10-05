@@ -7,6 +7,11 @@ TRUNCATE TABLE `roomreservationdb`.`classrooms`;
 TRUNCATE TABLE `roomreservationdb`.`buildings`;
 TRUNCATE TABLE `roomreservationdb`.`semesters`;
 TRUNCATE TABLE `roomreservationdb`.`subjects`;
+TRUNCATE TABLE `roomreservationdb`.`statuses`;
+
+INSERT INTO `roomreservationdb`.`statuses` (`id`, `message`, `name`) VALUES ('1', 'A foglalás elfogadva', 'ACCEPTED');
+INSERT INTO `roomreservationdb`.`statuses` (`id`, `message`, `name`) VALUES ('2', 'A foglalás ellenőrzés alatt', 'PENDING');
+INSERT INTO `roomreservationdb`.`statuses` (`id`, `message`, `name`) VALUES ('3', 'A foglalás elutasítva', 'DECLINED');
 
 INSERT INTO `roomreservationdb`.`authorities` (`id`, `name`) VALUES ('1', 'ROLE_USER');
 INSERT INTO `roomreservationdb`.`authorities` (`id`, `name`) VALUES ('2', 'ROLE_ADMIN');

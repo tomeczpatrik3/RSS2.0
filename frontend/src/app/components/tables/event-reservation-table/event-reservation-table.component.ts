@@ -9,20 +9,20 @@ import { EventReservationService } from "../../../services/event-reservation.ser
 })
 export class EventReservationTableComponent implements OnInit {
   @Input()
-  selectedUser: string;
+  user: string;
   reservations: EventReservation[];
 
   constructor(private eventReservationService: EventReservationService) {}
 
   ngOnInit() {
-    if (!this.selectedUser) {
+    if (!this.user) {
       //Null, empty
       this.eventReservationService
         .getAccepted()
         .subscribe(res => (this.reservations = res));
     } else {
       this.eventReservationService
-        .findByUsername(this.selectedUser)
+        .findByUsername(this.user)
         .subscribe(res => (this.reservations = res));
     }
   }

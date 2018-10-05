@@ -1,5 +1,5 @@
 <div class="container" *ngIf="hasReservations">
     <h2>Saját foglalásaim:</h2>
-    <app-class-reservation-table [selectedUser]="{{username}}"></app-class-reservation-table>
-    <app-event-reservation-table [selectedUser]="{{username}}"></app-event-reservation-table>
+    <app-class-reservation-table [user]="username"></app-class-reservation-table>
+    <app-event-reservation-table [user]="username"></app-event-reservation-table>
   </div>

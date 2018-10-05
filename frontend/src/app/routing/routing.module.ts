@@ -27,6 +27,7 @@ import { Authorities } from "../config/authoritites.config";
 
 import { LogoutComponent } from "../components/logout/logout.component";
 import { MyReservationsComponent } from "../components/other/my-reservations/my-reservations.component";
+import { ReservationsComponent } from "../components/other/reservations/reservations.component";
 
 const routes: Routes = [
   {
@@ -52,6 +53,10 @@ const routes: Routes = [
   },
   //-------
   //Tables:
+  {
+    path: "reservations",
+    component: ReservationsComponent,
+  },  
   {
     path: "class-reservations",
     component: ClassReservationTableComponent
