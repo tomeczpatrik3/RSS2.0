@@ -23,12 +23,20 @@ export class SemesterService {
     );
   }
 
+  findByName(name: string): Observable<Semester> {
+    return <Observable<Semester>>(
+      this.http.get(
+        Routes.getUrl(Routes.SEMESTER_FIND_BY_NAME) + `?name=${name}`
+      )
+    );
+  }
+
   createSemester(semester: Semester): Observable<Semester> {
     return <Observable<Semester>>(
       this.http.post(Routes.getUrl(Routes.SEMESTER_CREATE_SEMESTER), semester)
     );
   }
-  
+
   deleteByName(name: string): Observable<any> {
     return <Observable<any>>(
       this.http.delete(

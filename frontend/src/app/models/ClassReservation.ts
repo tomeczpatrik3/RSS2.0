@@ -1,5 +1,6 @@
 import { BaseReservation } from "./BaseReservation";
 import {DateUtils} from "../utils/date-utils";
+import { Semester } from "./Semester";
 
 /**
  * A tantárgy foglalás entitás
@@ -57,7 +58,7 @@ export class ClassReservation extends BaseReservation {
     building: string,
     classroom: string,
     note: string,
-    semester: string,
+    semester: Semester,
     subjectCode: string,
     day: string,
     startTime: string,
@@ -70,10 +71,10 @@ export class ClassReservation extends BaseReservation {
       classroom,
       "PENDING",
       note,
-      semester,
+      semester.name,
       subjectCode,
-      [],
-      []
+      DateUtils.getDates(semester.startDate, semester.endDate, day, startTime),
+      DateUtils.getDates(semester.startDate, semester.endDate, day, endTime)
     );
   }
 }

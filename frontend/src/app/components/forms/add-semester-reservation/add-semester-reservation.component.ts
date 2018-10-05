@@ -1,66 +1,72 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { Component, OnInit } from "@angular/core";
+import {
+  FormControl,
+  Validators,
+  FormGroup,
+  FormBuilder
+} from "@angular/forms";
 
-import { AuthService } from '../../../authentication/auth.service';
-import { ClassroomService } from '../../../services/classroom.service';
-import { SubjectService } from '../../../services/subject.service';
-import { ClassReservationService } from '../../../services/class-reservation.service';
-import { BuildingService } from '../../../services/building.service';
-import { SemesterService } from '../../../services/semester.service';
-import { DialogService } from '../../../services/dialog.service';
-import { ValidatorService } from '../../../services/validator.service';
+import { AuthService } from "../../../authentication/auth.service";
+import { ClassroomService } from "../../../services/classroom.service";
+import { SubjectService } from "../../../services/subject.service";
+import { ClassReservationService } from "../../../services/class-reservation.service";
+import { BuildingService } from "../../../services/building.service";
+import { SemesterService } from "../../../services/semester.service";
+import { DialogService } from "../../../services/dialog.service";
+import { ValidatorService } from "../../../services/validator.service";
 
-import { Router } from '@angular/router';
-import { AddReservation } from '../add-reservaion';
-import { ClassReservation } from '../../../models/ClassReservation';
-import { Semester } from '../../../models/Semester';
-import { InfoDialogComponent } from '../../dialogs/info-dialog/info-dialog.component';
+import { Router } from "@angular/router";
+import { AddReservation } from "../add-reservaion";
+import { ClassReservation } from "../../../models/ClassReservation";
+import { Semester } from "../../../models/Semester";
+import { InfoDialogComponent } from "../../dialogs/info-dialog/info-dialog.component";
+import { Day } from "../../../models/Day";
 
 @Component({
-  selector: 'app-add-semester-reservation',
-  templateUrl: './add-semester-reservation.component.html',
-  styleUrls: ['./add-semester-reservation.component.css']
+  selector: "app-add-semester-reservation",
+  templateUrl: "./add-semester-reservation.component.html",
+  styleUrls: ["./add-semester-reservation.component.css"]
 })
 export class AddSemesterReservationComponent extends AddReservation {
+  days: Day[] = [
+    Day.Hétfő,
+    Day.Kedd,
+    Day.Szerda,
+    Day.Csütörtök,
+    Day.Péntek,
+    Day.Szombat,
+    Day.Vasárnap
+  ];
+  selectedSemester: Semester;
 
-/**
+  /**
    * Az egyes formcontrollok:
    */
-  semester = new FormControl('', [
-    Validators.required
-  ]);
+  semester = new FormControl("", [Validators.required]);
 
-  subject = new FormControl('', [
-    Validators.required
-  ])
+  subject = new FormControl("", [Validators.required]);
 
-  building = new FormControl('', [
-    Validators.required
-  ]);
+  building = new FormControl("", [Validators.required]);
 
-  room = new FormControl('', [
-    Validators.required
-  ]);
+  room = new FormControl("", [Validators.required]);
 
-  day = new FormControl('', [
-    Validators.required
-  ])
+  day = new FormControl("", [Validators.required]);
 
-  startTime = new FormControl('', [
+  startTime = new FormControl("", [
     Validators.required,
     this.validatorService.isTime,
     Validators.minLength(5),
     Validators.maxLength(5)
   ]);
 
-  endTime = new FormControl('', [
+  endTime = new FormControl("", [
     Validators.required,
     this.validatorService.isTime,
     Validators.minLength(5),
     Validators.maxLength(5)
   ]);
 
-  note = new FormControl('', []);
+  note = new FormControl("", []);
 
   //-------------------------------
 
@@ -78,17 +84,17 @@ export class AddSemesterReservationComponent extends AddReservation {
   });
 
   constructor(
-    protected authService:        AuthService,
-    protected classroomService:   ClassroomService,
-    protected subjectService:     SubjectService,
+    protected authService: AuthService,
+    protected classroomService: ClassroomService,
+    protected subjectService: SubjectService,
     protected classReservationService: ClassReservationService,
-    protected buildingService:    BuildingService,
-    protected semesterService:    SemesterService,
-    protected builder:            FormBuilder,
-    protected dialogService:      DialogService,
-    protected validatorService:   ValidatorService,
-    protected router:             Router
-  ) { 
+    protected buildingService: BuildingService,
+    protected semesterService: SemesterService,
+    protected builder: FormBuilder,
+    protected dialogService: DialogService,
+    protected validatorService: ValidatorService,
+    protected router: Router
+  ) {
     super(
       authService,
       classroomService,
@@ -108,12 +114,12 @@ export class AddSemesterReservationComponent extends AddReservation {
       this.building.value,
       this.room.value,
       this.note.value,
-      this.semester.value,
+      this.selectedSemester,
       this.getSubjectCode(this.subject.value),
       this.day.value,
       this.startTime.value,
       this.endTime.value
-    )
+    );
   }
 
   /**
@@ -122,12 +128,32 @@ export class AddSemesterReservationComponent extends AddReservation {
    * - siker esetén jelezzük a sikert dialog segítségével
    */
   protected addReservation() {
-    this.classReservationService.createClassReservation(this.formToReservation()).subscribe(
-      res => console.log(res),
-      error => {
-        this.dialogService.openDialog("Foglalás hozzáadása:", this.dialogService.addBr(error.error), InfoDialogComponent);
-      },
-      () => this.dialogService.openDialog("Foglalás hozzáadása:", "Foglalás rögítve, elbírálás alá került!", InfoDialogComponent)
-    );    
+    this.classReservationService
+      .createClassReservation(this.formToReservation())
+      .subscribe(
+        res => console.log(res),
+        error => {
+          this.dialogService.openDialog(
+            "Foglalás hozzáadása:",
+            this.dialogService.addBr(error.error),
+            InfoDialogComponent
+          );
+        },
+        () =>
+          this.dialogService.openDialog(
+            "Foglalás hozzáadása:",
+            "Foglalás rögítve, elbírálás alá került!",
+            InfoDialogComponent
+          )
+      );
+  }
+
+  /**
+   * Kiválasztott szemeszter betöltése
+   */
+  private selectSemester(name) {
+    this.semesterService
+      .findByName(name)
+      .subscribe(res => (this.selectedSemester = res));
   }
 }

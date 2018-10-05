@@ -95,6 +95,7 @@ export class Routes {
   /*Szemeszterek*/
   static SEMESTER_GET_ALL: string = "semester";
   static SEMESTER_GET_NAMES: string = "semester/getSemesterNames";
+  static SEMESTER_FIND_BY_NAME: string = "semester/findByName";
   static SEMESTER_CREATE_SEMESTER: string = "semester/createSemester";
   static SEMESTER_DELETE_BY_NAME: string = "semester/deleteByName";
 

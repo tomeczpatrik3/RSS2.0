@@ -20,7 +20,7 @@ export abstract class AddReservation implements OnInit {
     rooms:      Classroom[];
     subjects:   Subject[];
     buildings:  Building[];
-    semesters:  Semester[];  
+    semesters:  Semester[];
   
     /**
    * Service-k inicializálása:

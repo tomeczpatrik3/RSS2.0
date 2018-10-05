@@ -11,6 +11,8 @@ import RoomReservationSystem.service.SemesterService;
 import static RoomReservationSystem.util.ExceptionUtils.handleException;
 import static RoomReservationSystem.util.ValidationUtils.concatErrors;
 import RoomReservationSystem.validation.SemesterValidator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,6 +62,22 @@ public class SemesterApiController {
     @GetMapping("/getSemesterNames")
     public ResponseEntity getSemesterNames() {
         return ResponseEntity.ok(semesterService.getNames());
+    }
+
+    /**
+     * A függvény ami visszaadja az adott névvel rendelkező szemesztert
+     *
+     * @param name A szemeszter neve
+     * @return A megfelelő válasz entitás
+     */
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @GetMapping("/findByName")
+    public ResponseEntity findByName(@RequestParam(value = "name", required = true) String name) {
+        try {
+            return ResponseEntity.ok(semesterService.findByName(name));
+        } catch (SemesterNotExistsException ex) {
+            return handleException(ex);
+        }
     }
 
     /**
