@@ -1,29 +1,29 @@
 <div class="container">
-    <h3>Tantárgy foglalások:</h3>
-    <table class="table table-striped">
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Felhasználónév</th>
-          <th scope="col">Épület</th>
-          <th scope="col">Terem</th>
-          <th scope="col">Státusz</th>
-          <th scope="col">Megjegyzés</th>
-          <th scope="col">Tantárgy-kód</th>
-          <th scope="col">Szemeszter</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let reservation of reservations; let i = index">
-          <th scope="row">{{i+1}}</th>
-          <td>{{reservation.username}}</td>
-          <td>{{reservation.building}}</td>
-          <td>{{reservation.classroom}}</td>
-          <td>{{reservation.status}}</td>
-          <td>{{reservation.note}}</td>
-          <td>{{reservation.subjectCode}}</td>
-          <td>{{reservation.semester}}</td>
-        </tr>
-      </tbody>
-    </table>
+  <p class="table-name">Tantárgy foglalások:</p>
+  <table class="table table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Felhasználónév</th>
+        <th scope="col">Épület</th>
+        <th scope="col">Terem</th>
+        <th scope="col">Státusz</th>
+        <th scope="col">Megjegyzés</th>
+        <th scope="col">Tantárgy-kód</th>
+        <th scope="col">Szemeszter</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let reservation of reservations; let i = index">
+        <th scope="row">{{i+1}}</th>
+        <td>{{reservation.username}}</td>
+        <td>{{reservation.building}}</td>
+        <td>{{reservation.classroom}}</td>
+        <td>{{reservation.status}}</td>
+        <td>{{reservation.note}}</td>
+        <td>{{reservation.subjectCode}}</td>
+        <td>{{reservation.semester}}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>

@@ -1,21 +1,21 @@
 <div class="container">
-    <h3>Szemeszterek:</h3>
-    <table class="table table-striped">
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Szemeszter "neve"</th>
-          <th scope="col">Kezdete</th>
-          <th scope="col">Vége</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let semester of semesters; let i = index">
-          <th scope="row">{{i+1}}</th>
-          <td>{{semester.name}}</td>
-          <td>{{semester.startDate}}</td>
-          <td>{{semester.endDate}}</td>
-        </tr>
-      </tbody>
-    </table>
+  <p class="table-name">Szemeszterek:</p>
+  <table class="table table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Szemeszter "neve"</th>
+        <th scope="col">Kezdete</th>
+        <th scope="col">Vége</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let semester of semesters; let i = index">
+        <th scope="row">{{i+1}}</th>
+        <td>{{semester.name}}</td>
+        <td>{{semester.startDate}}</td>
+        <td>{{semester.endDate}}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>

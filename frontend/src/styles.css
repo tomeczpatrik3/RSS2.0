@@ -76,3 +76,17 @@ h2 {
 .navbar {
     border-bottom: 1px solid;
 }
+
+/* Table name: */
+.table-name {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+/* Page header: */
+.page-header {
+    font-size: 2em;
+    font-weight: bold;
+    text-decoration: underline;
+    text-align: center;
+}
