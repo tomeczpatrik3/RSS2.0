@@ -34,8 +34,13 @@ public class SecurityConstants {
     /**
      *
      */
-    public static final String RESERVATIONS_URL = "/api/reservation";
-
+    public static final String CLASS_RESERVATIONS_URL = "/api/classReservation";
+    
+    /**
+     * 
+     */
+    public static final String EVENT_RESERVATIONS_URL = "/api/eventReservation";
+    
     /**
      *
      */

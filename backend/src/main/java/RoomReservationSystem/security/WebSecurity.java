@@ -1,5 +1,7 @@
 package RoomReservationSystem.security;
 
+import static RoomReservationSystem.security.SecurityConstants.CLASS_RESERVATIONS_URL;
+import static RoomReservationSystem.security.SecurityConstants.EVENT_RESERVATIONS_URL;
 import static RoomReservationSystem.security.SecurityConstants.LOGIN_URL;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,10 +17,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.context.annotation.Bean;
 
 import static RoomReservationSystem.security.SecurityConstants.REGISTER_URL;
-import static RoomReservationSystem.security.SecurityConstants.RESERVATIONS_URL;
-import com.sun.media.jfxmedia.logging.Logger;
 import java.util.Arrays;
-import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 
 /**
@@ -27,8 +26,8 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
  */
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class WebSecurity extends WebSecurityConfigurerAdapter {     
-    
+public class WebSecurity extends WebSecurityConfigurerAdapter {
+
     private UserDetailsService userDetailsService;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -53,10 +52,13 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         final JWTAuthenticationFilter authenticationFilter = new JWTAuthenticationFilter(authenticationManager());
         authenticationFilter.setFilterProcessesUrl(LOGIN_URL);
-        
+
         http.cors().and().csrf().disable().authorizeRequests()
+                //Engedélyezett végpontok:
                 .antMatchers(HttpMethod.POST, REGISTER_URL).permitAll()
-                .antMatchers(HttpMethod.GET, RESERVATIONS_URL).permitAll()
+                .antMatchers(HttpMethod.GET, CLASS_RESERVATIONS_URL).permitAll()
+                .antMatchers(HttpMethod.GET, EVENT_RESERVATIONS_URL).permitAll()
+                //Minden más autentikációt igényel:
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(authenticationFilter)
@@ -74,16 +76,14 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
     }
-    
+
     /*
         CORS config:
-    */
-
+     */
     /**
      *
      * @return
      */
-
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
