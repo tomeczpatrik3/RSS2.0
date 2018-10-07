@@ -46,7 +46,7 @@ public class BuildingApiController {
      *
      * @return Az épületek egy listában
      */
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping
     public ResponseEntity getAll() {
         return ResponseEntity.ok(toBuildingDTOList(buildingService.findAll()));
@@ -58,7 +58,7 @@ public class BuildingApiController {
      *
      * @return A nevek egy listában
      */
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping("/getNames")
     public ResponseEntity getNames() {
         return ResponseEntity.ok(buildingService.getNames());

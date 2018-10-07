@@ -40,7 +40,7 @@ public abstract class Reservation extends BaseEntity {
     /*A foglaláshoz tartozó megjegyzés*/
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 255)
+    @Size(min = 0, max = 255)
     @Column(name = "NOTE")
     private String note;
 

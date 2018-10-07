@@ -14,6 +14,8 @@ import RoomReservationSystem.service.StatusService;
 import RoomReservationSystem.service.reservation.EventReservationService;
 import static RoomReservationSystem.util.ExceptionUtils.handleException;
 import static RoomReservationSystem.util.ValidationUtils.concatErrors;
+import RoomReservationSystem.validation.BaseReservationValidator;
+import RoomReservationSystem.validation.EventReservationValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
@@ -43,7 +45,13 @@ public class EventReservationApiController extends ReservationApiController {
 
     @Autowired
     StatusService statusService;
+    
+    @Autowired
+    BaseReservationValidator baseRValidator;
 
+    @Autowired
+    EventReservationValidator eventRValidator;
+    
     /**
      * A függvény ami visszaadja az elfogadott foglalásokat
      *
@@ -158,8 +166,8 @@ public class EventReservationApiController extends ReservationApiController {
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @PostMapping("/createReservation")
     public ResponseEntity createReservation(@RequestBody EventReservationDTO eventReservationDTO, BindingResult bindingResult) {
-//        baseReservationValidator.validate(eventReservationDTO, bindingResult);
-//        eventReservationValidator.validate(eventReservationDTO, bindingResult);
+        baseRValidator.validate(eventReservationDTO, bindingResult);
+        eventRValidator.validate(eventReservationDTO, bindingResult);
         if (!bindingResult.hasErrors()) {
             try {
                 EventReservation saved = eventService.save(eventReservationDTO);

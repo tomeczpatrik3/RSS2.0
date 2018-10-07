@@ -1,4 +1,4 @@
-RESERVATION: 
+﻿RESERVATION: 
 
 	-- username: 5-30
 	-- building: 3-30
@@ -35,7 +35,7 @@ SEMESTER:
 SUBJECT:
 
 	-- létezés ellenőrzése
-	-- code: 4-10
+	-- code: 4-15
 	-- name: 5-30
 	
 USER:

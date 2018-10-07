@@ -192,7 +192,7 @@ public class ClassReservationApiController extends ReservationApiController {
                 return handleException(ex);
             }
         } else {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(concatErrors(bindingResult));
         }
     }
 

@@ -11,6 +11,8 @@ public class RegexUtils {
 
     /*Dátumok ellenőrzésére szolgáló reguláris kifejezés*/
     private static final Pattern DATE_REGEX = Pattern.compile("^[\\d]{4}-[\\d]{2}-[\\d]{2}$");
+    /*Dátumok ellenőrzésére szolgáló reguláris kifejezés*/
+    private static final Pattern DATE_TIME_REGEX = Pattern.compile("^[\\d]{4}-[\\d]{2}-[\\d]{2} [\\d]{2}:[\\d]{2}$");
     /*E-mail ellenőrzésére szolgáló reguláris kifejezés*/
     private static final Pattern EMAIL_REGEX = Pattern.compile("^[\\w\\d._-]+@[\\w\\d.-]+\\.[\\w\\d]{2,6}$");
     /*Szemeszter ellenőrzésére szolgáló reguláris kifejezés*/
@@ -37,6 +39,32 @@ public class RegexUtils {
         int i = 0;
         while (l && i < dates.length) {
             l &= isValidDate(dates[i]);
+        }
+        return l;
+    }
+    
+    /**
+     * Egy dátum-idő String formátumát ellenőrző metódus
+     *
+     * @param dateTimeString A dátum-idő Stringként
+     * @return Igaz, ha a dátum-idő megfelel a formátumnak, hamis egyébként
+     */
+    public static boolean isValidDateTime(String dateTimeString) {
+        return DATE_TIME_REGEX.matcher(dateTimeString).matches();
+    }
+
+    /**
+     * Több dátum-idő String formátumát ellenőrző metódus
+     *
+     * @param dateTimes A dátum-időket tartalmazó tömb
+     * @return Igaz, ha a dátum-idők megfelelnek a formátumnak, hamis egyébként
+     */
+    public static boolean areValidDateTimes(String[] dateTimes) {
+        boolean l = true;
+        int i = 0;
+        while (l && i < dateTimes.length) {
+            l &= isValidDateTime(dateTimes[i]);
+            i++;
         }
         return l;
     }

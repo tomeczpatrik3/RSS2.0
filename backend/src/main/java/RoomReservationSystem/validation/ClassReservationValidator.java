@@ -6,7 +6,7 @@ import RoomReservationSystem.dto.reservation.ClassReservationDTO;
 import RoomReservationSystem.service.SemesterService;
 import RoomReservationSystem.service.SubjectService;
 import static RoomReservationSystem.util.DateUtils.areBefore;
-import static RoomReservationSystem.util.RegexUtils.areValidDates;
+import static RoomReservationSystem.util.RegexUtils.areValidDateTimes;
 import static RoomReservationSystem.util.RegexUtils.isValidSemester;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,16 +65,16 @@ public class ClassReservationValidator implements Validator {
         }
 
         /*Tantárgy kód validálása*/
-        if (reservation.getSubjectCode() != null && reservation.getSubjectCode().length() < 4 || reservation.getSubjectCode().length() > 10) {
+        if (reservation.getSubjectCode() != null && reservation.getSubjectCode().length() < 4 || reservation.getSubjectCode().length() > 15) {
             errors.rejectValue("subjectCode", "classReservation.subjectCode.size", SUBJECT_CODE_SIZE);
         }
 
         /*Dátumok validálása*/
-        if (reservation.getStartDates() != null && !areValidDates(reservation.getStartDates())) {
+        if (reservation.getStartDates() != null && !areValidDateTimes(reservation.getStartDates())) {
             errors.rejectValue("startDates", "classReservation.startDates.invalidFormat", DATE_INVALID_FORMAT);
         }
 
-        if (reservation.getEndDates() != null && !areValidDates(reservation.getEndDates())) {
+        if (reservation.getEndDates() != null && !areValidDateTimes(reservation.getEndDates())) {
             errors.rejectValue("endDates", "classReservation.endDates.invalidFormat", DATE_INVALID_FORMAT);
         }
 

@@ -21,7 +21,7 @@ import org.joda.time.format.DateTimeFormatter;
  */
 public class DateUtils {
 
-    private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+    private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
     /**
@@ -98,6 +98,7 @@ public class DateUtils {
             int i = 0;
             while (l && i < startDates.length) {
                 l &= isBefore(startDates[i], endDates[i]);
+                i++;
             }
             return l;
         }
@@ -116,7 +117,7 @@ public class DateUtils {
         dates.forEach((date) -> {
             dateStrs.add(date.getStart().toString());
         });
-        return (String[]) dateStrs.toArray();
+        return dateStrs.toArray(new String[0]);
     }
 
     /**
@@ -132,7 +133,7 @@ public class DateUtils {
         dates.forEach((date) -> {
             dateStrs.add(date.getEnd().toString());
         });
-        return (String[]) dateStrs.toArray();
+        return dateStrs.toArray(new String[0]);
     }
 
     /**

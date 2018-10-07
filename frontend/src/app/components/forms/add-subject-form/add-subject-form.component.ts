@@ -23,7 +23,7 @@ export class AddSubjectFormComponent implements OnInit {
   subjectCode = new FormControl('', [
     Validators.required,
     Validators.minLength(4),
-    Validators.maxLength(10)
+    Validators.maxLength(15)
   ]);
 
   subjectForm: FormGroup = this.builder.group({

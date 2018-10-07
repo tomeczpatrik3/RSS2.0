@@ -26,6 +26,9 @@
             <div *ngIf="isLoggedIn()">
               <button class="dropdown-item" routerLink="/logout">Kijelentkezés</button>
             </div>
+            <div *ngIf="!isLoggedIn()">
+              <button class="dropdown-item" routerLink="/register">Regisztráció</button>
+            </div>
           </li>
 
         </div>
@@ -66,6 +69,10 @@
       </span>
       <button class="btn btn-sm btn-outline-danger my-2 my-sm-0" routerLink="/logout">Kijelentkezés</button>
     </div>
+  </div>
+
+  <div class="nav-item" *ngIf="!isLoggedIn()">
+    <button class="btn btn-sm btn-outline-info my-2 my-sm-0" routerLink="/register">Regisztráció</button>
   </div>
 
 </nav>

@@ -60,8 +60,20 @@ export class NavigationService {
     new MenuItem("Dropdown", "Űrlapok", "", Authorities.ROLE_USER, [
       new MenuItem(
         "Simple",
-        "Új foglalás",
-        "/addReservation",
+        "Új egyszerű foglalás",
+        "/addSimpleReservation",
+        Authorities.ROLE_USER
+      ),
+      new MenuItem(
+        "Simple",
+        "Új szemeszterre vonatkozó foglalás",
+        "/addSemesterReservation",
+        Authorities.ROLE_USER
+      ),
+      new MenuItem(
+        "Simple",
+        "Új eseményre vonatkozó foglalás",
+        "/addEventReservation",
         Authorities.ROLE_USER
       ),
       new MenuItem(

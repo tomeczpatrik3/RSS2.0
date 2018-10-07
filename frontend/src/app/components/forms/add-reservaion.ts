@@ -94,7 +94,7 @@ export abstract class AddReservation implements OnInit {
    * A split a '|' karakter mentén történik
    */
   protected getSubjectCode(subject: string): string {
-    return subject.split('|')[1];
+    return subject.split('|')[0].trim();
   }
 
   /**

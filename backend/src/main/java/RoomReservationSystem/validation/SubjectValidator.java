@@ -47,7 +47,7 @@ public class SubjectValidator implements Validator {
         SubjectDTO subject = (SubjectDTO) target;
 
         /*Tantárgy kód validálása*/
-        if (subject.getCode() != null && subject.getCode().length() < 4 || subject.getCode().length() > 10) {
+        if (subject.getCode() != null && subject.getCode().length() < 4 || subject.getCode().length() > 15) {
             errors.rejectValue("subjectCode", "subject.code.size", SUBJECT_CODE_SIZE);
         }
 

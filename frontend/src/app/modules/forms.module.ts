@@ -17,9 +17,9 @@ import { AddSubjectFormComponent } from "../components/forms/add-subject-form/ad
 import { AddUserFormComponent } from "../components/forms/add-user-form/add-user-form.component";
 import { AddBuildingFormComponent } from "../components/forms/add-building-form/add-building-form.component";
 import { AddSemesterFormComponent } from "../components/forms/add-semester-form/add-semester-form.component";
-import { AddSimpleReservationComponent } from "../components/forms/add-simple-reservation/add-simple-reservation.component";
-import { AddEventReservationComponent } from "../components/forms/add-event-reservation/add-event-reservation.component";
-import { AddSemesterReservationComponent } from "../components/forms/add-semester-reservation/add-semester-reservation.component";
+import { AddSimpleReservationFormComponent } from "../components/forms/add-simple-reservation-form/add-simple-reservation-form.component";
+import { AddEventReservationFormComponent } from "../components/forms/add-event-reservation-form/add-event-reservation-form.component";
+import { AddSemesterReservationFormComponent } from "../components/forms/add-semester-reservation-form/add-semester-reservation-form.component";
 
 import { LoginFormComponent } from "../components/forms/login-form/login-form.component";
 
@@ -32,9 +32,9 @@ import { LoginFormComponent } from "../components/forms/login-form/login-form.co
     AddUserFormComponent,
     AddBuildingFormComponent,
     AddSemesterFormComponent,
-    AddSimpleReservationComponent,
-    AddEventReservationComponent,
-    AddSemesterReservationComponent
+    AddSimpleReservationFormComponent,
+    AddEventReservationFormComponent,
+    AddSemesterReservationFormComponent
   ], //Komponensek, pipe-ok
   providers: [
     ClassroomService,
@@ -52,9 +52,9 @@ import { LoginFormComponent } from "../components/forms/login-form/login-form.co
     AddUserFormComponent,
     AddBuildingFormComponent,
     AddSemesterFormComponent,
-    AddSimpleReservationComponent,
-    AddEventReservationComponent,
-    AddSemesterReservationComponent,
+    AddSimpleReservationFormComponent,
+    AddEventReservationFormComponent,
+    AddSemesterReservationFormComponent,
     FormsModule,
     ReactiveFormsModule
   ] //Amit akarunk, hogy más komponens használhasson

@@ -14,7 +14,7 @@ export class EventReservation extends BaseReservation {
     classroom: string,
     status: string,
     note: string,
-    eventName: string,
+    name: string,
     startDate: string,
     endDate: string
   ) {

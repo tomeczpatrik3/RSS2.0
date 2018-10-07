@@ -4,7 +4,7 @@ import static RoomReservationSystem.config.ErrorMessageConstants.*;
 import RoomReservationSystem.dto.reservation.EventReservationDTO;
 import static RoomReservationSystem.util.DateUtils.isBefore;
 
-import static RoomReservationSystem.util.RegexUtils.isValidDate;
+import static RoomReservationSystem.util.RegexUtils.isValidDateTime;
 
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
@@ -50,11 +50,11 @@ public class EventReservationValidator implements Validator {
         }
 
         /*Esemény dátumának validálása*/
-        if (reservation.getStartDate() != null && !isValidDate(reservation.getStartDate())) {
+        if (reservation.getStartDate() != null && !isValidDateTime(reservation.getStartDate())) {
             errors.rejectValue("startDate", "eventReservation.startDate.invalidFormat", DATE_INVALID_FORMAT);
         }
 
-        if (reservation.getEndDate() != null && !isValidDate(reservation.getEndDate())) {
+        if (reservation.getEndDate() != null && !isValidDateTime(reservation.getEndDate())) {
             errors.rejectValue("endDate", "eventReservation.endDate.invalidFormat", DATE_INVALID_FORMAT);
         }
 

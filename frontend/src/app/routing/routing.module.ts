@@ -28,6 +28,9 @@ import { Authorities } from "../config/authoritites.config";
 import { LogoutComponent } from "../components/logout/logout.component";
 import { MyReservationsComponent } from "../components/other/my-reservations/my-reservations.component";
 import { ReservationsComponent } from "../components/other/reservations/reservations.component";
+import { AddEventReservationFormComponent } from "../components/forms/add-event-reservation-form/add-event-reservation-form.component";
+import { AddSimpleReservationFormComponent } from "../components/forms/add-simple-reservation-form/add-simple-reservation-form.component";
+import { AddSemesterReservationFormComponent } from "../components/forms/add-semester-reservation-form/add-semester-reservation-form.component";
 
 const routes: Routes = [
   {
@@ -50,6 +53,10 @@ const routes: Routes = [
     data: {
       authority: Authorities.ROLE_USER
     }
+  },
+  {
+    path: "register",
+    component: AddUserFormComponent
   },
   //-------
   //Tables:
@@ -132,16 +139,38 @@ const routes: Routes = [
     },
     canDeactivate: [FormGuard]
   },
-  /*
   {
-    path: "addReservation",
-    component: AddReservationFormComponent,
+    path: "addEventReservation",
+    component: AddEventReservationFormComponent,
     canActivate: [RoleGuard],
     data: {
       authority: Authorities.ROLE_USER
     }
   },
-  */
+  {
+    path: "addSimpleReservation",
+    component: AddSimpleReservationFormComponent,
+    canActivate: [RoleGuard],
+    data: {
+      authority: Authorities.ROLE_USER
+    }
+  },
+  {
+    path: "addSemesterReservation",
+    component: AddSemesterReservationFormComponent,
+    canActivate: [RoleGuard],
+    data: {
+      authority: Authorities.ROLE_USER
+    }
+  },
+  {
+    path: "addEventReservation",
+    component: AddEventReservationFormComponent,
+    canActivate: [RoleGuard],
+    data: {
+      authority: Authorities.ROLE_USER
+    }
+  },
   {
     path: "addSubject",
     component: AddSubjectFormComponent,
