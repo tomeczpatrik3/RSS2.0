@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { AuthService } from "../authentication/auth.service";
 import { MenuItem } from "../models/MenuItem";
 import { Authorities } from "../config/authoritites.config";
 
@@ -45,8 +44,8 @@ export class NavigationService {
       ),
       new MenuItem("Simple", "Félévek", "/semesters", Authorities.ROLE_ADMIN),
       new MenuItem("Simple", "Tantárgyak", "/subjects", Authorities.ROLE_ADMIN),
-      new MenuItem("Simple", "Épületek", "/buildings", Authorities.ROLE_ADMIN),
-/*       new MenuItem(
+      new MenuItem("Simple", "Épületek", "/buildings", Authorities.ROLE_ADMIN)
+      /*       new MenuItem(
         "Simple",
         "Várakozó foglalások",
         "/pendingReservations",
@@ -113,37 +112,44 @@ export class NavigationService {
     ) */
   ];
 
-  constructor(private authService: AuthService) {}
+  constructor() {}
 
   /**
    * A menü lekérdezését megvalósító függvény
    */
-  getMenu(): MenuItem[] {
-    return this.filterMenuItems(this.menuItems);
+  getMenu(authorities: string[]): MenuItem[] {
+    return this.filterMenuItems(this.menuItems, authorities);
   }
 
   /**
    * A menü, engedélyeknek megfelelő, megjelenítését megvalósító függvény
    * @param menuItems A menü
    */
-  filterMenuItems(menuItems: MenuItem[]): MenuItem[] {
+  filterMenuItems(menuItems: MenuItem[], authorities: string[]): MenuItem[] {
     return menuItems.filter(menuItem => {
       /**
        * Ha sima menüpontról van szó
        */
       if (menuItem.type == "Simple") {
-        return this.authService.hasAuthority(menuItem.authorityRequired);
+        return this.hasAuthority(authorities, menuItem.requiredAuthority);
       } else if (menuItem.type == "Dropdown") {
         /**
          * Ha legördülő menüről van szó
          */
-        if (this.authService.hasAuthority(menuItem.authorityRequired)) {
-          menuItem.menuItems = this.filterMenuItems(menuItem.menuItems);
+        if (this.hasAuthority(authorities, menuItem.requiredAuthority)) {
+          menuItem.menuItems = this.filterMenuItems(
+            menuItem.menuItems,
+            authorities
+          );
           return true;
         } else {
           return false;
         }
       }
     });
+  }
+
+  private hasAuthority(authorities: string[], authority: string): boolean {
+    return authorities.indexOf(authority) == -1 ? false : true;
   }
 }

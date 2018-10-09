@@ -17,34 +17,34 @@ import { Day } from "../../models/Day";
 
 @Injectable()
 export abstract class AddReservation implements OnInit {
-    rooms:      Classroom[];
-    subjects:   Subject[];
-    buildings:  Building[];
-    semesters:  Semester[];
-  
-    /**
+  rooms: Classroom[];
+  subjects: Subject[];
+  buildings: Building[];
+  semesters: Semester[];
+
+  /**
    * Service-k inicializálása:
-   * @param authService 
-   * @param classroomService 
-   * @param subjectService 
-   * @param reservationService 
-   * @param buildingService 
-   * @param builder 
-   * @param dialogService 
-   * @param validatorService 
-   * @param router 
+   * @param authService
+   * @param classroomService
+   * @param subjectService
+   * @param reservationService
+   * @param buildingService
+   * @param builder
+   * @param dialogService
+   * @param validatorService
+   * @param router
    */
   constructor(
-    protected authService:        AuthService,
-    protected classroomService:   ClassroomService,
-    protected subjectService:     SubjectService,
-    protected buildingService:    BuildingService,
-    protected semesterService:    SemesterService,
-    protected builder:            FormBuilder,
-    protected dialogService:      DialogService,
-    protected validatorService:   ValidatorService,
-    protected router:             Router
-  ) { }
+    protected authService: AuthService,
+    protected classroomService: ClassroomService,
+    protected subjectService: SubjectService,
+    protected buildingService: BuildingService,
+    protected semesterService: SemesterService,
+    protected builder: FormBuilder,
+    protected dialogService: DialogService,
+    protected validatorService: ValidatorService,
+    protected router: Router
+  ) {}
 
   ngOnInit() {
     this.getSubjects();
@@ -57,36 +57,30 @@ export abstract class AddReservation implements OnInit {
    * @param name Az épület neve
    */
   protected getRoomsByBuildingName(buildingName: string) {
-    this.classroomService.findByBuildingName(buildingName).subscribe(
-      res => this.rooms = res
-    )
+    this.classroomService
+      .findByBuildingName(buildingName)
+      .subscribe(res => (this.rooms = res));
   }
 
   /**
    * Épületek lekérdezése:
    */
   protected getBuildings() {
-    this.buildingService.getAll().subscribe(
-      res => this.buildings = res
-    )
+    this.buildingService.getAll().subscribe(res => (this.buildings = res));
   }
 
   /**
    * Tantárgyak lekérdezése:
    */
   protected getSubjects() {
-    this.subjectService.getAll().subscribe(
-      res => this.subjects = res
-    )
+    this.subjectService.getAll().subscribe(res => (this.subjects = res));
   }
 
   /**
    * A félévek lekérdezése:
    */
   protected getSemesters() {
-    this.semesterService.getAll().subscribe(
-      res => this.semesters = res
-    )
+    this.semesterService.getAll().subscribe(res => (this.semesters = res));
   }
 
   /**
@@ -94,7 +88,7 @@ export abstract class AddReservation implements OnInit {
    * A split a '|' karakter mentén történik
    */
   protected getSubjectCode(subject: string): string {
-    return subject.split('|')[0].trim();
+    return subject.split("|")[0].trim();
   }
 
   /**

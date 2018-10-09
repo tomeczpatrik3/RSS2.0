@@ -5,20 +5,20 @@ export class MenuItem {
   type: string;
   name: string;
   routerLink: string;
-  authorityRequired: string;
+  requiredAuthority: string;
   menuItems: MenuItem[];
 
   public constructor(
     type: string,
     name: string,
     routerLink?: string,
-    authorityRequired?: string,
+    requiredAuthority?: string,
     menuItems?: MenuItem[]
   ) {
     this.type = type;
     this.name = name;
     this.routerLink = routerLink || "";
-    this.authorityRequired = authorityRequired || "";
+    this.requiredAuthority = requiredAuthority || "";
     this.menuItems = menuItems || [];
   }
 }

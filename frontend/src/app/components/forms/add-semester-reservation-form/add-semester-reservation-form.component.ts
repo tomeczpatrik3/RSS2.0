@@ -21,7 +21,10 @@ import { ClassReservation } from "../../../models/ClassReservation";
 import { Semester } from "../../../models/Semester";
 import { InfoDialogComponent } from "../../dialogs/info-dialog/info-dialog.component";
 import { Day } from "../../../models/Day";
-import { Observable } from 'rxjs';
+import { MessageConstants } from "../../../config/message-constants.config";
+import { QuestionDialogComponent } from "../../dialogs/question-dialog/question-dialog.component";
+import { Observable } from "rxjs";
+import { TextUtils } from "../../../utils/text-utils";
 
 @Component({
   selector: "app-add-semester-reservation-form",
@@ -38,6 +41,8 @@ export class AddSemesterReservationFormComponent extends AddReservation {
     Day[6],
     Day[0]
   ];
+
+  selectedSemester: Semester;
 
   /**
    * Az egyes formcontrollok:
@@ -135,7 +140,7 @@ export class AddSemesterReservationFormComponent extends AddReservation {
         error => {
           this.dialogService.openDialog(
             "Foglalás hozzáadása:",
-            this.dialogService.addBr(error.error),
+            TextUtils.addBreaks(error.error),
             InfoDialogComponent
           );
         },
@@ -146,5 +151,16 @@ export class AddSemesterReservationFormComponent extends AddReservation {
             InfoDialogComponent
           )
       );
+  }
+
+  canDeactivate(): Observable<boolean> | boolean {
+    if (this.reservationForm.dirty) {
+      return this.dialogService.openDialog(
+        "Oldal elhagyása:",
+        MessageConstants.FORM_QUESTION_MESSAGE,
+        QuestionDialogComponent
+      );
+    }
+    return true;
   }
 }

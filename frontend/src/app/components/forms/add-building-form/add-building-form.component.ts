@@ -12,6 +12,7 @@ import { InfoDialogComponent } from "../../dialogs/info-dialog/info-dialog.compo
 import { Observable } from "rxjs/Observable";
 import { QuestionDialogComponent } from "../../dialogs/question-dialog/question-dialog.component";
 import { MessageConstants } from "../../../config/message-constants.config";
+import { TextUtils } from "../../../utils/text-utils";
 
 @Component({
   selector: "app-add-building-form",
@@ -54,7 +55,7 @@ export class AddBuildingFormComponent implements OnInit {
         error =>
           this.dialogService.openDialog(
             "Épület hozzáadása:",
-            this.dialogService.addBr(error.error),
+            TextUtils.addBreaks(error.error),
             InfoDialogComponent
           ),
         () =>

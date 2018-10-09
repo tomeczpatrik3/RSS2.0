@@ -1,62 +1,63 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { ValidatorService } from '../../../services/validator.service';
-import { AddReservation } from '../add-reservaion';
-import { AuthService } from '../../../authentication/auth.service';
-import { ClassroomService } from '../../../services/classroom.service';
-import { SubjectService } from '../../../services/subject.service';
-import { EventReservationService } from '../../../services/event-reservation.service';
-import { BuildingService } from '../../../services/building.service';
-import { SemesterService } from '../../../services/semester.service';
-import { DialogService } from '../../../services/dialog.service';
-import { Router } from '@angular/router';
-import { EventReservation } from '../../../models/EventReservation';
-import { InfoDialogComponent } from '../../dialogs/info-dialog/info-dialog.component';
-import { Observable } from 'rxjs';
+import { Component, OnInit } from "@angular/core";
+import {
+  FormControl,
+  FormGroup,
+  Validators,
+  FormBuilder
+} from "@angular/forms";
+import { ValidatorService } from "../../../services/validator.service";
+import { AddReservation } from "../add-reservaion";
+import { AuthService } from "../../../authentication/auth.service";
+import { ClassroomService } from "../../../services/classroom.service";
+import { SubjectService } from "../../../services/subject.service";
+import { EventReservationService } from "../../../services/event-reservation.service";
+import { BuildingService } from "../../../services/building.service";
+import { SemesterService } from "../../../services/semester.service";
+import { DialogService } from "../../../services/dialog.service";
+import { Router } from "@angular/router";
+import { EventReservation } from "../../../models/EventReservation";
+import { InfoDialogComponent } from "../../dialogs/info-dialog/info-dialog.component";
+import { Observable } from "rxjs";
+import { MessageConstants } from "../../../config/message-constants.config";
+import { QuestionDialogComponent } from "../../dialogs/question-dialog/question-dialog.component";
+import { TextUtils } from "../../../utils/text-utils";
 
 @Component({
-  selector: 'app-add-event-reservation-from',
-  templateUrl: './add-event-reservation-form.component.html',
-  styleUrls: ['./add-event-reservation-form.component.css']
+  selector: "app-add-event-reservation-from",
+  templateUrl: "./add-event-reservation-form.component.html",
+  styleUrls: ["./add-event-reservation-form.component.css"]
 })
 export class AddEventReservationFormComponent extends AddReservation {
-
   /**
    * Az egyes formcontrollok:
    */
-  name = new FormControl('', [
+  name = new FormControl("", [
     Validators.required,
     Validators.minLength(3),
     Validators.maxLength(30)
   ]);
 
-  building = new FormControl('', [
-    Validators.required
-  ]);
+  building = new FormControl("", [Validators.required]);
 
-  room = new FormControl('', [
-    Validators.required
-  ]);
+  room = new FormControl("", [Validators.required]);
 
-  date = new FormControl('', [
-    Validators.required
-  ]);
+  date = new FormControl("", [Validators.required]);
 
-  startTime = new FormControl('', [
+  startTime = new FormControl("", [
     Validators.required,
     this.validatorService.isTime,
     Validators.minLength(5),
     Validators.maxLength(5)
   ]);
 
-  endTime = new FormControl('', [
+  endTime = new FormControl("", [
     Validators.required,
     this.validatorService.isTime,
     Validators.minLength(5),
     Validators.maxLength(5)
   ]);
 
-  note = new FormControl('', []);
+  note = new FormControl("", []);
 
   //-------------------------------
 
@@ -74,17 +75,17 @@ export class AddEventReservationFormComponent extends AddReservation {
   });
 
   constructor(
-    protected authService:        AuthService,
-    protected classroomService:   ClassroomService,
-    protected subjectService:     SubjectService,
+    protected authService: AuthService,
+    protected classroomService: ClassroomService,
+    protected subjectService: SubjectService,
     protected eventReservationService: EventReservationService,
-    protected buildingService:    BuildingService,
-    protected semesterService:    SemesterService,
-    protected builder:            FormBuilder,
-    protected dialogService:      DialogService,
-    protected validatorService:   ValidatorService,
-    protected router:             Router
-  ) { 
+    protected buildingService: BuildingService,
+    protected semesterService: SemesterService,
+    protected builder: FormBuilder,
+    protected dialogService: DialogService,
+    protected validatorService: ValidatorService,
+    protected router: Router
+  ) {
     super(
       authService,
       classroomService,
@@ -119,12 +120,34 @@ export class AddEventReservationFormComponent extends AddReservation {
   protected addReservation() {
     console.log(this.formToReservation());
 
-    this.eventReservationService.createEventReservation(this.formToReservation()).subscribe(
-      res => console.log(res),
-      error => {
-        this.dialogService.openDialog("Foglalás hozzáadása:", this.dialogService.addBr(error.error), InfoDialogComponent);
-      },
-      () => this.dialogService.openDialog("Foglalás hozzáadása:", "Foglalás rögítve, elbírálás alá került!", InfoDialogComponent)
-    );    
+    this.eventReservationService
+      .createEventReservation(this.formToReservation())
+      .subscribe(
+        res => console.log(res),
+        error => {
+          this.dialogService.openDialog(
+            "Foglalás hozzáadása:",
+            TextUtils.addBreaks(error.error),
+            InfoDialogComponent
+          );
+        },
+        () =>
+          this.dialogService.openDialog(
+            "Foglalás hozzáadása:",
+            "Foglalás rögítve, elbírálás alá került!",
+            InfoDialogComponent
+          )
+      );
+  }
+
+  canDeactivate(): Observable<boolean> | boolean {
+    if (this.reservationForm.dirty) {
+      return this.dialogService.openDialog(
+        "Oldal elhagyása:",
+        MessageConstants.FORM_QUESTION_MESSAGE,
+        QuestionDialogComponent
+      );
+    }
+    return true;
   }
 }

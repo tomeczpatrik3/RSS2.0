@@ -23,3 +23,7 @@ SERVICES, ENDPOINTS FOR EVERY QUERY
 POPUP, CAN DEACTIVATE: 
 
 --> https://www.concretepage.com/angular-2/angular-candeactivate-guard-example#CanDeactivate-Guard
+
+TRIGGER FOR REFRESH:
+
+--> https://stackoverflow.com/questions/43762984/angular-io-angular-4-how-do-i-refresh-one-component-view-when-triggering-anot

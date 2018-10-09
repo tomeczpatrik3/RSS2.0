@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { MatDialog } from "@angular/material";
-import { InfoDialogComponent } from "../components/dialogs/info-dialog/info-dialog.component";
 import { Observable } from "rxjs";
 
 /**
@@ -30,13 +29,5 @@ export class DialogService {
     });
 
     return dialogRef.afterClosed();
-  }
-
-  /**
-   * Sortörések hozzáadása a szöveghez:
-   * @param text A szöveg
-   */
-  addBr(text: string): string {
-    return text.replace(new RegExp("\n", "g"), "<br />");
   }
 }
