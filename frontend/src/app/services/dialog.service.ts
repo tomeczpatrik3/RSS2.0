@@ -1,15 +1,13 @@
 import { Injectable } from "@angular/core";
 import { MatDialog } from "@angular/material";
 import { InfoDialogComponent } from "../components/dialogs/info-dialog/info-dialog.component";
-import { Subject } from "rxjs/Subject";
+import { Observable } from "rxjs";
 
 /**
  * Az dialógusokhoz tartozó service osztály
  */
 @Injectable()
 export class DialogService {
-  returnValue = new Subject<boolean>();
-
   constructor(private dialog: MatDialog) {}
 
   /**
@@ -18,7 +16,11 @@ export class DialogService {
    * @param text_ A dialogban közölt üzenet
    * @param dialogComponent A dialog komponens
    */
-  openDialog(title_: string, text_: string, dialogComponent) {
+  openDialog(
+    title_: string,
+    text_: string,
+    dialogComponent
+  ): Observable<boolean> {
     let dialogRef = this.dialog.open(dialogComponent, {
       width: "600px",
       data: {
@@ -27,9 +29,7 @@ export class DialogService {
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      this.returnValue.next(result == "Confirm" ? true : false);
-    });
+    return dialogRef.afterClosed();
   }
 
   /**

@@ -19,3 +19,7 @@ SERVICES, ENDPOINTS FOR EVERY QUERY
 
 
 --> Exceptions, Services, ApiControllers as in Building classes
+
+POPUP, CAN DEACTIVATE: 
+
+--> https://www.concretepage.com/angular-2/angular-candeactivate-guard-example#CanDeactivate-Guard

@@ -4,6 +4,7 @@ import { DialogService } from '../../../services/dialog.service';
 import { SemesterService } from '../../../services/semester.service';
 import { InfoDialogComponent } from '../../dialogs/info-dialog/info-dialog.component';
 import { Semester } from '../../../models/Semester';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-add-semester-form',

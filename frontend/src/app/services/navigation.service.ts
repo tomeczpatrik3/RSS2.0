@@ -14,31 +14,28 @@ export class NavigationService {
   menuItems: MenuItem[] = [
     new MenuItem("Simple", "Főoldal", "/dashboard", Authorities.ROLE_GUEST),
 
-    new MenuItem(
-      "Simple",
-      "Foglalások",
-      "/reservations",
-      Authorities.ROLE_GUEST
-    ),
-
-    new MenuItem("Simple", "Napi nézet", "/dailyView", Authorities.ROLE_ADMIN),
-
     new MenuItem("Dropdown", "Foglalásaim", "", Authorities.ROLE_USER, [
       new MenuItem(
         "Simple",
         "Táblázatos megjelenítés",
         "/myReservations",
         Authorities.ROLE_USER
-      ),
-      new MenuItem(
+      )
+      /*       new MenuItem(
         "Simple",
         "Részletes megjelenítés",
         "/myReservationsDetailed",
         Authorities.ROLE_USER
-      )
+      ) */
     ]),
 
     new MenuItem("Dropdown", "Táblázatok", "", Authorities.ROLE_ADMIN, [
+      new MenuItem(
+        "Simple",
+        "Foglalások",
+        "/reservations",
+        Authorities.ROLE_GUEST
+      ),
       new MenuItem("Simple", "Felhasználók", "/users", Authorities.ROLE_ADMIN),
       new MenuItem(
         "Simple",
@@ -49,12 +46,12 @@ export class NavigationService {
       new MenuItem("Simple", "Félévek", "/semesters", Authorities.ROLE_ADMIN),
       new MenuItem("Simple", "Tantárgyak", "/subjects", Authorities.ROLE_ADMIN),
       new MenuItem("Simple", "Épületek", "/buildings", Authorities.ROLE_ADMIN),
-      new MenuItem(
+/*       new MenuItem(
         "Simple",
         "Várakozó foglalások",
         "/pendingReservations",
         Authorities.ROLE_ADMIN
-      )
+      ) */
     ]),
 
     new MenuItem("Dropdown", "Űrlapok", "", Authorities.ROLE_USER, [
@@ -106,14 +103,14 @@ export class NavigationService {
         "/addBuilding",
         Authorities.ROLE_ADMIN
       )
-    ]),
+    ])
 
-    new MenuItem(
+    /*     new MenuItem(
       "Simple",
       "Várakozó foglalások kezelése",
       "/managePendingReservations",
       Authorities.ROLE_ADMIN
-    )
+    ) */
   ];
 
   constructor(private authService: AuthService) {}

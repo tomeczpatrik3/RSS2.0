@@ -12,6 +12,7 @@ import { DialogService } from '../../../services/dialog.service';
 import { Router } from '@angular/router';
 import { EventReservation } from '../../../models/EventReservation';
 import { InfoDialogComponent } from '../../dialogs/info-dialog/info-dialog.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-add-event-reservation-from',

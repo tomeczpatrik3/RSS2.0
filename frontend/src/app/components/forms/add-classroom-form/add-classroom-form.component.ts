@@ -9,6 +9,8 @@ import { InfoDialogComponent } from '../../dialogs/info-dialog/info-dialog.compo
 import { DialogService } from '../../../services/dialog.service';
 import { BuildingService } from '../../../services/building.service';
 import { QuestionDialogComponent } from '../../dialogs/question-dialog/question-dialog.component';
+import { MessageConstants } from '../../../config/message-constants.config';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-add-classroom-form',
@@ -95,8 +97,15 @@ export class AddClassroomFormComponent implements OnInit {
     this.loadBuildings();
   }
 
-  isUntouched(): boolean {
-    return this.classroomForm.untouched;
+  canDeactivate(): Observable<boolean> | boolean {
+    if (this.classroomForm.dirty) {
+      return this.dialogService.openDialog(
+        "Oldal elhagyása:",
+        MessageConstants.FORM_QUESTION_MESSAGE,
+        QuestionDialogComponent
+      );
+    }
+    return true;
   }
 
 }

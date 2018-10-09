@@ -6,6 +6,7 @@ import { Subject } from '../../../models/Subject';
 import { MatDialog } from '@angular/material';
 import { InfoDialogComponent } from '../../dialogs/info-dialog/info-dialog.component';
 import { DialogService } from '../../../services/dialog.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-add-subject-form',

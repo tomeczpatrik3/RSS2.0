@@ -6,7 +6,7 @@ import { AuthService } from '../authentication/auth.service';
  * Az engedélyek ellenőrzéséért felelős guard
  */
 @Injectable()
-export class RoleGuardService implements CanActivate {
+export class RoleGuard implements CanActivate {
     constructor(
         public authService: AuthService, 
         public router: Router

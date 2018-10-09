@@ -13,6 +13,7 @@ import { ValidatorService } from '../../../services/validator.service';
 import { Router } from '@angular/router';
 import { ClassReservation } from '../../../models/ClassReservation';
 import { InfoDialogComponent } from '../../dialogs/info-dialog/info-dialog.component';
+import { Observable } from 'rxjs';
 
 
 @Component({

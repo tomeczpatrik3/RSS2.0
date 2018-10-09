@@ -19,9 +19,9 @@ import { AddSubjectFormComponent } from "../components/forms/add-subject-form/ad
 import { AddBuildingFormComponent } from "../components/forms/add-building-form/add-building-form.component";
 import { AddSemesterFormComponent } from "../components/forms/add-semester-form/add-semester-form.component";
 
-import { AuthGuardService as AuthGuard } from "../guards/auth-guard.service";
-import { RoleGuardService as RoleGuard } from "../guards/role-guard.service";
-import { FormGuardService as FormGuard } from "../guards/form-guard.service";
+import { AuthGuard } from "../guards/auth-guard.service";
+import { RoleGuard } from "../guards/role-guard.service";
+import { CanDeactivateGuard } from '../guards/can-deactivate-guard.service';
 
 import { Authorities } from "../config/authoritites.config";
 
@@ -120,12 +120,13 @@ const routes: Routes = [
       authority: Authorities.ROLE_ADMIN
     }
   },
-  //--------
+
   //Forms:
   {
     path: "addUser",
     component: AddUserFormComponent,
     canActivate: [RoleGuard],
+    canDeactivate: [CanDeactivateGuard],
     data: {
       authority: Authorities.ROLE_ADMIN
     }
@@ -134,15 +135,16 @@ const routes: Routes = [
     path: "addClassroom",
     component: AddClassroomFormComponent,
     canActivate: [RoleGuard],
+    canDeactivate: [CanDeactivateGuard],
     data: {
       authority: Authorities.ROLE_ADMIN
     },
-    canDeactivate: [FormGuard]
   },
   {
     path: "addEventReservation",
     component: AddEventReservationFormComponent,
     canActivate: [RoleGuard],
+    canDeactivate: [CanDeactivateGuard],
     data: {
       authority: Authorities.ROLE_USER
     }
@@ -151,6 +153,7 @@ const routes: Routes = [
     path: "addSimpleReservation",
     component: AddSimpleReservationFormComponent,
     canActivate: [RoleGuard],
+    canDeactivate: [CanDeactivateGuard],
     data: {
       authority: Authorities.ROLE_USER
     }
@@ -159,6 +162,7 @@ const routes: Routes = [
     path: "addSemesterReservation",
     component: AddSemesterReservationFormComponent,
     canActivate: [RoleGuard],
+    canDeactivate: [CanDeactivateGuard],
     data: {
       authority: Authorities.ROLE_USER
     }
@@ -167,6 +171,7 @@ const routes: Routes = [
     path: "addEventReservation",
     component: AddEventReservationFormComponent,
     canActivate: [RoleGuard],
+    canDeactivate: [CanDeactivateGuard],
     data: {
       authority: Authorities.ROLE_USER
     }
@@ -175,6 +180,7 @@ const routes: Routes = [
     path: "addSubject",
     component: AddSubjectFormComponent,
     canActivate: [RoleGuard],
+    canDeactivate: [CanDeactivateGuard],
     data: {
       authority: Authorities.ROLE_ADMIN
     }
@@ -183,6 +189,7 @@ const routes: Routes = [
     path: "addBuilding",
     component: AddBuildingFormComponent,
     canActivate: [RoleGuard],
+    canDeactivate: [CanDeactivateGuard],
     data: {
       authority: Authorities.ROLE_ADMIN
     }
@@ -191,6 +198,7 @@ const routes: Routes = [
     path: "addSemester",
     component: AddSemesterFormComponent,
     canActivate: [RoleGuard],
+    canDeactivate: [CanDeactivateGuard],
     data: {
       authority: Authorities.ROLE_ADMIN
     }

@@ -21,6 +21,7 @@ import { ClassReservation } from "../../../models/ClassReservation";
 import { Semester } from "../../../models/Semester";
 import { InfoDialogComponent } from "../../dialogs/info-dialog/info-dialog.component";
 import { Day } from "../../../models/Day";
+import { Observable } from 'rxjs';
 
 @Component({
   selector: "app-add-semester-reservation-form",
