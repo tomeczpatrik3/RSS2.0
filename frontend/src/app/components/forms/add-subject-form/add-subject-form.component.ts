@@ -63,7 +63,7 @@ export class AddSubjectFormComponent implements OnInit {
     this.subjectService
       .createSubject(this.formToSubject())
       .subscribe(
-        res => console.log(res),
+        res => {},
         error =>
           this.dialogService.openDialog(
             "Tantárgy hozzáadása:",

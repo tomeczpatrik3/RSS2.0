@@ -2,7 +2,6 @@ package RoomReservationSystem.model.reservation;
 
 import RoomReservationSystem.model.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -39,12 +39,12 @@ public class ReservationDate extends BaseEntity {
     /*A foglalás kezdete (dátum)*/
     @Basic(optional = false)
     @NotNull
-    @Column(name = "START")
+    @Column(name = "START", columnDefinition="DATETIME")
     private DateTime start;
 
     /*A foglalás vége (dátum)*/
     @Basic(optional = false)
     @NotNull
-    @Column(name = "END")
+    @Column(name = "END", columnDefinition="DATETIME")
     private DateTime end;
 }

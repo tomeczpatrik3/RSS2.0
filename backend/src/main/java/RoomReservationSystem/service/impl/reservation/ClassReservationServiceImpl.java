@@ -12,6 +12,7 @@ import RoomReservationSystem.model.Status;
 import RoomReservationSystem.model.User;
 import RoomReservationSystem.model.reservation.ClassReservation;
 import static RoomReservationSystem.model.reservation.ClassReservation.toClassReservation;
+import RoomReservationSystem.model.reservation.ReservationDate;
 import RoomReservationSystem.service.ClassroomService;
 import RoomReservationSystem.service.StatusService;
 import RoomReservationSystem.service.SubjectService;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 import RoomReservationSystem.repository.reservation.ClassReservationRepository;
 import RoomReservationSystem.service.SemesterService;
 import RoomReservationSystem.service.reservation.ClassReservationService;
+import RoomReservationSystem.service.reservation.ReservationDateService;
 import static RoomReservationSystem.util.DateUtils.getReservationDates;
 import java.util.Collections;
 
@@ -35,6 +37,9 @@ public class ClassReservationServiceImpl implements ClassReservationService {
 
     @Autowired
     private ClassReservationRepository repository;
+    
+    @Autowired
+    private ReservationDateService reservationDateService;
 
     @Autowired
     private UserService userService;
@@ -80,7 +85,13 @@ public class ClassReservationServiceImpl implements ClassReservationService {
                 )
         );
 
-        reservation.setDateList(getReservationDates(reservation, classReservationDTO.getStartDates(), classReservationDTO.getEndDates()));
+        List<ReservationDate> reservationDates = getReservationDates(reservation, classReservationDTO.getStartDates(), classReservationDTO.getEndDates());
+        
+        reservationDates.forEach((date) -> {
+            reservationDateService.save(date);
+        });
+        
+        reservation.setDateList(reservationDates);
 
         return reservation;
     }

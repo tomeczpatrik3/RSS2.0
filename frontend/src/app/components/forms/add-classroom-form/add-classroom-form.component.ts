@@ -93,7 +93,7 @@ export class AddClassroomFormComponent implements OnInit {
     this.classroomService
       .createClassroom(this.formToClassroom())
       .subscribe(
-        res => console.log(res),
+        res => {},
         error =>
           this.dialogService.openDialog(
             "Tanterem hozzáadása:",

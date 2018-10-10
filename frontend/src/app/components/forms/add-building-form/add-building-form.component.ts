@@ -51,7 +51,7 @@ export class AddBuildingFormComponent implements OnInit {
     this.buildingService
       .createBuilding(this.formToSubject())
       .subscribe(
-        res => console.log(res),
+        res => {},
         error =>
           this.dialogService.openDialog(
             "Épület hozzáadása:",

@@ -123,7 +123,7 @@ export class AddEventReservationFormComponent extends AddReservation {
     this.eventReservationService
       .createEventReservation(this.formToReservation())
       .subscribe(
-        res => console.log(res),
+        res => {},
         error => {
           this.dialogService.openDialog(
             "Foglalás hozzáadása:",

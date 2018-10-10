@@ -54,7 +54,7 @@ export class AddSemesterFormComponent implements OnInit {
 
   addSemester() {
     this.semesterService.createSemester(this.formToSemester()).subscribe(
-      res => console.log(res),
+      res => {},
       error => {
         this.dialogService.openDialog(
           "Szemeszter hozzáadása:",

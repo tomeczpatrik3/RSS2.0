@@ -6,9 +6,7 @@ import RoomReservationSystem.exception.ClassroomNotExistsException;
 import RoomReservationSystem.exception.EventReservationNotExistsException;
 import RoomReservationSystem.exception.SemesterNotExistsException;
 import RoomReservationSystem.exception.StatusNotExistsException;
-import RoomReservationSystem.exception.SubjectNotExistsException;
 import RoomReservationSystem.exception.UserNotExistsException;
-import RoomReservationSystem.model.Classroom;
 import RoomReservationSystem.model.Status;
 import RoomReservationSystem.model.User;
 import RoomReservationSystem.model.reservation.EventReservation;
@@ -20,6 +18,7 @@ import RoomReservationSystem.service.StatusService;
 import RoomReservationSystem.service.SubjectService;
 import RoomReservationSystem.service.UserService;
 import RoomReservationSystem.service.reservation.EventReservationService;
+import RoomReservationSystem.service.reservation.ReservationDateService;
 import static RoomReservationSystem.util.DateUtils.getDateTime;
 import java.util.Arrays;
 import java.util.Collections;
@@ -38,6 +37,9 @@ public class EventReservationServiceImpl implements EventReservationService {
 
     @Autowired
     private EventReservationRepository repository;
+
+    @Autowired
+    private ReservationDateService reservationDateService;
 
     @Autowired
     private UserService userService;
@@ -83,6 +85,8 @@ public class EventReservationServiceImpl implements EventReservationService {
                 getDateTime(eventReservationDTO.getStartDate()),
                 getDateTime(eventReservationDTO.getEndDate())
         );
+        
+        reservationDateService.save(rDate);
 
         reservation.setDateList(Arrays.asList(rDate));
 

@@ -32,6 +32,8 @@ import { LogoutComponent } from "./components/logout/logout.component";
 
 import { UpperCasePipe } from "@angular/common";
 
+import { httpInterceptorProviders } from "./interceptors/providers";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,6 +69,7 @@ import { UpperCasePipe } from "@angular/common";
     ValidatorService,
     DialogService,
     JwtHelperService,
+    httpInterceptorProviders,
     AuthService,
     AuthGuard,
     RoleGuard,

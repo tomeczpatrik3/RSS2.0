@@ -27,3 +27,8 @@ POPUP, CAN DEACTIVATE:
 TRIGGER FOR REFRESH:
 
 --> https://stackoverflow.com/questions/43762984/angular-io-angular-4-how-do-i-refresh-one-component-view-when-triggering-anot
+
+-- Interceptor for logging
+-- SQL error fix -- datetime to date?? --> use TimeStamp
+	--> https://stackoverflow.com/questions/2400955/how-to-store-java-date-to-mysql-datetime
+	--> https://stackoverflow.com/questions/35438521/adding-hours-minutes-and-seconds-to-java-sql-date

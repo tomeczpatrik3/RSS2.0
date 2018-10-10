@@ -94,7 +94,7 @@ export class AddUserFormComponent implements OnInit {
       this.userService
         .createUser(this.formToUser())
         .subscribe(
-          res => console.log(res),
+          res => {},
           error =>
             this.dialogService.openDialog(
               "Felhasználó hozzáadása:",

@@ -122,7 +122,7 @@ export class AddSimpleReservationFormComponent extends AddReservation {
     this.classReservationService
       .createClassReservation(this.formToReservation())
       .subscribe(
-        res => console.log(res),
+        res => {},
         error => {
           this.dialogService.openDialog(
             "Foglalás hozzáadása:",
