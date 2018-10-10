@@ -1,21 +1,29 @@
 import { Day } from "../models/Day";
+//Moment: a dátumok stringgé alakításához
+import * as moment from 'moment/moment';
 
 export class DateUtils {
-  public static getDates(semesterStart: string, semesterEnd: string, day: string, time: string): string[] {
+  public static getDates(
+    semesterStart: string,
+    semesterEnd: string,
+    day: string,
+    time: string
+  ): string[] {
     let endDate = new Date(semesterStart);
     let actDate = new Date(semesterEnd);
-    let startDates: string[];
-    
+    let dates: string[] = [];
+
     for (actDate; actDate <= endDate; actDate.setDate(actDate.getDate() + 1)) {
       if (actDate.getDay() === Day[day].valueOf()) {
-        startDates.push(this.getDateTimeStr(actDate, time));
+        dates.push(this.getDateTimeStr(actDate, time));
       }
     }
 
-    return startDates;
+    console.log(dates);
+    return dates;
   }
 
   private static getDateTimeStr(date: Date, time: string): string {
-    return `${date.getUTCFullYear}-${date.getUTCMonth}-${date.getUTCDay} ${time}`;
+    return `${moment(date).format("YYYY-MM-DD")} ${time}`;
   }
 }

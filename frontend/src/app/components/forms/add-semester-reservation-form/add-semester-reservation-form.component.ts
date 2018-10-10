@@ -32,15 +32,7 @@ import { TextUtils } from "../../../utils/text-utils";
   styleUrls: ["./add-semester-reservation-form.component.css"]
 })
 export class AddSemesterReservationFormComponent extends AddReservation {
-  days: String[] = [
-    Day[1],
-    Day[2],
-    Day[3],
-    Day[4],
-    Day[5],
-    Day[6],
-    Day[0]
-  ];
+  days: String[] = [Day[1], Day[2], Day[3], Day[4], Day[5], Day[6], Day[0]];
 
   selectedSemester: Semester;
 
@@ -119,7 +111,7 @@ export class AddSemesterReservationFormComponent extends AddReservation {
       this.building.value,
       this.room.value,
       this.note.value,
-      null,
+      this.selectedSemester,
       this.getSubjectCode(this.subject.value),
       this.day.value,
       this.startTime.value,
@@ -162,5 +154,11 @@ export class AddSemesterReservationFormComponent extends AddReservation {
       );
     }
     return true;
+  }
+
+  selectSemester(semesterName: string) {
+    this.selectedSemester = this.semesters.filter(
+      semester => semester.name === semesterName
+    )[0];
   }
 }

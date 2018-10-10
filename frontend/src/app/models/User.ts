@@ -1,7 +1,9 @@
+import { BaseEntity } from "./BaseEntity";
+
 /**
  * A felhasználó entitás
  */
-export class User {
+export class User extends BaseEntity {
   username: string;
   password: string;
   name: string;
@@ -11,8 +13,10 @@ export class User {
     username?: string,
     password?: string,
     name?: string,
-    email?: string
+    email?: string,
+    id?: number
   ) {
+    super(id);
     this.username = username || "";
     this.password = password || "";
     this.name = name || "";

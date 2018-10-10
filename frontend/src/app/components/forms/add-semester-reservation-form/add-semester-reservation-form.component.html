@@ -3,14 +3,14 @@
     Szemeszterre vonatkozó foglalás hozzáadása:
   </div>
   <div class="card-block">
-    <form [formGroup]="reservationForm" (ngSubmit)="addReservation()"> 
-      
+    <form [formGroup]="reservationForm" (ngSubmit)="addReservation()">
+
       <div class="form-group row">
         <label for="semester" class="col-sm-4 col-form-label">Szemeszter*</label>
         <div class="col-sm-8">
-          <select class="form-control" id="semester" [formControl]="semester">
+          <select class="form-control" id="semester" [formControl]="semester" (change)="selectSemester($event.target.value)">
             <option> --- </option>
-            <option *ngFor="let semester of semesters" (click)="selectSemester(semester.name)"> {{semester.name}} </option>
+            <option *ngFor="let semester of semesters">{{semester.name}}</option>
           </select>
 
           <div [hidden]="semester.valid || semester.untouched" class="alert alert-danger">
@@ -23,8 +23,8 @@
           </div>
 
         </div>
-      </div>      
-      
+      </div>
+
       <div class="form-group row">
         <label for="subject" class="col-sm-4 col-form-label">Tantárgy*</label>
         <div class="col-sm-8">
@@ -50,7 +50,7 @@
         <div class="col-sm-8">
           <select class="form-control" id="buildingName" [formControl]="building" (change)="getRoomsByBuildingName($event.target.value)">
             <option> --- </option>
-            <option *ngFor="let building of buildings" > {{building.name}} </option>
+            <option *ngFor="let building of buildings"> {{building.name}} </option>
           </select>
 
           <div [hidden]="building.valid || building.untouched" class="alert alert-danger">
@@ -149,11 +149,11 @@
 
         </div>
       </div>
-      
+
       <div class="form-group">
         <label for="note">Megjegyzés:</label>
         <textarea class="form-control" rows="5" id="note" [formControl]="note"></textarea>
-      </div> 
+      </div>
 
       <div class="btn-padding">
         <button type="submit" class="btn btn-primary" [disabled]="!reservationForm.valid">Hozzáadás</button>

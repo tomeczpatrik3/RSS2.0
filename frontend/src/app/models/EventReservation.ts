@@ -1,4 +1,5 @@
 import { BaseReservation } from "./BaseReservation";
+import { Statuses } from "../config/statuses.config";
 
 /**
  * Az esemény foglalás entitás
@@ -9,19 +10,20 @@ export class EventReservation extends BaseReservation {
   endDate: string;
 
   public constructor(
-    username: string,
-    building: string,
-    classroom: string,
-    status: string,
-    note: string,
-    name: string,
-    startDate: string,
-    endDate: string
+    username?: string,
+    building?: string,
+    classroom?: string,
+    status?: string,
+    note?: string,
+    name?: string,
+    startDate?: string,
+    endDate?: string,
+    id?: number
   ) {
-    super(username, building, classroom, status, note);
-    this.name = name;
-    this.startDate = startDate;
-    this.endDate = endDate;
+    super(username, building, classroom, status, note, id);
+    this.name = name || "";
+    this.startDate = startDate || "";
+    this.endDate = endDate || "";
   }
 
   public static build(
@@ -38,7 +40,7 @@ export class EventReservation extends BaseReservation {
       username,
       building,
       classroom,
-      "PENDING",
+      Statuses.PENDING,
       note,
       eventName,
       `${date} ${startTime}`,

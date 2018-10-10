@@ -1,7 +1,9 @@
+import { BaseEntity } from "./BaseEntity";
+
 /**
  * A tanterem entitás
  */
-export class Classroom {
+export class Classroom extends BaseEntity {
   name: string;
   hasPC: boolean;
   hasProjector: boolean;
@@ -13,8 +15,10 @@ export class Classroom {
     hasPC?: boolean,
     hasProjector?: boolean,
     chairs?: number,
-    building?: string
+    building?: string,
+    id?: number
   ) {
+    super(id);
     this.name = name || "";
     this.hasPC = hasPC || false;
     this.hasProjector = hasProjector || false;

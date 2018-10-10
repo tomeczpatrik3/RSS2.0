@@ -1,7 +1,9 @@
+import { BaseEntity } from "./BaseEntity";
+
 /**
  * A foglalásokhoz tartozó ősosztály
  */
-export abstract class BaseReservation {
+export abstract class BaseReservation extends BaseEntity {
   username: string;
   building: string;
   classroom: string;
@@ -9,16 +11,18 @@ export abstract class BaseReservation {
   note: string;
 
   public constructor(
-    username: string,
-    building: string,
-    classroom: string,
-    status: string,
-    note: string
+    username?: string,
+    building?: string,
+    classroom?: string,
+    status?: string,
+    note?: string,
+    id?: number
   ) {
-    this.username = username;
-    this.building = building;
-    this.classroom = classroom;
-    this.status = status;
-    this.note = note;
+    super(id);
+    this.username = username || "";
+    this.building = building || "";
+    this.classroom = classroom || "";
+    this.status = status || "";
+    this.note = note || "";
   }
 }

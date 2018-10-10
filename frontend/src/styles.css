@@ -61,6 +61,11 @@ h2 {
     padding: 10px 10px 10px;
 }
 
+.card-header {
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
 /* Navbar Buttons: */
 .nav-item {
     padding-right: 5px;
