@@ -2,6 +2,7 @@ package RoomReservationSystem.util;
 
 import RoomReservationSystem.model.reservation.ClassReservation;
 import RoomReservationSystem.model.reservation.ReservationDate;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,10 +11,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-
 /**
  * A dátumokkal kapcsolatos segédfüggvényeket tartalmazó osztály
  *
@@ -21,18 +18,24 @@ import org.joda.time.format.DateTimeFormatter;
  */
 public class DateUtils {
 
-    private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
+    private static final SimpleDateFormat TIMESTAMP_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
     /**
-     * Megfelelő formátumú szöveg DateTime objektummű konvertálása
+     * Megfelelő formátumú szöveg Timestamp objektummű konvertálása
      *
      * @param dateTimeString A dátum és idő szöveges reprezentációja (yyyy-MM-dd
      * HH:mm:ss)
-     * @return A DateTime objektum
+     * @return A Timestamp objektum
      */
-    public static DateTime getDateTime(String dateTimeString) {
-        return DATE_TIME_FORMAT.parseDateTime(dateTimeString);
+    public static Timestamp getTimestamp(String dateTimeString) {
+        try {
+            Date parsedDate = TIMESTAMP_FORMAT.parse(dateTimeString);
+            Timestamp timestamp = new Timestamp(parsedDate.getTime());
+            return timestamp;
+        } catch (ParseException e) {
+            return null;
+        }
     }
 
     /**
@@ -60,9 +63,9 @@ public class DateUtils {
      * egyébként
      */
     public static boolean isBefore(String startDateStr, String endDateStr) {
-        DateTime startDate = DATE_TIME_FORMAT.parseDateTime(startDateStr);
-        DateTime endDate = DATE_TIME_FORMAT.parseDateTime(endDateStr);
-        return startDate.isBefore(endDate);
+        Timestamp startDate = getTimestamp(startDateStr);
+        Timestamp endDate = getTimestamp(endDateStr);
+        return startDate.before(endDate);
     }
 
     /**
@@ -115,7 +118,7 @@ public class DateUtils {
         List<ReservationDate> dates = reservation.getDateList();
         List<String> dateStrs = new ArrayList<>();
         dates.forEach((date) -> {
-            dateStrs.add(date.getStart().toString());
+            dateStrs.add(TIMESTAMP_FORMAT.format(date.getStart()));
         });
         return dateStrs.toArray(new String[0]);
     }
@@ -131,7 +134,7 @@ public class DateUtils {
         List<ReservationDate> dates = reservation.getDateList();
         List<String> dateStrs = new ArrayList<>();
         dates.forEach((date) -> {
-            dateStrs.add(date.getEnd().toString());
+            dateStrs.add(TIMESTAMP_FORMAT.format(date.getEnd()));
         });
         return dateStrs.toArray(new String[0]);
     }
@@ -154,8 +157,8 @@ public class DateUtils {
         for (int i = 0; i < startDates.length; i++) {
             dates.add(new ReservationDate(
                     reservation,
-                    getDateTime(startDates[i]),
-                    getDateTime(endDates[i])
+                    getTimestamp(startDates[i]),
+                    getTimestamp(endDates[i])
             ));
         }
 

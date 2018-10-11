@@ -8,14 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.joda.time.DateTime;
+import java.sql.Timestamp;
 
 /**
  * A foglalásokhoz tartozó dátumokat tartalmazó osztály
@@ -39,12 +37,12 @@ public class ReservationDate extends BaseEntity {
     /*A foglalás kezdete (dátum)*/
     @Basic(optional = false)
     @NotNull
-    @Column(name = "START", columnDefinition="DATETIME")
-    private DateTime start;
+    @Column(name = "START")
+    private Timestamp start;
 
     /*A foglalás vége (dátum)*/
     @Basic(optional = false)
     @NotNull
-    @Column(name = "END", columnDefinition="DATETIME")
-    private DateTime end;
+    @Column(name = "END")
+    private Timestamp end;
 }

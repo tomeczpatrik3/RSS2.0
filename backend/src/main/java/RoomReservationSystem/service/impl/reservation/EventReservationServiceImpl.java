@@ -19,7 +19,7 @@ import RoomReservationSystem.service.SubjectService;
 import RoomReservationSystem.service.UserService;
 import RoomReservationSystem.service.reservation.EventReservationService;
 import RoomReservationSystem.service.reservation.ReservationDateService;
-import static RoomReservationSystem.util.DateUtils.getDateTime;
+import static RoomReservationSystem.util.DateUtils.getTimestamp;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -82,10 +82,10 @@ public class EventReservationServiceImpl implements EventReservationService {
 
         ReservationDate rDate = new ReservationDate(
                 reservation,
-                getDateTime(eventReservationDTO.getStartDate()),
-                getDateTime(eventReservationDTO.getEndDate())
+                getTimestamp(eventReservationDTO.getStartDate()),
+                getTimestamp(eventReservationDTO.getEndDate())
         );
-        
+
         reservationDateService.save(rDate);
 
         reservation.setDateList(Arrays.asList(rDate));
