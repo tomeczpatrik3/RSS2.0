@@ -30,6 +30,7 @@ public class EventReservationDTO extends ReservationDTO {
     /**
      * Az osztály konstukrota
      *
+     * @param id Az azonosító
      * @param username A felhasználónév
      * @param building Az épület
      * @param classroom A tanterem
@@ -40,6 +41,7 @@ public class EventReservationDTO extends ReservationDTO {
      * @param note A megjegyzés
      */
     public EventReservationDTO(
+            long id,
             String username,
             String building,
             String classroom,
@@ -49,7 +51,7 @@ public class EventReservationDTO extends ReservationDTO {
             String endDate,
             String note
     ) {
-        super(username, building, classroom, status, note);
+        super(id, username, building, classroom, status, note);
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -66,6 +68,7 @@ public class EventReservationDTO extends ReservationDTO {
         ReservationDate rDate = reservation.getDateList().get(0);
 
         return new EventReservationDTO(
+                reservation.getId(),
                 reservation.getUser().getUsername(),
                 reservation.getClassroom().getBuilding().getName(),
                 reservation.getClassroom().getName(),

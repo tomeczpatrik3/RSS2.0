@@ -49,8 +49,6 @@ export class AddBuildingFormComponent implements OnInit {
     - siker esetén jelezzük a sikert dialog segítségével
   */
   addBuilding() {
-    this.dialogService.openFormDialog("ASD", EditEventReservationDialogComponent);
-
     this.buildingService
       .createBuilding(this.formToSubject())
       .subscribe(

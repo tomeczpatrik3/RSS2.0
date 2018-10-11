@@ -7,6 +7,7 @@ import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
@@ -15,12 +16,27 @@ import lombok.NoArgsConstructor;
  * @author Tomecz Patrik
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class BuildingDTO {
+public class BuildingDTO extends BaseDTO {
 
     /*Az épület neve*/
     private String name;
+
+    /**
+     * Az osztály konstruktora
+     *
+     * @param id Az azonosító
+     * @param name Az épület neve
+     */
+    public BuildingDTO(
+            long id,
+            String name
+    ) {
+        super(id);
+        this.name = name;
+    }
 
     /**
      * A Building objektumból BuildingDTO objektum létrehozásáért felelős
@@ -30,7 +46,7 @@ public class BuildingDTO {
      * @return A BuildingDTO objektum
      */
     public static BuildingDTO toBuildingDTO(Building building) {
-        return new BuildingDTO(building.getName());
+        return new BuildingDTO(building.getId(), building.getName());
     }
 
     /**

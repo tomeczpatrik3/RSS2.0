@@ -32,6 +32,7 @@ public class ClassReservationDTO extends ReservationDTO {
     /**
      * Az osztály konstruktora
      *
+     * @param id Az azonosító
      * @param username A felhasználónév
      * @param building Az épület
      * @param classroom A tanterem
@@ -43,6 +44,7 @@ public class ClassReservationDTO extends ReservationDTO {
      * @param note A megjegyzés
      */
     public ClassReservationDTO(
+            long id,
             String username,
             String building,
             String classroom,
@@ -53,7 +55,7 @@ public class ClassReservationDTO extends ReservationDTO {
             String semester,
             String note
     ) {
-        super(username, building, classroom, status, note);
+        super(id, username, building, classroom, status, note);
         this.subjectCode = subjectCode;
         this.startDates = startDates;
         this.endDates = endDates;
@@ -69,6 +71,7 @@ public class ClassReservationDTO extends ReservationDTO {
      */
     public static ClassReservationDTO toClassReservationDTO(ClassReservation reservation) {
         return new ClassReservationDTO(
+                reservation.getId(),
                 reservation.getUser().getUsername(),
                 reservation.getClassroom().getBuilding().getName(),
                 reservation.getClassroom().getName(),

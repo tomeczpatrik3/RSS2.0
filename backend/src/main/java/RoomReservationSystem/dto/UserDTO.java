@@ -7,6 +7,7 @@ import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
@@ -15,9 +16,10 @@ import lombok.NoArgsConstructor;
  * @author Tomecz Patrik
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDTO {
+public class UserDTO extends BaseDTO {
 
     /*A felhasználónév*/
     private String username;
@@ -29,6 +31,29 @@ public class UserDTO {
     private String password;
 
     /**
+     * Az osztály konstruktora
+     *
+     * @param id Az azonosító
+     * @param username A felhasználónév
+     * @param name A felhasználó neve
+     * @param email Az e-mail cím
+     * @param password A jelszó
+     */
+    public UserDTO(
+            long id,
+            String username,
+            String name,
+            String email,
+            String password
+    ) {
+        super(id);
+        this.username = username;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
+    /**
      * A User objektumból UserDTO objektum létrehozásáért felelős metódus
      *
      * @param user A User obejktum
@@ -36,6 +61,7 @@ public class UserDTO {
      */
     public static UserDTO toUserDTO(User user) {
         return new UserDTO(
+                user.getId(),
                 user.getUsername(),
                 user.getName(),
                 user.getEmail(),

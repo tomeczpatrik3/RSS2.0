@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
@@ -13,14 +14,32 @@ import lombok.NoArgsConstructor;
  * @author Tomecz Patrik
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class StatusDTO {
+public class StatusDTO extends BaseDTO {
 
     /*A státusz neve*/
     private String name;
     /*A státuszhoz tartozó üzenet*/
     private String message;
+
+    /**
+     * Az osztály konstruktora
+     *
+     * @param id Az azonosító
+     * @param name A státusz neve
+     * @param message A státusz üzenete
+     */
+    public StatusDTO(
+            long id,
+            String name,
+            String message
+    ) {
+        super(id);
+        this.name = name;
+        this.message = message;
+    }
 
     /**
      * A Status objektumból StatusDTO objektum létrehozásáért felelős metódus
@@ -29,7 +48,7 @@ public class StatusDTO {
      * @return A StatusDTO objektum
      */
     public static StatusDTO toStatusDTO(Status status) {
-        return new StatusDTO(status.getName(), status.getMessage());
+        return new StatusDTO(status.getId(), status.getName(), status.getMessage());
     }
 
     /**

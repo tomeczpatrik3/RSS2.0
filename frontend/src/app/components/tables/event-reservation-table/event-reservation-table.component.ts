@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { EventReservation } from "../../../models/EventReservation";
 import { EventReservationService } from "../../../services/event-reservation.service";
+import { DialogService } from "../../../services/dialog.service";
+import { EditEventReservationDialogComponent } from "../../dialogs/edit-event-reservation-dialog/edit-event-reservation-dialog.component";
 
 @Component({
   selector: "app-event-reservation-table",
@@ -12,7 +14,10 @@ export class EventReservationTableComponent implements OnInit {
   user: string;
   reservations: EventReservation[];
 
-  constructor(private eventReservationService: EventReservationService) {}
+  constructor(
+    private eventReservationService: EventReservationService,
+    private dialogService: DialogService
+  ) {}
 
   ngOnInit() {
     if (!this.user) {
@@ -25,5 +30,13 @@ export class EventReservationTableComponent implements OnInit {
         .findByUsername(this.user)
         .subscribe(res => (this.reservations = res));
     }
+  }
+
+  openPopup(id: number) {
+    this.dialogService.openFormDialog(
+      "Foglalás szerkesztése:",
+      id,
+      EditEventReservationDialogComponent
+    );
   }
 }

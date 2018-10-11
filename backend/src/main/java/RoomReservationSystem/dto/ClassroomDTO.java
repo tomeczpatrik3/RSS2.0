@@ -7,6 +7,7 @@ import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
@@ -15,9 +16,10 @@ import lombok.NoArgsConstructor;
  * @author Tomecz Patrik
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClassroomDTO {
+public class ClassroomDTO extends BaseDTO {
 
     /*A tanterem neve*/
     private String name;
@@ -31,6 +33,32 @@ public class ClassroomDTO {
     private String building;
 
     /**
+     * Az osztály konstruktora
+     *
+     * @param id Az azonosító
+     * @param name A tanterem neve
+     * @param hasPC Van-e PC
+     * @param hasProjector Van-e projektor
+     * @param chairs A székek száma
+     * @param building Az épület neve
+     */
+    public ClassroomDTO(
+            long id,
+            String name,
+            boolean hasPC,
+            boolean hasProjector,
+            int chairs,
+            String building
+    ) {
+        super(id);
+        this.name = name;
+        this.hasPC = hasPC;
+        this.hasProjector = hasProjector;
+        this.chairs = chairs;
+        this.building = building;
+    }
+
+    /**
      * A Classroom objektumból ClassroomDTO objektum létrehozásáért felelős
      * metódus
      *
@@ -39,6 +67,7 @@ public class ClassroomDTO {
      */
     public static ClassroomDTO toClassroomDTO(Classroom classroom) {
         return new ClassroomDTO(
+                classroom.getId(),
                 classroom.getName(),
                 classroom.isHasPc(),
                 classroom.isHasProjector(),

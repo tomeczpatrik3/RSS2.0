@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { EventReservation } from "../../../models/EventReservation";
 import { EventReservationService } from "../../../services/event-reservation.service";
 
@@ -10,6 +10,9 @@ import { EventReservationService } from "../../../services/event-reservation.ser
 export class EditEventReservationFormComponent implements OnInit {
   @Input()
   reservationID: number;
+
+  @Output() 
+  submitEvent = new EventEmitter<string>();
 
   model: EventReservation;
 
@@ -25,6 +28,7 @@ export class EditEventReservationFormComponent implements OnInit {
 
   onSubmit() {
     console.log(this.model);
-    //Update the reservation
+    
+    this.submitEvent.next("Az űrlap beküldve");
   }
 }

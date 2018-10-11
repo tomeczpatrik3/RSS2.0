@@ -31,15 +31,13 @@ export class DialogService {
     return dialogRef.afterClosed();
   }
 
-  openFormDialog(
-    title_: string,
-    dialogComponent
-  ): Observable<boolean> {
+  openFormDialog(title_: string, id_: number, dialogComponent): Observable<boolean> {
     let dialogRef = this.dialog.open(dialogComponent, {
       width: "600px",
       data: {
         title: title_,
-        text: ""
+        text: "",
+        id: id_
       }
     });
     return dialogRef.afterClosed();
