@@ -14,7 +14,7 @@ import { NavbarComponent } from "./components/navbar/navbar.component";
 import { ValidatorService } from "./services/validator.service";
 import { MaterialModule } from "./modules/material.module";
 import { TablesModule } from "./modules/tables.module";
-import { AddFormsModule } from "./modules/forms.module";
+import { OwnFormsModule } from "./modules/forms.module";
 import { AuthService } from "./authentication/auth.service";
 import { DialogService } from "./services/dialog.service";
 
@@ -29,6 +29,7 @@ import { JwtModule, JwtHelperService } from "@auth0/angular-jwt";
 import { QuestionDialogComponent } from "./components/dialogs/question-dialog/question-dialog.component";
 import { InfoDialogComponent } from "./components/dialogs/info-dialog/info-dialog.component";
 import { LogoutComponent } from "./components/logout/logout.component";
+import { EditEventReservationDialogComponent } from "./components/dialogs/edit-event-reservation-dialog/edit-event-reservation-dialog.component";
 
 import { UpperCasePipe } from "@angular/common";
 
@@ -41,16 +42,18 @@ import { httpInterceptorProviders } from "./interceptors/providers";
     NavbarComponent,
     InfoDialogComponent,
     QuestionDialogComponent,
-    LogoutComponent
+    EditEventReservationDialogComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+
     //Own modules:
     RoutingModule,
     MaterialModule,
     TablesModule,
-    AddFormsModule,
+    OwnFormsModule,
 
     //Minden get esetén csatolja a tokent:
     JwtModule.forRoot({
@@ -76,7 +79,11 @@ import { httpInterceptorProviders } from "./interceptors/providers";
     CanDeactivateGuard,
     NavigationService
   ],
-  entryComponents: [InfoDialogComponent, QuestionDialogComponent],
+  entryComponents: [
+    InfoDialogComponent,
+    QuestionDialogComponent,
+    EditEventReservationDialogComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

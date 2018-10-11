@@ -19,6 +19,8 @@ export class Routes {
 
   /*Órára vonatkozó foglalások*/
   static CLASS_RESERVATION_GET_ACCEPTED: string = "classReservation";
+  static CLASS_RESERVATION_FIND_BY_ID: string =
+  "classReservation/findById";
   static CLASS_RESERVATION_FIND_BY_USERNAME: string =
     "classReservation/findByUsername";
   static CLASS_RESERVATION_FIND_BY_STATUS: string =
@@ -45,6 +47,8 @@ export class Routes {
 
   /*Eseményre vonatkozó foglalások*/
   static EVENT_RESERVATION_GET_ACCEPTED: string = "eventReservation";
+  static EVENT_RESERVATION_FIND_BY_ID: string =
+  "eventReservation/findById"; 
   static EVENT_RESERVATION_FIND_BY_USERNAME: string =
     "eventReservation/findByUsername";
   static EVENT_RESERVATION_FIND_BY_STATUS: string =

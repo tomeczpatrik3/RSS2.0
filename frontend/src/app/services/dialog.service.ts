@@ -30,4 +30,18 @@ export class DialogService {
 
     return dialogRef.afterClosed();
   }
+
+  openFormDialog(
+    title_: string,
+    dialogComponent
+  ): Observable<boolean> {
+    let dialogRef = this.dialog.open(dialogComponent, {
+      width: "600px",
+      data: {
+        title: title_,
+        text: ""
+      }
+    });
+    return dialogRef.afterClosed();
+  }
 }

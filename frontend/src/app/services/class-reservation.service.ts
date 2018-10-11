@@ -17,6 +17,14 @@ export class ClassReservationService {
     );
   }
 
+  findById(id: number): Observable<ClassReservation> {
+    return <Observable<ClassReservation>>(
+      this.http.get(
+        Routes.getUrl(Routes.CLASS_RESERVATION_FIND_BY_ID) + `?id=${id}`
+      )
+    );
+  }
+
   findByUsername(username: string): Observable<ClassReservation[]> {
     return <Observable<ClassReservation[]>>(
       this.http.get(

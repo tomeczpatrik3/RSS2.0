@@ -16,6 +16,8 @@ import static RoomReservationSystem.util.ExceptionUtils.handleException;
 import static RoomReservationSystem.util.ValidationUtils.concatErrors;
 import RoomReservationSystem.validation.BaseReservationValidator;
 import RoomReservationSystem.validation.EventReservationValidator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
@@ -45,13 +47,13 @@ public class EventReservationApiController extends ReservationApiController {
 
     @Autowired
     StatusService statusService;
-    
+
     @Autowired
     BaseReservationValidator baseRValidator;
 
     @Autowired
     EventReservationValidator eventRValidator;
-    
+
     /**
      * A függvény ami visszaadja az elfogadott foglalásokat
      *
@@ -69,7 +71,7 @@ public class EventReservationApiController extends ReservationApiController {
     }
 
     /**
-     * A függvény ami visszaadja az adott felhasználóhoz tartozó foglalásokat
+     * A függvény ami visszaadja az adott azonosítóhoz tartozó foglalásokat
      *
      * @param username A felhasználónév
      * @return A megfelelő válasz entitás
@@ -81,6 +83,23 @@ public class EventReservationApiController extends ReservationApiController {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(toEventReservationDTOList(eventService.findByUsername(username)));
         } catch (UserNotExistsException | NullPointerException ex) {
+            return handleException(ex);
+        }
+    }
+
+    /**
+     * A függvény ami visszaadja az adott felhasználóhoz tartozó foglalásokat
+     *
+     * @param id Az azonosító
+     * @return A megfelelő válasz entitás
+     */
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @GetMapping("/findById")
+    @Override
+    public ResponseEntity findById(@RequestParam(value = "id", required = true) int id) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(toEventReservationDTO(eventService.findById(id)));
+        } catch (EventReservationNotExistsException ex) {
             return handleException(ex);
         }
     }

@@ -21,6 +21,8 @@ import { AddSimpleReservationFormComponent } from "../components/forms/add-simpl
 import { AddEventReservationFormComponent } from "../components/forms/add-event-reservation-form/add-event-reservation-form.component";
 import { AddSemesterReservationFormComponent } from "../components/forms/add-semester-reservation-form/add-semester-reservation-form.component";
 
+import { EditEventReservationFormComponent } from '../components/forms/edit-event-reservation-form/edit-event-reservation-form.component';
+
 import { LoginFormComponent } from "../components/forms/login-form/login-form.component";
 
 @NgModule({
@@ -34,7 +36,8 @@ import { LoginFormComponent } from "../components/forms/login-form/login-form.co
     AddSemesterFormComponent,
     AddSimpleReservationFormComponent,
     AddEventReservationFormComponent,
-    AddSemesterReservationFormComponent
+    AddSemesterReservationFormComponent,
+    EditEventReservationFormComponent
   ], //Komponensek, pipe-ok
   providers: [
     ClassroomService,
@@ -55,8 +58,9 @@ import { LoginFormComponent } from "../components/forms/login-form/login-form.co
     AddSimpleReservationFormComponent,
     AddEventReservationFormComponent,
     AddSemesterReservationFormComponent,
+    EditEventReservationFormComponent,
     FormsModule,
     ReactiveFormsModule
   ] //Amit akarunk, hogy más komponens használhasson
 })
-export class AddFormsModule {}
+export class OwnFormsModule {}

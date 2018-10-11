@@ -21,6 +21,14 @@ public abstract class ReservationApiController {
     /**
      * A függvény ami visszaadja az adott felhasználóhoz tartozó foglalásokat
      *
+     * @param id Az azonosító
+     * @return A megfelelő válasz entitás
+     */
+    public abstract ResponseEntity findById(@RequestParam(value = "id", required = true) int id);
+
+    /**
+     * A függvény ami visszaadja az adott felhasználóhoz tartozó foglalásokat
+     *
      * @param username A felhasználónév
      * @return A megfelelő foglalások egy listában
      */

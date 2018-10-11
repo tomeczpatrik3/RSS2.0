@@ -17,6 +17,14 @@ export class EventReservationService {
     );
   }
 
+  findById(id: number): Observable<EventReservation> {
+    return <Observable<EventReservation>>(
+      this.http.get(
+        Routes.getUrl(Routes.EVENT_RESERVATION_FIND_BY_ID) + `?id=${id}`
+      )
+    );
+  }
+
   findByUsername(username: string): Observable<EventReservation[]> {
     return <Observable<EventReservation[]>>(
       this.http.get(

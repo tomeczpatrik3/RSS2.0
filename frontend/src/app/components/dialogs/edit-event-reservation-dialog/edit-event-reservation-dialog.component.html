@@ -1,0 +1,17 @@
+<div>
+    <p class="dialog-title" mat-dialog-title>{{data.title}}</p>
+    <hr>
+    <mat-dialog-content>
+      <app-edit-event-reservation-form [reservationID]="2"></app-edit-event-reservation-form>
+    </mat-dialog-content>
+    <hr>
+    <mat-dialog-actions>
+      <div class="btn-padding">
+        <button class="btn btn-primary" (click)="onCloseConfirm()">Igen</button>
+      </div>
+      
+      <div class="btn-padding">
+        <button class="btn btn-primary" (click)="onCloseCancel()">Nem</button>
+      </div>
+    </mat-dialog-actions>
+  </div>

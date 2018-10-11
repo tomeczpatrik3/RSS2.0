@@ -143,6 +143,7 @@ export class AddSemesterReservationFormComponent extends AddReservation {
             InfoDialogComponent
           )
       );
+    this.reservationForm.reset();
   }
 
   canDeactivate(): Observable<boolean> | boolean {
