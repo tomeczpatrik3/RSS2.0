@@ -3,6 +3,7 @@ import { EventReservation } from "../../../models/EventReservation";
 import { EventReservationService } from "../../../services/event-reservation.service";
 import { DialogService } from "../../../services/dialog.service";
 import { EditEventReservationDialogComponent } from "../../dialogs/edit-event-reservation-dialog/edit-event-reservation-dialog.component";
+import { FormType } from "../../../enums/FormType";
 
 @Component({
   selector: "app-event-reservation-table",
@@ -35,6 +36,7 @@ export class EventReservationTableComponent implements OnInit {
   openPopup(id: number) {
     this.dialogService.openFormDialog(
       "Foglalás szerkesztése:",
+      FormType.EDIT_EVENT_RESERVATION_FORM,
       id,
       EditEventReservationDialogComponent
     );

@@ -35,4 +35,28 @@ public class StatusServiceImpl implements StatusService {
             throw new StatusNotExistsException(String.format("Ilyen névvel (%s) rendelkező státusz nem létezik!", name));
         }
     }
+
+    /**
+     * A függvény amivel lekérdezhető, hogy létezik-e az adott azonosítóhoz
+     * tartozó entitás
+     *
+     * @param id Az azonosító
+     * @return Igen, ha létezik az azonosítóhoz tartozó entitás, nem egyébként
+     */
+    @Override
+    public boolean existsById(int id) {
+        return statusRepository.existsById(id);
+    }
+
+    /**
+     * A függvény amivel lekérdezhető, hogy létezik-e az adott névhez tartozó
+     * entitás
+     *
+     * @param name A név
+     * @return Igen, ha létezik a névhez tartozó entitás, nem egyébként
+     */
+    @Override
+    public boolean existsByName(String name) {
+        return statusRepository.existsByName(name);
+    }
 }

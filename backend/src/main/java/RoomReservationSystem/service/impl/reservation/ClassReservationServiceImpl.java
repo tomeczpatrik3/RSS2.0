@@ -37,7 +37,7 @@ public class ClassReservationServiceImpl implements ClassReservationService {
 
     @Autowired
     private ClassReservationRepository repository;
-    
+
     @Autowired
     private ReservationDateService reservationDateService;
 
@@ -86,11 +86,11 @@ public class ClassReservationServiceImpl implements ClassReservationService {
         );
 
         List<ReservationDate> reservationDates = getReservationDates(reservation, classReservationDTO.getStartDates(), classReservationDTO.getEndDates());
-        
+
         reservationDates.forEach((date) -> {
             reservationDateService.save(date);
         });
-        
+
         reservation.setDateList(reservationDates);
 
         return reservation;
@@ -279,5 +279,17 @@ public class ClassReservationServiceImpl implements ClassReservationService {
     @Override
     public void deleteByStatus(String status) throws StatusNotExistsException {
         repository.deleteByStatus(statusService.findByName(status));
+    }
+
+    /**
+     * A függvény amivel lekérdezhető, hogy létezik-e az adott azonosítóhoz
+     * tartozó entitás
+     *
+     * @param id Az azonosító
+     * @return Igen, ha létezik az azonosítóhoz tartozó entitás, nem egyébként
+     */
+    @Override
+    public boolean existsById(int id) {
+        return repository.existsById(id);
     }
 }

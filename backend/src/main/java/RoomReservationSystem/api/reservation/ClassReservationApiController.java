@@ -306,4 +306,16 @@ public class ClassReservationApiController extends ReservationApiController {
         }
     }
 
+    /**
+     * A függvény ami visszaadja, hogy létezik-e az adott azonosítóhoz tartozó
+     * entitás
+     *
+     * @param id Az azonosító
+     * @return A megfelelő válasz entitás
+     */
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @DeleteMapping("/existsById")
+    public ResponseEntity existsById(@RequestParam(value = "id", required = true) int id) {
+        return ResponseEntity.status(HttpStatus.OK).body(classService.existsById(id));
+    }
 }

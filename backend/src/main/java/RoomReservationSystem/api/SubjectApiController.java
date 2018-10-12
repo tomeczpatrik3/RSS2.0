@@ -127,4 +127,30 @@ public class SubjectApiController {
             return handleException(ex);
         }
     }
+
+    /**
+     * A függvény ami visszaadja, hogy létezik-e az adott azonosítóhoz tartozó
+     * entitás
+     *
+     * @param id Az azonosító
+     * @return A megfelelő válasz entitás
+     */
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @DeleteMapping("/existsById")
+    public ResponseEntity existsById(@RequestParam(value = "id", required = true) int id) {
+        return ResponseEntity.status(HttpStatus.OK).body(subjectService.existsById(id));
+    }
+
+    /**
+     * A függvény ami visszaadja, hogy létezik-e az adott tárgykódhoz tartozó
+     * entitás
+     *
+     * @param code A tárgykód
+     * @return A megfelelő válasz entitás
+     */
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @DeleteMapping("/existsByCode")
+    public ResponseEntity existsByCode(@RequestParam(value = "code", required = true) String code) {
+        return ResponseEntity.status(HttpStatus.OK).body(subjectService.existsByCode(code));
+    }
 }

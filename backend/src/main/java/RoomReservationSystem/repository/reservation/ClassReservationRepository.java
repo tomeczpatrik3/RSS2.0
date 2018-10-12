@@ -30,6 +30,8 @@ public interface ClassReservationRepository extends JpaRepository<ClassReservati
     List<ClassReservation> findBySubject(Subject subject);
 
     List<ClassReservation> findBySemester(Semester semester);
+    
+    boolean existsById(int id);
 
     @Transactional
     void deleteByUser(User user);

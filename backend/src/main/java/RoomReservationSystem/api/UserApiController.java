@@ -161,4 +161,43 @@ public class UserApiController {
             return handleException(ex);
         }
     }
+    
+    /**
+     * A függvény ami visszaadja, hogy létezik-e az adott azonosítóhoz tartozó
+     * entitás
+     *
+     * @param id Az azonosító
+     * @return A megfelelő válasz entitás
+     */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @DeleteMapping("/existsById")
+    public ResponseEntity existsById(@RequestParam(value = "id", required = true) int id) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.existsById(id));
+    }
+    
+    /**
+     * A függvény ami visszaadja, hogy létezik-e az adott felhasználónév tartozó
+     * entitás
+     *
+     * @param username A felhasználónév
+     * @return A megfelelő válasz entitás
+     */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @DeleteMapping("/existsByUsername")
+    public ResponseEntity existsByUsername(@RequestParam(value = "username", required = true) String username) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.existsByUsername(username));
+    }
+    
+    /**
+     * A függvény ami visszaadja, hogy létezik-e az adott e-mail címhez tartozó
+     * entitás
+     *
+     * @param email Az e-mail cím
+     * @return A megfelelő válasz entitás
+     */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @DeleteMapping("/existsByEmail")
+    public ResponseEntity existsByEmail(@RequestParam(value = "email", required = true) String email) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.existsByEmail(email));
+    }
 }

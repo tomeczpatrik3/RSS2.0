@@ -1,4 +1,4 @@
-import { Day } from "../models/Day";
+import { Day } from "../enums/Day";
 //Moment: a dátumok stringgé alakításához
 import * as moment from 'moment/moment';
 

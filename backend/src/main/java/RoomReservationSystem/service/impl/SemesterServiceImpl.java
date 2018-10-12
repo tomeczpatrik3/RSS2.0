@@ -107,4 +107,28 @@ public class SemesterServiceImpl implements SemesterService {
     public Semester findByDTO(SemesterDTO semesterDTO) {
         return semesterRepository.findByName(semesterDTO.getName());
     }
+
+    /**
+     * A függvény amivel lekérdezhető, hogy létezik-e az adott azonosítóhoz
+     * tartozó entitás
+     *
+     * @param id Az azonosító
+     * @return Igen, ha létezik az azonosítóhoz tartozó entitás, nem egyébként
+     */
+    @Override
+    public boolean existsById(int id) {
+        return semesterRepository.existsById(id);
+    }
+
+    /**
+     * A függvény amivel lekérdezhető, hogy létezik-e az adott névhez tartozó
+     * entitás
+     *
+     * @param name A név
+     * @return Igen, ha létezik a névhez tartozó entitás, nem egyébként
+     */
+    @Override
+    public boolean existsByName(String name) {
+        return semesterRepository.existsByName(name);
+    }
 }

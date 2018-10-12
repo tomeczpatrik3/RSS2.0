@@ -26,6 +26,8 @@ public interface EventReservationRepository extends JpaRepository<EventReservati
     List<EventReservation> findByStatus(Status status);
 
     List<EventReservation> findByClassroom(Classroom classroom);
+    
+    boolean existsById(int id);
 
     @Transactional
     void deleteByUser(User user);

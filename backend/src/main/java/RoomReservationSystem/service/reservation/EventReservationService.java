@@ -34,6 +34,8 @@ public interface EventReservationService {
 
     List<EventReservation> findByBuildingAndClassroom(String building, String classroom) throws ClassroomNotExistsException, BuildingNotExistsException;
 
+    boolean existsById(int id);
+
     void deleteByUsername(String username) throws UserNotExistsException;
 
     void deleteByBuildingAndClassroom(String building, String classroom) throws ClassroomNotExistsException, BuildingNotExistsException;

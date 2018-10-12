@@ -37,4 +37,10 @@ public interface UserService extends UserDetailsService {
     User findByDTO(UserDTO userDTO);
 
     void deleteByUsername(String username) throws UserNotExistsException;
+
+    boolean existsById(int id);
+
+    boolean existsByUsername(String username);
+
+    boolean existsByEmail(String email);
 }

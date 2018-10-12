@@ -10,9 +10,12 @@ import static RoomReservationSystem.dto.ClassroomDTO.toClassroomDTOList;
 import RoomReservationSystem.exception.BuildingNotExistsException;
 import RoomReservationSystem.exception.ClassroomAlredyExistsException;
 import RoomReservationSystem.exception.ClassroomNotExistsException;
+import RoomReservationSystem.model.Building;
 import static RoomReservationSystem.model.Classroom.toClassroom;
 import static RoomReservationSystem.util.ExceptionUtils.handleException;
 import static RoomReservationSystem.util.ValidationUtils.concatErrors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -86,9 +89,10 @@ public class ClassroomApiController {
             return handleException(ex);
         }
     }
-    
+
     /**
      * A függvény ami visszaadja az adott épülethez és névhez tartozó tantermet
+     *
      * @param name A terem neve
      * @param buildingName Az épület neve
      * @return A megfelelő termek egy listában
@@ -101,7 +105,7 @@ public class ClassroomApiController {
         } catch (ClassroomNotExistsException | BuildingNotExistsException ex) {
             return handleException(ex);
         }
-    }    
+    }
 
     /**
      * A függvény ami visszaadja a PC-vel rendelkező (vagy nem rendelkező)
@@ -248,6 +252,40 @@ public class ClassroomApiController {
 
         } else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
+        }
+    }
+
+    /**
+     * A függvény ami visszaadja, hogy létezik-e az adott azonosítóhoz tartozó
+     * entitás
+     *
+     * @param id Az azonosító
+     * @return A megfelelő válasz entitás
+     */
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @DeleteMapping("/existsById")
+    public ResponseEntity existsById(@RequestParam(value = "id", required = true) int id) {
+        return ResponseEntity.status(HttpStatus.OK).body(classroomService.existsById(id));
+    }
+
+    /**
+     * A függvény ami visszaadja, hogy létezik-e az adott névhez és épülethez
+     * tartozó entitás
+     *
+     * @param name A tanterem neve
+     * @param building Az épület neve
+     * @return A megfelelő válasz entitás
+     */
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @DeleteMapping("/existsByNameAndBuilding")
+    public ResponseEntity existsByNameAndBuilding(
+            @RequestParam(value = "name", required = true) String name,
+            @RequestParam(value = "building", required = true) String building) {
+        try {
+            Building found = buildingService.findByName(building);
+            return ResponseEntity.status(HttpStatus.OK).body(classroomService.existsByNameAndBuilding(name, found));
+        } catch (BuildingNotExistsException ex) {
+            return handleException(ex);
         }
     }
 }

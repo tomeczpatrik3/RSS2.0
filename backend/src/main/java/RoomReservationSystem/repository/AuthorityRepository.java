@@ -16,6 +16,10 @@ public interface AuthorityRepository extends JpaRepository<Authority, Integer> {
     Authority findById(int id);
 
     Authority findByName(String name);
+    
+    boolean existsById(int id);
+    
+    boolean existsByName(String name);
 
     @Transactional
     void removeByName(String name);

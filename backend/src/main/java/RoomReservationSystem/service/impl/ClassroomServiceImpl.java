@@ -215,4 +215,30 @@ public class ClassroomServiceImpl implements ClassroomService {
                 buildingService.findByName(classroomDTO.getBuilding())
         );
     }
+
+    /**
+     * A függvény amivel lekérdezhető, hogy létezik-e az adott azonosítóhoz
+     * tartozó entitás
+     *
+     * @param id Az azonosító
+     * @return Igen, ha létezik az azonosítóhoz tartozó entitás, nem egyébként
+     */
+    @Override
+    public boolean existsById(int id) {
+        return classroomRepository.existsById(id);
+    }
+
+    /**
+     * A függvény amivel lekérdezhető, hogy létezik-e az adott névhez és
+     * épülethez tartozó entitás
+     *
+     * @param name A tanterem neve
+     * @param building Az épület
+     * @return Igen, ha létezik a névhez és épülethez tartozó entitás, nem
+     * egyébként
+     */
+    @Override
+    public boolean existsByNameAndBuilding(String name, Building building) {
+        return classroomRepository.existsByNameAndBuilding(name, building);
+    }
 }

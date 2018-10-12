@@ -16,6 +16,10 @@ public interface BuildingRepository extends JpaRepository<Building, Integer> {
     Building findByName(String name);
 
     Building findById(int id);
+    
+    boolean existsById(int id);
+    
+    boolean existsByName(String name);
 
     @Transactional
     void deleteByName(String name);

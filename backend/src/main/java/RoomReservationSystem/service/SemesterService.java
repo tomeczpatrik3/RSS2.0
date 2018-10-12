@@ -24,5 +24,9 @@ public interface SemesterService {
 
     Semester findByDTO(SemesterDTO semesterDTO);
 
+    boolean existsById(int id);
+
+    boolean existsByName(String name);
+
     void deleteByName(String name) throws SemesterNotExistsException;
 }

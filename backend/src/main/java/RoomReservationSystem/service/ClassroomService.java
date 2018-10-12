@@ -43,5 +43,9 @@ public interface ClassroomService {
 
     Classroom findByDTO(ClassroomDTO classroomDTO) throws BuildingNotExistsException;
 
+    boolean existsById(int id);
+
+    boolean existsByNameAndBuilding(String name, Building building);
+
     void deleteByNameAndBuildingName(String name, String buildingName) throws ClassroomNotExistsException, BuildingNotExistsException;
 }

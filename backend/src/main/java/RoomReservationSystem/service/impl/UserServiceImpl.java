@@ -209,4 +209,40 @@ public class UserServiceImpl implements UserService {
     public User findByDTO(UserDTO userDTO) {
         return userRepository.findByUsername(userDTO.getUsername());
     }
+    
+    /**
+     * A függvény amivel lekérdezhető, hogy létezik-e az adott
+     * azonosítóhoz tartozó entitás
+     * 
+     * @param id Az azonosító
+     * @return Igen, ha létezik az azonosítóhoz tartozó entitás, nem egyébként
+     */
+    @Override
+    public boolean existsById(int id) {
+        return userRepository.existsById(id);
+    }
+
+    /**
+     * A függvény amivel lekérdezhető, hogy létezik-e az adott
+     * felhasználónévhez tartozó entitás
+     * 
+     * @param username A felhasználónév
+     * @return Igen, ha létezik a felhasználónévhez tartozó entitás, nem egyébként
+     */
+    @Override
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
+     /**
+     * A függvény amivel lekérdezhető, hogy létezik-e az adott
+     * e-mail címhez tartozó entitás
+     * 
+     * @param email Az e-mail cím
+     * @return Igen, ha létezik az e-mail címhez tartozó entitás, nem egyébként
+     */   
+    @Override
+    public boolean existsByEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
 }

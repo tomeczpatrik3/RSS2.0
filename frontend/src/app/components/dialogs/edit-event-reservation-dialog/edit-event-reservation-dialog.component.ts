@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { FormType } from '../../../enums/FormType';
 
 @Component({
   selector: 'app-edit-event-reservation-dialog',
@@ -7,6 +8,11 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
   styleUrls: ['./edit-event-reservation-dialog.component.css']
 })
 export class EditEventReservationDialogComponent implements OnInit {
+
+  types: FormType[] = [
+    FormType.EDIT_CLASS_RESERVATION_FORM,
+    FormType.EDIT_EVENT_RESERVATION_FORM
+  ]
 
   constructor(
     public thisDialogRef: MatDialogRef<EditEventReservationDialogComponent>,

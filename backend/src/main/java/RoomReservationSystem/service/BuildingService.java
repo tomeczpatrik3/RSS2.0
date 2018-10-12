@@ -27,5 +27,9 @@ public interface BuildingService {
 
     Building findByDTO(BuildingDTO buildingDTO);
 
+    boolean existsById(int id);
+
+    boolean existsByName(String name);
+
     void deleteByName(String name) throws BuildingNotExistsException;
 }

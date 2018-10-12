@@ -12,4 +12,9 @@ import RoomReservationSystem.model.Status;
 public interface StatusService {
 
     Status findByName(String name) throws StatusNotExistsException;
+
+    boolean existsById(int id);
+
+    boolean existsByName(String name);
+
 }

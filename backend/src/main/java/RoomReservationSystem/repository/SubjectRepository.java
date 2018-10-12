@@ -19,6 +19,10 @@ public interface SubjectRepository extends JpaRepository<Subject, Integer> {
     List<Subject> findByName(String name);
 
     Subject findByCode(String code);
+    
+    boolean existsById(int id);
+    
+    boolean existsByCode(String code);
 
     @Transactional
     void deleteByCode(String code);

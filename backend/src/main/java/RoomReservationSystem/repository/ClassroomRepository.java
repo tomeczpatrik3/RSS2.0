@@ -32,6 +32,10 @@ public interface ClassroomRepository extends JpaRepository<Classroom, Integer> {
     List<Classroom> findByChairsBetween(int from, int to);
 
     List<Classroom> findByBuilding(Building building);
+    
+    boolean existsById(int id);
+    
+    boolean existsByNameAndBuilding(String name, Building building);
 
     @Transactional
     void deleteByNameAndBuilding(String name, Building building);

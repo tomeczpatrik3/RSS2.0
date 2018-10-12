@@ -20,7 +20,7 @@ import { AddReservation } from "../add-reservaion";
 import { ClassReservation } from "../../../models/ClassReservation";
 import { Semester } from "../../../models/Semester";
 import { InfoDialogComponent } from "../../dialogs/info-dialog/info-dialog.component";
-import { Day } from "../../../models/Day";
+import { Day } from "../../../enums/Day";
 import { MessageConstants } from "../../../config/message-constants.config";
 import { QuestionDialogComponent } from "../../dialogs/question-dialog/question-dialog.component";
 import { Observable } from "rxjs";

@@ -127,4 +127,28 @@ public class BuildingServiceImpl implements BuildingService {
     public Building findByDTO(BuildingDTO buildingDTO) {
         return buildingRepository.findByName(buildingDTO.getName());
     }
+
+    /**
+     * A függvény amivel lekérdezhető, hogy létezik-e az adott azonosítóhoz
+     * tartozó entitás
+     *
+     * @param id Az azonosító
+     * @return Igen, ha létezik az azonosítóhoz tartozó entitás, nem egyébként
+     */
+    @Override
+    public boolean existsById(int id) {
+        return buildingRepository.existsById(id);
+    }
+
+    /**
+     * A függvény amivel lekérdezhető, hogy létezik-e az adott névhez tartozó
+     * entitás
+     *
+     * @param name A név
+     * @return Igen, ha létezik a névhez tartozó entitás, nem egyébként
+     */
+    @Override
+    public boolean existsByName(String name) {
+        return buildingRepository.existsByName(name);
+    }
 }

@@ -29,5 +29,9 @@ public interface SubjectService {
 
     Subject findByDTO(SubjectDTO subjectDTO);
 
+    boolean existsById(int id);
+
+    boolean existsByCode(String code);
+
     void deleteByCode(String code) throws SubjectNotExistsException;
 }

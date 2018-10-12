@@ -13,8 +13,14 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SemesterRepository extends JpaRepository<Semester, Integer> {
 
+    Semester findById(int id);
+    
     Semester findByName(String name);
 
+    boolean existsById(int id);
+    
+    boolean existsByName(String name);
+    
     @Transactional
     void deleteByName(String name);
 }

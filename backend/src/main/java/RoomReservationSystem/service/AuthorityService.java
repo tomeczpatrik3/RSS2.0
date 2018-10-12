@@ -18,5 +18,9 @@ public interface AuthorityService {
 
     Authority findById(int id) throws AuthorityNotExistsException;
 
+    boolean existsById(int id);
+
+    boolean existsByName(String name);
+
     void removeByName(String name) throws AuthorityNotExistsException;
 }

@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -33,10 +34,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/api/building")
 public class BuildingApiController {
-
+    
     @Autowired
     private BuildingService buildingService;
-
+    
     @Autowired
     private BuildingValidator buildingValidator;
 
@@ -134,5 +135,31 @@ public class BuildingApiController {
         } catch (BuildingNotExistsException | NullPointerException ex) {
             return handleException(ex);
         }
+    }
+
+    /**
+     * A függvény ami visszaadja, hogy létezik-e az adott azonosítóhoz tartozó
+     * entitás
+     *
+     * @param id Az azonosító
+     * @return A megfelelő válasz entitás
+     */
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @DeleteMapping("/existsById")
+    public ResponseEntity existsById(@RequestParam(value = "id", required = true) int id) {
+        return ResponseEntity.status(HttpStatus.OK).body(buildingService.existsById(id));
+    }
+    
+    /**
+     * A függvény ami visszaadja, hogy létezik-e az adott névhez tartozó
+     * entitás
+     *
+     * @param name Az épület neve
+     * @return A megfelelő válasz entitás
+     */
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @DeleteMapping("/existsByName")
+    public ResponseEntity existsByName(@RequestParam(value = "name", required = true) String name) {
+        return ResponseEntity.status(HttpStatus.OK).body(buildingService.existsByName(name));
     }
 }

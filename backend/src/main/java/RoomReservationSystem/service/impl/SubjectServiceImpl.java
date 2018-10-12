@@ -138,4 +138,28 @@ public class SubjectServiceImpl implements SubjectService {
     public Subject findByDTO(SubjectDTO subjectDTO) {
         return subjectRepository.findByCode(subjectDTO.getCode());
     }
+
+    /**
+     * A függvény amivel lekérdezhető, hogy létezik-e az adott azonosítóhoz
+     * tartozó entitás
+     *
+     * @param id Az azonosító
+     * @return Igen, ha létezik az azonosítóhoz tartozó entitás, nem egyébként
+     */
+    @Override
+    public boolean existsById(int id) {
+        return subjectRepository.existsById(id);
+    }
+
+    /**
+     * A függvény amivel lekérdezhető, hogy létezik-e az adott tárgykódhoz
+     * tartozó entitás
+     *
+     * @param code A tárgykódhoz
+     * @return Igen, ha létezik a tárgykódhoz tartozó entitás, nem egyébként
+     */
+    @Override
+    public boolean existsByCode(String code) {
+        return subjectRepository.existsByCode(code);
+    }
 }
