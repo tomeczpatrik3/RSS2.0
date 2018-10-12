@@ -136,7 +136,7 @@ public class SubjectApiController {
      * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    @DeleteMapping("/existsById")
+    @GetMapping("/existsById")
     public ResponseEntity existsById(@RequestParam(value = "id", required = true) int id) {
         return ResponseEntity.status(HttpStatus.OK).body(subjectService.existsById(id));
     }
@@ -149,7 +149,7 @@ public class SubjectApiController {
      * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    @DeleteMapping("/existsByCode")
+    @GetMapping("/existsByCode")
     public ResponseEntity existsByCode(@RequestParam(value = "code", required = true) String code) {
         return ResponseEntity.status(HttpStatus.OK).body(subjectService.existsByCode(code));
     }

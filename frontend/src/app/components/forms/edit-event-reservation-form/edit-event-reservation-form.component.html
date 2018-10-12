@@ -1,20 +1,103 @@
 <div class="container" *ngIf="model">
   <form (ngSubmit)="onSubmit()" #editEventReservationForm="ngForm">
+
     <div class="form-group row">
-      <label for="name" class="col-sm-4 col-form-label">Az esemény neve:</label>
+      <label for="username" class="col-sm-4 col-form-label">A felhasználónév:</label>
       <div class="col-sm-8">
-        <input class="form-control" type="text" id="name" required [(ngModel)]="model.name" name="name" #name="ngModel">
-        <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
-          Az esemény nevét meg kell adni
+        <input class="form-control" id="username" required minlength="3" maxlength="30" [(ngModel)]="model.username"
+          name="username" #username="ngModel" [ngModelOptions]="{ updateOn: 'blur' }" uniqueUsername>
+        <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-danger username-errors">
+
+          <div *ngIf="username.errors.required">
+            A felhasználónevet meg kell adni.
+          </div>
+          <div *ngIf="username.errors.minlength">
+            A felhasználónév legalább 5 karakter hoszzú kell hogy legyen.
+          </div>
+          <div *ngIf="username.errors.maxlength">
+            A felhasználónév legfeljebb 30 karakter hoszzú lehet.
+          </div>
+          <div *ngIf="username.errors.uniqueUsername">
+            A felhasználónév nem létezik.
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="eventName" class="col-sm-4 col-form-label">Az esemény neve:</label>
+      <div class="col-sm-8">
+        <input class="form-control" type="text" id="eventName" required minlength="3" maxlength="30" [(ngModel)]="model.name"
+          name="eventName" #eventName="ngModel" >
+        <div *ngIf="eventName.invalid && (eventName.dirty || eventName.touched)" class="alert alert-danger">
+
+          <div *ngIf="eventName.errors.required">
+            Az esemény nevét meg kell adni.
+          </div>
+          <div *ngIf="eventName.errors.minlength">
+            Az esemény neve legalább 3 karakter hoszzú kell hogy legyen.
+          </div>
+          <div *ngIf="eventName.errors.maxlength">
+            Az esemény neve legfeljebb 30 karakter hoszzú lehet.
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="building" class="col-sm-4 col-form-label">Az épület neve:</label>
+      <div class="col-sm-8">
+        <input class="form-control" type="text" id="building" required minlength="3" maxlength="30" [(ngModel)]="model.building"
+          name="building" #building="ngModel" [ngModelOptions]="{ updateOn: 'blur' }" uniqueBuildingName>
+        <div *ngIf="building.invalid && (building.dirty || building.touched)" class="alert alert-danger">
+
+          <div *ngIf="building.errors.required">
+            Az épület nevét meg kell adni.
+          </div>
+          <div *ngIf="building.errors.minlength">
+            Az épület neve legalább 3 karakter hoszzú kell hogy legyen.
+          </div>
+          <div *ngIf="building.errors.maxlength">
+            Az épület neve legfeljebb 30 karakter hoszzú lehet.
+          </div>
+          <div *ngIf="building.errors.uniqueBuildingName">
+            Az épület nem létezik.
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="classroom" class="col-sm-4 col-form-label">A tanterem neve:</label>
+      <div class="col-sm-8">
+        <input class="form-control" type="text" id="classroom" required minlength="3" maxlength="30" [(ngModel)]="model.classroom"
+          name="classroom" #classroom="ngModel">
+        <div *ngIf="classroom.invalid && (classroom.dirty || classroom.touched)" class="alert alert-danger">
+
+          <div *ngIf="classroom.errors.required">
+            A tanterem nevét meg kell adni.
+          </div>
+          <div *ngIf="classroom.errors.minlength">
+            A tanterem neve legalább 3 karakter hoszzú kell hogy legyen.
+          </div>
+          <div *ngIf="classroom.errors.maxlength">
+            A tanterem neve legfeljebb 30 karakter hoszzú lehet.
+          </div>
+
         </div>
       </div>
     </div>
 
     <div class="form-group">
       <label for="note">Megjegyzés:</label>
-      <textarea class="form-control" rows="5" id="note" required [(ngModel)]="model.note" name="note" #name="ngModel"></textarea>
+      <textarea class="form-control" rows="5" id="note" [(ngModel)]="model.note" name="note" #name="ngModel"></textarea>
     </div>
 
-    <button type="submit" class="btn btn-success" [disabled]="!editEventReservationForm.form.valid">Submit</button>
+    <button type="submit" class="btn btn-success btn-space" [disabled]="!editEventReservationForm.form.valid">Módosítás</button>
+    <button type="button" class="btn btn-secondary btn-space" (click)="editEventReservationForm.reset()">Törlés</button>
+    <button type="button" class="btn btn-danger btn-space" (click)="onExit()">Kilépés</button>
   </form>
 </div>

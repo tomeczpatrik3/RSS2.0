@@ -43,7 +43,23 @@ export class BuildingService {
 
   deleteByName(name: string): Observable<any> {
     return <Observable<any>>(
-      this.http.delete(Routes.getUrl(Routes.BUILDING_DELETE_BY_NAME) + "/" + name)
+      this.http.delete(
+        Routes.getUrl(Routes.BUILDING_DELETE_BY_NAME) + "/" + name
+      )
+    );
+  }
+
+  existsById(id: number): Observable<boolean> {
+    return <Observable<boolean>>(
+      this.http.get(Routes.getUrl(Routes.BUILDING_EXISTS_BY_ID) + `?id=${id}`)
+    );
+  }
+
+  existsByName(name: string): Observable<boolean> {
+    return <Observable<boolean>>(
+      this.http.get(
+        Routes.getUrl(Routes.BUILDING_EXISTS_BY_NAME) + `?name=${name}`
+      )
     );
   }
 }

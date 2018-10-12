@@ -280,8 +280,21 @@ public class EventReservationApiController extends ReservationApiController {
      * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    @DeleteMapping("/existsById")
+    @GetMapping("/existsById")
     public ResponseEntity existsById(@RequestParam(value = "id", required = true) int id) {
         return ResponseEntity.status(HttpStatus.OK).body(eventService.existsById(id));
+    }
+    
+    /**
+     * A függvény ami visszaadja, hogy létezik-e az adott névhez tartozó
+     * entitás
+     *
+     * @param name Az esemény neve
+     * @return A megfelelő válasz entitás
+     */
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @GetMapping("/existsByName")
+    public ResponseEntity existsByName(@RequestParam(value = "name", required = true) String name) {
+        return ResponseEntity.status(HttpStatus.OK).body(eventService.existsByName(name));
     }
 }

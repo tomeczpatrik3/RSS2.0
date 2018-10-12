@@ -314,7 +314,7 @@ public class ClassReservationApiController extends ReservationApiController {
      * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    @DeleteMapping("/existsById")
+    @GetMapping("/existsById")
     public ResponseEntity existsById(@RequestParam(value = "id", required = true) int id) {
         return ResponseEntity.status(HttpStatus.OK).body(classService.existsById(id));
     }

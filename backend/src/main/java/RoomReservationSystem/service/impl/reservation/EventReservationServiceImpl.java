@@ -257,7 +257,7 @@ public class EventReservationServiceImpl implements EventReservationService {
             throw new EventReservationNotExistsException(String.format("Ilyen névvel (%s) rendelkező foglalás nem létezik", name));
         }
     }
-    
+
     /**
      * A függvény amivel lekérdezhető, hogy létezik-e az adott azonosítóhoz
      * tartozó entitás
@@ -269,4 +269,17 @@ public class EventReservationServiceImpl implements EventReservationService {
     public boolean existsById(int id) {
         return repository.existsById(id);
     }
+
+    /**
+     * A függvény amivel lekérdezhető, hogy létezik-e az adott névhez tartozó
+     * entitás
+     *
+     * @param name Az esemény neve
+     * @return Igen, ha létezik a névhez tartozó entitás, nem egyébként
+     */
+    @Override
+    public boolean existsByName(String name) {
+        return repository.existsByName(name);
+    }
+
 }

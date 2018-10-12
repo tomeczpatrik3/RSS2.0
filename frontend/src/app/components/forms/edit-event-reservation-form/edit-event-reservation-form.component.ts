@@ -12,7 +12,7 @@ export class EditEventReservationFormComponent implements OnInit {
   reservationID: number;
 
   @Output() 
-  submitEvent = new EventEmitter<string>();
+  submitEvent = new EventEmitter<boolean>();
 
   model: EventReservation;
 
@@ -20,15 +20,15 @@ export class EditEventReservationFormComponent implements OnInit {
 
   ngOnInit() {
     this.eventReservationService.findById(this.reservationID).subscribe(res => {
-      console.log(this.reservationID);
-      console.log(res);
       this.model = res;
     });
   }
 
   onSubmit() {
-    console.log(this.model);
-    
-    this.submitEvent.next("Az űrlap beküldve");
+    this.submitEvent.next(true);
+  }
+
+  onExit() {
+    this.submitEvent.next(false);
   }
 }

@@ -6,8 +6,8 @@
     <form [formGroup]="userForm" (ngSubmit)="addUser()">
       <div class="form-group">
         <label for="username">Felhasználónév*</label>
-        
-        <input type="text" class="form-control" id="username" [formControl]="username">
+
+        <input type="text" class="form-control" id="username" required [formControl]="username">
 
         <div [hidden]="username.valid || username.untouched" class="alert alert-danger">
           <div>
@@ -27,8 +27,8 @@
       </div>
       <div class="form-group">
         <label for="name">Név*</label>
-        
-        <input type="text" class="form-control" id="name" [formControl]="name">
+
+        <input type="text" class="form-control" id="name" required [formControl]="name">
 
         <div [hidden]="name.valid || name.untouched" class="alert alert-danger">
           <div>
@@ -46,10 +46,11 @@
         </div>
 
       </div>
+
       <div class="form-group">
         <label for="password">Jelszó*</label>
 
-        <input type="password" class="form-control" id="password" [formControl]="password">
+        <input type="password" class="form-control" id="password" required [formControl]="password">
 
         <div [hidden]="password.valid || password.untouched" class="alert alert-danger">
           <div>
@@ -69,8 +70,8 @@
       </div>
       <div class="form-group">
         <label for="passwordAgain">Jelszó újra*</label>
-        
-        <input type="password" class="form-control" id="passwordAgain" [formControl]="passwordAgain">
+
+        <input type="password" class="form-control" id="passwordAgain" required [formControl]="passwordAgain">
 
         <div [hidden]="passwordAgain.valid || passwordAgain.untouched" class="alert alert-danger">
           <div>
@@ -85,14 +86,19 @@
           <div [hidden]="!passwordAgain.hasError('maxlength')">
             A jelszó legfeljebb 30 karakterből állhat.
           </div>
+          <div [hidden]="!passwordAgain.mismatchingPasswords">
+            A megadott jelszavak nem egyeznek.
+          </div>
+
         </div>
 
       </div>
+
       <div class="form-group">
         <label for="email">E-mail cím*</label>
-        
-        <input type="email" class="form-control" id="email" [formControl]="email">
-        
+
+        <input type="email" class="form-control" id="email" required [formControl]="email">
+
         <div [hidden]="email.valid || email.untouched" class="alert alert-danger">
           <div>
             Probléma az emaillel:

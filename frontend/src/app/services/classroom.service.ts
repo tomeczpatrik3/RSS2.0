@@ -4,7 +4,6 @@ import { Observable } from "rxjs/Observable";
 import { HttpClient } from "@angular/common/http";
 import { Classroom } from "../models/Classroom";
 
-
 /**
  * Az tantermekhez tartozó service osztály
  */
@@ -102,11 +101,29 @@ export class ClassroomService {
     );
   }
 
-  deleteByNameAndBuildingName(name: string, buildingName: string): Observable<any> {
+  deleteByNameAndBuildingName(
+    name: string,
+    buildingName: string
+  ): Observable<any> {
     return <Observable<any>>(
       this.http.delete(
         Routes.getUrl(Routes.CLASSROOM_DELETE_BY_NAME_AND_BUILDING_NAME) +
           `?name=${name}&buildingName=${buildingName}`
+      )
+    );
+  }
+
+  existsById(id: number): Observable<boolean> {
+    return <Observable<boolean>>(
+      this.http.get(Routes.getUrl(Routes.CLASSROOM_EXISTS_BY_ID) + `?id=${id}`)
+    );
+  }
+
+  existsByNameAndBuilding(name: string, building: string): Observable<boolean> {
+    return <Observable<boolean>>(
+      this.http.get(
+        Routes.getUrl(Routes.CLASSROOM_EXISTS_BY_NAME_AND_BUILDING) +
+          `?name=${name}&building=${building}`
       )
     );
   }

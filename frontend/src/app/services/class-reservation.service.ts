@@ -142,4 +142,12 @@ export class ClassReservationService {
       )
     );
   }
+
+  existsById(id: number): Observable<boolean> {
+    return <Observable<boolean>>(
+      this.http.get(
+        Routes.getUrl(Routes.CLASS_RESERVATION_EXISTS_BY_ID) + `?id=${id}`
+      )
+    );
+  }
 }

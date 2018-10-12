@@ -59,4 +59,26 @@ export class UserService {
       )
     );
   }
+
+  existsById(id: number): Observable<boolean> {
+    return <Observable<boolean>>(
+      this.http.get(Routes.getUrl(Routes.USER_EXISTS_BY_ID) + `?id=${id}`)
+    );
+  }
+
+  existsByUsername(username: string): Observable<boolean> {
+    return <Observable<boolean>>(
+      this.http.get(
+        Routes.getUrl(Routes.USER_EXISTS_BY_USERNAME) + `?username=${username}`
+      )
+    );
+  }
+
+  existsByEmail(email: string): Observable<boolean> {
+    return <Observable<boolean>>(
+      this.http.get(
+        Routes.getUrl(Routes.USER_EXISTS_BY_EMAIL) + `?email=${email}`
+      )
+    );
+  }
 }

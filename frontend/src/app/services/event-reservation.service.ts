@@ -122,4 +122,20 @@ export class EventReservationService {
       )
     );
   }
+
+  existsById(id: number): Observable<boolean> {
+    return <Observable<boolean>>(
+      this.http.get(
+        Routes.getUrl(Routes.EVENT_RESERVATION_EXISTS_BY_ID) + `?id=${id}`
+      )
+    );
+  }
+
+  existsByName(name: string): Observable<boolean> {
+    return <Observable<boolean>>(
+      this.http.get(
+        Routes.getUrl(Routes.EVENT_RESERVATION_EXISTS_BY_NAME) + `?name=${name}`
+      )
+    );
+  }
 }

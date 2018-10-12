@@ -10,17 +10,21 @@ export class Routes {
   static USER_FIND_BY_NAME: string = "user/findByName";
   static USER_CREATE_USER: string = "user/createUser";
   static USER_DELETE_BY_USERNAME: string = "user/deleteByUsername";
+  static USER_EXISTS_BY_ID: string = "user/existsById";
+  static USER_EXISTS_BY_USERNAME: string = "user/existsByUsername";
+  static USER_EXISTS_BY_EMAIL: string = "user/existsByEmail";
 
   /*Tantárgyak:*/
   static SUBJECT_GET_ALL: string = "subject";
   static SUBJECT_GET_SUBJECT_NAMES: string = "subject/getSubjectNames";
   static SUBJECT_CREATE_SUBJECT: string = "subject/createSubject";
   static SUBJECT_DELETE_BY_CODE: string = "subject/deleteByCode";
+  static SUBJECT_EXISTS_BY_ID: string = "subject/existsById";
+  static SUBJECT_EXISTS_BY_CODE: string = "subject/existsByCode";
 
   /*Órára vonatkozó foglalások*/
   static CLASS_RESERVATION_GET_ACCEPTED: string = "classReservation";
-  static CLASS_RESERVATION_FIND_BY_ID: string =
-  "classReservation/findById";
+  static CLASS_RESERVATION_FIND_BY_ID: string = "classReservation/findById";
   static CLASS_RESERVATION_FIND_BY_USERNAME: string =
     "classReservation/findByUsername";
   static CLASS_RESERVATION_FIND_BY_STATUS: string =
@@ -44,11 +48,11 @@ export class Routes {
     "classReservation/deleteBySemester";
   static CLASS_RESERVATION_DELETE_BY_STATUS: string =
     "classReservation/deleteByStatus";
+  static CLASS_RESERVATION_EXISTS_BY_ID: string = "classReservation/existsById";
 
   /*Eseményre vonatkozó foglalások*/
   static EVENT_RESERVATION_GET_ACCEPTED: string = "eventReservation";
-  static EVENT_RESERVATION_FIND_BY_ID: string =
-  "eventReservation/findById"; 
+  static EVENT_RESERVATION_FIND_BY_ID: string = "eventReservation/findById";
   static EVENT_RESERVATION_FIND_BY_USERNAME: string =
     "eventReservation/findByUsername";
   static EVENT_RESERVATION_FIND_BY_STATUS: string =
@@ -60,13 +64,16 @@ export class Routes {
   static EVENT_RESERVATION_CREATE_RESERVATION: string =
     "eventReservation/createReservation";
   static EVENT_RESERVATION_DELETE_BY_USERNAME: string =
-    "classReservation/deleteByUsername";
+    "eventReservation/deleteByUsername";
   static EVENT_RESERVATION_DELETE_BY_BUILDING_AND_CLASSROOM: string =
-    "classReservation/deleteByBuildingAndClassroom";
+    "eventReservation/deleteByBuildingAndClassroom";
   static EVENT_RESERVATION_DELETE_BY_STATUS: string =
-    "classReservation/deleteByStatus";
+    "eventReservation/deleteByStatus";
   static EVENT_RESERVATION_DELETE_BY_NAME: string =
-    "classReservation/deleteByName";
+    "eventReservation/deleteByName";
+  static EVENT_RESERVATION_EXISTS_BY_ID: string = "eventReservation/existsById";
+  static EVENT_RESERVATION_EXISTS_BY_NAME: string =
+    "eventReservation/existsByName";
 
   /*Tantermek:*/
   static CLASSROOM_GET_ALL: string = "classroom";
@@ -87,6 +94,9 @@ export class Routes {
   static CLASSROOM_CREATE_CLASSROOM: string = "classroom/createClassroom";
   static CLASSROOM_DELETE_BY_NAME_AND_BUILDING_NAME: string =
     "classroom/deleteByNameAndBuildingName";
+  static CLASSROOM_EXISTS_BY_ID: string = "classroom/existsById";
+  static CLASSROOM_EXISTS_BY_NAME_AND_BUILDING: string =
+    "classroom/existsByNameAndBuilding";
 
   /*Épületek:*/
   static BUILDING_GET_ALL: string = "building";
@@ -95,6 +105,8 @@ export class Routes {
   static BUILDING_FIND_BY_NAME: string = "building/findByName";
   static BUILDING_CREATE_BUILDING: string = "building/createBuilding";
   static BUILDING_DELETE_BY_NAME: string = "building/deleteByName";
+  static BUILDING_EXISTS_BY_ID: string = "building/existsById";
+  static BUILDING_EXISTS_BY_NAME: string = "building/existsByName";
 
   /*Szemeszterek*/
   static SEMESTER_GET_ALL: string = "semester";
@@ -102,6 +114,8 @@ export class Routes {
   static SEMESTER_FIND_BY_NAME: string = "semester/findByName";
   static SEMESTER_CREATE_SEMESTER: string = "semester/createSemester";
   static SEMESTER_DELETE_BY_NAME: string = "semester/deleteByName";
+  static SEMESTER_EXISTS_BY_ID: string = "semester/existsById";
+  static SEMESTER_EXISTS_BY_NAME: string = "semester/existsByName";
 
   /*Backend*/
   static BACKEND_API: string = "http://localhost:8080/api/";

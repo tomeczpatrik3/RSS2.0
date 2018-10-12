@@ -6,15 +6,15 @@ import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 import { RoutingModule } from "./routing/routing.module";
+import { TablesModule } from "./modules/tables.module";
+import { OwnFormsModule } from "./modules/forms.module";
+import { MaterialModule } from "./modules/material.module";
 
 import { AppComponent } from "./components/app/app.component";
 import { DashboardComponent } from "./components/dashboard/dashboard.component";
 import { NavbarComponent } from "./components/navbar/navbar.component";
 
 import { ValidatorService } from "./services/validator.service";
-import { MaterialModule } from "./modules/material.module";
-import { TablesModule } from "./modules/tables.module";
-import { OwnFormsModule } from "./modules/forms.module";
 import { AuthService } from "./authentication/auth.service";
 import { DialogService } from "./services/dialog.service";
 
@@ -28,12 +28,13 @@ import { JwtModule, JwtHelperService } from "@auth0/angular-jwt";
 
 import { QuestionDialogComponent } from "./components/dialogs/question-dialog/question-dialog.component";
 import { InfoDialogComponent } from "./components/dialogs/info-dialog/info-dialog.component";
-import { LogoutComponent } from "./components/logout/logout.component";
-import { EditEventReservationDialogComponent } from "./components/dialogs/edit-event-reservation-dialog/edit-event-reservation-dialog.component";
+import { EditDialogComponent } from "./components/dialogs/edit-dialog/edit-dialog.component";
 
 import { UpperCasePipe } from "@angular/common";
 
 import { httpInterceptorProviders } from "./interceptors/providers";
+
+import { LogoutComponent } from "./components/logout/logout.component";
 
 @NgModule({
   declarations: [
@@ -42,8 +43,9 @@ import { httpInterceptorProviders } from "./interceptors/providers";
     NavbarComponent,
     InfoDialogComponent,
     QuestionDialogComponent,
-    EditEventReservationDialogComponent,
+    EditDialogComponent,
     LogoutComponent,
+  
   ],
   imports: [
     BrowserModule,
@@ -77,12 +79,12 @@ import { httpInterceptorProviders } from "./interceptors/providers";
     AuthGuard,
     RoleGuard,
     CanDeactivateGuard,
-    NavigationService
+    NavigationService,
   ],
   entryComponents: [
     InfoDialogComponent,
     QuestionDialogComponent,
-    EditEventReservationDialogComponent
+    EditDialogComponent
   ],
   bootstrap: [AppComponent]
 })

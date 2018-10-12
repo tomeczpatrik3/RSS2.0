@@ -8,7 +8,7 @@
       <div class="form-group row">
         <label for="semester" class="col-sm-4 col-form-label">Szemeszter*</label>
         <div class="col-sm-8">
-          <select class="form-control" id="semester" [formControl]="semester" (change)="selectSemester($event.target.value)">
+          <select class="form-control" id="semester" required [formControl]="semester" (change)="selectSemester($event.target.value)">
             <option> --- </option>
             <option *ngFor="let semester of semesters">{{semester.name}}</option>
           </select>
@@ -28,7 +28,7 @@
       <div class="form-group row">
         <label for="subject" class="col-sm-4 col-form-label">Tantárgy*</label>
         <div class="col-sm-8">
-          <select class="form-control" id="subject" [formControl]="subject">
+          <select class="form-control" id="subject" required [formControl]="subject">
             <option> --- </option>
             <option *ngFor="let subject of subjects"> {{subject.code}} | {{subject.name}} </option>
           </select>
@@ -48,7 +48,7 @@
       <div class="form-group row">
         <label for="buildingName" class="col-sm-4 col-form-label">Épület neve*</label>
         <div class="col-sm-8">
-          <select class="form-control" id="buildingName" [formControl]="building" (change)="getRoomsByBuildingName($event.target.value)">
+          <select class="form-control" id="buildingName" required [formControl]="building" (change)="getRoomsByBuildingName($event.target.value)">
             <option> --- </option>
             <option *ngFor="let building of buildings"> {{building.name}} </option>
           </select>
@@ -68,7 +68,7 @@
       <div class="form-group row">
         <label for="roomName" class="col-sm-4 col-form-label">Tanterem neve*</label>
         <div class="col-sm-8">
-          <select class="form-control" id="roomName" [formControl]="room">
+          <select class="form-control" id="roomName" required [formControl]="room">
             <option> --- </option>
             <option *ngFor="let room of rooms"> {{room.name}} </option>
           </select>
@@ -88,7 +88,7 @@
       <div class="form-group row">
         <label for="day" class="col-sm-4 col-form-label">Nap*</label>
         <div class="col-sm-8">
-          <select class="form-control" id="day" [formControl]="day">
+          <select class="form-control" id="day" required [formControl]="day">
             <option> --- </option>
             <option *ngFor="let day of days"> {{day}} </option>
           </select>
@@ -108,7 +108,7 @@
       <div class="form-group row">
         <label for="startTime" class="col-sm-4 col-form-label">Kezdési idő*</label>
         <div class="col-sm-8">
-          <input class="form-control" type="text" id="startTime" [formControl]="startTime">
+          <input class="form-control" type="text" id="startTime" required [formControl]="startTime">
 
           <div [hidden]="startTime.valid || startTime.untouched" class="alert alert-danger">
             <div>
@@ -130,7 +130,7 @@
       <div class="form-group row">
         <label for="endTime" class="col-sm-4 col-form-label">Befejezési idő*</label>
         <div class="col-sm-8">
-          <input class="form-control" type="text" id="endTime" [formControl]="endTime">
+          <input class="form-control" type="text" id="endTime" required [formControl]="endTime">
 
           <div [hidden]="endTime.valid || endTime.untouched" class="alert alert-danger">
             <div>

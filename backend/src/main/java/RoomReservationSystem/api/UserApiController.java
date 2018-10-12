@@ -170,7 +170,7 @@ public class UserApiController {
      * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @DeleteMapping("/existsById")
+    @GetMapping("/existsById")
     public ResponseEntity existsById(@RequestParam(value = "id", required = true) int id) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.existsById(id));
     }
@@ -183,7 +183,7 @@ public class UserApiController {
      * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @DeleteMapping("/existsByUsername")
+    @GetMapping("/existsByUsername")
     public ResponseEntity existsByUsername(@RequestParam(value = "username", required = true) String username) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.existsByUsername(username));
     }
@@ -196,7 +196,7 @@ public class UserApiController {
      * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @DeleteMapping("/existsByEmail")
+    @GetMapping("/existsByEmail")
     public ResponseEntity existsByEmail(@RequestParam(value = "email", required = true) String email) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.existsByEmail(email));
     }

@@ -12,6 +12,7 @@
             class="form-control" 
             type="text" 
             id="subjectCode"
+            required 
             [formControl]="subjectCode">
 
           <div [hidden]="subjectCode.valid || subjectCode.untouched" class="alert alert-danger">
@@ -38,6 +39,7 @@
             class="form-control" 
             type="text" 
             id="subjectName"
+            required 
             [formControl]="subjectName">
 
           <div [hidden]="subjectName.valid || subjectName.untouched" class="alert alert-danger">

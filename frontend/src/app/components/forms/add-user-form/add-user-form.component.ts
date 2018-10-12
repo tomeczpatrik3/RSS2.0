@@ -15,6 +15,7 @@ import { Observable } from "rxjs";
 import { MessageConstants } from "../../../config/message-constants.config";
 import { QuestionDialogComponent } from "../../dialogs/question-dialog/question-dialog.component";
 import { TextUtils } from "../../../utils/text-utils";
+import { passwordValidator } from "../../../directives/confirm-password.directive";
 
 @Component({
   selector: "app-add-user-form",
@@ -52,13 +53,16 @@ export class AddUserFormComponent implements OnInit {
     Validators.maxLength(50)
   ]);
 
-  userForm: FormGroup = this.builder.group({
-    username: this.username,
-    name: this.name,
-    password: this.password,
-    passwordAgain: this.passwordAgain,
-    email: this.email
-  });
+  userForm: FormGroup = this.builder.group(
+    {
+      username: this.username,
+      name: this.name,
+      password: this.password,
+      passwordAgain: this.passwordAgain,
+      email: this.email
+    },
+    { validators: passwordValidator }
+  );
 
   constructor(
     private builder: FormBuilder,
@@ -84,31 +88,24 @@ export class AddUserFormComponent implements OnInit {
     - siker esetén jelezzük a sikert dialog segítségével
   */
   addUser() {
-    if (this.userForm.value.password != this.userForm.value.passwordAgain) {
-      this.dialogService.openDialog(
-        "Felhasználó hozzáadása:",
-        "Hiba történt, a jelszavak nem egyeznek!",
-        InfoDialogComponent
+    this.userService
+      .createUser(this.formToUser())
+      .subscribe(
+        res => {},
+        error =>
+          this.dialogService.openDialog(
+            "Felhasználó hozzáadása:",
+            TextUtils.addBreaks(error.error),
+            InfoDialogComponent
+          ),
+        () =>
+          this.dialogService.openDialog(
+            "Felhasználó hozzáadása:",
+            "Felhasználó sikeresen rögítve",
+            InfoDialogComponent
+          )
       );
-    } else {
-      this.userService
-        .createUser(this.formToUser())
-        .subscribe(
-          res => {},
-          error =>
-            this.dialogService.openDialog(
-              "Felhasználó hozzáadása:",
-              TextUtils.addBreaks(error.error),
-              InfoDialogComponent
-            ),
-          () =>
-            this.dialogService.openDialog(
-              "Felhasználó hozzáadása:",
-              "Felhasználó sikeresen rögítve",
-              InfoDialogComponent
-            )
-        );
-    }
+
     this.userForm.reset();
   }
 

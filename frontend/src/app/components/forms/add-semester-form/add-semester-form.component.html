@@ -12,6 +12,7 @@
             class="form-control" 
             type="text" 
             id="semesterName"
+            required
             [formControl]="semesterName">
 
           <div [hidden]="semesterName.valid || semesterName.untouched" class="alert alert-danger">
@@ -34,7 +35,7 @@
       <div class="form-group row">
         <label for="startDate" class="col-sm-4 col-form-label">A szemeszter kezdetének dátuma*</label>
         <div class="col-sm-8">
-          <input class="form-control" type="date" id="startDate" [formControl]="startDate">
+          <input class="form-control" type="date" id="startDate" required [formControl]="startDate">
           <div [hidden]="startDate.valid || startDate.untouched" class="alert alert-danger">
             <div>
               Probléma a dátum megadása során:
@@ -49,7 +50,7 @@
       <div class="form-group row">
         <label for="endDate" class="col-sm-4 col-form-label">A szemeszter végének dátuma*</label>
         <div class="col-sm-8">
-          <input class="form-control" type="date" id="endDate" [formControl]="endDate">
+          <input class="form-control" type="date" id="endDate" required [formControl]="endDate">
           <div [hidden]="endDate.valid || endDate.untouched" class="alert alert-danger">
             <div>
               Probléma a dátum megadása során:

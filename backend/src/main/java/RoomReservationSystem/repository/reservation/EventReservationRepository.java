@@ -28,6 +28,8 @@ public interface EventReservationRepository extends JpaRepository<EventReservati
     List<EventReservation> findByClassroom(Classroom classroom);
     
     boolean existsById(int id);
+    
+    boolean existsByName(String name);
 
     @Transactional
     void deleteByUser(User user);

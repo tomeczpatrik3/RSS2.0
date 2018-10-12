@@ -263,7 +263,7 @@ public class ClassroomApiController {
      * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    @DeleteMapping("/existsById")
+    @GetMapping("/existsById")
     public ResponseEntity existsById(@RequestParam(value = "id", required = true) int id) {
         return ResponseEntity.status(HttpStatus.OK).body(classroomService.existsById(id));
     }
@@ -277,7 +277,7 @@ public class ClassroomApiController {
      * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    @DeleteMapping("/existsByNameAndBuilding")
+    @GetMapping("/existsByNameAndBuilding")
     public ResponseEntity existsByNameAndBuilding(
             @RequestParam(value = "name", required = true) String name,
             @RequestParam(value = "building", required = true) String building) {

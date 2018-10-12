@@ -37,4 +37,18 @@ export class SubjectService {
       )
     );
   }
+
+  existsById(id: number): Observable<boolean> {
+    return <Observable<boolean>>(
+      this.http.get(Routes.getUrl(Routes.SUBJECT_EXISTS_BY_ID) + `?id=${id}`)
+    );
+  }
+
+  existsByCode(code: string): Observable<boolean> {
+    return <Observable<boolean>>(
+      this.http.get(
+        Routes.getUrl(Routes.SUBJECT_EXISTS_BY_CODE) + `?code=${code}`
+      )
+    );
+  }
 }

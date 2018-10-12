@@ -7,7 +7,7 @@
       <div class="form-group row">
         <label for="building" class="col-sm-4 col-form-label">Épület*</label>
         <div class="col-sm-8">
-          <select class="form-control" id="building" [formControl]="building">
+          <select class="form-control" id="building" [formControl]="building" required>
             <option> --- </option>
             <option *ngFor="let building of buildings"> {{building}} </option>
           </select>
@@ -33,7 +33,7 @@
       <div class="form-group row">
         <label for="roomName" class="col-sm-4 col-form-label">Terem neve*</label>
         <div class="col-sm-8">
-          <input type="text" class="form-control" id="roomName" [formControl]="roomName">
+          <input type="text" class="form-control" id="roomName" required [formControl]="roomName">
 
           <div [hidden]="roomName.valid || roomName.untouched" class="alert alert-danger">
             <div>
@@ -56,7 +56,7 @@
       <div class="form-group row">
         <label for="chairs" class="col-sm-4 col-form-label">Székek száma*</label>
         <div class="col-sm-8">
-          <input type="text" class="form-control" id="chairs" [formControl]="chairs">
+          <input type="text" class="form-control" id="chairs" required [formControl]="chairs">
 
           <div [hidden]="chairs.valid || chairs.untouched" class="alert alert-danger">
             <div>
