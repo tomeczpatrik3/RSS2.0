@@ -6,7 +6,9 @@ import {
 
 export const passwordValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
   const password = control.get('password');
-  const passwordAgain = control.get('passwordAgain');
-  console.log("-------");
-  return password && passwordAgain && password.value === passwordAgain.value ? null : { 'mismatchingPasswords': true };
+  const confirmPassword = control.get('confirmPassword');
+  if (password.pristine || confirmPassword.pristine) {
+    return null;
+  }
+  return password && confirmPassword && password.value !== confirmPassword.value ? { 'misMatch': true } : null;
 };

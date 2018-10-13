@@ -7,8 +7,6 @@ import {
 } from "@angular/forms";
 import { UserService } from "../../../services/user.service";
 import { User } from "../../../models/User";
-import { SnackbarService } from "../../../services/snackbar.service";
-import { MatDialog } from "@angular/material";
 import { InfoDialogComponent } from "../../dialogs/info-dialog/info-dialog.component";
 import { DialogService } from "../../../services/dialog.service";
 import { Observable } from "rxjs";
@@ -23,55 +21,61 @@ import { passwordValidator } from "../../../directives/confirm-password.directiv
   styleUrls: ["./add-user-form.component.css"]
 })
 export class AddUserFormComponent implements OnInit {
-  username = new FormControl("", [
-    Validators.required,
-    Validators.minLength(5),
-    Validators.maxLength(30)
-  ]);
-
-  name = new FormControl("", [
-    Validators.required,
-    Validators.minLength(5),
-    Validators.maxLength(30)
-  ]);
-
-  password = new FormControl("", [
-    Validators.required,
-    Validators.minLength(5),
-    Validators.maxLength(30)
-  ]);
-
-  passwordAgain = new FormControl("", [
-    Validators.required,
-    Validators.minLength(5),
-    Validators.maxLength(30)
-  ]);
-
-  email = new FormControl("", [
-    Validators.required,
-    Validators.minLength(5),
-    Validators.maxLength(50)
-  ]);
-
-  userForm: FormGroup = this.builder.group(
-    {
-      username: this.username,
-      name: this.name,
-      password: this.password,
-      passwordAgain: this.passwordAgain,
-      email: this.email
-    },
-    { validators: passwordValidator }
-  );
+  userForm: FormGroup;
 
   constructor(
-    private builder: FormBuilder,
     private userService: UserService,
-    private snackBarService: SnackbarService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.userForm = new FormGroup(
+      {
+        'username' : new FormControl("", [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(30)
+        ]),
+        'name': new FormControl("", [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(30)
+        ]),
+        'password': new FormControl("", [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(30)
+        ]),
+        'confirmPassword': new FormControl("", [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(30)
+        ]),
+        'email': new FormControl("", [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(50)
+        ])
+      },
+      { validators: passwordValidator }
+    );
+  }
+
+  get username() {
+    return this.userForm.get("username");
+  }
+  get password() {
+    return this.userForm.get("password");
+  }
+  get confirmPassword() {
+    return this.userForm.get("confirmPassword");
+  }
+  get name() {
+    return this.userForm.get("name");
+  }
+  get email() {
+    return this.userForm.get("email");
+  }
 
   formToUser(): User {
     return new User(

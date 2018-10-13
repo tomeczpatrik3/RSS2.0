@@ -13,7 +13,6 @@ import { Observable } from "rxjs/Observable";
 import { QuestionDialogComponent } from "../../dialogs/question-dialog/question-dialog.component";
 import { MessageConstants } from "../../../config/message-constants.config";
 import { TextUtils } from "../../../utils/text-utils";
-import { EditEventReservationDialogComponent } from "../../dialogs/edit-event-reservation-dialog/edit-event-reservation-dialog.component";
 
 @Component({
   selector: "app-add-building-form",
