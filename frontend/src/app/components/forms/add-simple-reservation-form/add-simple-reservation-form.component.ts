@@ -22,6 +22,10 @@ import { Observable } from "rxjs";
 import { MessageConstants } from "../../../config/message-constants.config";
 import { QuestionDialogComponent } from "../../dialogs/question-dialog/question-dialog.component";
 import { TextUtils } from "../../../utils/text-utils";
+import { TakenBuildingNameValidator } from "../../../directives/taken-building-name.directive";
+import { TakenSemesterNameValidator } from "../../../directives/taken-semester-name.directive";
+import { TakenSubjectCodeValidator } from "../../../directives/taken-subject-code.directive";
+import { timeValidator } from "../../../directives/time.directive";
 
 @Component({
   selector: "app-add-simple-reservation-form",
@@ -29,62 +33,22 @@ import { TextUtils } from "../../../utils/text-utils";
   styleUrls: ["./add-simple-reservation-form.component.css"]
 })
 export class AddSimpleReservationFormComponent extends AddReservation {
-  /**
-   * Az egyes formcontrollok:
-   */
-  semester = new FormControl("", [Validators.required]);
-
-  subject = new FormControl("", [Validators.required]);
-
-  building = new FormControl("", [Validators.required]);
-
-  room = new FormControl("", [Validators.required]);
-
-  date = new FormControl("", [Validators.required]);
-
-  startTime = new FormControl("", [
-    Validators.required,
-    this.validatorService.isTime,
-    Validators.minLength(5),
-    Validators.maxLength(5)
-  ]);
-
-  endTime = new FormControl("", [
-    Validators.required,
-    this.validatorService.isTime,
-    Validators.minLength(5),
-    Validators.maxLength(5)
-  ]);
-
-  note = new FormControl("", []);
-
-  //-------------------------------
-
-  /**
-   * Formgroup felépítése a formcontrollokból:
-   */
-  reservationForm: FormGroup = this.builder.group({
-    semester: this.semester,
-    subject: this.subject,
-    building: this.building,
-    room: this.room,
-    date: this.date,
-    startTime: this.startTime,
-    endTime: this.endTime,
-    note: this.note
-  });
+  reservationForm: FormGroup;
 
   constructor(
     protected authService: AuthService,
     protected classroomService: ClassroomService,
     protected subjectService: SubjectService,
-    protected classReservationService: ClassReservationService,
     protected buildingService: BuildingService,
     protected semesterService: SemesterService,
     protected builder: FormBuilder,
     protected dialogService: DialogService,
     protected validatorService: ValidatorService,
-    protected router: Router
+    protected router: Router,
+    private classReservationService: ClassReservationService,
+    private buildingValidator: TakenBuildingNameValidator,
+    private semesterValidator: TakenSemesterNameValidator,
+    private subjectValidator: TakenSubjectCodeValidator
   ) {
     super(
       authService,
@@ -97,6 +61,75 @@ export class AddSimpleReservationFormComponent extends AddReservation {
       validatorService,
       router
     );
+  }
+
+  ngOnInit() {
+    this.reservationForm = new FormGroup(
+      {
+        semester: new FormControl("", {
+          validators: [Validators.required],
+          asyncValidators: this.semesterValidator.validate.bind(
+            this.semesterValidator
+          ),
+          updateOn: "blur"
+        }),
+        subject: new FormControl("", {
+          validators: [Validators.required],
+          asyncValidators: this.subjectValidator.validate.bind(
+            this.subjectValidator
+          ),
+          updateOn: "blur"
+        }),
+        building: new FormControl("", {
+          validators: [Validators.required],
+          asyncValidators: this.buildingValidator.validate.bind(
+            this.buildingValidator
+          ),
+          updateOn: "blur"
+        }),
+        room: new FormControl("", [Validators.required]),
+        date: new FormControl("", [Validators.required]),
+        startTime: new FormControl("", [
+          Validators.required,
+          this.validatorService.isTime,
+          Validators.minLength(5),
+          Validators.maxLength(5)
+        ]),
+        endTime: new FormControl("", [
+          Validators.required,
+          this.validatorService.isTime,
+          Validators.minLength(5),
+          Validators.maxLength(5)
+        ]),
+        note: new FormControl("", [])
+      },
+      { validators: timeValidator }
+    );
+  }
+
+  get semester() {
+    return this.reservationForm.get("semester");
+  }
+  get subject() {
+    return this.reservationForm.get("subject");
+  }
+  get building() {
+    return this.reservationForm.get("building");
+  }
+  get room() {
+    return this.reservationForm.get("room");
+  }
+  get date() {
+    return this.reservationForm.get("date");
+  }
+  get startTime() {
+    return this.reservationForm.get("startTime");
+  }
+  get endTime() {
+    return this.reservationForm.get("endTime");
+  }
+  get note() {
+    return this.reservationForm.get("note");
   }
 
   protected formToReservation() {

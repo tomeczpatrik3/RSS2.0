@@ -18,10 +18,13 @@ export class TakenSubjectCodeValidator implements AsyncValidator {
   validate(
     ctrl: AbstractControl
   ): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
-    return this.subjectService.existsByCode(ctrl.value).pipe(
-      map(isTaken => (isTaken ? null : { isUnique: true })),
-      catchError(() => null)
-    );
+    const code = ctrl.value.split("|")[0].trim();
+    if (code) {
+      return this.subjectService.existsByCode(code).pipe(
+        map(isTaken => (isTaken ? null : { isUnique: true })),
+        catchError(() => null)
+      );
+    }
   }
 }
 

@@ -43,13 +43,13 @@ export abstract class AddReservation implements OnInit {
     protected dialogService: DialogService,
     protected validatorService: ValidatorService,
     protected router: Router
-  ) {}
-
-  ngOnInit() {
+  ) {
     this.getSubjects();
     this.getBuildings();
     this.getSemesters();
   }
+
+  ngOnInit() {}
 
   /**
    * Tantermek neveinek lekérdezése az épület alapján:

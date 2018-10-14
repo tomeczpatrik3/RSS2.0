@@ -23,68 +23,79 @@ import { QuestionDialogComponent } from "../../dialogs/question-dialog/question-
 import { TextUtils } from "../../../utils/text-utils";
 import { UniqueEventNameValidator } from "../../../directives/unique-event-name.directive";
 import { TakenBuildingNameValidator } from "../../../directives/taken-building-name.directive";
+import { timeValidator } from "../../../directives/time.directive";
 
 @Component({
   selector: "app-add-event-reservation-from",
   templateUrl: "./add-event-reservation-form.component.html",
   styleUrls: ["./add-event-reservation-form.component.css"]
 })
-export class AddEventReservationFormComponent extends AddReservation {
-  /**
-   * Az egyes formcontrollok:
-   */
-  name = new FormControl("", {
-    validators: [
-      Validators.required,
-      Validators.minLength(3),
-      Validators.maxLength(30)
-    ],
-    asyncValidators: this.eventValidator.validate.bind(this.eventValidator),
-    updateOn: "blur"
-  });
+export class AddEventReservationFormComponent extends AddReservation{
 
-  building = new FormControl("", {
-    validators: [
-      Validators.required
-    ],
-    asyncValidators: this.buildingValidator.validate.bind(this.buildingValidator),
-    updateOn: "blur"
-  });
+  reservationForm: FormGroup;
 
-  room = new FormControl("", [Validators.required]);
+  ngOnInit() {
+    this.reservationForm = new FormGroup(
+      {
+        name: new FormControl("", {
+          validators: [
+            Validators.required,
+            Validators.minLength(3),
+            Validators.maxLength(30)
+          ],
+          asyncValidators: this.eventValidator.validate.bind(
+            this.eventValidator
+          ),
+          updateOn: "blur"
+        }),
+        building: new FormControl("", {
+          validators: [Validators.required],
+          asyncValidators: this.buildingValidator.validate.bind(
+            this.buildingValidator
+          ),
+          updateOn: "blur"
+        }),
+        room: new FormControl("", [Validators.required]),
+        date: new FormControl("", [Validators.required]),
+        startTime: new FormControl("", [
+          Validators.required,
+          this.validatorService.isTime,
+          Validators.minLength(5),
+          Validators.maxLength(5)
+        ]),
+        endTime: new FormControl("", [
+          Validators.required,
+          this.validatorService.isTime,
+          Validators.minLength(5),
+          Validators.maxLength(5)
+        ]),
+        note: new FormControl("", [])
+      },
+      { validators: timeValidator }
+    );
+  }
 
-  date = new FormControl("", [Validators.required]);
-
-  startTime = new FormControl("", [
-    Validators.required,
-    this.validatorService.isTime,
-    Validators.minLength(5),
-    Validators.maxLength(5)
-  ]);
-
-  endTime = new FormControl("", [
-    Validators.required,
-    this.validatorService.isTime,
-    Validators.minLength(5),
-    Validators.maxLength(5)
-  ]);
-
-  note = new FormControl("", []);
-
-  //-------------------------------
-
-  /**
-   * Formgroup felépítése a formcontrollokból:
-   */
-  reservationForm: FormGroup = this.builder.group({
-    name: this.name,
-    building: this.building,
-    room: this.room,
-    date: this.date,
-    startTime: this.startTime,
-    endTime: this.endTime,
-    note: this.note
-  });
+  get name() {
+    return this.reservationForm.get("name");
+  }
+  get building() {
+    return this.reservationForm.get("building");
+  }
+  get room() {
+    return this.reservationForm.get("room");
+  }
+  get date() {
+    return this.reservationForm.get("date");
+  }
+  get startTime() {
+    return this.reservationForm.get("startTime");
+  }
+  get endTime() {
+    return this.reservationForm.get("endTime");
+  }
+  get note() {
+    return this.reservationForm.get("note");
+  }
 
   constructor(
     protected authService: AuthService,
@@ -98,7 +109,7 @@ export class AddEventReservationFormComponent extends AddReservation {
     protected router: Router,
     private eventReservationService: EventReservationService,
     private eventValidator: UniqueEventNameValidator,
-    private buildingValidator: TakenBuildingNameValidator,
+    private buildingValidator: TakenBuildingNameValidator
   ) {
     super(
       authService,

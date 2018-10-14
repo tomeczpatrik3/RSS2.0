@@ -61,15 +61,15 @@ INSERT INTO `roomreservationdb`.`semesters` (`id`, `end_date`, `name`, `start_da
 INSERT INTO `roomreservationdb`.`semesters` (`id`, `end_date`, `name`, `start_date`) VALUES ('4', '2016-09-03', '2016-2017/1', '2017-02-02');
 INSERT INTO `roomreservationdb`.`semesters` (`id`, `end_date`, `name`, `start_date`) VALUES ('5', '2016-02-03', '2015-2016/2', '2016-09-02');
 
-INSERT INTO `roomreservationdb`.`subjects` (`id`, `code`, `name`) VALUES ('1', 'IP-08cAN1E ', 'Analízis 1 EA');
+INSERT INTO `roomreservationdb`.`subjects` (`id`, `code`, `name`) VALUES ('1', 'IP-08cAN1E', 'Analízis 1 EA');
 INSERT INTO `roomreservationdb`.`subjects` (`id`, `code`, `name`) VALUES ('2', 'IP-08cAN1G', 'Analízis 1 Gyakorlat');
 INSERT INTO `roomreservationdb`.`subjects` (`id`, `code`, `name`) VALUES ('3', 'IP-08cAN2E', 'Analízis 2 EA');
 INSERT INTO `roomreservationdb`.`subjects` (`id`, `code`, `name`) VALUES ('4', 'IP-08cAN2G', 'Analízis 2 Gyakorlat');
-INSERT INTO `roomreservationdb`.`subjects` (`id`, `code`, `name`) VALUES ('5', 'IP-08DM1E ', 'Diszkrét Matematika 1 EA');
+INSERT INTO `roomreservationdb`.`subjects` (`id`, `code`, `name`) VALUES ('5', 'IP-08DM1E', 'Diszkrét Matematika 1 EA');
 INSERT INTO `roomreservationdb`.`subjects` (`id`, `code`, `name`) VALUES ('6', 'IP-08DM1G', 'Diszkrét Matematika 1 Gyakorlat');
-INSERT INTO `roomreservationdb`.`subjects` (`id`, `code`, `name`) VALUES ('7', 'IP-08cAB1E ', 'Adatbázisok 1 EA');
+INSERT INTO `roomreservationdb`.`subjects` (`id`, `code`, `name`) VALUES ('7', 'IP-08cAB1E', 'Adatbázisok 1 EA');
 INSERT INTO `roomreservationdb`.`subjects` (`id`, `code`, `name`) VALUES ('8', 'IP-08cAB1G', 'Adatbázisok 1 Gyakorlat');
-INSERT INTO `roomreservationdb`.`subjects` (`id`, `code`, `name`) VALUES ('9', 'IP-08cALKG ', 'Alkalmazások fejlesztése');
+INSERT INTO `roomreservationdb`.`subjects` (`id`, `code`, `name`) VALUES ('9', 'IP-08cALKG', 'Alkalmazások fejlesztése');
 INSERT INTO `roomreservationdb`.`subjects` (`id`, `code`, `name`) VALUES ('10', 'kembiztk17ea', 'Kémiai biztonságtechnika');
 INSERT INTO `roomreservationdb`.`subjects` (`id`, `code`, `name`) VALUES ('11', 'uzemlatk17za', 'Üzemlátogatás');
 INSERT INTO `roomreservationdb`.`subjects` (`id`, `code`, `name`) VALUES ('12', 'szvetlen1k17ea', 'Szervetlen kémia (1)');
