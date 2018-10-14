@@ -13,6 +13,7 @@ import { Observable } from "rxjs";
 import { QuestionDialogComponent } from "../../dialogs/question-dialog/question-dialog.component";
 import { MessageConstants } from "../../../config/message-constants.config";
 import { TextUtils } from "../../../utils/text-utils";
+import { UniqueSemesterNameValidator } from "../../../directives/unique-semester-name.directive";
 
 @Component({
   selector: "app-add-semester-form",
@@ -24,11 +25,17 @@ export class AddSemesterFormComponent implements OnInit {
 
   endDate = new FormControl("", [Validators.required]);
 
-  semesterName = new FormControl("", [
-    Validators.required,
-    Validators.minLength(11),
-    Validators.maxLength(11)
-  ]);
+  semesterName = new FormControl("", {
+    validators: [
+      Validators.required,
+      Validators.minLength(11),
+      Validators.maxLength(11)
+    ],
+    asyncValidators: this.semesterValidator.validate.bind(
+      this.semesterValidator
+    ),
+    updateOn: "blur"
+  });
 
   semesterForm: FormGroup = this.builder.group({
     semesterName: this.semesterName,
@@ -39,7 +46,8 @@ export class AddSemesterFormComponent implements OnInit {
   constructor(
     private builder: FormBuilder,
     private dialogService: DialogService,
-    private semesterService: SemesterService
+    private semesterService: SemesterService,
+    private semesterValidator: UniqueSemesterNameValidator
   ) {}
 
   ngOnInit() {}

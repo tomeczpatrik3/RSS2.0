@@ -156,7 +156,8 @@
       </div>
 
       <div class="btn-padding">
-        <button type="submit" class="btn btn-primary" [disabled]="!reservationForm.valid">Hozzáadás</button>
+        <button type="submit" class="btn btn-success btn-space" [disabled]="!reservationForm.valid">Hozzáadás</button>
+        <button type="button" class="btn btn-secondary btn-space" (click)="reservationForm.reset()">Törlés</button>
       </div>
     </form>
   </div>

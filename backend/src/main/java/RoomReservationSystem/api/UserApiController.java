@@ -182,7 +182,6 @@ public class UserApiController {
      * @param username A felhasználónév
      * @return A megfelelő válasz entitás
      */
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/existsByUsername")
     public ResponseEntity existsByUsername(@RequestParam(value = "username", required = true) String username) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.existsByUsername(username));

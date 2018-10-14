@@ -21,6 +21,8 @@ import { Observable } from "rxjs";
 import { MessageConstants } from "../../../config/message-constants.config";
 import { QuestionDialogComponent } from "../../dialogs/question-dialog/question-dialog.component";
 import { TextUtils } from "../../../utils/text-utils";
+import { UniqueEventNameValidator } from "../../../directives/unique-event-name.directive";
+import { TakenBuildingNameValidator } from "../../../directives/taken-building-name.directive";
 
 @Component({
   selector: "app-add-event-reservation-from",
@@ -31,13 +33,23 @@ export class AddEventReservationFormComponent extends AddReservation {
   /**
    * Az egyes formcontrollok:
    */
-  name = new FormControl("", [
-    Validators.required,
-    Validators.minLength(3),
-    Validators.maxLength(30)
-  ]);
+  name = new FormControl("", {
+    validators: [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.maxLength(30)
+    ],
+    asyncValidators: this.eventValidator.validate.bind(this.eventValidator),
+    updateOn: "blur"
+  });
 
-  building = new FormControl("", [Validators.required]);
+  building = new FormControl("", {
+    validators: [
+      Validators.required
+    ],
+    asyncValidators: this.buildingValidator.validate.bind(this.buildingValidator),
+    updateOn: "blur"
+  });
 
   room = new FormControl("", [Validators.required]);
 
@@ -78,13 +90,15 @@ export class AddEventReservationFormComponent extends AddReservation {
     protected authService: AuthService,
     protected classroomService: ClassroomService,
     protected subjectService: SubjectService,
-    protected eventReservationService: EventReservationService,
     protected buildingService: BuildingService,
     protected semesterService: SemesterService,
     protected builder: FormBuilder,
     protected dialogService: DialogService,
     protected validatorService: ValidatorService,
-    protected router: Router
+    protected router: Router,
+    private eventReservationService: EventReservationService,
+    private eventValidator: UniqueEventNameValidator,
+    private buildingValidator: TakenBuildingNameValidator,
   ) {
     super(
       authService,
@@ -118,8 +132,6 @@ export class AddEventReservationFormComponent extends AddReservation {
    * - siker esetén jelezzük a sikert dialog segítségével
    */
   protected addReservation() {
-    console.log(this.formToReservation());
-
     this.eventReservationService
       .createEventReservation(this.formToReservation())
       .subscribe(
@@ -139,7 +151,7 @@ export class AddEventReservationFormComponent extends AddReservation {
           )
       );
 
-      this.reservationForm.reset();
+    this.reservationForm.reset();
   }
 
   canDeactivate(): Observable<boolean> | boolean {

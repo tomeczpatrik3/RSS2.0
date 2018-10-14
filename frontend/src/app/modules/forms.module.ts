@@ -25,9 +25,10 @@ import { EditEventReservationFormComponent } from '../components/forms/edit-even
 
 import { LoginFormComponent } from "../components/forms/login-form/login-form.component";
 
-import { UniqueUsernameValidatorDirective } from "../directives/username.directive";
-import { UniqueBuildingNameValidatorDirective } from "../directives/building-name.directive";
-import { UniqueEventReservationNameValidatorDirective } from "../directives/event-reservation-name.directive";
+import { UniqueUsernameValidatorDirective } from "../directives/unique-username.directive";
+import { UniqueBuildingNameValidatorDirective } from "../directives/unique-building-name.directive";
+import { UniqueEventNameValidatorDirective } from "../directives/unique-event-name.directive";
+import { TakenUsernameValidatorDirective } from "../directives/taken-username.directive";
 
 @NgModule({
   imports: [CommonModule, MaterialModule, FormsModule, ReactiveFormsModule],
@@ -46,7 +47,8 @@ import { UniqueEventReservationNameValidatorDirective } from "../directives/even
     //Directives:
     UniqueUsernameValidatorDirective,
     UniqueBuildingNameValidatorDirective,
-    UniqueEventReservationNameValidatorDirective
+    UniqueEventNameValidatorDirective,
+    TakenUsernameValidatorDirective
 
   ], //Komponensek, pipe-ok
   providers: [

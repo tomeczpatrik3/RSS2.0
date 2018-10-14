@@ -3,51 +3,52 @@
     Esemény foglalás hozzáadása:
   </div>
   <div class="card-block">
-    <form [formGroup]="reservationForm" (ngSubmit)="addReservation()"> 
+    <form [formGroup]="reservationForm" (ngSubmit)="addReservation()">
 
       <div class="form-group row">
         <label for="name" class="col-sm-4 col-form-label">Esemény neve*</label>
         <div class="col-sm-8">
           <input class="form-control" type="text" id="name" required [formControl]="name">
 
-          <div [hidden]="name.valid || name.untouched" class="alert alert-danger">
-            <div>
-              Probléma az esemény nevével:
-            </div>
-            <div [hidden]="!name.hasError('required')">
+          <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+            <div *ngIf="name.errors.required">
               Az esemény nevét meg kell adni.
             </div>
-            <div [hidden]="!name.hasError('minlength')">
+            <div *ngIf="name.errors.minlength">
               Az esemény nevének legalább 3 karakterből kell állnia.
             </div>
-            <div [hidden]="!name.hasError('maxlength')">
+            <div *ngIf="name.errors.maxlength">
               Az esemény neve maximum 30 karakterből állhat.
             </div>
+            <div *ngIf="name.errors.isTaken">
+              Ilyen névvel már létezik foglalás.
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="form-group row">
-        <label for="buildingName" class="col-sm-4 col-form-label">Épület neve*</label>
+       <div class="form-group row">
+        <label for="building" class="col-sm-4 col-form-label">Épület neve*</label>
         <div class="col-sm-8">
-          <select class="form-control" id="buildingName" required [formControl]="building" (change)="getRoomsByBuildingName($event.target.value)">
+          <select class="form-control" id="building" required [formControl]="building" (change)="getRoomsByBuildingName($event.target.value)">
             <option> --- </option>
-            <option *ngFor="let building of buildings" > {{building.name}} </option>
+            <option *ngFor="let building of buildings"> {{building.name}} </option>
           </select>
 
-          <div [hidden]="building.valid || building.untouched" class="alert alert-danger">
-            <div>
-              Probléma az épület kiválasztása során:
-            </div>
-            <div [hidden]="!building.hasError('required')">
+          <div *ngIf="building.invalid && (building.dirty || building.touched)" class="alert alert-danger">
+            <div *ngIf="building.errors.required">
               Az épület nevét meg kell adni.
+            </div>
+            <div *ngIf="building.errors.isUnique">
+              Ilyen nevű épület nem létezik.
             </div>
           </div>
 
         </div>
       </div>
 
-      <div [hidden]="!building.valid" class="form-group row">
+      
+      <div *ngIf="building.valid" class="form-group row">
         <label for="room" class="col-sm-4 col-form-label">Terem neve*</label>
         <div class="col-sm-8">
           <select class="form-control" id="room" required [formControl]="room">
@@ -55,11 +56,8 @@
             <option *ngFor="let room of rooms"> {{room.name}} </option>
           </select>
 
-          <div [hidden]="room.valid || room.untouched" class="alert alert-danger">
-            <div>
-              Probléma a terem kiválasztása során:
-            </div>
-            <div [hidden]="!room.hasError('required')">
+          <div *ngIf="room.invalid && (room.dirty || room.touched)" class="alert alert-danger">
+            <div *ngIf="room.errors.required">
               A terem nevét meg kell adni.
             </div>
           </div>
@@ -71,12 +69,10 @@
         <label for="date" class="col-sm-4 col-form-label">A foglalás dátuma*</label>
         <div class="col-sm-8">
           <input class="form-control" type="date" id="date" aria-describedby="dayHelp" required [formControl]="date">
-          <small [hidden]="date.untouched" id="dayHelp" class="form-text text-muted">A választott nap: {{ getDayOfWeek(date.value) }} </small>
-          <div [hidden]="date.valid || date.untouched" class="alert alert-danger">
-            <div>
-              Probléma a foglalás dátumának kiválasztása során:
-            </div>
-            <div [hidden]="!date.hasError('required')">
+          <small [hidden]="date.untouched" id="dayHelp" class="form-text text-muted">A választott nap: {{
+            getDayOfWeek(date.value) }} </small>
+          <div *ngIf="date.invalid && (date.dirty || date.touched)" class="alert alert-danger">
+            <div *ngIf="date.errors.required">
               A foglalás dátumát meg kell adni.
             </div>
           </div>
@@ -89,17 +85,14 @@
         <div class="col-sm-8">
           <input class="form-control" type="text" id="startTime" required [formControl]="startTime">
 
-          <div [hidden]="startTime.valid || startTime.untouched" class="alert alert-danger">
-            <div>
-              Probléma a kezdési idővel:
-            </div>
-            <div [hidden]="!startTime.hasError('required')">
+          <div *ngIf="startTime.invalid && (startTime.dirty || startTime.touched)" class="alert alert-danger">
+            <div *ngIf="startTime.errors.required">
               A kezdési időt meg kell adni.
             </div>
-            <div [hidden]="!startTime.hasError('notTime')">
+            <div *ngIf="startTime.errors.notTime">
               Hibás formátum (óó:pp).
             </div>
-            <div [hidden]="!startTime.hasError('minlength') && !startTime.hasError('maxlength')">
+            <div *ngIf="startTime.errors.minlength || startTime.errors.maxlength">
               Az időnek 5 karakterből kell állnia.
             </div>
           </div>
@@ -111,31 +104,29 @@
         <div class="col-sm-8">
           <input class="form-control" type="text" id="endTime" required [formControl]="endTime">
 
-          <div [hidden]="endTime.valid || endTime.untouched" class="alert alert-danger">
-            <div>
-              Probléma a befejezési idővel:
-            </div>
-            <div [hidden]="!endTime.hasError('required')">
+          <div *ngIf="endTime.invalid && (endTime.dirty || endTime.touched)" class="alert alert-danger">
+            <div *ngIf="endTime.errors.required">
               A befejezési időt meg kell adni.
             </div>
-            <div [hidden]="!endTime.hasError('notTime')">
+            <div *ngIf="endTime.errors.notTime">
               Hibás formátum (óó:pp).
             </div>
-            <div [hidden]="!endTime.hasError('minlength') && !endTime.hasError('maxlength')">
+            <div *ngIf="endTime.errors.minlength || endTime.errors.maxlength">
               Az időnek 5 karakterből kell állnia.
             </div>
           </div>
 
         </div>
       </div>
-      
+
       <div class="form-group">
         <label for="note">Megjegyzés:</label>
         <textarea class="form-control" rows="5" id="note" [formControl]="note"></textarea>
-      </div> 
+      </div>
 
       <div class="btn-padding">
-        <button type="submit" class="btn btn-primary" [disabled]="!reservationForm.valid">Hozzáadás</button>
+        <button type="submit" class="btn btn-success btn-space" [disabled]="!reservationForm.valid">Hozzáadás</button>
+        <button type="button" class="btn btn-secondary btn-space" (click)="reservationForm.reset()">Törlés</button>
       </div>
     </form>
   </div>

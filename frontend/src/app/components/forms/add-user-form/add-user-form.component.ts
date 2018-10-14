@@ -3,7 +3,8 @@ import {
   Validators,
   FormGroup,
   FormControl,
-  FormBuilder
+  FormBuilder,
+  EmailValidator
 } from "@angular/forms";
 import { UserService } from "../../../services/user.service";
 import { User } from "../../../models/User";
@@ -14,6 +15,8 @@ import { MessageConstants } from "../../../config/message-constants.config";
 import { QuestionDialogComponent } from "../../dialogs/question-dialog/question-dialog.component";
 import { TextUtils } from "../../../utils/text-utils";
 import { passwordValidator } from "../../../directives/confirm-password.directive";
+import { emailValidator } from "../../../directives/confirm-email.directive";
+import { UniqueUsernameValidator } from "../../../directives/unique-username.directive";
 
 @Component({
   selector: "app-add-user-form",
@@ -26,38 +29,51 @@ export class AddUserFormComponent implements OnInit {
   constructor(
     private userService: UserService,
     private dialogService: DialogService,
+    private usernameValidator: UniqueUsernameValidator
   ) {}
 
   ngOnInit() {
     this.userForm = new FormGroup(
       {
-        'username' : new FormControl("", [
+        username: new FormControl("", {
+          validators: [
+            Validators.required,
+            Validators.minLength(5),
+            Validators.maxLength(30)
+          ],
+          asyncValidators: this.usernameValidator.validate.bind(this.usernameValidator),
+          updateOn: "blur"
+        }),
+        alterEgo: new FormControl(""),
+        name: new FormControl("", [
           Validators.required,
           Validators.minLength(5),
           Validators.maxLength(30)
         ]),
-        'name': new FormControl("", [
+        password: new FormControl("", [
           Validators.required,
           Validators.minLength(5),
           Validators.maxLength(30)
         ]),
-        'password': new FormControl("", [
+        confirmPassword: new FormControl("", [
           Validators.required,
           Validators.minLength(5),
           Validators.maxLength(30)
         ]),
-        'confirmPassword': new FormControl("", [
+        email: new FormControl("", [
           Validators.required,
+          Validators.email,
           Validators.minLength(5),
-          Validators.maxLength(30)
+          Validators.maxLength(50)
         ]),
-        'email': new FormControl("", [
+        confirmEmail: new FormControl("", [
           Validators.required,
+          Validators.email,
           Validators.minLength(5),
           Validators.maxLength(50)
         ])
       },
-      { validators: passwordValidator }
+      { validators: [passwordValidator, emailValidator] }
     );
   }
 
@@ -75,6 +91,9 @@ export class AddUserFormComponent implements OnInit {
   }
   get email() {
     return this.userForm.get("email");
+  }
+  get confirmEmail() {
+    return this.userForm.get("confirmEmail");
   }
 
   formToUser(): User {

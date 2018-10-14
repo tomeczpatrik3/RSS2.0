@@ -1,5 +1,6 @@
 package RoomReservationSystem.security;
 
+import static RoomReservationSystem.security.SecurityConstants.CHECK_USERNAME_URL;
 import static RoomReservationSystem.security.SecurityConstants.CLASS_RESERVATIONS_URL;
 import static RoomReservationSystem.security.SecurityConstants.EVENT_RESERVATIONS_URL;
 import static RoomReservationSystem.security.SecurityConstants.LOGIN_URL;
@@ -56,6 +57,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable().authorizeRequests()
                 //Engedélyezett végpontok:
                 .antMatchers(HttpMethod.POST, REGISTER_URL).permitAll()
+                .antMatchers(HttpMethod.GET, CHECK_USERNAME_URL).permitAll()
                 .antMatchers(HttpMethod.GET, CLASS_RESERVATIONS_URL).permitAll()
                 .antMatchers(HttpMethod.GET, EVENT_RESERVATIONS_URL).permitAll()
                 //Minden más autentikációt igényel:

@@ -30,6 +30,11 @@ public class SecurityConstants {
      *
      */
     public static final String REGISTER_URL = "/api/user/createUser";
+    
+    /**
+     * 
+     */
+    public static final String CHECK_USERNAME_URL = "api/user/**";
 
     /**
      *

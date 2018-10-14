@@ -18,6 +18,9 @@
           <div *ngIf="username.errors.maxlength">
             A felhasználónév legfeljebb 30 karakterből állhat.
           </div>
+          <div *ngIf="username.errors.isTaken">
+            Ez a felhasznév már foglalt.
+          </div>
         </div>
 
       </div>
@@ -40,7 +43,7 @@
         </div>
       </div>
 
-      <div class="cross-validation" [class.cross-validation-error]="userForm.errors?.misMatch && (userForm.touched || userForm.dirty)">
+      <div class="cross-validation" [class.cross-validation-error]="userForm.errors?.passwordMisMatch && (userForm.touched || userForm.dirty)">
         <div class="form-group">
           <label for="password">Jelszó*</label>
 
@@ -77,33 +80,64 @@
             </div>
           </div>
 
-          <div *ngIf="userForm.errors?.misMatch && (userForm.dirty || userForm.touched)" class="cross-validation-error-message alert alert-danger">
+          <div *ngIf="userForm.errors?.passwordMisMatch && (userForm.dirty || userForm.touched)" class="cross-validation-error-message alert alert-danger">
             A megadott jelszavak nem egyeznek.
           </div>
         </div>
       </div>
 
-      <div class="form-group">
-        <label for="email">E-mail cím*</label>
+      <div class="cross-validation" [class.cross-validation-error]="userForm.errors?.emailMisMatch && (userForm.touched || userForm.dirty)">
+        <div class="form-group">
+          <label for="email">E-mail cím*</label>
 
-        <input type="email" class="form-control" id="email" required formControlName="email">
+          <input type="email" class="form-control" id="email" required formControlName="email">
 
-        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
-          <div *ngIf="email.errors.required">
-            Az emailt meg kell adni.
+          <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+            <div *ngIf="email.errors.required">
+              Az e-mail címet meg kell adni.
+            </div>
+            <div *ngIf="email.errors.minlength">
+              Az e-mail-nek legalább 5 karakterből kell állnia.
+            </div>
+            <div *ngIf="email.errors.maxlength">
+              Az e-mail legfeljebb 50 karakterből állhat.
+            </div>
+            <div *ngIf="email.errors.email">
+              A megadott e-mail cím formátuma nem megfelelő.
+            </div>
           </div>
-          <div *ngIf="email.errors.required">
-            Az e-mail-nek legalább 5 karakterből kell állnia.
-          </div>
-          <div *ngIf="email.errors.required">
-            Az e-mail legfeljebb 50 karakterből állhat.
-          </div>
+
         </div>
 
+        <div class="form-group">
+          <label for="confirmEmail">E-mail cím újra*</label>
+
+          <input type="email" class="form-control" id="confirmEmail" required formControlName="confirmEmail">
+
+          <div *ngIf="confirmEmail.invalid && (confirmEmail.dirty || confirmEmail.touched)" class="alert alert-danger">
+            <div *ngIf="confirmEmail.errors.required">
+              A megerősítő e-mail címet meg kell adni.
+            </div>
+            <div *ngIf="confirmEmail.errors.minlength">
+              A megerősítő e-mail-nek legalább 5 karakterből kell állnia.
+            </div>
+            <div *ngIf="confirmEmail.errors.maxlength">
+              A megerősítő e-mail legfeljebb 50 karakterből állhat.
+            </div>
+            <div *ngIf="confirmEmail.errors.email">
+              A megadott megerősítő e-mail cím formátuma nem megfelelő.
+            </div>
+          </div>
+
+          <div *ngIf="userForm.errors?.emailMisMatch && (userForm.dirty || userForm.touched)" class="cross-validation-error-message alert alert-danger">
+            A megadott e-mail címek nem egyeznek.
+          </div>
+        </div>
       </div>
 
       <div class="btn-padding">
-        <button type="submit" class="btn btn-success" [disabled]="!userForm.valid">Hozzáadás</button>
+        <button type="submit" class="btn btn-success btn-space" [disabled]="!userForm.valid">Hozzáadás</button>
+        <button type="button" class="btn btn-secondary btn-space" (click)="userForm.reset()">Törlés</button>
       </div>
     </form>
   </div>

@@ -5,16 +5,15 @@ import {
   FormControl,
   FormBuilder
 } from "@angular/forms";
-import { SnackbarService } from "../../../services/snackbar.service";
 import { SubjectService } from "../../../services/subject.service";
 import { Subject } from "../../../models/Subject";
-import { MatDialog } from "@angular/material";
 import { InfoDialogComponent } from "../../dialogs/info-dialog/info-dialog.component";
 import { DialogService } from "../../../services/dialog.service";
 import { Observable } from "rxjs";
 import { MessageConstants } from "../../../config/message-constants.config";
 import { QuestionDialogComponent } from "../../dialogs/question-dialog/question-dialog.component";
 import { TextUtils } from "../../../utils/text-utils";
+import { UniqueSubjectCodeValidator } from "../../../directives/unique-subject-code.directive";
 
 @Component({
   selector: "app-add-subject-form",
@@ -28,11 +27,15 @@ export class AddSubjectFormComponent implements OnInit {
     Validators.maxLength(30)
   ]);
 
-  subjectCode = new FormControl("", [
-    Validators.required,
-    Validators.minLength(4),
-    Validators.maxLength(15)
-  ]);
+  subjectCode = new FormControl("", {
+    validators: [
+      Validators.required,
+      Validators.minLength(4),
+      Validators.maxLength(15)
+    ],
+    asyncValidators: this.subjectValidator.validate.bind(this.subjectValidator),
+    updateOn: "blur"
+  });
 
   subjectForm: FormGroup = this.builder.group({
     subjectName: this.subjectName,
@@ -42,7 +45,8 @@ export class AddSubjectFormComponent implements OnInit {
   constructor(
     private builder: FormBuilder,
     private subjectService: SubjectService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private subjectValidator: UniqueSubjectCodeValidator
   ) {}
 
   ngOnInit() {}

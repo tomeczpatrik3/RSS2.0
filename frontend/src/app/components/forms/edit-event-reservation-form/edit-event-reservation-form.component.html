@@ -17,7 +17,7 @@
           <div *ngIf="username.errors.maxlength">
             A felhasználónév legfeljebb 30 karakter hoszzú lehet.
           </div>
-          <div *ngIf="username.errors.uniqueUsername">
+          <div *ngIf="username.errors.isUnique">
             A felhasználónév nem létezik.
           </div>
 
@@ -62,7 +62,7 @@
           <div *ngIf="building.errors.maxlength">
             Az épület neve legfeljebb 30 karakter hoszzú lehet.
           </div>
-          <div *ngIf="building.errors.uniqueBuildingName">
+          <div *ngIf="building.errors.isUnique">
             Az épület nem létezik.
           </div>
 

@@ -12,67 +12,63 @@
             <option *ngFor="let building of buildings"> {{building}} </option>
           </select>
 
-          <div [hidden]="building.valid || building.untouched" class="alert alert-danger">
-            <div>
-              Probléma az épület nevével:
-            </div>
-            <div [hidden]="!building.hasError('minlength')">
-              Az épület nevének legalább 3 karakterből kell állnia.
-            </div>
-            <div [hidden]="!building.hasError('required')">
+          <div *ngIf="building.invalid && (building.dirty || building.touched)" class="alert alert-danger">
+            <div *ngIf="building.errors.required">
               Az épület nevét meg kell adni.
             </div>
-            <div [hidden]="!building.hasError('maxlength')">
+            <div *ngIf="building.errors.minlength">
+              Az épület nevének legalább 3 karakterből kell állnia.
+            </div>
+            <div *ngIf="building.errors.maxlength">
               Az épület neve maximum 30 karakterből állhat.
+            </div>
+            <div *ngIf="building.errors.isUnique">
+              Ilyen épület nem létezik
             </div>
           </div>
 
+          <!-- <div *ngIf="building.pending" class="alert alert-info">A validálás folyamatban...</div> -->
+
         </div>
       </div>
-      
+
       <div class="form-group row">
         <label for="roomName" class="col-sm-4 col-form-label">Terem neve*</label>
         <div class="col-sm-8">
           <input type="text" class="form-control" id="roomName" required [formControl]="roomName">
 
-          <div [hidden]="roomName.valid || roomName.untouched" class="alert alert-danger">
-            <div>
-              Probléma a terem nevével:
-            </div>
-            <div [hidden]="!roomName.hasError('minlength')">
-              A terem nevének legalább 3 karakterből kell állnia.
-            </div>
-            <div [hidden]="!roomName.hasError('required')">
+          <div *ngIf="roomName.invalid && (roomName.dirty || roomName.touched)" class="alert alert-danger">
+            <div *ngIf="roomName.errors.required">
               A terem nevét meg kell adni.
             </div>
-            <div [hidden]="!roomName.hasError('maxlength')">
+            <div *ngIf="roomName.errors.minlength">
+              A terem nevének legalább 3 karakterből kell állnia.
+            </div>
+            <div *ngIf="roomName.errors.maxlength">
               A terem neve maximum 30 karakterből állhat.
             </div>
           </div>
 
         </div>
       </div>
-      
+
       <div class="form-group row">
         <label for="chairs" class="col-sm-4 col-form-label">Székek száma*</label>
         <div class="col-sm-8">
           <input type="text" class="form-control" id="chairs" required [formControl]="chairs">
 
-          <div [hidden]="chairs.valid || chairs.untouched" class="alert alert-danger">
-            <div>
-              Probléma a székek számával:
-            </div>
-            <div [hidden]="!chairs.hasError('required')">
+          <div *ngIf="chairs.invalid && (chairs.dirty || chairs.touched)" class="alert alert-danger">
+            <div *ngIf="chairs.errors.required">
               A székek számát meg kell adni.
             </div>
-            <div [hidden]="!chairs.hasError('notNumeric')">
+            <div *ngIf="chairs.errors.notNumeric">
               Hibás formátum.
             </div>
           </div>
 
         </div>
       </div>
-      
+
       <div class="form-group row">
         <div class="col-sm-10">
           <div class="form-check">
@@ -91,10 +87,9 @@
       </div>
 
       <div class="btn-padding">
-        <button type="submit" class="btn btn-primary" [disabled]="!classroomForm.valid">Hozzáadás</button>
+        <button type="submit" class="btn btn-success btn-space" [disabled]="!classroomForm.valid">Hozzáadás</button>
+        <button type="button" class="btn btn-secondary btn-space" (click)="classroomForm.reset()">Törlés</button>
       </div>
     </form>
   </div>
 </div>
-
-

@@ -17,6 +17,7 @@ import { QuestionDialogComponent } from "../../dialogs/question-dialog/question-
 import { MessageConstants } from "../../../config/message-constants.config";
 import { Observable } from "rxjs";
 import { TextUtils } from "../../../utils/text-utils";
+import { TakenBuildingNameValidator } from "../../../directives/taken-building-name.directive";
 
 @Component({
   selector: "app-add-classroom-form",
@@ -26,11 +27,17 @@ import { TextUtils } from "../../../utils/text-utils";
 export class AddClassroomFormComponent implements OnInit {
   buildings: string[];
 
-  building = new FormControl("", [
-    Validators.required,
-    Validators.minLength(3),
-    Validators.maxLength(30)
-  ]);
+  building = new FormControl("", {
+    validators: [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.maxLength(30)
+    ],
+    asyncValidators: this.buildingValidator.validate.bind(
+      this.buildingValidator
+    ),
+    updateOn: "blur"
+  });
 
   roomName = new FormControl("", [
     Validators.required,
@@ -63,7 +70,8 @@ export class AddClassroomFormComponent implements OnInit {
     private validatorService: ValidatorService,
     private classroomService: ClassroomService,
     private buildingService: BuildingService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private buildingValidator: TakenBuildingNameValidator
   ) {}
 
   ngOnInit() {

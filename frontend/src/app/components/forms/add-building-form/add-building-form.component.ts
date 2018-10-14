@@ -13,6 +13,7 @@ import { Observable } from "rxjs/Observable";
 import { QuestionDialogComponent } from "../../dialogs/question-dialog/question-dialog.component";
 import { MessageConstants } from "../../../config/message-constants.config";
 import { TextUtils } from "../../../utils/text-utils";
+import { UniqueBuildingNameValidator } from "../../../directives/unique-building-name.directive";
 
 @Component({
   selector: "app-add-building-form",
@@ -20,11 +21,17 @@ import { TextUtils } from "../../../utils/text-utils";
   styleUrls: ["./add-building-form.component.css"]
 })
 export class AddBuildingFormComponent implements OnInit {
-  buildingName = new FormControl("", [
-    Validators.required,
-    Validators.minLength(3),
-    Validators.maxLength(30)
-  ]);
+  buildingName = new FormControl("", {
+    validators: [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.maxLength(30)
+    ],
+    asyncValidators: this.buildingValidator.validate.bind(
+      this.buildingValidator
+    ),
+    updateOn: "blur"
+  });
 
   buildingForm: FormGroup = this.builder.group({
     buildingName: this.buildingName
@@ -33,7 +40,8 @@ export class AddBuildingFormComponent implements OnInit {
   constructor(
     private builder: FormBuilder,
     private buildingService: BuildingService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private buildingValidator: UniqueBuildingNameValidator
   ) {}
 
   ngOnInit() {}
