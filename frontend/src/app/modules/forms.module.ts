@@ -22,6 +22,7 @@ import { AddEventReservationFormComponent } from "../components/forms/add-event-
 import { AddSemesterReservationFormComponent } from "../components/forms/add-semester-reservation-form/add-semester-reservation-form.component";
 
 import { EditEventReservationFormComponent } from '../components/forms/edit-event-reservation-form/edit-event-reservation-form.component';
+import { EditClassReservationFormComponent } from '../components/forms/edit-class-reservation-form/edit-class-reservation-form.component';
 
 import { LoginFormComponent } from "../components/forms/login-form/login-form.component";
 
@@ -29,6 +30,12 @@ import { UniqueUsernameValidatorDirective } from "../directives/unique-username.
 import { UniqueBuildingNameValidatorDirective } from "../directives/unique-building-name.directive";
 import { UniqueEventNameValidatorDirective } from "../directives/unique-event-name.directive";
 import { TakenUsernameValidatorDirective } from "../directives/taken-username.directive";
+import { TakenEventNameValidatorDirective } from "../directives/taken-event-name.directive";
+import { TakenBuildingNameValidatorDirective } from "../directives/taken-building-name.directive";
+import { TakenSemesterNameValidatorDirective } from "../directives/taken-semester-name.directive";
+import { TakenSubjectCodeValidatorDirective } from "../directives/taken-subject-code.directive";
+import { UniqueSemesterNameValidatorDirective } from "../directives/unique-semester-name.directive";
+import { UniqueSubjectCodeValidatorDirective } from "../directives/unique-subject-code.directive";
 
 @NgModule({
   imports: [CommonModule, MaterialModule, FormsModule, ReactiveFormsModule],
@@ -43,12 +50,19 @@ import { TakenUsernameValidatorDirective } from "../directives/taken-username.di
     AddEventReservationFormComponent,
     AddSemesterReservationFormComponent,
     EditEventReservationFormComponent,
+    EditClassReservationFormComponent,
 
     //Directives:
     UniqueUsernameValidatorDirective,
     UniqueBuildingNameValidatorDirective,
     UniqueEventNameValidatorDirective,
-    TakenUsernameValidatorDirective
+    UniqueSemesterNameValidatorDirective,
+    UniqueSubjectCodeValidatorDirective,
+    TakenUsernameValidatorDirective,
+    TakenEventNameValidatorDirective,
+    TakenBuildingNameValidatorDirective,
+    TakenSemesterNameValidatorDirective,
+    TakenSubjectCodeValidatorDirective
 
   ], //Komponensek, pipe-ok
   providers: [
@@ -71,6 +85,8 @@ import { TakenUsernameValidatorDirective } from "../directives/taken-username.di
     AddEventReservationFormComponent,
     AddSemesterReservationFormComponent,
     EditEventReservationFormComponent,
+    EditClassReservationFormComponent,
+    
     FormsModule,
     ReactiveFormsModule
   ] //Amit akarunk, hogy más komponens használhasson

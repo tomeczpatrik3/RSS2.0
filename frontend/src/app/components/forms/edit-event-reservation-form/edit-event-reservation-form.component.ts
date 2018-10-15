@@ -11,7 +11,7 @@ export class EditEventReservationFormComponent implements OnInit {
   @Input()
   reservationID: number;
 
-  @Output() 
+  @Output()
   submitEvent = new EventEmitter<boolean>();
 
   model: EventReservation;
@@ -21,6 +21,8 @@ export class EditEventReservationFormComponent implements OnInit {
   ngOnInit() {
     this.eventReservationService.findById(this.reservationID).subscribe(res => {
       this.model = res;
+      this.model.startDate = this.model.startDate.substring(0, 16);
+      this.model.endDate = this.model.endDate.substring(0, 16);
     });
   }
 

@@ -14,7 +14,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let reservation of reservations; let i = index">
+      <tr *ngFor="let reservation of reservations; let i = index" (click)="openPopup(reservation.id)">
         <th scope="row">{{i+1}}</th>
         <td>{{reservation.username}}</td>
         <td>{{reservation.building}}</td>

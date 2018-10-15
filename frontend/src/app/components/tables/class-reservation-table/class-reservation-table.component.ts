@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { ClassReservationService } from "../../../services/class-reservation.service";
 import { ClassReservation } from "../../../models/ClassReservation";
+import { DialogService } from "../../../services/dialog.service";
+import { FormType } from "../../../enums/FormType";
+import { EditDialogComponent } from "../../dialogs/edit-dialog/edit-dialog.component";
 
 @Component({
   selector: "app-class-reservation-table",
@@ -14,7 +17,9 @@ export class ClassReservationTableComponent implements OnInit {
   pending: boolean;
   reservations: ClassReservation[];
 
-  constructor(private classReservationService: ClassReservationService) {}
+  constructor(
+    private classReservationService: ClassReservationService,
+    private dialogService: DialogService) {}
 
   ngOnInit() {
     if (!this.user && !this.pending) {
@@ -27,5 +32,14 @@ export class ClassReservationTableComponent implements OnInit {
         .findByUsername(this.user)
         .subscribe(res => (this.reservations = res));
     }
+  }
+
+  openPopup(id: number) {
+    this.dialogService.openFormDialog(
+      "Foglalás szerkesztése:",
+      FormType.EDIT_CLASS_RESERVATION_FORM,
+      id,
+      EditDialogComponent
+    );
   }
 }
