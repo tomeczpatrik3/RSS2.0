@@ -4,6 +4,8 @@ import { ClassReservation } from "../../../models/ClassReservation";
 import { DialogService } from "../../../services/dialog.service";
 import { FormType } from "../../../enums/FormType";
 import { EditDialogComponent } from "../../dialogs/edit-dialog/edit-dialog.component";
+import { AuthService } from "../../../authentication/auth.service";
+import { Authorities } from "../../../config/authoritites.config";
 
 @Component({
   selector: "app-class-reservation-table",
@@ -19,7 +21,9 @@ export class ClassReservationTableComponent implements OnInit {
 
   constructor(
     private classReservationService: ClassReservationService,
-    private dialogService: DialogService) {}
+    private dialogService: DialogService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
     if (!this.user && !this.pending) {
@@ -35,11 +39,13 @@ export class ClassReservationTableComponent implements OnInit {
   }
 
   openPopup(id: number) {
-    this.dialogService.openFormDialog(
-      "Foglalás szerkesztése:",
-      FormType.EDIT_CLASS_RESERVATION_FORM,
-      id,
-      EditDialogComponent
-    );
+    if (this.authService.hasAuthority(Authorities.ROLE_ADMIN)) {
+      this.dialogService.openFormDialog(
+        "Foglalás szerkesztése:",
+        FormType.EDIT_CLASS_RESERVATION_FORM,
+        id,
+        EditDialogComponent
+      );
+    }
   }
 }

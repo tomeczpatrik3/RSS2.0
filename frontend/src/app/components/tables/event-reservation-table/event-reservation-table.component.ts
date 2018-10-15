@@ -4,6 +4,8 @@ import { EventReservationService } from "../../../services/event-reservation.ser
 import { DialogService } from "../../../services/dialog.service";
 import { EditDialogComponent } from "../../dialogs/edit-dialog/edit-dialog.component";
 import { FormType } from "../../../enums/FormType";
+import { AuthService } from "../../../authentication/auth.service";
+import { Authorities } from "../../../config/authoritites.config";
 
 @Component({
   selector: "app-event-reservation-table",
@@ -17,7 +19,8 @@ export class EventReservationTableComponent implements OnInit {
 
   constructor(
     private eventReservationService: EventReservationService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -34,11 +37,13 @@ export class EventReservationTableComponent implements OnInit {
   }
 
   openPopup(id: number) {
-    this.dialogService.openFormDialog(
-      "Foglalás szerkesztése:",
-      FormType.EDIT_EVENT_RESERVATION_FORM,
-      id,
-      EditDialogComponent
-    );
+    if (this.authService.hasAuthority(Authorities.ROLE_ADMIN)) {
+      this.dialogService.openFormDialog(
+        "Foglalás szerkesztése:",
+        FormType.EDIT_EVENT_RESERVATION_FORM,
+        id,
+        EditDialogComponent
+      );
+    }
   }
 }
