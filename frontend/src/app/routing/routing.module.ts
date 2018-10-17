@@ -31,6 +31,7 @@ import { ReservationsComponent } from "../components/other/reservations/reservat
 import { AddEventReservationFormComponent } from "../components/forms/add-event-reservation-form/add-event-reservation-form.component";
 import { AddSimpleReservationFormComponent } from "../components/forms/add-simple-reservation-form/add-simple-reservation-form.component";
 import { AddSemesterReservationFormComponent } from "../components/forms/add-semester-reservation-form/add-semester-reservation-form.component";
+import { CalendarCardComponent } from "../components/calendar/calendar-card/calendar-card.component";
 
 const routes: Routes = [
   {
@@ -58,6 +59,10 @@ const routes: Routes = [
     path: "register",
     component: AddUserFormComponent
   },
+  {
+    path: "reservationsCalendar",
+    component: CalendarCardComponent,
+  },  
   //-------
   //Tables:
   {

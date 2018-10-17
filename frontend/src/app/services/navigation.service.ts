@@ -13,19 +13,20 @@ export class NavigationService {
   menuItems: MenuItem[] = [
     new MenuItem("Simple", "Főoldal", "/dashboard", Authorities.ROLE_GUEST),
 
+    new MenuItem(
+      "Simple",
+      "Naptár",
+      "/reservationsCalendar",
+      Authorities.ROLE_USER
+    ),
+
     new MenuItem("Dropdown", "Foglalásaim", "", Authorities.ROLE_USER, [
       new MenuItem(
         "Simple",
-        "Táblázatos megjelenítés",
+        "Megjelenítés táblázatban",
         "/myReservations",
         Authorities.ROLE_USER
       )
-      /*       new MenuItem(
-        "Simple",
-        "Részletes megjelenítés",
-        "/myReservationsDetailed",
-        Authorities.ROLE_USER
-      ) */
     ]),
 
     new MenuItem("Dropdown", "Táblázatok", "", Authorities.ROLE_ADMIN, [

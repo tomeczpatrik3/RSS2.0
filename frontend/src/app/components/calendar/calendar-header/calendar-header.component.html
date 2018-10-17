@@ -1,0 +1,32 @@
+<div class="row text-center">
+  <div class="col-md-4">
+    <div class="btn-group">
+      <div class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="viewDateChange.next(viewDate)">
+        Előző
+      </div>
+      <div class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate" (viewDateChange)="viewDateChange.next(viewDate)">
+        Aktuális
+      </div>
+      <div class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="viewDateChange.next(viewDate)">
+        Következő
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h3>
+  </div>
+  <div class="col-md-4">
+    <div class="btn-group">
+      <div class="btn btn-primary" (click)="viewChange.emit('month')" [class.active]="view === 'month'">
+        Hónap
+      </div>
+      <div class="btn btn-primary" (click)="viewChange.emit('week')" [class.active]="view === 'week'">
+        Hét
+      </div>
+      <div class="btn btn-primary" (click)="viewChange.emit('day')" [class.active]="view === 'day'">
+        Nap
+      </div>
+    </div>
+  </div>
+</div>
+<br>

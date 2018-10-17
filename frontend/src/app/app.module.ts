@@ -9,6 +9,7 @@ import { RoutingModule } from "./routing/routing.module";
 import { TablesModule } from "./modules/tables.module";
 import { OwnFormsModule } from "./modules/forms.module";
 import { MaterialModule } from "./modules/material.module";
+import { OwnCalendarModule } from "./modules/calendar.module";
 
 import { AppComponent } from "./components/app/app.component";
 import { DashboardComponent } from "./components/dashboard/dashboard.component";
@@ -45,7 +46,6 @@ import { LogoutComponent } from "./components/logout/logout.component";
     QuestionDialogComponent,
     EditDialogComponent,
     LogoutComponent,
-  
   ],
   imports: [
     BrowserModule,
@@ -56,6 +56,7 @@ import { LogoutComponent } from "./components/logout/logout.component";
     MaterialModule,
     TablesModule,
     OwnFormsModule,
+    OwnCalendarModule,
 
     //Minden get esetén csatolja a tokent:
     JwtModule.forRoot({
