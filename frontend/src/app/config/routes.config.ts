@@ -117,6 +117,9 @@ export class Routes {
   static SEMESTER_EXISTS_BY_ID: string = "semester/existsById";
   static SEMESTER_EXISTS_BY_NAME: string = "semester/existsByName";
 
+  /*Kalendár*/
+  static CALENDAR_GET_EVENTS: string = "calendar";
+
   /*Backend*/
   static BACKEND_API: string = "http://localhost:8080/api/";
 

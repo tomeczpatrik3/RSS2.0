@@ -4,7 +4,6 @@ import {
   OnInit,
   ViewEncapsulation
 } from "@angular/core";
-import { HttpClient, HttpParams } from "@angular/common/http";
 import { map } from "rxjs/operators";
 import {
   CalendarEvent,
@@ -13,37 +12,14 @@ import {
   CalendarEventTitleFormatter
 } from "angular-calendar";
 import { subDays, addDays } from "date-fns";
-import {
-  isSameMonth,
-  isSameDay,
-  startOfMonth,
-  endOfMonth,
-  startOfWeek,
-  endOfWeek,
-  startOfDay,
-  endOfDay,
-  format
-} from "date-fns";
+import { isSameMonth, isSameDay } from "date-fns";
 import { Observable, of } from "rxjs";
 import { colors } from "../../../utils/colors";
 
 import { CustomDateFormatter } from "../../../providers/custom-date-formatter.provider";
 import { CustomEventTitleFormatter } from "../../../providers/custom-event-title-formatter.provider";
-
-interface Film {
-  id: number;
-  title: string;
-  release_date: string;
-}
-
-const timezoneOffset = new Date().getTimezoneOffset();
-const hoursOffset = String(Math.floor(Math.abs(timezoneOffset / 60))).padStart(
-  2,
-  "0"
-);
-const minutesOffset = String(Math.abs(timezoneOffset % 60)).padEnd(2, "0");
-const direction = timezoneOffset > 0 ? "-" : "+";
-const timezoneOffsetString = `T00:00:00${direction}${hoursOffset}${minutesOffset}`;
+import { CalendarService } from "../../../services/calendar.service";
+import { ReservationCalendarEvent } from "../../../models/ReservationCalendarEvent";
 
 @Component({
   selector: "app-calendar-full",
@@ -67,6 +43,9 @@ const timezoneOffsetString = `T00:00:00${direction}${hoursOffset}${minutesOffset
   encapsulation: ViewEncapsulation.None
 })
 export class CalendarFullComponent implements OnInit {
+  /**
+   * Alapértelmezett nézet: havi
+   */
   view: string = "month";
 
   /**
@@ -78,6 +57,94 @@ export class CalendarFullComponent implements OnInit {
    * Speciális hosszúságú hét:
    */
   excludeDays: number[] = [0, 6];
+
+  viewDate: Date = new Date();
+
+  events$: Observable<Array<CalendarEvent<{}>>>;
+
+  activeDayIsOpen: boolean = false;
+
+  constructor(private calendarService: CalendarService) {}
+
+  ngOnInit(): void {
+    this.fetchEvents();
+  }
+
+  /**
+   * Az események betöltéséért felelős függvény:
+   */
+  fetchEvents(): void {
+    this.events$ = this.calendarService.getEvents().pipe(
+      map((results: ReservationCalendarEvent[]) => {
+        return results.map((event: ReservationCalendarEvent) => {
+          return {
+            title: event.title,
+            start: new Date(event.start),
+            end: new Date(event.end),
+            color: colors.blue,
+            actions: [
+              {
+                label: '<i class="fa fa-sticky-note"></i>',
+                onClick: ({ event }: { event: CalendarEvent }): void => {
+                  console.log(`Open popup for ${event.meta.id}`);
+                }
+              }
+            ],
+            meta: {
+              id: event.id,
+              type: event.type
+            }
+          };
+        });
+      })
+    );
+  }
+
+  /**
+   * A függvény ami akkor fut le, ha egy napra rákattintunk:
+   * @param param0
+   */
+  dayClicked({
+    date,
+    events
+  }: {
+    date: Date;
+    events: Array<CalendarEvent<{}>>;
+  }): void {
+    if (isSameMonth(date, this.viewDate)) {
+      if (
+        (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
+        events.length === 0
+      ) {
+        this.activeDayIsOpen = false;
+      } else {
+        this.activeDayIsOpen = true;
+        this.viewDate = date;
+      }
+    }
+  }
+
+  /**
+   * A függvény ami akkor fut le, ha egy foglalásra rákattintunk:
+   * @param event
+   */
+  eventClicked(event: CalendarEvent<{}>): void {
+    console.log(event);
+  }
+
+  /**
+   * A havi nézet megjlenítése előtt rendereljük a táblázatot:
+   * @param param0
+   */
+  beforeMonthViewRender({ body }: { body: CalendarMonthViewDay[] }): void {
+    body.forEach(day => {
+      if (day.date.getDate() % 2 === 1 && day.inMonth) {
+        day.cssClass = "odd-cell";
+      } else {
+        day.cssClass = "even-cell";
+      }
+    });
+  }
 
   /**
    * Napi nézetben a hétvégi napok kihagyása:
@@ -95,172 +162,5 @@ export class CalendarFullComponent implements OnInit {
         }
       }
     }
-  }
-
-  //-------
-
-  viewDate: Date = new Date();
-
-  events$: Observable<Array<CalendarEvent<{ film: Film }>>>;
-
-  ownEvents$: Observable<Array<CalendarEvent<{ film: Film }>>>;
-
-  ownCalendarEvents: CalendarEvent[];
-
-  activeDayIsOpen: boolean = false;
-
-  constructor(private http: HttpClient) {}
-
-  ngOnInit(): void {
-    this.fetchEvents();
-  }
-
-  fetchEvents(): void {
-    const getStart: any = {
-      month: startOfMonth,
-      week: startOfWeek,
-      day: startOfDay
-    }[this.view];
-
-    const getEnd: any = {
-      month: endOfMonth,
-      week: endOfWeek,
-      day: endOfDay
-    }[this.view];
-
-    const params = new HttpParams()
-      .set(
-        "primary_release_date.gte",
-        format(getStart(this.viewDate), "YYYY-MM-DD")
-      )
-      .set(
-        "primary_release_date.lte",
-        format(getEnd(this.viewDate), "YYYY-MM-DD")
-      )
-      .set("api_key", "0ec33936a68018857d727958dca1424f");
-
-    this.events$ = this.http
-      .get("https://api.themoviedb.org/3/discover/movie", { params })
-      .pipe(
-        map(({ results }: { results: Film[] }) => {
-          return results.map((film: Film) => {
-            return {
-              title: film.title,
-              start: new Date(film.release_date + timezoneOffsetString),
-              color: colors.yellow,
-              meta: {
-                film
-              }
-            };
-          });
-        })
-      );
-
-    this.events$.subscribe(res => {
-      console.log(res);
-    });
-
-    this.ownEvents$ = of([
-      {
-        title: "TESZT",
-        start: new Date("2018-10-15"),
-        color: colors.yellow,
-        actions: [
-          {
-            label: '<i class="fa fa-fw fa-pencil"></i>',
-            onClick: ({ event }: { event: CalendarEvent }): void => {
-              console.log("Edit event", event);
-            }
-          }
-        ]
-      },
-      {
-        title: "TESZT2",
-        start: new Date("2018-10-15 12:00"),
-        end: new Date("2018-10-15 13:00"),
-        color: colors.yellow,
-        actions: [
-          {
-            label: '<i class="fa fa-fw fa-times"></i>',
-            onClick: ({ event }: { event: CalendarEvent }): void => {
-              this.ownCalendarEvents = this.ownCalendarEvents.filter(
-                iEvent => iEvent !== event
-              );
-              console.log("Event deleted", event);
-            }
-          }
-        ]
-      }
-    ]);
-
-    this.ownCalendarEvents = [
-      {
-        title: "TEST CALENDAR EVENT 1",
-        start: new Date("2018-10-15"),
-        color: colors.yellow,
-        actions: [
-          {
-            label: '<i class="fa fa-fw fa-pencil"></i>',
-            onClick: ({ event }: { event: CalendarEvent }): void => {
-              console.log("Edit event", event);
-            }
-          }
-        ]
-      },
-      {
-        title: "TEST CALENDAR EVENT 2",
-        start: new Date("2018-10-15 12:00"),
-        end: new Date("2018-10-15 13:00"),
-        color: colors.yellow,
-        actions: [
-          {
-            label: '<i class="fa fa-fw fa-times"></i>',
-            onClick: ({ event }: { event: CalendarEvent }): void => {
-              this.ownCalendarEvents = this.ownCalendarEvents.filter(
-                iEvent => iEvent !== event
-              );
-              console.log("Event deleted", event);
-            }
-          }
-        ]
-      }
-    ];
-  }
-
-  dayClicked({
-    date,
-    events
-  }: {
-    date: Date;
-    events: Array<CalendarEvent<{ film: Film }>>;
-  }): void {
-    if (isSameMonth(date, this.viewDate)) {
-      if (
-        (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-        events.length === 0
-      ) {
-        this.activeDayIsOpen = false;
-      } else {
-        this.activeDayIsOpen = true;
-        this.viewDate = date;
-      }
-    }
-  }
-
-  eventClicked(event: CalendarEvent<{ film: Film }>): void {
-    window.open(
-      `https://www.themoviedb.org/movie/${event.meta.film.id}`,
-      "_blank"
-    );
-  }
-
-  beforeMonthViewRender({ body }: { body: CalendarMonthViewDay[] }): void {
-    body.forEach(day => {
-      if (day.date.getDate() % 2 === 1 && day.inMonth) {
-        day.cssClass = "odd-cell";
-      } else {
-        day.cssClass = "even-cell";
-      }
-    });
   }
 }

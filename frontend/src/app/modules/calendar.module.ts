@@ -9,6 +9,8 @@ import { CalendarHeaderComponent } from '../components/calendar/calendar-header/
 import { CalendarFullComponent } from '../components/calendar/calendar-full/calendar-full.component';
 import { CalendarCardComponent } from '../components/calendar/calendar-card/calendar-card.component';
 
+import { CalendarService } from '../services/calendar.service';
+
 
 /**
  * A magyar nyelv beállítása:
@@ -29,6 +31,7 @@ registerLocaleData(localeHu);
     CalendarCardComponent
   ],
   providers: [
+    CalendarService
   ],
   exports: [
     CalendarHeaderComponent,
