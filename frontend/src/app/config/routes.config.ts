@@ -6,6 +6,7 @@ export class Routes {
   static USER_LOGIN: string = "user/login";
   static USER_GET_ALL: string = "user/getAll";
   static USER_GET_NAMES: string = "user/getNames";
+  static USER_GET_NAME_BY_USERNAME: string = "user/getName";
   static USER_FIND_BY_USERNAME: string = "user/findByUsername";
   static USER_FIND_BY_NAME: string = "user/findByName";
   static USER_CREATE_USER: string = "user/createUser";

@@ -12,6 +12,9 @@ import RoomReservationSystem.exception.UserAlredyExistsException;
 import RoomReservationSystem.exception.UserNotExistsException;
 import static RoomReservationSystem.util.ExceptionUtils.handleException;
 import static RoomReservationSystem.util.ValidationUtils.concatErrors;
+import java.util.Collections;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -160,7 +163,7 @@ public class UserApiController {
             return handleException(ex);
         }
     }
-    
+
     /**
      * A függvény ami visszaadja, hogy létezik-e az adott azonosítóhoz tartozó
      * entitás
@@ -173,7 +176,7 @@ public class UserApiController {
     public ResponseEntity existsById(@RequestParam(value = "id", required = true) int id) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.existsById(id));
     }
-    
+
     /**
      * A függvény ami visszaadja, hogy létezik-e az adott felhasználónév tartozó
      * entitás
@@ -185,7 +188,7 @@ public class UserApiController {
     public ResponseEntity existsByUsername(@RequestParam(value = "username", required = true) String username) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.existsByUsername(username));
     }
-    
+
     /**
      * A függvény ami visszaadja, hogy létezik-e az adott e-mail címhez tartozó
      * entitás
@@ -197,5 +200,24 @@ public class UserApiController {
     @GetMapping("/existsByEmail")
     public ResponseEntity existsByEmail(@RequestParam(value = "email", required = true) String email) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.existsByEmail(email));
+    }
+
+    /**
+     * A függvény ami visszaadjaa felhasználónévhez tartozó teljes nevet. A
+     * Collections.singletonMap() függvény segítségével "mintha" JSON objektumot
+     * adnánk tovább
+     *
+     * @param username A felhasználónév
+     * @return A megfelelő válasz entitás
+     */
+    @GetMapping("/getName")
+    public ResponseEntity getName(@RequestParam(value = "username", required = true) String username) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    Collections.singletonMap("name", userService.getName(username))
+            );
+        } catch (UserNotExistsException ex) {
+            return handleException(ex);
+        }
     }
 }

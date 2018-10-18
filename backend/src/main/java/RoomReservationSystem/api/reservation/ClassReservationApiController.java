@@ -29,8 +29,6 @@ import static RoomReservationSystem.util.ExceptionUtils.handleException;
 import static RoomReservationSystem.util.ValidationUtils.concatErrors;
 import RoomReservationSystem.validation.BaseReservationValidator;
 import RoomReservationSystem.validation.ClassReservationValidator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
 /**
@@ -76,7 +74,6 @@ public class ClassReservationApiController extends ReservationApiController {
      * @param id Az azonosító
      * @return A megfelelő válasz entitás
      */
-    @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping("/findById")
     @Override
     public ResponseEntity findById(@RequestParam(value = "id", required = true) int id) {

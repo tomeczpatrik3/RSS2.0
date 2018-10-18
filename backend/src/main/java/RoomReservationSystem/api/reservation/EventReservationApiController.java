@@ -93,7 +93,6 @@ public class EventReservationApiController extends ReservationApiController {
      * @param id Az azonosító
      * @return A megfelelő válasz entitás
      */
-    @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping("/findById")
     @Override
     public ResponseEntity findById(@RequestParam(value = "id", required = true) int id) {

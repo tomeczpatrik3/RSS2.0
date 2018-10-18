@@ -29,7 +29,7 @@ import { JwtModule, JwtHelperService } from "@auth0/angular-jwt";
 
 import { QuestionDialogComponent } from "./components/dialogs/question-dialog/question-dialog.component";
 import { InfoDialogComponent } from "./components/dialogs/info-dialog/info-dialog.component";
-import { EditDialogComponent } from "./components/dialogs/edit-dialog/edit-dialog.component";
+import { FormDialogComponent } from "./components/dialogs/form-dialog/form-dialog.component";
 
 import { UpperCasePipe } from "@angular/common";
 
@@ -44,7 +44,7 @@ import { LogoutComponent } from "./components/logout/logout.component";
     NavbarComponent,
     InfoDialogComponent,
     QuestionDialogComponent,
-    EditDialogComponent,
+    FormDialogComponent,
     LogoutComponent,
   ],
   imports: [
@@ -85,7 +85,7 @@ import { LogoutComponent } from "./components/logout/logout.component";
   entryComponents: [
     InfoDialogComponent,
     QuestionDialogComponent,
-    EditDialogComponent
+    FormDialogComponent
   ],
   bootstrap: [AppComponent]
 })

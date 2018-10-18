@@ -24,6 +24,8 @@ import { AddSemesterReservationFormComponent } from "../components/forms/add-sem
 import { EditEventReservationFormComponent } from '../components/forms/edit-event-reservation-form/edit-event-reservation-form.component';
 import { EditClassReservationFormComponent } from '../components/forms/edit-class-reservation-form/edit-class-reservation-form.component';
 
+import { ObserveEventReservationFormComponent } from '../components/forms/observe-event-reservation-form/observe-event-reservation-form.component';
+
 import { LoginFormComponent } from "../components/forms/login-form/login-form.component";
 
 import { UniqueUsernameValidatorDirective } from "../directives/unique-username.directive";
@@ -51,6 +53,7 @@ import { UniqueSubjectCodeValidatorDirective } from "../directives/unique-subjec
     AddSemesterReservationFormComponent,
     EditEventReservationFormComponent,
     EditClassReservationFormComponent,
+    ObserveEventReservationFormComponent,
 
     //Directives:
     UniqueUsernameValidatorDirective,
@@ -86,6 +89,7 @@ import { UniqueSubjectCodeValidatorDirective } from "../directives/unique-subjec
     AddSemesterReservationFormComponent,
     EditEventReservationFormComponent,
     EditClassReservationFormComponent,
+    ObserveEventReservationFormComponent,
     
     FormsModule,
     ReactiveFormsModule

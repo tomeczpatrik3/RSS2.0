@@ -26,9 +26,7 @@ import { ReservationType } from "../../../enums/ReservationType";
 import { FormType } from "../../../enums/FormType";
 import { DialogService } from "../../../services/dialog.service";
 
-import { EditClassReservationFormComponent } from "../../forms/edit-class-reservation-form/edit-class-reservation-form.component";
-import { EditEventReservationFormComponent } from "../../forms/edit-event-reservation-form/edit-event-reservation-form.component";
-import { EditDialogComponent } from "../../dialogs/edit-dialog/edit-dialog.component";
+import { FormDialogComponent } from "../../dialogs/form-dialog/form-dialog.component";
 
 @Component({
   selector: "app-calendar-full",
@@ -94,7 +92,21 @@ export class CalendarFullComponent implements OnInit {
       {
         label: ' <i class="fa fa-sticky-note"></i>',
         onClick: ({ event }: { event: CalendarEvent }): void => {
-          console.log(`Open popup for ${event.meta.id}`);
+          if (event.meta && event.meta.type === ReservationType.CLASS) {
+            this.dialogService.openFormDialog(
+              "Foglalás megtekintése:",
+              FormType.OBSERVE_CLASS_RESERVATION_FORM,
+              event.meta.id,
+              FormDialogComponent
+            );
+          } else if (event.meta && event.meta.type === ReservationType.EVENT) {
+            this.dialogService.openFormDialog(
+              "Foglalás megtekintése:",
+              FormType.OBSERVE_EVENT_RESERVATION_FORM,
+              event.meta.id,
+              FormDialogComponent
+            );
+          }
         }
       }
     ];
@@ -107,14 +119,14 @@ export class CalendarFullComponent implements OnInit {
               "Foglalás szerkesztése:",
               FormType.EDIT_CLASS_RESERVATION_FORM,
               event.meta.id,
-              EditDialogComponent
+              FormDialogComponent
             );
           } else if (event.meta && event.meta.type === ReservationType.EVENT) {
             this.dialogService.openFormDialog(
               "Foglalás szerkesztése:",
               FormType.EDIT_EVENT_RESERVATION_FORM,
               event.meta.id,
-              EditDialogComponent
+              FormDialogComponent
             );
           }
         }

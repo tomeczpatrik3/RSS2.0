@@ -211,6 +211,17 @@ public class UserServiceImpl implements UserService {
     }
     
     /**
+     * Egy adott felhasználónévhez tartozó teljes név lekérdezését megvalósító függvény
+     * @param username A felhasználónév
+     * @return A felhasználónévhez tartozó teljes név
+     * @throws RoomReservationSystem.exception.UserNotExistsException
+     */
+    @Override
+    public String getName(String username) throws UserNotExistsException {
+        return findByUsername(username).getName();
+    }
+    
+    /**
      * A függvény amivel lekérdezhető, hogy létezik-e az adott
      * azonosítóhoz tartozó entitás
      * 

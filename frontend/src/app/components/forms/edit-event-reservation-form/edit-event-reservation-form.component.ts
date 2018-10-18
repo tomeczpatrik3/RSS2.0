@@ -16,7 +16,7 @@ export class EditEventReservationFormComponent implements OnInit {
 
   model: EventReservation;
 
-  constructor(public eventReservationService: EventReservationService) {}
+  constructor(private eventReservationService: EventReservationService) {}
 
   ngOnInit() {
     this.eventReservationService.findById(this.reservationID).subscribe(res => {

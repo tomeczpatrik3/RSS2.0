@@ -3,7 +3,7 @@ import { ClassReservationService } from "../../../services/class-reservation.ser
 import { ClassReservation } from "../../../models/ClassReservation";
 import { DialogService } from "../../../services/dialog.service";
 import { FormType } from "../../../enums/FormType";
-import { EditDialogComponent } from "../../dialogs/edit-dialog/edit-dialog.component";
+import { FormDialogComponent } from "../../dialogs/form-dialog/form-dialog.component";
 import { AuthService } from "../../../authentication/auth.service";
 import { Authorities } from "../../../config/authoritites.config";
 
@@ -44,7 +44,7 @@ export class ClassReservationTableComponent implements OnInit {
         "Foglalás szerkesztése:",
         FormType.EDIT_CLASS_RESERVATION_FORM,
         id,
-        EditDialogComponent
+        FormDialogComponent
       );
     }
   }

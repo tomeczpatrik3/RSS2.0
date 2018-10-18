@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from "@angular/core";
 import { EventReservation } from "../../../models/EventReservation";
 import { EventReservationService } from "../../../services/event-reservation.service";
 import { DialogService } from "../../../services/dialog.service";
-import { EditDialogComponent } from "../../dialogs/edit-dialog/edit-dialog.component";
+import { FormDialogComponent } from "../../dialogs/form-dialog/form-dialog.component";
 import { FormType } from "../../../enums/FormType";
 import { AuthService } from "../../../authentication/auth.service";
 import { Authorities } from "../../../config/authoritites.config";
@@ -42,7 +42,7 @@ export class EventReservationTableComponent implements OnInit {
         "Foglalás szerkesztése:",
         FormType.EDIT_EVENT_RESERVATION_FORM,
         id,
-        EditDialogComponent
+        FormDialogComponent
       );
     }
   }

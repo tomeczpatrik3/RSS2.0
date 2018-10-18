@@ -32,6 +32,15 @@ export class UserService {
     );
   }
 
+  getNameByUsername(username: string): Observable<any> {
+    return <Observable<any>>(
+      this.http.get(
+        Routes.getUrl(Routes.USER_GET_NAME_BY_USERNAME) +
+          `?username=${username}`
+      )
+    );
+  }
+
   findByUsername(username: string): Observable<User> {
     return <Observable<User>>(
       this.http.get(
