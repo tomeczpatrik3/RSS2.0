@@ -20,6 +20,15 @@ import { CustomDateFormatter } from "../../../providers/custom-date-formatter.pr
 import { CustomEventTitleFormatter } from "../../../providers/custom-event-title-formatter.provider";
 import { CalendarService } from "../../../services/calendar.service";
 import { ReservationCalendarEvent } from "../../../models/ReservationCalendarEvent";
+import { AuthService } from "../../../authentication/auth.service";
+import { Authorities } from "../../../config/authoritites.config";
+import { ReservationType } from "../../../enums/ReservationType";
+import { FormType } from "../../../enums/FormType";
+import { DialogService } from "../../../services/dialog.service";
+
+import { EditClassReservationFormComponent } from "../../forms/edit-class-reservation-form/edit-class-reservation-form.component";
+import { EditEventReservationFormComponent } from "../../forms/edit-event-reservation-form/edit-event-reservation-form.component";
+import { EditDialogComponent } from "../../dialogs/edit-dialog/edit-dialog.component";
 
 @Component({
   selector: "app-calendar-full",
@@ -64,9 +73,16 @@ export class CalendarFullComponent implements OnInit {
 
   activeDayIsOpen: boolean = false;
 
-  constructor(private calendarService: CalendarService) {}
+  isAdmin: boolean = false;
+
+  constructor(
+    private calendarService: CalendarService,
+    private authService: AuthService,
+    private dialogService: DialogService
+  ) {}
 
   ngOnInit(): void {
+    this.isAdmin = this.authService.hasAuthority(Authorities.ROLE_ADMIN);
     this.fetchEvents();
   }
 
@@ -74,6 +90,37 @@ export class CalendarFullComponent implements OnInit {
    * Az események betöltéséért felelős függvény:
    */
   fetchEvents(): void {
+    let allowedActions = [
+      {
+        label: ' <i class="fa fa-sticky-note"></i>',
+        onClick: ({ event }: { event: CalendarEvent }): void => {
+          console.log(`Open popup for ${event.meta.id}`);
+        }
+      }
+    ];
+    if (this.isAdmin) {
+      allowedActions.push({
+        label: ' <i class="fa fa-edit"></i>',
+        onClick: ({ event }: { event: CalendarEvent }): void => {
+          if (event.meta && event.meta.type === ReservationType.CLASS) {
+            this.dialogService.openFormDialog(
+              "Foglalás szerkesztése:",
+              FormType.EDIT_CLASS_RESERVATION_FORM,
+              event.meta.id,
+              EditDialogComponent
+            );
+          } else if (event.meta && event.meta.type === ReservationType.EVENT) {
+            this.dialogService.openFormDialog(
+              "Foglalás szerkesztése:",
+              FormType.EDIT_EVENT_RESERVATION_FORM,
+              event.meta.id,
+              EditDialogComponent
+            );
+          }
+        }
+      });
+    }
+
     this.events$ = this.calendarService.getEvents().pipe(
       map((results: ReservationCalendarEvent[]) => {
         return results.map((event: ReservationCalendarEvent) => {
@@ -82,14 +129,7 @@ export class CalendarFullComponent implements OnInit {
             start: new Date(event.start),
             end: new Date(event.end),
             color: colors.blue,
-            actions: [
-              {
-                label: '<i class="fa fa-sticky-note"></i>',
-                onClick: ({ event }: { event: CalendarEvent }): void => {
-                  console.log(`Open popup for ${event.meta.id}`);
-                }
-              }
-            ],
+            actions: allowedActions,
             meta: {
               id: event.id,
               type: event.type
@@ -128,6 +168,7 @@ export class CalendarFullComponent implements OnInit {
    * A függvény ami akkor fut le, ha egy foglalásra rákattintunk:
    * @param event
    */
+  //TODO: add (eventClicked)="eventClicked($event.event)" to the views.
   eventClicked(event: CalendarEvent<{}>): void {
     console.log(event);
   }
