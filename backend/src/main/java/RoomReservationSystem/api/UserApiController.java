@@ -48,9 +48,8 @@ public class UserApiController {
      *
      * @return A felhasználók egy listában
      */
-    //@PreAuthorize("hasRole('ADMIN')")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @GetMapping
+    @GetMapping("/getAll")
     public ResponseEntity getAll() {
         return ResponseEntity.ok(toUserDTOList(userService.findAll()));
     }

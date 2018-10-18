@@ -59,7 +59,7 @@ public class ClassReservationApiController extends ReservationApiController {
      *
      * @return A megfelelő foglalások egy listában
      */
-    @GetMapping
+    @GetMapping("/getAccepted")
     @Override
     public ResponseEntity getAccepted() {
         try {

@@ -59,7 +59,7 @@ public class EventReservationApiController extends ReservationApiController {
      *
      * @return A megfelelő válasz entitás
      */
-    @GetMapping
+    @GetMapping("/getAccepted")
     @Override
     public ResponseEntity getAccepted() {
         try {

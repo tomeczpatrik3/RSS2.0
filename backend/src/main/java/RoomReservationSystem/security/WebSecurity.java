@@ -20,6 +20,7 @@ import org.springframework.context.annotation.Bean;
 import static RoomReservationSystem.security.SecurityConstants.REGISTER_URL;
 import java.util.Arrays;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import static RoomReservationSystem.security.SecurityConstants.GET_EVENTS_URL;
 
 /**
  *
@@ -54,10 +55,12 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         final JWTAuthenticationFilter authenticationFilter = new JWTAuthenticationFilter(authenticationManager());
         authenticationFilter.setFilterProcessesUrl(LOGIN_URL);
 
-        http.cors().and().csrf().disable().authorizeRequests()
+        http.cors().and().csrf().disable()
                 //Engedélyezett végpontok:
+                .authorizeRequests()
                 .antMatchers(HttpMethod.POST, REGISTER_URL).permitAll()
                 .antMatchers(HttpMethod.GET, CHECK_USERNAME_URL).permitAll()
+                .antMatchers(HttpMethod.GET, GET_EVENTS_URL).permitAll()
                 .antMatchers(HttpMethod.GET, CLASS_RESERVATIONS_URL).permitAll()
                 .antMatchers(HttpMethod.GET, EVENT_RESERVATIONS_URL).permitAll()
                 //Minden más autentikációt igényel:

@@ -48,7 +48,7 @@ public class SemesterApiController {
      * @return A szemeszterek egy listában
      */
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    @GetMapping
+    @GetMapping("/getAll")
     public ResponseEntity getAll() {
         return ResponseEntity.ok(toSemesterDTOList(semesterService.getAll()));
     }

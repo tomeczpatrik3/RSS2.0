@@ -16,8 +16,7 @@ public class CalendarApiController {
     @Autowired
     private CalendarService calendarService;
 
-    @PreAuthorize("hasAuthority('ROLE_USER')")
-    @GetMapping
+    @GetMapping("/getEvents")
     public ResponseEntity getEvents() {
         return ResponseEntity.ok(calendarService.getEvents());
     }

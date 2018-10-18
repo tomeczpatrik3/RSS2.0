@@ -4,7 +4,7 @@
 export class Routes {
   /*Felhasználók:*/
   static USER_LOGIN: string = "user/login";
-  static USER_GET_ALL: string = "user";
+  static USER_GET_ALL: string = "user/getAll";
   static USER_GET_NAMES: string = "user/getNames";
   static USER_FIND_BY_USERNAME: string = "user/findByUsername";
   static USER_FIND_BY_NAME: string = "user/findByName";
@@ -15,7 +15,7 @@ export class Routes {
   static USER_EXISTS_BY_EMAIL: string = "user/existsByEmail";
 
   /*Tantárgyak:*/
-  static SUBJECT_GET_ALL: string = "subject";
+  static SUBJECT_GET_ALL: string = "subject/getAll";
   static SUBJECT_GET_SUBJECT_NAMES: string = "subject/getSubjectNames";
   static SUBJECT_CREATE_SUBJECT: string = "subject/createSubject";
   static SUBJECT_DELETE_BY_CODE: string = "subject/deleteByCode";
@@ -23,7 +23,8 @@ export class Routes {
   static SUBJECT_EXISTS_BY_CODE: string = "subject/existsByCode";
 
   /*Órára vonatkozó foglalások*/
-  static CLASS_RESERVATION_GET_ACCEPTED: string = "classReservation";
+  static CLASS_RESERVATION_GET_ACCEPTED: string =
+    "classReservation/getAccepted";
   static CLASS_RESERVATION_FIND_BY_ID: string = "classReservation/findById";
   static CLASS_RESERVATION_FIND_BY_USERNAME: string =
     "classReservation/findByUsername";
@@ -51,7 +52,8 @@ export class Routes {
   static CLASS_RESERVATION_EXISTS_BY_ID: string = "classReservation/existsById";
 
   /*Eseményre vonatkozó foglalások*/
-  static EVENT_RESERVATION_GET_ACCEPTED: string = "eventReservation";
+  static EVENT_RESERVATION_GET_ACCEPTED: string =
+    "eventReservation/getAccepted";
   static EVENT_RESERVATION_FIND_BY_ID: string = "eventReservation/findById";
   static EVENT_RESERVATION_FIND_BY_USERNAME: string =
     "eventReservation/findByUsername";
@@ -76,7 +78,7 @@ export class Routes {
     "eventReservation/existsByName";
 
   /*Tantermek:*/
-  static CLASSROOM_GET_ALL: string = "classroom";
+  static CLASSROOM_GET_ALL: string = "classroom/getAll";
   static CLASSROOM_FIND_BY_NAME: string = "classroom/findByName";
   static CLASSROOM_FIND_BY_BUILDING_NAME: string =
     "classroom/findByBuildingName";
@@ -99,7 +101,7 @@ export class Routes {
     "classroom/existsByNameAndBuilding";
 
   /*Épületek:*/
-  static BUILDING_GET_ALL: string = "building";
+  static BUILDING_GET_ALL: string = "building/getAll";
   static BUILDING_GET_NAMES: string = "building/getNames";
   static BUILDING_FIND_BY_ID: string = "building/findById";
   static BUILDING_FIND_BY_NAME: string = "building/findByName";
@@ -109,7 +111,7 @@ export class Routes {
   static BUILDING_EXISTS_BY_NAME: string = "building/existsByName";
 
   /*Szemeszterek*/
-  static SEMESTER_GET_ALL: string = "semester";
+  static SEMESTER_GET_ALL: string = "semester/getAll";
   static SEMESTER_GET_NAMES: string = "semester/getSemesterNames";
   static SEMESTER_FIND_BY_NAME: string = "semester/findByName";
   static SEMESTER_CREATE_SEMESTER: string = "semester/createSemester";
@@ -118,7 +120,7 @@ export class Routes {
   static SEMESTER_EXISTS_BY_NAME: string = "semester/existsByName";
 
   /*Kalendár*/
-  static CALENDAR_GET_EVENTS: string = "calendar";
+  static CALENDAR_GET_EVENTS: string = "calendar/getEvents";
 
   /*Backend*/
   static BACKEND_API: string = "http://localhost:8080/api/";

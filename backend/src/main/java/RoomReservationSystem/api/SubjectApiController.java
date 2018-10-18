@@ -47,7 +47,7 @@ public class SubjectApiController {
      * @return A tantárgyak egy listában
      */
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    @GetMapping
+    @GetMapping("/getAll")
     public ResponseEntity getAll() {
         return ResponseEntity.ok(toSubjectDTOList(subjectService.findAll()));
     }
