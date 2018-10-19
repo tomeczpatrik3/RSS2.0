@@ -26,6 +26,8 @@ public interface SubjectService {
     List<Subject> findByName(String name);
 
     List<String> getSubjectNames();
+    
+    String getSubjectName(String subjectCode) throws SubjectNotExistsException;
 
     Subject findByDTO(SubjectDTO subjectDTO);
 

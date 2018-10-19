@@ -8,9 +8,9 @@
     <div class="container" *ngIf="types[1] == data.type">
       <app-edit-event-reservation-form [reservationID]="data.id" (submitEvent)="onClose($event)"></app-edit-event-reservation-form>
     </div>
-    <!--     <div class="container" *ngIf="types[2] == data.type">
+    <div class="container" *ngIf="types[2] == data.type">
       <app-observe-class-reservation-form [reservationID]="data.id" (submitEvent)="onClose($event)"></app-observe-class-reservation-form>
-    </div> -->
+    </div>
     <div class="container" *ngIf="types[3] == data.type">
       <app-observe-event-reservation-form [reservationID]="data.id" (submitEvent)="onClose($event)"></app-observe-event-reservation-form>
     </div>

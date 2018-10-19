@@ -45,7 +45,12 @@ public class SecurityConstants {
     /**
      *
      */
-    public static final String GET_NAME_URL = "/api/user/getName*";
+    public static final String GET_USER_NAME_URL = "/api/user/getName*";
+    
+        /**
+     *
+     */
+    public static final String GET_SUBJECT_NAME_URL = "/api/subject/getSubjectName*";
 
     /**
      *

@@ -23,6 +23,15 @@ export class SubjectService {
     );
   }
 
+  getSubjectName(subjectCode: string): Observable<any> {
+    return <Observable<any>>(
+      this.http.get(
+        Routes.getUrl(Routes.SUBJECT_GET_SUBJECT_NAME) +
+          `?subjectCode=${subjectCode}`
+      )
+    );
+  }
+
   createSubject(subject: Subject): Observable<Subject> {
     return <Observable<Subject>>(
       this.http.post(Routes.getUrl(Routes.SUBJECT_CREATE_SUBJECT), subject)

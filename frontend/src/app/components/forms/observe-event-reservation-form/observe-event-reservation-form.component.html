@@ -42,7 +42,7 @@
       </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group" *ngIf="model.note.length > 0">
       <label for="note">Megjegyzés:</label>
       <textarea class="form-control" rows="5" id="note" placeholder="{{model.note}}" readonly></textarea>
     </div>

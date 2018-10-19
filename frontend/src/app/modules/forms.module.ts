@@ -25,6 +25,7 @@ import { EditEventReservationFormComponent } from '../components/forms/edit-even
 import { EditClassReservationFormComponent } from '../components/forms/edit-class-reservation-form/edit-class-reservation-form.component';
 
 import { ObserveEventReservationFormComponent } from '../components/forms/observe-event-reservation-form/observe-event-reservation-form.component';
+import { ObserveClassReservationFormComponent } from '../components/forms/observe-class-reservation-form/observe-class-reservation-form.component';
 
 import { LoginFormComponent } from "../components/forms/login-form/login-form.component";
 
@@ -54,6 +55,7 @@ import { UniqueSubjectCodeValidatorDirective } from "../directives/unique-subjec
     EditEventReservationFormComponent,
     EditClassReservationFormComponent,
     ObserveEventReservationFormComponent,
+    ObserveClassReservationFormComponent,
 
     //Directives:
     UniqueUsernameValidatorDirective,
@@ -90,7 +92,8 @@ import { UniqueSubjectCodeValidatorDirective } from "../directives/unique-subjec
     EditEventReservationFormComponent,
     EditClassReservationFormComponent,
     ObserveEventReservationFormComponent,
-    
+    ObserveClassReservationFormComponent,
+
     FormsModule,
     ReactiveFormsModule
   ] //Amit akarunk, hogy más komponens használhasson

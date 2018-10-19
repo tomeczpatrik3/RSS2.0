@@ -18,6 +18,7 @@ export class Routes {
   /*Tantárgyak:*/
   static SUBJECT_GET_ALL: string = "subject/getAll";
   static SUBJECT_GET_SUBJECT_NAMES: string = "subject/getSubjectNames";
+  static SUBJECT_GET_SUBJECT_NAME: string = "subject/getSubjectName";
   static SUBJECT_CREATE_SUBJECT: string = "subject/createSubject";
   static SUBJECT_DELETE_BY_CODE: string = "subject/deleteByCode";
   static SUBJECT_EXISTS_BY_ID: string = "subject/existsById";

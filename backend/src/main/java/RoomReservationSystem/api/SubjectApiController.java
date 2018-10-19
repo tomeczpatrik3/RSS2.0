@@ -11,6 +11,9 @@ import RoomReservationSystem.exception.SubjectAlredyExistsException;
 import RoomReservationSystem.exception.SubjectNotExistsException;
 import static RoomReservationSystem.util.ExceptionUtils.handleException;
 import static RoomReservationSystem.util.ValidationUtils.concatErrors;
+import java.util.Collections;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -61,6 +64,21 @@ public class SubjectApiController {
     @GetMapping("/getSubjectNames")
     public ResponseEntity getSubjectNames() {
         return ResponseEntity.ok(subjectService.getSubjectNames());
+    }
+
+    /**
+     * A függvény ami visszaadja az adott tárgykódhoz tartozó tantárgy nevét
+     *
+     * @param subjectCode A tárgykód
+     * @return A megfelelő válaszentitás
+     */
+    @GetMapping("/getSubjectName")
+    public ResponseEntity getSubjectName(@RequestParam(value = "subjectCode", required = true) String subjectCode) {
+        try {
+            return ResponseEntity.ok(Collections.singletonMap("name", subjectService.getSubjectName(subjectCode)));
+        } catch (SubjectNotExistsException ex) {
+            return handleException(ex);
+        }
     }
 
     /**

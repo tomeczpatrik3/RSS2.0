@@ -128,6 +128,18 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     /**
+     * A függvény ami visszaadja egy adott tárgykódhoz tartozó a tantárgy nevét
+     *
+     * @param subjectCode A tárgykód
+     * @return A tantárgy neve
+     * @throws SubjectNotExistsException
+     */
+    @Override
+    public String getSubjectName(String subjectCode) throws SubjectNotExistsException {
+        return findByCode(subjectCode).getName();
+    }
+
+    /**
      * A DTO objektum alapján történő keresést megvalósító függvény (Annak
      * ismeretében hogy melyik attribútum egyedi)
      *
