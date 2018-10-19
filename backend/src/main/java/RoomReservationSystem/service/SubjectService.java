@@ -6,6 +6,7 @@ import RoomReservationSystem.exception.SubjectNotExistsException;
 import RoomReservationSystem.model.Subject;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * A tantárgyakkal kapcsolatos műveletekért felelős interfész Részletes
@@ -27,7 +28,7 @@ public interface SubjectService {
 
     List<String> getSubjectNames();
     
-    String getSubjectName(String subjectCode) throws SubjectNotExistsException;
+    Map<String, String> getSubjectName(String subjectCode) throws SubjectNotExistsException;
 
     Subject findByDTO(SubjectDTO subjectDTO);
 

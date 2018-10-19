@@ -46,11 +46,36 @@ public class SecurityConstants {
      *
      */
     public static final String GET_USER_NAME_URL = "/api/user/getName*";
-    
-        /**
+
+    /**
      *
      */
     public static final String GET_SUBJECT_NAME_URL = "/api/subject/getSubjectName*";
+
+    /**
+     *
+     */
+    public static final String GET_BUILDING_NAMES_URL = "/api/building/getNames";
+
+    /**
+     *
+     */
+    public static final String GET_SUBJECT_NAMES_URL = "/api/subject/getSubjectNames";
+
+    /**
+     *
+     */
+    public static final String GET_USER_NAMES_URL = "/api/user/getNames";
+
+    /**
+     *
+     */
+    public static final String GET_SEMESTER_NAMES_URL = "/api/semester/getSemesterNames";
+
+    /**
+     *
+     */
+    public static final String GET_CLASSROOM_NAMES_URL = "/api/classroom/getNamesByBuilding*";
 
     /**
      *

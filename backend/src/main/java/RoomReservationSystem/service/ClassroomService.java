@@ -41,6 +41,8 @@ public interface ClassroomService {
 
     List<Classroom> findByBuildingName(String buildingName) throws BuildingNotExistsException;
 
+    List<String> getNamesByBuilding(String building) throws BuildingNotExistsException;
+
     Classroom findByDTO(ClassroomDTO classroomDTO) throws BuildingNotExistsException;
 
     boolean existsById(int id);

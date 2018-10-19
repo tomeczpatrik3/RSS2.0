@@ -1,6 +1,7 @@
 package RoomReservationSystem.service.impl;
 
 import RoomReservationSystem.dto.CalendarEventDTO;
+import RoomReservationSystem.dto.ReservationInfoDTO;
 import RoomReservationSystem.enums.Type;
 import RoomReservationSystem.exception.StatusNotExistsException;
 import RoomReservationSystem.model.reservation.ClassReservation;
@@ -51,11 +52,14 @@ public class CalendarServiceImpl implements CalendarService {
             List<ReservationDate> dates = reservation.getDateList();
             dates.forEach((date) -> {
                 events.add(new CalendarEventDTO(
-                        reservation.getId(),
                         date.getStart().toString(),
                         date.getEnd().toString(),
                         generateTitle(reservation),
-                        type
+                        new ReservationInfoDTO(
+                                reservation.getId(),
+                                type,
+                                reservation.getUser().getName()
+                        )
                 ));
             });
         });

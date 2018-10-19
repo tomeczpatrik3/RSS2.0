@@ -288,4 +288,13 @@ public class ClassroomApiController {
             return handleException(ex);
         }
     }
+    
+    @GetMapping("/getNamesByBuilding")
+    public ResponseEntity getNamesByBuilding(@RequestParam(value = "building", required = true) String building) {
+        try {
+            return ResponseEntity.ok(classroomService.getNamesByBuilding(building));
+        } catch (BuildingNotExistsException ex) {
+            return handleException(ex);
+        }
+    }
 }

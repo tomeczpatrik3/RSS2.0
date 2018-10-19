@@ -15,3 +15,7 @@
     </mwl-calendar-day-view>
   </div>
 </div>
+
+<hr>
+
+<app-filter-reservation-form [events$]="events$" (eventEmitter)="onClose($event)"></app-filter-reservation-form>

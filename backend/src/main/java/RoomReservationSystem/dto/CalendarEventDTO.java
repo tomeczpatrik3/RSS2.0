@@ -10,18 +10,11 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class CalendarEventDTO extends BaseDTO {
+public class CalendarEventDTO {
 
     private String start;
     private String end;
     private String title;
-    private Type type;
-    
-    public CalendarEventDTO(long id, String start, String end, String title, Type type) {
-        super(id);
-        this.start = start;
-        this.end = end;
-        this.title = title;
-        this.type = type;
-    }
+    private ReservationInfoDTO info;
+
 }

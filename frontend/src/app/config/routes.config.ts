@@ -81,6 +81,8 @@ export class Routes {
 
   /*Tantermek:*/
   static CLASSROOM_GET_ALL: string = "classroom/getAll";
+  static CLASSROOM_GET_NAMES_BY_BUILDING: string =
+    "classroom/getNamesByBuilding";
   static CLASSROOM_FIND_BY_NAME: string = "classroom/findByName";
   static CLASSROOM_FIND_BY_BUILDING_NAME: string =
     "classroom/findByBuildingName";

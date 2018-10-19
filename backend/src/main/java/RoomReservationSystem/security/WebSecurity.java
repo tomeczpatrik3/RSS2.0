@@ -5,6 +5,8 @@ import static RoomReservationSystem.security.SecurityConstants.CLASS_RESERVATION
 import static RoomReservationSystem.security.SecurityConstants.CLASS_RESERVATIONS_URL;
 import static RoomReservationSystem.security.SecurityConstants.EVENT_RESERVATIONS_FIND_BY_ID_URL;
 import static RoomReservationSystem.security.SecurityConstants.EVENT_RESERVATIONS_URL;
+import static RoomReservationSystem.security.SecurityConstants.GET_BUILDING_NAMES_URL;
+import static RoomReservationSystem.security.SecurityConstants.GET_CLASSROOM_NAMES_URL;
 import static RoomReservationSystem.security.SecurityConstants.LOGIN_URL;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -23,7 +25,10 @@ import static RoomReservationSystem.security.SecurityConstants.REGISTER_URL;
 import java.util.Arrays;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import static RoomReservationSystem.security.SecurityConstants.GET_EVENTS_URL;
+import static RoomReservationSystem.security.SecurityConstants.GET_SEMESTER_NAMES_URL;
+import static RoomReservationSystem.security.SecurityConstants.GET_SUBJECT_NAMES_URL;
 import static RoomReservationSystem.security.SecurityConstants.GET_SUBJECT_NAME_URL;
+import static RoomReservationSystem.security.SecurityConstants.GET_USER_NAMES_URL;
 import static RoomReservationSystem.security.SecurityConstants.GET_USER_NAME_URL;
 
 /**
@@ -64,9 +69,18 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, REGISTER_URL).permitAll()
                 .antMatchers(HttpMethod.GET, CHECK_USERNAME_URL).permitAll()
+                
                 .antMatchers(HttpMethod.GET, GET_USER_NAME_URL).permitAll()
                 .antMatchers(HttpMethod.GET, GET_SUBJECT_NAME_URL).permitAll()
+                
+                .antMatchers(HttpMethod.GET, GET_BUILDING_NAMES_URL).permitAll()
+                .antMatchers(HttpMethod.GET, GET_SUBJECT_NAMES_URL).permitAll()
+                .antMatchers(HttpMethod.GET, GET_USER_NAMES_URL).permitAll()
+                .antMatchers(HttpMethod.GET, GET_SEMESTER_NAMES_URL).permitAll()
+                .antMatchers(HttpMethod.GET, GET_CLASSROOM_NAMES_URL).permitAll()
+                
                 .antMatchers(HttpMethod.GET, GET_EVENTS_URL).permitAll()
+                
                 .antMatchers(HttpMethod.GET, CLASS_RESERVATIONS_URL).permitAll()
                 .antMatchers(HttpMethod.GET, CLASS_RESERVATIONS_FIND_BY_ID_URL).permitAll()
                 .antMatchers(HttpMethod.GET, EVENT_RESERVATIONS_URL).permitAll()

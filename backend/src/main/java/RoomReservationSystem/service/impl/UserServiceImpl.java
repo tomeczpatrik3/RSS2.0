@@ -14,7 +14,9 @@ import static RoomReservationSystem.model.User.toUser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -209,22 +211,24 @@ public class UserServiceImpl implements UserService {
     public User findByDTO(UserDTO userDTO) {
         return userRepository.findByUsername(userDTO.getUsername());
     }
-    
+
     /**
-     * Egy adott felhasználónévhez tartozó teljes név lekérdezését megvalósító függvény
+     * Egy adott felhasználónévhez tartozó teljes név lekérdezését megvalósító
+     * függvény
+     *
      * @param username A felhasználónév
      * @return A felhasználónévhez tartozó teljes név
      * @throws RoomReservationSystem.exception.UserNotExistsException
      */
     @Override
-    public String getName(String username) throws UserNotExistsException {
-        return findByUsername(username).getName();
+    public Map<String, String> getName(String username) throws UserNotExistsException {
+        return Collections.singletonMap("name", findByUsername(username).getName());
     }
-    
+
     /**
-     * A függvény amivel lekérdezhető, hogy létezik-e az adott
-     * azonosítóhoz tartozó entitás
-     * 
+     * A függvény amivel lekérdezhető, hogy létezik-e az adott azonosítóhoz
+     * tartozó entitás
+     *
      * @param id Az azonosító
      * @return Igen, ha létezik az azonosítóhoz tartozó entitás, nem egyébként
      */
@@ -234,24 +238,25 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * A függvény amivel lekérdezhető, hogy létezik-e az adott
-     * felhasználónévhez tartozó entitás
-     * 
+     * A függvény amivel lekérdezhető, hogy létezik-e az adott felhasználónévhez
+     * tartozó entitás
+     *
      * @param username A felhasználónév
-     * @return Igen, ha létezik a felhasználónévhez tartozó entitás, nem egyébként
+     * @return Igen, ha létezik a felhasználónévhez tartozó entitás, nem
+     * egyébként
      */
     @Override
     public boolean existsByUsername(String username) {
         return userRepository.existsByUsername(username);
     }
 
-     /**
-     * A függvény amivel lekérdezhető, hogy létezik-e az adott
-     * e-mail címhez tartozó entitás
-     * 
+    /**
+     * A függvény amivel lekérdezhető, hogy létezik-e az adott e-mail címhez
+     * tartozó entitás
+     *
      * @param email Az e-mail cím
      * @return Igen, ha létezik az e-mail címhez tartozó entitás, nem egyébként
-     */   
+     */
     @Override
     public boolean existsByEmail(String email) {
         return userRepository.existsByEmail(email);

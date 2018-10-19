@@ -8,6 +8,7 @@ import RoomReservationSystem.exception.UserNotExistsException;
 import RoomReservationSystem.model.User;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -36,7 +37,7 @@ public interface UserService extends UserDetailsService {
 
     User findByDTO(UserDTO userDTO);
     
-    String getName(String username) throws UserNotExistsException;
+    Map<String, String> getName(String username) throws UserNotExistsException;
 
     void deleteByUsername(String username) throws UserNotExistsException;
 

@@ -8,7 +8,9 @@ import RoomReservationSystem.repository.SubjectRepository;
 import RoomReservationSystem.service.SubjectService;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -135,8 +137,8 @@ public class SubjectServiceImpl implements SubjectService {
      * @throws SubjectNotExistsException
      */
     @Override
-    public String getSubjectName(String subjectCode) throws SubjectNotExistsException {
-        return findByCode(subjectCode).getName();
+    public Map<String, String> getSubjectName(String subjectCode) throws SubjectNotExistsException {
+        return Collections.singletonMap("name", findByCode(subjectCode).getName());
     }
 
     /**

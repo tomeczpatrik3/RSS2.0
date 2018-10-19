@@ -1,21 +1,20 @@
+import { ReservationInfo } from "./ReservationInfo";
+
 export class ReservationCalendarEvent {
-  id: number;
   title: string;
   start: string;
   end: string;
-  type: string;
+  info: ReservationInfo
 
   constructor(
-    id: number,
     title: string,
     start: string,
     end: string,
-    type: string
+    info: ReservationInfo
   ) {
-    this.id = id;
     this.title = title;
     this.start = start;
     this.end = end;
-    this.type = type;
+    this.info = info;
   }
 }

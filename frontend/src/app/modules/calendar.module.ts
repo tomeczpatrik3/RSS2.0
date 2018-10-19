@@ -12,6 +12,7 @@ import { CalendarCardComponent } from "../components/calendar/calendar-card/cale
 import { CalendarService } from "../services/calendar.service";
 import { DialogService } from "../services/dialog.service";
 import { AuthService } from "../authentication/auth.service";
+import { OwnFormsModule } from "./forms.module";
 
 /**
  * A magyar nyelv beállítása:
@@ -25,6 +26,7 @@ registerLocaleData(localeHu);
       provide: DateAdapter,
       useFactory: adapterFactory
     }),
+    OwnFormsModule
   ],
   declarations: [
     CalendarHeaderComponent,

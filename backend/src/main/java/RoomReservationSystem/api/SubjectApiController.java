@@ -60,7 +60,6 @@ public class SubjectApiController {
      *
      * @return A tantárgyak nevei egy listában
      */
-    @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping("/getSubjectNames")
     public ResponseEntity getSubjectNames() {
         return ResponseEntity.ok(subjectService.getSubjectNames());
@@ -75,7 +74,7 @@ public class SubjectApiController {
     @GetMapping("/getSubjectName")
     public ResponseEntity getSubjectName(@RequestParam(value = "subjectCode", required = true) String subjectCode) {
         try {
-            return ResponseEntity.ok(Collections.singletonMap("name", subjectService.getSubjectName(subjectCode)));
+            return ResponseEntity.ok(subjectService.getSubjectName(subjectCode));
         } catch (SubjectNotExistsException ex) {
             return handleException(ex);
         }

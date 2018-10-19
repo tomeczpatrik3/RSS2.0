@@ -63,7 +63,6 @@ public class UserApiController {
      *
      * @return A felhasználónevek egy listában
      */
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/getNames")
     public ResponseEntity getNames() {
         return ResponseEntity.ok(userService.getNames());
@@ -213,9 +212,7 @@ public class UserApiController {
     @GetMapping("/getName")
     public ResponseEntity getName(@RequestParam(value = "username", required = true) String username) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(
-                    Collections.singletonMap("name", userService.getName(username))
-            );
+            return ResponseEntity.status(HttpStatus.OK).body(userService.getName(username));
         } catch (UserNotExistsException ex) {
             return handleException(ex);
         }

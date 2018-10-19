@@ -9,6 +9,7 @@ import RoomReservationSystem.model.Classroom;
 import RoomReservationSystem.repository.ClassroomRepository;
 import RoomReservationSystem.service.ClassroomService;
 import RoomReservationSystem.service.BuildingService;
+import java.util.ArrayList;
 
 import java.util.List;
 
@@ -240,5 +241,25 @@ public class ClassroomServiceImpl implements ClassroomService {
     @Override
     public boolean existsByNameAndBuilding(String name, Building building) {
         return classroomRepository.existsByNameAndBuilding(name, building);
+    }
+
+    /**
+     * A függvény ami visszaadja a megadott épülethez tartozó tantermek neveit
+     * egy listában
+     *
+     * @param building Az épület neve
+     * @return A nevek egy listában
+     * @throws BuildingNotExistsException
+     */
+    @Override
+    public List<String> getNamesByBuilding(String building) throws BuildingNotExistsException {
+        List<Classroom> classrooms = findByBuilding(buildingService.findByName(building));
+        List<String> names = new ArrayList<>();
+
+        classrooms.forEach(classroom -> {
+            names.add(classroom.getName());
+        });
+
+        return names;
     }
 }

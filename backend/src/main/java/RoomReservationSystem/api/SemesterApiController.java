@@ -58,7 +58,6 @@ public class SemesterApiController {
      *
      * @return A szemeszterek nevei egy listában
      */
-    @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping("/getSemesterNames")
     public ResponseEntity getSemesterNames() {
         return ResponseEntity.ok(semesterService.getNames());

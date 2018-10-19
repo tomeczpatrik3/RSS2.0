@@ -27,6 +27,7 @@ import { FormType } from "../../../enums/FormType";
 import { DialogService } from "../../../services/dialog.service";
 
 import { FormDialogComponent } from "../../dialogs/form-dialog/form-dialog.component";
+import { ReservationInfo } from "../../../models/ReservationInfo";
 
 @Component({
   selector: "app-calendar-full",
@@ -67,7 +68,7 @@ export class CalendarFullComponent implements OnInit {
 
   viewDate: Date = new Date();
 
-  events$: Observable<Array<CalendarEvent<{}>>>;
+  events$: Observable<Array<CalendarEvent<{ info: ReservationInfo }>>>;
 
   activeDayIsOpen: boolean = false;
 
@@ -136,15 +137,15 @@ export class CalendarFullComponent implements OnInit {
     this.events$ = this.calendarService.getEvents().pipe(
       map((results: ReservationCalendarEvent[]) => {
         return results.map((event: ReservationCalendarEvent) => {
+          const info = event.info;
           return {
             title: event.title,
             start: new Date(event.start),
             end: new Date(event.end),
-            color: colors.blue,
+            color: colors.yellow,
             actions: allowedActions,
             meta: {
-              id: event.id,
-              type: event.type
+              info
             }
           };
         });
