@@ -67,7 +67,17 @@ public class EventReservationApiController extends ReservationApiController {
         } catch (StatusNotExistsException | NullPointerException ex) {
             return handleException(ex);
         }
+    }
 
+    /**
+     * A függvény ami visszaadja egy listában az összes adatbázisban található
+     * eseményre vonatkozó foglalás nevét
+     *
+     * @return A nevek egy listában
+     */
+    @GetMapping("/getNames")
+    public ResponseEntity getNames() {
+        return ResponseEntity.ok(eventService.getNames());
     }
 
     /**
@@ -283,10 +293,9 @@ public class EventReservationApiController extends ReservationApiController {
     public ResponseEntity existsById(@RequestParam(value = "id", required = true) int id) {
         return ResponseEntity.status(HttpStatus.OK).body(eventService.existsById(id));
     }
-    
+
     /**
-     * A függvény ami visszaadja, hogy létezik-e az adott névhez tartozó
-     * entitás
+     * A függvény ami visszaadja, hogy létezik-e az adott névhez tartozó entitás
      *
      * @param name Az esemény neve
      * @return A megfelelő válasz entitás

@@ -45,5 +45,13 @@ export class EventReservationTableComponent implements OnInit {
         FormDialogComponent
       );
     }
+    else {
+      this.dialogService.openFormDialog(
+        "Foglalás szerkesztése:",
+        FormType.OBSERVE_EVENT_RESERVATION_FORM,
+        id,
+        FormDialogComponent
+      );      
+    }
   }
 }

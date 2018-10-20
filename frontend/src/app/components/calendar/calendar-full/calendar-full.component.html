@@ -18,4 +18,4 @@
 
 <hr>
 
-<app-filter-reservation-form [events$]="events$" (eventEmitter)="onClose($event)"></app-filter-reservation-form>
+<app-filter-reservation-form (eventEmitter)="loadEvents($event)"></app-filter-reservation-form>

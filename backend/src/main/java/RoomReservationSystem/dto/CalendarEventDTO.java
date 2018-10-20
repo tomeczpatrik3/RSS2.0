@@ -1,5 +1,6 @@
 package RoomReservationSystem.dto;
 
+import RoomReservationSystem.dto.reservation.ReservationInfoDTO;
 import RoomReservationSystem.enums.Type;
 import lombok.AllArgsConstructor;
 import lombok.Data;

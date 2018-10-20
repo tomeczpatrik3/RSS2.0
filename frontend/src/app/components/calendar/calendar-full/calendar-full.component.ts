@@ -28,6 +28,7 @@ import { DialogService } from "../../../services/dialog.service";
 
 import { FormDialogComponent } from "../../dialogs/form-dialog/form-dialog.component";
 import { ReservationInfo } from "../../../models/ReservationInfo";
+import { EventAction } from "calendar-utils";
 
 @Component({
   selector: "app-calendar-full",
@@ -86,25 +87,28 @@ export class CalendarFullComponent implements OnInit {
   }
 
   /**
-   * Az események betöltéséért felelős függvény:
+   * Az aktuális szerepkörhöz tartozó műveletek beállításáért felelős függvény
    */
-  fetchEvents(): void {
+  getAllowedActions(): EventAction[] {
     let allowedActions = [
       {
         label: ' <i class="fa fa-sticky-note"></i>',
         onClick: ({ event }: { event: CalendarEvent }): void => {
-          if (event.meta && event.meta.type === ReservationType.CLASS) {
+          if (event.meta && event.meta.info.type === ReservationType.CLASS) {
             this.dialogService.openFormDialog(
               "Foglalás megtekintése:",
               FormType.OBSERVE_CLASS_RESERVATION_FORM,
-              event.meta.id,
+              event.meta.info.id,
               FormDialogComponent
             );
-          } else if (event.meta && event.meta.type === ReservationType.EVENT) {
+          } else if (
+            event.meta &&
+            event.meta.info.type === ReservationType.EVENT
+          ) {
             this.dialogService.openFormDialog(
               "Foglalás megtekintése:",
               FormType.OBSERVE_EVENT_RESERVATION_FORM,
-              event.meta.id,
+              event.meta.info.id,
               FormDialogComponent
             );
           }
@@ -115,26 +119,42 @@ export class CalendarFullComponent implements OnInit {
       allowedActions.push({
         label: ' <i class="fa fa-edit"></i>',
         onClick: ({ event }: { event: CalendarEvent }): void => {
-          if (event.meta && event.meta.type === ReservationType.CLASS) {
+          if (event.meta && event.meta.info.type === ReservationType.CLASS) {
             this.dialogService.openFormDialog(
               "Foglalás szerkesztése:",
               FormType.EDIT_CLASS_RESERVATION_FORM,
-              event.meta.id,
+              event.meta.info.id,
               FormDialogComponent
             );
-          } else if (event.meta && event.meta.type === ReservationType.EVENT) {
+          } else if (
+            event.meta &&
+            event.meta.info.type === ReservationType.EVENT
+          ) {
             this.dialogService.openFormDialog(
               "Foglalás szerkesztése:",
               FormType.EDIT_EVENT_RESERVATION_FORM,
-              event.meta.id,
+              event.meta.info.id,
               FormDialogComponent
             );
           }
         }
       });
     }
+    return allowedActions;
+  }
 
-    this.events$ = this.calendarService.getEvents().pipe(
+  /**
+   * Az (összes) esemény betöltéséért felelős függvény:
+   */
+  fetchEvents(): void {
+    this.loadEvents(this.calendarService.getEvents());
+  }
+
+  /**
+   * A paraméterben átadott események betöltéséért felelős függvény:
+   */
+  loadEvents(observable$: Observable<ReservationCalendarEvent[]>): void {
+    this.events$ = observable$.pipe(
       map((results: ReservationCalendarEvent[]) => {
         return results.map((event: ReservationCalendarEvent) => {
           const info = event.info;
@@ -142,8 +162,8 @@ export class CalendarFullComponent implements OnInit {
             title: event.title,
             start: new Date(event.start),
             end: new Date(event.end),
-            color: colors.yellow,
-            actions: allowedActions,
+            color: colors.blue,
+            actions: this.getAllowedActions(),
             meta: {
               info
             }

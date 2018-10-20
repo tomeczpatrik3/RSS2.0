@@ -20,6 +20,7 @@ import RoomReservationSystem.service.UserService;
 import RoomReservationSystem.service.reservation.EventReservationService;
 import RoomReservationSystem.service.reservation.ReservationDateService;
 import static RoomReservationSystem.util.DateUtils.getTimestamp;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -282,4 +283,20 @@ public class EventReservationServiceImpl implements EventReservationService {
         return repository.existsByName(name);
     }
 
+    /**
+     * A foglalások neveinek lekérdezését megvalósító függvény
+     *
+     * @return Az foglalások nevei egy listában
+     */
+    @Override
+    public List<String> getNames() {
+        List<EventReservation> reservations = repository.findAll();
+        List<String> names = new ArrayList<>();
+
+        reservations.forEach((reservation) -> {
+            names.add(reservation.getName());
+        });
+
+        return names;
+    }
 }

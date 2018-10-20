@@ -56,6 +56,7 @@ export class Routes {
   /*Eseményre vonatkozó foglalások*/
   static EVENT_RESERVATION_GET_ACCEPTED: string =
     "eventReservation/getAccepted";
+  static EVENT_RESERVATION_GET_NAMES: string = "eventReservation/getNames";
   static EVENT_RESERVATION_FIND_BY_ID: string = "eventReservation/findById";
   static EVENT_RESERVATION_FIND_BY_USERNAME: string =
     "eventReservation/findByUsername";
@@ -125,6 +126,13 @@ export class Routes {
 
   /*Kalendár*/
   static CALENDAR_GET_EVENTS: string = "calendar/getEvents";
+  static CALENDAR_FIND_BY_USER_NAME: string = "calendar/findByUserName";
+  static CALENDAR_FIND_BY_BUILDING_NAME: string = "calendar/findByBuildingName";
+  static CALENDAR_FIND_BY_CLASSROOM_NAME: string =
+    "calendar/findByClassroomName";
+  static CALENDAR_FIND_BY_EVENT_NAME: string = "calendar/findByEventName";
+  static CALENDAR_FIND_BY_SUBJECT_NAME: string = "calendar/findBySubjectName";
+  static CALENDAR_FIND_BY_SEMESTER_NAME: string = "calendar/findBySemesterName";
 
   /*Backend*/
   static BACKEND_API: string = "http://localhost:8080/api/";

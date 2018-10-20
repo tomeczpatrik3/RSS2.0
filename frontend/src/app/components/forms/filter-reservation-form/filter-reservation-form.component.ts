@@ -10,7 +10,14 @@ import { filter, map } from "rxjs/operators";
 import { CalendarEvent } from "calendar-utils";
 import { UserService } from "../../../services/user.service";
 import { SubjectService } from "../../../services/subject.service";
+import { BuildingService } from "../../../services/building.service";
 import { ReservationInfo } from "../../../models/ReservationInfo";
+import { CalendarService } from "../../../services/calendar.service";
+import { ReservationCalendarEvent } from "../../../models/ReservationCalendarEvent";
+import { Filter } from "../../../enums/Filter";
+import { ClassroomService } from "../../../services/classroom.service";
+import { SemesterService } from "../../../services/semester.service";
+import { EventReservationService } from "../../../services/event-reservation.service";
 
 @Component({
   selector: "app-filter-reservation-form",
@@ -18,16 +25,18 @@ import { ReservationInfo } from "../../../models/ReservationInfo";
   styleUrls: ["./filter-reservation-form.component.css"]
 })
 export class FilterReservationFormComponent implements OnInit {
-  @Input()
-  events$: Observable<Array<CalendarEvent<{ info: ReservationInfo }>>>;
-
   @Output()
-  eventEmitter = new EventEmitter<
-    Observable<Array<CalendarEvent<{ info: ReservationInfo }>>>
-  >();
+  eventEmitter = new EventEmitter<Observable<ReservationCalendarEvent[]>>();
 
-  filterValues: string[] = ["Tanár neve", "Tantárgy neve"];
-  values: string[];
+  filterValues: string[] = [
+    Filter.USER_NAME,
+    Filter.BUILDING_NAME,
+    //Filter.CLASSROOM_NAME,
+    Filter.SUBJECT_NAME,
+    Filter.SEMESTER_NAME,
+    Filter.EVENT_NAME
+  ];
+  loadedValues: string[];
 
   selectedFilter = new FormControl("", [Validators.required]);
 
@@ -41,27 +50,64 @@ export class FilterReservationFormComponent implements OnInit {
   constructor(
     private builder: FormBuilder,
     private userService: UserService,
-    private subjectService: SubjectService
+    private buildingService: BuildingService,
+    private classroomService: ClassroomService,
+    private subjectService: SubjectService,
+    private semesterService: SemesterService,
+    private eventReservationService: EventReservationService,
+    private calendarService: CalendarService
   ) {}
 
   ngOnInit() {}
 
   onFilterSelect() {
-    this.values = [];
+    this.loadedValues = [];
 
     switch (this.selectedFilter.value) {
-      case this.filterValues[0]: {
+      case Filter.USER_NAME: {
         this.userService.getNames().subscribe(res => {
           res.map(name => {
-            this.values.push(name);
+            this.loadedValues.push(name);
           });
         });
         break;
       }
-      case this.filterValues[1]: {
+      case Filter.BUILDING_NAME: {
+        this.buildingService.getNames().subscribe(res => {
+          res.map(name => {
+            this.loadedValues.push(name);
+          });
+        });
+        break;
+      }
+      /*       case Filter.CLASSROOM_NAME: {
+        this.classroomService.getNamesByBuilding().subscribe(res => {
+          res.map(name => {
+            this.loadedValues.push(name);
+          });
+        });
+        break;
+      } */
+      case Filter.SUBJECT_NAME: {
         this.subjectService.getSubjectNames().subscribe(res => {
           res.map(name => {
-            this.values.push(name);
+            this.loadedValues.push(name);
+          });
+        });
+        break;
+      }
+      case Filter.SEMESTER_NAME: {
+        this.semesterService.getSemesterNames().subscribe(res => {
+          res.map(name => {
+            this.loadedValues.push(name);
+          });
+        });
+        break;
+      }
+      case Filter.EVENT_NAME: {
+        this.eventReservationService.getEventNames().subscribe(res => {
+          res.map(name => {
+            this.loadedValues.push(name);
           });
         });
         break;
@@ -70,22 +116,45 @@ export class FilterReservationFormComponent implements OnInit {
   }
 
   onFilter() {
-    this.events$.subscribe( res => console.log(res));
-
     switch (this.selectedFilter.value) {
-      case this.filterValues[0]: {
-        const filteredEvents$: Observable<Array<CalendarEvent<{ info: ReservationInfo }>>> = this.events$.pipe(
-          map((events: CalendarEvent[]) => {
-            return events.filter(event => {
-              event.meta.teacherName === this.selectedValue.value;
-            });
-          })
+      case Filter.USER_NAME: {
+        this.eventEmitter.emit(
+          this.calendarService.findByUserName(this.selectedValue.value)
         );
-
-        filteredEvents$.subscribe(res => console.log(res));
+        break;
+      }
+      case Filter.BUILDING_NAME: {
+        this.eventEmitter.emit(
+          this.calendarService.findByBuildingName(this.selectedValue.value)
+        );
+        break;
+      }
+      /*       case Filter.CLASSROOM_NAME: {
+        this.classroomService.getNamesByBuilding().subscribe(res => {
+          res.map(name => {
+            this.loadedValues.push(name);
+          });
+        });
+        break;
+      } */
+      case Filter.SUBJECT_NAME: {
+        this.eventEmitter.emit(
+          this.calendarService.findBySubjectName(this.selectedValue.value)
+        );
+        break;
+      }
+      case Filter.SEMESTER_NAME: {
+        this.eventEmitter.emit(
+          this.calendarService.findBySemesterName(this.selectedValue.value)
+        );
+        break;
+      }
+      case Filter.EVENT_NAME: {
+        this.eventEmitter.emit(
+          this.calendarService.findByEventName(this.selectedValue.value)
+        );
+        break;
       }
     }
-
-    this.filterForm.reset();
   }
 }

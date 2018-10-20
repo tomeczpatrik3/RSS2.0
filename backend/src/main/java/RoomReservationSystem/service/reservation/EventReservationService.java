@@ -33,6 +33,8 @@ public interface EventReservationService {
     List<EventReservation> findByStatus(String statusName) throws StatusNotExistsException;
 
     List<EventReservation> findByBuildingAndClassroom(String building, String classroom) throws ClassroomNotExistsException, BuildingNotExistsException;
+    
+    List<String> getNames();
 
     boolean existsById(int id);
 

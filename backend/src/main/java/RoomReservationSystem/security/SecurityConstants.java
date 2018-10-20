@@ -35,12 +35,17 @@ public class SecurityConstants {
     /**
      *
      */
-    public static final String GET_EVENTS_URL = "/api/calendar/getEvents";
+    public static final String CALENDAR_URLS = "/api/calendar/**";
 
     /**
      *
      */
     public static final String CHECK_USERNAME_URL = "/api/user/existsByUsername*";
+
+    /**
+     *
+     */
+    public static final String GET_EVENT_NAMES_URL = "/api/eventReservation/getNames";
 
     /**
      *

@@ -13,7 +13,6 @@
     </div>
     <div class="container" *ngIf="types[3] == data.type">
       <app-observe-event-reservation-form [reservationID]="data.id" (submitEvent)="onClose($event)"></app-observe-event-reservation-form>
-    </div>
-    <!-- Használat pl: (submitEvent)="deletePhone($event)" -->
+    </div> <!-- Használat pl: (submitEvent)="deletePhone($event)"-->
   </mat-dialog-content>
 </div>

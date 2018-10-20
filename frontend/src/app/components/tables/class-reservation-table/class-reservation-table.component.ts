@@ -17,6 +17,7 @@ export class ClassReservationTableComponent implements OnInit {
   user: string;
   @Input()
   pending: boolean;
+
   reservations: ClassReservation[];
 
   constructor(
@@ -46,6 +47,14 @@ export class ClassReservationTableComponent implements OnInit {
         id,
         FormDialogComponent
       );
+    }
+    else {
+      this.dialogService.openFormDialog(
+        "Foglalás szerkesztése:",
+        FormType.OBSERVE_CLASS_RESERVATION_FORM,
+        id,
+        FormDialogComponent
+      );      
     }
   }
 }
