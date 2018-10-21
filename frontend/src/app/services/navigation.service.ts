@@ -11,8 +11,14 @@ export class NavigationService {
    * A menü
    */
   menuItems: MenuItem[] = [
+    /**
+     * Főoldal:
+     */
     new MenuItem("Simple", "Főoldal", "/dashboard", Authorities.ROLE_GUEST),
 
+    /**
+     * Foglalások:
+     */
     new MenuItem("Dropdown", "Foglalások", "", Authorities.ROLE_GUEST, [
       new MenuItem(
         "Simple",
@@ -26,8 +32,17 @@ export class NavigationService {
         "/reservationsCalendar",
         Authorities.ROLE_GUEST
       ),
+      new MenuItem(
+        "Simple",
+        "Várakozó foglalások",
+        "/pendingReservations",
+        Authorities.ROLE_ADMIN
+      )
     ]),
 
+    /**
+     * Saját foglalások:
+     */
     new MenuItem("Dropdown", "Foglalásaim", "", Authorities.ROLE_USER, [
       new MenuItem(
         "Simple",
@@ -37,78 +52,107 @@ export class NavigationService {
       )
     ]),
 
+    /**
+     * Táblázatok:
+     */
     new MenuItem("Dropdown", "Táblázatok", "", Authorities.ROLE_ADMIN, [
-      new MenuItem("Simple", "Felhasználók", "/users", Authorities.ROLE_ADMIN),
+      new MenuItem(
+        "Simple",
+        "Felhasználók",
+        "/tables/users",
+        Authorities.ROLE_ADMIN
+      ),
       new MenuItem(
         "Simple",
         "Tantermek",
-        "/classrooms",
+        "/tables/classrooms",
         Authorities.ROLE_ADMIN
       ),
-      new MenuItem("Simple", "Félévek", "/semesters", Authorities.ROLE_ADMIN),
-      new MenuItem("Simple", "Tantárgyak", "/subjects", Authorities.ROLE_ADMIN),
-      new MenuItem("Simple", "Épületek", "/buildings", Authorities.ROLE_ADMIN),
-      new MenuItem("Simple", "Tantárgy foglalások", "/classReservations", Authorities.ROLE_ADMIN),
-      new MenuItem("Simple", "Esemény foglalások", "/eventReservations", Authorities.ROLE_ADMIN)
+      new MenuItem(
+        "Simple",
+        "Félévek",
+        "/tables/semesters",
+        Authorities.ROLE_ADMIN
+      ),
+      new MenuItem(
+        "Simple",
+        "Tantárgyak",
+        "/tables/subjects",
+        Authorities.ROLE_ADMIN
+      ),
+      new MenuItem(
+        "Simple",
+        "Épületek",
+        "/tables/buildings",
+        Authorities.ROLE_ADMIN
+      ),
+      new MenuItem(
+        "Simple",
+        "Tantárgy foglalások",
+        "/tables/classReservations",
+        Authorities.ROLE_ADMIN
+      ),
+      new MenuItem(
+        "Simple",
+        "Esemény foglalások",
+        "/tables/eventReservations",
+        Authorities.ROLE_ADMIN
+      )
     ]),
 
+    /**
+     * Űrlapok:
+     */
     new MenuItem("Dropdown", "Űrlapok", "", Authorities.ROLE_USER, [
       new MenuItem(
         "Simple",
         "Új egyszerű foglalás",
-        "/addSimpleReservation",
+        "/forms/addSimpleReservation",
         Authorities.ROLE_USER
       ),
       new MenuItem(
         "Simple",
         "Új szemeszterre vonatkozó foglalás",
-        "/addSemesterReservation",
+        "/forms/addSemesterReservation",
         Authorities.ROLE_USER
       ),
       new MenuItem(
         "Simple",
         "Új eseményre vonatkozó foglalás",
-        "/addEventReservation",
+        "/forms/addEventReservation",
         Authorities.ROLE_USER
       ),
       new MenuItem(
         "Simple",
         "Új szemeszter",
-        "/addSemester",
+        "/forms/addSemester",
         Authorities.ROLE_ADMIN
       ),
       new MenuItem(
         "Simple",
         "Új felhasználó",
-        "/addUser",
+        "/forms/addUser",
         Authorities.ROLE_ADMIN
       ),
       new MenuItem(
         "Simple",
         "Új tanterem",
-        "/addClassroom",
+        "/forms/addClassroom",
         Authorities.ROLE_ADMIN
       ),
       new MenuItem(
         "Simple",
         "Új tantárgy",
-        "/addSubject",
+        "/forms/addSubject",
         Authorities.ROLE_ADMIN
       ),
       new MenuItem(
         "Simple",
         "Új épület",
-        "/addBuilding",
+        "/forms/addBuilding",
         Authorities.ROLE_ADMIN
       )
     ])
-
-    /*     new MenuItem(
-      "Simple",
-      "Várakozó foglalások kezelése",
-      "/managePendingReservations",
-      Authorities.ROLE_ADMIN
-    ) */
   ];
 
   constructor() {}

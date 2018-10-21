@@ -18,8 +18,8 @@
         <td>{{reservation.username}}</td>
         <td>{{reservation.building}}</td>
         <td>{{reservation.classroom}}</td>
-        <td>{{reservation.status}}</td>
-        <td>{{reservation.note}}</td>
+        <td>{{reservation.status | statusConvert}}</td>
+        <td>{{reservation.note | empty}}</td>
         <td>{{reservation.name}}</td>
       </tr>
     </tbody>

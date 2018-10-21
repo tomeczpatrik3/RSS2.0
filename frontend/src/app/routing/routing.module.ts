@@ -13,24 +13,22 @@ import { EventReservationTableComponent } from "../components/tables/event-reser
 
 import { AddUserFormComponent } from "../components/forms/add-user-form/add-user-form.component";
 import { AddClassroomFormComponent } from "../components/forms/add-classroom-form/add-classroom-form.component";
-//import { AddReservationFormComponent } from '../components/forms/add-reservation-form/add-reservation-form.component';
 import { SubjectTableComponent } from "../components/tables/subject-table/subject-table.component";
 import { AddSubjectFormComponent } from "../components/forms/add-subject-form/add-subject-form.component";
 import { AddBuildingFormComponent } from "../components/forms/add-building-form/add-building-form.component";
 import { AddSemesterFormComponent } from "../components/forms/add-semester-form/add-semester-form.component";
-
-import { AuthGuard } from "../guards/auth-guard.service";
-import { RoleGuard } from "../guards/role-guard.service";
-import { CanDeactivateGuard } from '../guards/can-deactivate-guard.service';
-
-import { Authorities } from "../config/authoritites.config";
-
-import { LogoutComponent } from "../components/logout/logout.component";
-import { MyReservationsComponent } from "../components/other/my-reservations/my-reservations.component";
-import { ReservationsComponent } from "../components/other/reservations/reservations.component";
 import { AddEventReservationFormComponent } from "../components/forms/add-event-reservation-form/add-event-reservation-form.component";
 import { AddSimpleReservationFormComponent } from "../components/forms/add-simple-reservation-form/add-simple-reservation-form.component";
 import { AddSemesterReservationFormComponent } from "../components/forms/add-semester-reservation-form/add-semester-reservation-form.component";
+
+import { RoleGuard } from "../guards/role-guard.service";
+import { CanDeactivateGuard } from "../guards/can-deactivate-guard.service";
+
+import { Authorities } from "../config/authoritites.config";
+
+import { MyReservationsComponent } from "../components/other/my-reservations/my-reservations.component";
+import { ReservationsComponent } from "../components/other/reservations/reservations.component";
+import { PendingReservationsComponent } from "../components/other/pending-reservations/pending-reservations.component";
 import { CalendarCardComponent } from "../components/calendar/calendar-card/calendar-card.component";
 
 const routes: Routes = [
@@ -43,47 +41,25 @@ const routes: Routes = [
     path: "dashboard",
     component: DashboardComponent
   },
+
+  //User things:
   {
     path: "login",
     component: LoginFormComponent
   },
   {
-    path: "logout",
-    component: LogoutComponent,
-    canActivate: [RoleGuard],
-    data: {
-      authority: Authorities.ROLE_USER
-    }
-  },
-  {
     path: "register",
     component: AddUserFormComponent
   },
+
+  //Components:
   {
     path: "reservationsCalendar",
-    component: CalendarCardComponent,
-  },  
-  //-------
-  //Tables:
-  {
-    path: "reservations",
-    component: ReservationsComponent,
-  },  
-  {
-    path: "classReservations",
-    component: ClassReservationTableComponent,
-    canActivate: [RoleGuard],
-    data: {
-      authority: Authorities.ROLE_ADMIN
-    }
+    component: CalendarCardComponent
   },
   {
-    path: "eventReservations",
-    component: EventReservationTableComponent,
-    canActivate: [RoleGuard],
-    data: {
-      authority: Authorities.ROLE_ADMIN
-    }
+    path: "reservations",
+    component: ReservationsComponent
   },
   {
     path: "myReservations",
@@ -94,7 +70,34 @@ const routes: Routes = [
     }
   },
   {
-    path: "users",
+    path: "pendingReservations",
+    component: PendingReservationsComponent,
+    canActivate: [RoleGuard],
+    data: {
+      authority: Authorities.ROLE_ADMIN
+    }
+  },
+
+  //-------
+  //Tables:
+  {
+    path: "tables/classReservations",
+    component: ClassReservationTableComponent,
+    canActivate: [RoleGuard],
+    data: {
+      authority: Authorities.ROLE_ADMIN
+    }
+  },
+  {
+    path: "tables/eventReservations",
+    component: EventReservationTableComponent,
+    canActivate: [RoleGuard],
+    data: {
+      authority: Authorities.ROLE_ADMIN
+    }
+  },
+  {
+    path: "tables/users",
     component: UserTableComponent,
     canActivate: [RoleGuard],
     data: {
@@ -102,7 +105,7 @@ const routes: Routes = [
     }
   },
   {
-    path: "classrooms",
+    path: "tables/classrooms",
     component: ClassroomTableComponent,
     canActivate: [RoleGuard],
     data: {
@@ -110,7 +113,7 @@ const routes: Routes = [
     }
   },
   {
-    path: "subjects",
+    path: "tables/subjects",
     component: SubjectTableComponent,
     canActivate: [RoleGuard],
     data: {
@@ -118,7 +121,7 @@ const routes: Routes = [
     }
   },
   {
-    path: "buildings",
+    path: "tables/buildings",
     component: BuildingTableComponent,
     canActivate: [RoleGuard],
     data: {
@@ -126,7 +129,7 @@ const routes: Routes = [
     }
   },
   {
-    path: "semesters",
+    path: "tables/semesters",
     component: SemesterTableComponent,
     canActivate: [RoleGuard],
     data: {
@@ -136,7 +139,7 @@ const routes: Routes = [
 
   //Forms:
   {
-    path: "addUser",
+    path: "forms/addUser",
     component: AddUserFormComponent,
     canActivate: [RoleGuard],
     canDeactivate: [CanDeactivateGuard],
@@ -145,16 +148,16 @@ const routes: Routes = [
     }
   },
   {
-    path: "addClassroom",
+    path: "forms/addClassroom",
     component: AddClassroomFormComponent,
     canActivate: [RoleGuard],
     canDeactivate: [CanDeactivateGuard],
     data: {
       authority: Authorities.ROLE_ADMIN
-    },
+    }
   },
   {
-    path: "addEventReservation",
+    path: "forms/addEventReservation",
     component: AddEventReservationFormComponent,
     canActivate: [RoleGuard],
     canDeactivate: [CanDeactivateGuard],
@@ -163,7 +166,7 @@ const routes: Routes = [
     }
   },
   {
-    path: "addSimpleReservation",
+    path: "forms/addSimpleReservation",
     component: AddSimpleReservationFormComponent,
     canActivate: [RoleGuard],
     canDeactivate: [CanDeactivateGuard],
@@ -172,7 +175,7 @@ const routes: Routes = [
     }
   },
   {
-    path: "addSemesterReservation",
+    path: "forms/addSemesterReservation",
     component: AddSemesterReservationFormComponent,
     canActivate: [RoleGuard],
     canDeactivate: [CanDeactivateGuard],
@@ -181,7 +184,7 @@ const routes: Routes = [
     }
   },
   {
-    path: "addEventReservation",
+    path: "forms/addEventReservation",
     component: AddEventReservationFormComponent,
     canActivate: [RoleGuard],
     canDeactivate: [CanDeactivateGuard],
@@ -190,7 +193,7 @@ const routes: Routes = [
     }
   },
   {
-    path: "addSubject",
+    path: "forms/addSubject",
     component: AddSubjectFormComponent,
     canActivate: [RoleGuard],
     canDeactivate: [CanDeactivateGuard],
@@ -199,7 +202,7 @@ const routes: Routes = [
     }
   },
   {
-    path: "addBuilding",
+    path: "forms/addBuilding",
     component: AddBuildingFormComponent,
     canActivate: [RoleGuard],
     canDeactivate: [CanDeactivateGuard],
@@ -208,14 +211,14 @@ const routes: Routes = [
     }
   },
   {
-    path: "addSemester",
+    path: "forms/addSemester",
     component: AddSemesterFormComponent,
     canActivate: [RoleGuard],
     canDeactivate: [CanDeactivateGuard],
     data: {
       authority: Authorities.ROLE_ADMIN
     }
-  },
+  }
 ];
 
 @NgModule({

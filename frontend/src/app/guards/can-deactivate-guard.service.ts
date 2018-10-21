@@ -22,23 +22,20 @@ export interface CanComponentDeactivate {
 @Injectable()
 export class CanDeactivateGuard
   implements CanDeactivate<CanComponentDeactivate> {
-/**
- * A canDeactivate() függvény
- * Ha a komponens implementálta a CanComponentDeactivate interfészt, 
- * akkor a canDeactivate() függvény visszatérési értéke alapján döntjük el,
- * hogy az oldal elhagyható-e. Egyéb esetben elhagyható.
- * @param component A komponens
- * @param route 
- * @param state 
- */
+  /**
+   * A canDeactivate() függvény
+   * Ha a komponens implementálta a CanComponentDeactivate interfészt,
+   * akkor a canDeactivate() függvény visszatérési értéke alapján döntjük el,
+   * hogy az oldal elhagyható-e. Egyéb esetben elhagyható.
+   * @param component A komponens
+   * @param route
+   * @param state
+   */
   canDeactivate(
     component: CanComponentDeactivate,
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ) {
-    let url: string = state.url;
-    console.log("Url: " + url);
-
     return component.canDeactivate ? component.canDeactivate() : true;
   }
 }

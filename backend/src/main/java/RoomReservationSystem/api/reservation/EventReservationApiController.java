@@ -70,6 +70,22 @@ public class EventReservationApiController extends ReservationApiController {
     }
 
     /**
+     * A függvény ami visszaadja a várakozó foglalásokat
+     *
+     * @return A megfelelő foglalások egy listában
+     */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping("/getPending")
+    @Override
+    public ResponseEntity getPending() {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(toEventReservationDTOList(eventService.findByStatus("PENDING")));
+        } catch (StatusNotExistsException | NullPointerException ex) {
+            return handleException(ex);
+        }
+    }
+
+    /**
      * A függvény ami visszaadja egy listában az összes adatbázisban található
      * eseményre vonatkozó foglalás nevét
      *

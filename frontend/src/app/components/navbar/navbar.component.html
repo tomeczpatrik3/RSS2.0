@@ -24,7 +24,7 @@
               <button class="dropdown-item" routerLink="/login">Bejelentkezés</button>
             </div>
             <div *ngIf="isLoggedIn()">
-              <button class="dropdown-item" routerLink="/logout">Kijelentkezés</button>
+              <button class="dropdown-item" routerLink="/dashboard" (click)="logOut()">Kijelentkezés</button>
             </div>
             <div *ngIf="!isLoggedIn()">
               <button class="dropdown-item" routerLink="/register">Regisztráció</button>
@@ -67,7 +67,7 @@
       <span class="navbar-text">
             Bejelentkezve mint {{getName() | uppercase}}
       </span>
-      <button class="btn btn-sm btn-outline-danger my-2 my-sm-0" routerLink="/logout">Kijelentkezés</button>
+      <button class="btn btn-sm btn-outline-danger my-2 my-sm-0" routerLink="/dashboard" (click)="logOut()">Kijelentkezés</button>
     </div>
   </div>
 

@@ -27,6 +27,7 @@ export class Routes {
   /*Órára vonatkozó foglalások*/
   static CLASS_RESERVATION_GET_ACCEPTED: string =
     "classReservation/getAccepted";
+  static CLASS_RESERVATION_GET_PENDING: string = "classReservation/getPending";
   static CLASS_RESERVATION_FIND_BY_ID: string = "classReservation/findById";
   static CLASS_RESERVATION_FIND_BY_USERNAME: string =
     "classReservation/findByUsername";
@@ -56,6 +57,7 @@ export class Routes {
   /*Eseményre vonatkozó foglalások*/
   static EVENT_RESERVATION_GET_ACCEPTED: string =
     "eventReservation/getAccepted";
+  static EVENT_RESERVATION_GET_PENDING: string = "eventReservation/getPending";
   static EVENT_RESERVATION_GET_NAMES: string = "eventReservation/getNames";
   static EVENT_RESERVATION_FIND_BY_ID: string = "eventReservation/findById";
   static EVENT_RESERVATION_FIND_BY_USERNAME: string =

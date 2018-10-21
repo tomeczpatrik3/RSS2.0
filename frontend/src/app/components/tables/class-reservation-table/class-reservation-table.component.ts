@@ -6,6 +6,7 @@ import { FormType } from "../../../enums/FormType";
 import { FormDialogComponent } from "../../dialogs/form-dialog/form-dialog.component";
 import { AuthService } from "../../../authentication/auth.service";
 import { Authorities } from "../../../config/authoritites.config";
+import { Statuses } from "../../../config/statuses.config";
 
 @Component({
   selector: "app-class-reservation-table",
@@ -28,13 +29,16 @@ export class ClassReservationTableComponent implements OnInit {
 
   ngOnInit() {
     if (!this.user && !this.pending) {
-      //Null, empty
       this.classReservationService
         .getAccepted()
         .subscribe(res => (this.reservations = res));
-    } else {
+    } else if (this.user && !this.pending) {
       this.classReservationService
         .findByUsername(this.user)
+        .subscribe(res => (this.reservations = res));
+    } else if (!this.user && this.pending) {
+      this.classReservationService
+        .getPending()
         .subscribe(res => (this.reservations = res));
     }
   }

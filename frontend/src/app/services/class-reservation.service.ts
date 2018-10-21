@@ -17,6 +17,12 @@ export class ClassReservationService {
     );
   }
 
+  getPending(): Observable<ClassReservation[]> {
+    return <Observable<ClassReservation[]>>(
+      this.http.get(Routes.getUrl(Routes.CLASS_RESERVATION_GET_PENDING))
+    );
+  }
+
   findById(id: number): Observable<ClassReservation> {
     return <Observable<ClassReservation>>(
       this.http.get(

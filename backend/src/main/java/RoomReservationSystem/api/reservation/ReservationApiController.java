@@ -19,6 +19,13 @@ public abstract class ReservationApiController {
     public abstract ResponseEntity getAccepted();
 
     /**
+     * A függvény ami visszaadja a várakozó foglalásokat
+     *
+     * @return A megfelelő foglalások egy listában
+     */
+    public abstract ResponseEntity getPending();
+
+    /**
      * A függvény ami visszaadja az adott felhasználóhoz tartozó foglalásokat
      *
      * @param id Az azonosító

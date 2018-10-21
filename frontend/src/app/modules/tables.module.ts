@@ -23,8 +23,10 @@ import { ReservationTableComponent } from "../components/tables/reservation-tabl
 
 import { MyReservationsComponent } from "../components/other/my-reservations/my-reservations.component";
 import { ReservationsComponent } from "../components/other/reservations/reservations.component";
+import { PendingReservationsComponent } from '../components/other/pending-reservations/pending-reservations.component';
 
 import { EmptyPipe } from "../pipes/empty.pipe";
+import { StatusConverterPipe } from "../pipes/statusConverter.pipe";
 
 @NgModule({
   imports: [CommonModule, MaterialModule],
@@ -39,8 +41,10 @@ import { EmptyPipe } from "../pipes/empty.pipe";
     ReservationTableComponent,
     MyReservationsComponent,
     ReservationsComponent,
+    PendingReservationsComponent,
 
-    EmptyPipe
+    EmptyPipe,
+    StatusConverterPipe
   ], //Komponensek, pipe-ok
   providers: [
     ClassroomService,
@@ -61,7 +65,8 @@ import { EmptyPipe } from "../pipes/empty.pipe";
     EventReservationTableComponent,
     ReservationTableComponent,
     MyReservationsComponent,
-    ReservationsComponent
+    ReservationsComponent,
+    PendingReservationsComponent,
   ] //Amit akarunk, hogy más komponens használhasson
 })
 export class TablesModule {}

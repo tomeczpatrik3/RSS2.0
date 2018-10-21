@@ -82,7 +82,7 @@ export class AuthService {
    * Először visszaállítjuk a localStorage állapotát,
    * majd átadjuk az engedélyeket a Subjectnek.
    */
-  logout() {
+  logOut() {
     localStorage.removeItem("username");
     localStorage.removeItem("authorities");
     localStorage.removeItem("expires_at");

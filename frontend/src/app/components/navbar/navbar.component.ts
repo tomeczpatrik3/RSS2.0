@@ -38,4 +38,8 @@ export class NavbarComponent implements OnInit {
   getName(): string {
     return this.authService.getUsername();
   }
+
+  logOut(): void {
+    this.authService.logOut();
+  }
 }

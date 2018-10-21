@@ -35,8 +35,6 @@ import { UpperCasePipe } from "@angular/common";
 
 import { httpInterceptorProviders } from "./interceptors/providers";
 
-import { LogoutComponent } from "./components/logout/logout.component";
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,8 +42,7 @@ import { LogoutComponent } from "./components/logout/logout.component";
     NavbarComponent,
     InfoDialogComponent,
     QuestionDialogComponent,
-    FormDialogComponent,
-    LogoutComponent,
+    FormDialogComponent
   ],
   imports: [
     BrowserModule,

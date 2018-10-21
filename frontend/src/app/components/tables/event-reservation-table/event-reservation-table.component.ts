@@ -15,6 +15,9 @@ import { Authorities } from "../../../config/authoritites.config";
 export class EventReservationTableComponent implements OnInit {
   @Input()
   user: string;
+  @Input()
+  pending: boolean;
+
   reservations: EventReservation[];
 
   constructor(
@@ -24,14 +27,18 @@ export class EventReservationTableComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (!this.user) {
+    if (!this.user && !this.pending) {
       //Null, empty
       this.eventReservationService
         .getAccepted()
         .subscribe(res => (this.reservations = res));
-    } else {
+    } else if (this.user && !this.pending) {
       this.eventReservationService
         .findByUsername(this.user)
+        .subscribe(res => (this.reservations = res));
+    } else if (!this.user && this.pending) {
+      this.eventReservationService
+        .getPending()
         .subscribe(res => (this.reservations = res));
     }
   }

@@ -17,10 +17,16 @@ export class EventReservationService {
     );
   }
 
+  getPending(): Observable<EventReservation[]> {
+    return <Observable<EventReservation[]>>(
+      this.http.get(Routes.getUrl(Routes.EVENT_RESERVATION_GET_PENDING))
+    );
+  }
+
   getEventNames(): Observable<string[]> {
     return <Observable<string[]>>(
       this.http.get(Routes.getUrl(Routes.EVENT_RESERVATION_GET_NAMES))
-    );   
+    );
   }
 
   findById(id: number): Observable<EventReservation> {
