@@ -3,7 +3,8 @@
   <div class="form-group row">
     <label for="selectedFilter" class="col-sm-4 col-form-label">Szűrési attribútum:</label>
     <div class="col-sm-8">
-      <select class="form-control" id="selectedFilter" [formControl]="selectedFilter" (click)="onFilterSelect()" required>
+      <select class="form-control" id="selectedFilter" [formControl]="selectedFilter" (click)="onFilterSelect()"
+        required>
         <option> Kérlek válassz egy szűrési típust! </option>
         <option *ngFor="let value of filterValues"> {{value}} </option>
       </select>
@@ -14,7 +15,7 @@
     <label for="selectedValue" class="col-sm-4 col-form-label">{{selectedFilter.value}}:</label>
     <div class="col-sm-8">
       <select class="form-control" id="selectedValue" [formControl]="selectedValue" required>
-          <option> Kérlek válassz egy szűrési feltételt! </option>
+        <option> Kérlek válassz egy szűrési feltételt! </option>
         <option *ngFor="let value of loadedValues"> {{value}} </option>
       </select>
     </div>

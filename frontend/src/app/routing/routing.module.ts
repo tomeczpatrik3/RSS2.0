@@ -70,12 +70,20 @@ const routes: Routes = [
     component: ReservationsComponent,
   },  
   {
-    path: "class-reservations",
-    component: ClassReservationTableComponent
+    path: "classReservations",
+    component: ClassReservationTableComponent,
+    canActivate: [RoleGuard],
+    data: {
+      authority: Authorities.ROLE_ADMIN
+    }
   },
   {
-    path: "event-reservations",
-    component: EventReservationTableComponent
+    path: "eventReservations",
+    component: EventReservationTableComponent,
+    canActivate: [RoleGuard],
+    data: {
+      authority: Authorities.ROLE_ADMIN
+    }
   },
   {
     path: "myReservations",

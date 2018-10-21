@@ -31,20 +31,26 @@ export class FilterReservationFormComponent implements OnInit {
   filterValues: string[] = [
     Filter.USER_NAME,
     Filter.BUILDING_NAME,
-    //Filter.CLASSROOM_NAME,
+    Filter.CLASSROOM_NAME,
     Filter.SUBJECT_NAME,
     Filter.SEMESTER_NAME,
     Filter.EVENT_NAME
   ];
+  classroomFilterName: string = Filter.CLASSROOM_NAME;
+
+  loadedBuildings: string[];
   loadedValues: string[];
 
   selectedFilter = new FormControl("", [Validators.required]);
 
   selectedValue = new FormControl("", [Validators.required]);
 
+  selectedPlusValue = new FormControl("");
+
   filterForm: FormGroup = this.builder.group({
     selectedFilter: this.selectedFilter,
-    selectedValue: this.selectedValue
+    selectedValue: this.selectedValue,
+    selectedPlusValue: this.selectedPlusValue
   });
 
   constructor(
@@ -80,14 +86,14 @@ export class FilterReservationFormComponent implements OnInit {
         });
         break;
       }
-      /*       case Filter.CLASSROOM_NAME: {
-        this.classroomService.getNamesByBuilding().subscribe(res => {
+      case Filter.CLASSROOM_NAME: {
+/*         this.classroomService.getNamesByBuilding().subscribe(res => {
           res.map(name => {
             this.loadedValues.push(name);
           });
         });
-        break;
-      } */
+        break; */
+      }
       case Filter.SUBJECT_NAME: {
         this.subjectService.getSubjectNames().subscribe(res => {
           res.map(name => {

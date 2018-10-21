@@ -40,21 +40,18 @@ export class ClassReservationTableComponent implements OnInit {
   }
 
   openPopup(id: number) {
+    let formType: string;
     if (this.authService.hasAuthority(Authorities.ROLE_ADMIN)) {
-      this.dialogService.openFormDialog(
-        "Foglalás szerkesztése:",
-        FormType.EDIT_CLASS_RESERVATION_FORM,
-        id,
-        FormDialogComponent
-      );
+      formType = FormType.EDIT_CLASS_RESERVATION_FORM;
+    } else {
+      formType = FormType.OBSERVE_CLASS_RESERVATION_FORM;
     }
-    else {
-      this.dialogService.openFormDialog(
-        "Foglalás szerkesztése:",
-        FormType.OBSERVE_CLASS_RESERVATION_FORM,
-        id,
-        FormDialogComponent
-      );      
-    }
+
+    this.dialogService.openFormDialog(
+      "Foglalás szerkesztése:",
+      formType,
+      id,
+      FormDialogComponent
+    );
   }
 }

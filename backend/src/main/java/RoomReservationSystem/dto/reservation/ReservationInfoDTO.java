@@ -17,6 +17,7 @@ public class ReservationInfoDTO {
     private String name;
     private String building;
     private String classroom;
+    private String note;
 
     private String eventName;
 
@@ -28,7 +29,8 @@ public class ReservationInfoDTO {
             Type type,
             String name,
             String building,
-            String classroom
+            String classroom,
+            String note
     ) {
         this.id = id;
         this.type = type;
@@ -37,15 +39,18 @@ public class ReservationInfoDTO {
         this.classroom = classroom;
     }
 
-    public ReservationInfoDTO(long id, Type type, String name, String building, String classroom, String subject, String semester) {
-        this(id, type, name, building, classroom);
+    public ReservationInfoDTO(long id, Type type, String name, String building, String classroom, String note, String subject, String semester) {
+        this(id, type, name, building, classroom, note);
         this.subject = subject;
         this.semester = semester;
+        this.eventName = "";
     }
 
-    public ReservationInfoDTO(long id, Type type, String name, String building, String classroom, String eventName) {
-        this(id, type, name, building, classroom);
+    public ReservationInfoDTO(long id, Type type, String name, String building, String classroom, String note, String eventName) {
+        this(id, type, name, building, classroom, note);
         this.eventName = eventName;
+        this.subject = "";
+        this.semester = "";
     }
     
     

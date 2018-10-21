@@ -19,6 +19,11 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * A kalendár eseményekkel kapcsolatos műveletekért felelős osztály
+ *
+ * @author Tomecz Patrik
+ */
 @Service
 public class CalendarServiceImpl implements CalendarService {
 
@@ -28,6 +33,11 @@ public class CalendarServiceImpl implements CalendarService {
     @Autowired
     private EventReservationService eventRService;
 
+    /**
+     * Az összes esemény lekérdezésére szolgáló függvény.
+     *
+     * @return Az elfogadott foglalások egy listában eseménnyé konvertálva
+     */
     @Override
     public List<CalendarEventDTO> getEvents() {
         List<CalendarEventDTO> events = new ArrayList<>();
@@ -40,6 +50,12 @@ public class CalendarServiceImpl implements CalendarService {
         return events;
     }
 
+    /**
+     * Egy adott névhez tartozó események lekérdezését megvalósító függvény
+     *
+     * @param name A foglaló személy neve
+     * @return Az események egy listában
+     */
     @Override
     public List<CalendarEventDTO> findByUserName(String name) {
         return getEvents()
@@ -48,6 +64,12 @@ public class CalendarServiceImpl implements CalendarService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Egy adott épülethez tartozó események lekérdezését megvalósító függvény
+     *
+     * @param buildingName Az épület neve
+     * @return Az események egy listában
+     */
     @Override
     public List<CalendarEventDTO> findByBuildingName(String buildingName) {
         return getEvents()
@@ -55,15 +77,29 @@ public class CalendarServiceImpl implements CalendarService {
                 .filter(event -> event.getInfo().getBuilding().equals(buildingName))
                 .collect(Collectors.toList());
     }
-    
+
+    /**
+     * Egy adott épülethez és tanteremhez tartozó események lekérdezését
+     * megvalósító függvény
+     *
+     * @param classroom A tanterem neve
+     * @param building Az épület neve
+     * @return Az események egy listában
+     */
     @Override
-    public List<CalendarEventDTO> findByClassroomName(String classroomName) {
+    public List<CalendarEventDTO> findByClassroomNameAndBuilding(String classroom, String building) {
         return getEvents()
                 .stream()
-                .filter(event -> event.getInfo().getClassroom().equals(classroomName))
+                .filter(event -> event.getInfo().getClassroom().equals(classroom) && event.getInfo().getBuilding().equals(building))
                 .collect(Collectors.toList());
     }
-    
+
+    /**
+     * Egy adott névhez tartozó események lekérdezését megvalósító függvény
+     *
+     * @param eventName Az esemény neve
+     * @return Az események egy listában
+     */
     @Override
     public List<CalendarEventDTO> findByEventName(String eventName) {
         return getEvents()
@@ -71,7 +107,13 @@ public class CalendarServiceImpl implements CalendarService {
                 .filter(event -> event.getInfo().getEventName().equals(eventName))
                 .collect(Collectors.toList());
     }
-    
+
+    /**
+     * Egy adott tantárgyhoz tartozó események lekérdezését megvalósító függvény
+     *
+     * @param subjectName A tantárgy neve
+     * @return Az események egy listában
+     */
     @Override
     public List<CalendarEventDTO> findBySubjectName(String subjectName) {
         return getEvents()
@@ -79,7 +121,14 @@ public class CalendarServiceImpl implements CalendarService {
                 .filter(event -> event.getInfo().getSubject().equals(subjectName))
                 .collect(Collectors.toList());
     }
-        
+
+    /**
+     * Egy adott szemeszterhez tartozó események lekérdezését megvalósító
+     * függvény
+     *
+     * @param semesterName A szemeszter
+     * @return Az események egy listában
+     */
     @Override
     public List<CalendarEventDTO> findBySemesterName(String semesterName) {
         return getEvents()
@@ -88,6 +137,13 @@ public class CalendarServiceImpl implements CalendarService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Az események generálásért felelős függény
+     *
+     * @param <T> A Reservation osztályból leszármazó típus
+     * @param reservations A foglalások
+     * @return A generált események egy listában
+     */
     private <T extends Reservation> List<CalendarEventDTO> generateEvents(List<T> reservations) {
         List<CalendarEventDTO> events = new ArrayList<>();
 
@@ -102,6 +158,7 @@ public class CalendarServiceImpl implements CalendarService {
                         reservation.getUser().getName(),
                         reservation.getClassroom().getBuilding().getName(),
                         reservation.getClassroom().getName(),
+                        reservation.getNote(),
                         ((ClassReservation) reservation).getSubject().getName(),
                         ((ClassReservation) reservation).getSemester().getName()
                 );
@@ -113,6 +170,7 @@ public class CalendarServiceImpl implements CalendarService {
                         reservation.getUser().getName(),
                         reservation.getClassroom().getBuilding().getName(),
                         reservation.getClassroom().getName(),
+                        reservation.getNote(),
                         ((EventReservation) reservation).getName()
                 );
             }
@@ -130,6 +188,13 @@ public class CalendarServiceImpl implements CalendarService {
         return events;
     }
 
+    /**
+     * Az esemény nevének generálásért felelős függvény
+     *
+     * @param <T> A Reservation osztályból leszármazó típus
+     * @param reservation A foglalás
+     * @return A generált név
+     */
     private <T extends Reservation> String generateTitle(T reservation) {
         String title;
         if (reservation instanceof ClassReservation) {

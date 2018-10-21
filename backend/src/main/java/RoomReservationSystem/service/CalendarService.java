@@ -3,6 +3,12 @@ package RoomReservationSystem.service;
 import RoomReservationSystem.dto.CalendarEventDTO;
 import java.util.List;
 
+/**
+ * A kalendár eseményekkel kapcsolatos műveletekért felelős interfész Részletes
+ * információ a függvényekről a megválósításnál
+ *
+ * @author Tomecz Patrik
+ */
 public interface CalendarService {
 
     List<CalendarEventDTO> getEvents();
@@ -11,7 +17,7 @@ public interface CalendarService {
 
     List<CalendarEventDTO> findByBuildingName(String buildingName);
 
-    List<CalendarEventDTO> findByClassroomName(String classroomName);
+    List<CalendarEventDTO> findByClassroomNameAndBuilding(String classroom, String building);
 
     List<CalendarEventDTO> findByEventName(String eventName);
 

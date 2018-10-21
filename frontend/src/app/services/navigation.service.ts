@@ -47,13 +47,9 @@ export class NavigationService {
       ),
       new MenuItem("Simple", "Félévek", "/semesters", Authorities.ROLE_ADMIN),
       new MenuItem("Simple", "Tantárgyak", "/subjects", Authorities.ROLE_ADMIN),
-      new MenuItem("Simple", "Épületek", "/buildings", Authorities.ROLE_ADMIN)
-      /*       new MenuItem(
-        "Simple",
-        "Várakozó foglalások",
-        "/pendingReservations",
-        Authorities.ROLE_ADMIN
-      ) */
+      new MenuItem("Simple", "Épületek", "/buildings", Authorities.ROLE_ADMIN),
+      new MenuItem("Simple", "Tantárgy foglalások", "/classReservations", Authorities.ROLE_ADMIN),
+      new MenuItem("Simple", "Esemény foglalások", "/eventReservations", Authorities.ROLE_ADMIN)
     ]),
 
     new MenuItem("Dropdown", "Űrlapok", "", Authorities.ROLE_USER, [

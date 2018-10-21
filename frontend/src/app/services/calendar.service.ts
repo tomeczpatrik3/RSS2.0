@@ -26,7 +26,9 @@ export class CalendarService {
     );
   }
 
-  findByBuildingName(buildingName: string): Observable<ReservationCalendarEvent[]> {
+  findByBuildingName(
+    buildingName: string
+  ): Observable<ReservationCalendarEvent[]> {
     return <Observable<ReservationCalendarEvent[]>>(
       this.http.get(
         Routes.getUrl(Routes.CALENDAR_FIND_BY_BUILDING_NAME) +
@@ -35,11 +37,14 @@ export class CalendarService {
     );
   }
 
-  findByClassroomName(classroomName: string): Observable<ReservationCalendarEvent[]> {
+  findByClassroomAndBuilding(
+    classroom: string,
+    building: string
+  ): Observable<ReservationCalendarEvent[]> {
     return <Observable<ReservationCalendarEvent[]>>(
       this.http.get(
-        Routes.getUrl(Routes.CALENDAR_FIND_BY_CLASSROOM_NAME) +
-          `?classroomName=${classroomName}`
+        Routes.getUrl(Routes.CALENDAR_FIND_BY_CLASSROOM_AND_BUILDING) +
+          `?classroom=${classroom}&building=${building}`
       )
     );
   }
@@ -53,7 +58,9 @@ export class CalendarService {
     );
   }
 
-  findBySubjectName(subjectName: string): Observable<ReservationCalendarEvent[]> {
+  findBySubjectName(
+    subjectName: string
+  ): Observable<ReservationCalendarEvent[]> {
     return <Observable<ReservationCalendarEvent[]>>(
       this.http.get(
         Routes.getUrl(Routes.CALENDAR_FIND_BY_SUBJECT_NAME) +
@@ -62,7 +69,9 @@ export class CalendarService {
     );
   }
 
-  findBySemesterName(semesterName: string): Observable<ReservationCalendarEvent[]> {
+  findBySemesterName(
+    semesterName: string
+  ): Observable<ReservationCalendarEvent[]> {
     return <Observable<ReservationCalendarEvent[]>>(
       this.http.get(
         Routes.getUrl(Routes.CALENDAR_FIND_BY_SEMESTER_NAME) +

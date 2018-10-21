@@ -30,9 +30,12 @@ public class CalendarApiController {
         return ResponseEntity.ok(calendarService.findByBuildingName(buildingName));
     }
 
-    @GetMapping("/findByClassroomName")
-    public ResponseEntity findByClassroomName(@RequestParam(value = "classroomName", required = true) String classroomName) {
-        return ResponseEntity.ok(calendarService.findByClassroomName(classroomName));
+    @GetMapping("/findByClassroomNameAndBuilding")
+    public ResponseEntity findByClassroomNameAndBuilding(
+            @RequestParam(value = "classroom", required = true) String classroom,
+            @RequestParam(value = "building", required = true) String building
+    ) {
+        return ResponseEntity.ok(calendarService.findByClassroomNameAndBuilding(classroom, building));
     }
 
     @GetMapping("/findByEventName")

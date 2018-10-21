@@ -128,8 +128,8 @@ export class Routes {
   static CALENDAR_GET_EVENTS: string = "calendar/getEvents";
   static CALENDAR_FIND_BY_USER_NAME: string = "calendar/findByUserName";
   static CALENDAR_FIND_BY_BUILDING_NAME: string = "calendar/findByBuildingName";
-  static CALENDAR_FIND_BY_CLASSROOM_NAME: string =
-    "calendar/findByClassroomName";
+  static CALENDAR_FIND_BY_CLASSROOM_AND_BUILDING: string =
+    "calendar/findByClassroomAndBuilding";
   static CALENDAR_FIND_BY_EVENT_NAME: string = "calendar/findByEventName";
   static CALENDAR_FIND_BY_SUBJECT_NAME: string = "calendar/findBySubjectName";
   static CALENDAR_FIND_BY_SEMESTER_NAME: string = "calendar/findBySemesterName";

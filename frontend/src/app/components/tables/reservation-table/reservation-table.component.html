@@ -1,0 +1,29 @@
+<div class="container">
+    <p class="table-name">Foglalások:</p>
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Foglaló személy</th>
+          <th scope="col">Épület</th>
+          <th scope="col">Terem</th>
+          <th scope="col">Szemeszter</th>
+          <th scope="col">Tantárgy</th>
+          <th scope="col">Név</th>
+          <th scope="col">Megjegyzés</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let event of reservationEvents; let i = index" (click)="openPopup(event)">
+          <th scope="row">{{i+1}}</th>
+          <td>{{event.info.name}}</td>
+          <td>{{event.info.building}}</td>
+          <td>{{event.info.classroom}}</td>
+          <td>{{event.info.semester | empty }}</td>
+          <td>{{event.info.subject | empty }}</td>
+          <td>{{event.info.eventName | empty }}</td>
+          <td>{{event.info.note | empty }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
