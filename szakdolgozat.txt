@@ -1,4 +1,4 @@
-Lombok:
+﻿Lombok:
 
 --@Data is a convenient shortcut annotation that bundles the features of @ToString, @EqualsAndHashCode, @Getter / @Setter and @RequiredArgsConstructor together:
 
@@ -105,3 +105,8 @@ Filter esetén Service inicializálása:
 	-- ticketek elbirlasa admin oldalon
 	-- sajat foglalasaim statusza ticketek alapjan
 	-- ticket uzenetek definialasa
+
+
+BUILDING:
+--> https://vitalflux.com/spring-boot-angular-app-hello-world-one-deployable-war/
+--> https://techshard.com/2018/08/12/building-a-web-app-using-spring-boot-angular-6-and-maven/
