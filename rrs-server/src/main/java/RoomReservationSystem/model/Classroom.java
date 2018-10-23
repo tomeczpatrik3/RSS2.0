@@ -32,7 +32,6 @@ import lombok.NoArgsConstructor;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "CLASSROOMS")
 public class Classroom extends BaseEntity {
@@ -72,6 +71,33 @@ public class Classroom extends BaseEntity {
     @JoinColumn(name = "BUILDING", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Building building;
+
+    /**
+     * Az osztály üres konstruktora
+     */
+    public Classroom() {
+    }
+
+    /**
+     * Az osztály konstrukroa
+     *
+     * @param name A terem neve
+     * @param hasPc Van-e PC?
+     * @param hasProjector Van-e projektor?
+     * @param chairs A székek száma
+     * @param reservationList A teremre vonatkozó foglalások
+     * @param building Az épület, amiben a terem található
+     * @param id Az azonosító
+     */
+    public Classroom(String name, boolean hasPc, boolean hasProjector, int chairs, List<Reservation> reservationList, Building building, Integer id) {
+        super(id);
+        this.name = name;
+        this.hasPc = hasPc;
+        this.hasProjector = hasProjector;
+        this.chairs = chairs;
+        this.reservationList = reservationList;
+        this.building = building;
+    }
 
     /**
      * A ClassroomDTO objektum Classroom objektummá konvertálását végrehajtó

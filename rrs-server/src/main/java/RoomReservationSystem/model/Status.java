@@ -26,7 +26,6 @@ import lombok.NoArgsConstructor;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "STATUSES")
 public class Status extends BaseEntity {
@@ -48,4 +47,25 @@ public class Status extends BaseEntity {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "status", targetEntity = Reservation.class)
     private List<Reservation> reservationList;
+
+    /**
+     * Az osztály üres konstruktora
+     */
+    public Status() {
+    }
+
+    /**
+     * Az osztály konstruktora
+     *
+     * @param name A státusz megnevezése
+     * @param message A státuszhoz tartozó üzenet
+     * @param reservationList A foglalások, amik ezzel a státusszal rendelkeznek
+     * @param id Az azonosító
+     */
+    public Status(String name, String message, List<Reservation> reservationList, Integer id) {
+        super(id);
+        this.name = name;
+        this.message = message;
+        this.reservationList = reservationList;
+    }
 }

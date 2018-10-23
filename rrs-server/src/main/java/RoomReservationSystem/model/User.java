@@ -37,7 +37,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "USERS")
 public class User extends BaseEntity implements UserDetails {
@@ -79,6 +78,33 @@ public class User extends BaseEntity implements UserDetails {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", targetEntity = Reservation.class)
     private List<Reservation> reservationList;
+
+    /**
+     * Az osztály üres konstruktora
+     */
+    public User() {
+    }
+
+    /**
+     * Az osztály konstruktora
+     *
+     * @param username A felhasználónév
+     * @param password A jelszó
+     * @param name A felhasználó neve
+     * @param email A felhasználó e-mail címe
+     * @param authorityList A felhasználóhoz tartozó engedélyek listája
+     * @param reservationList A felhasználóhoz tartozó foglalásom listája
+     * @param id Az azonosító
+     */
+    public User(String username, String password, String name, String email, List<Authority> authorityList, List<Reservation> reservationList, Integer id) {
+        super(id);
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.email = email;
+        this.authorityList = authorityList;
+        this.reservationList = reservationList;
+    }
 
     /**
      * A felhasználóhoz tartozó engedélyek lekérdezése

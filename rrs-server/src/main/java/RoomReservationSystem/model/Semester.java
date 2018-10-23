@@ -22,7 +22,6 @@ import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 /**
  * Szemeszter entitás
@@ -32,7 +31,6 @@ import lombok.NoArgsConstructor;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "SEMESTERS")
 public class Semester extends BaseEntity {
@@ -62,6 +60,30 @@ public class Semester extends BaseEntity {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "semester", targetEntity = ClassReservation.class)
     private List<ClassReservation> reservationList;
+
+    /**
+     * Az osztály üres konstruktora
+     */
+    public Semester() {
+    }
+
+    /**
+     * Az osztály konstruktora
+     *
+     * @param name A szemeszter "neve"
+     * @param startDate A szemeszter kezdetének dátuma
+     * @param endDate A szemeszter végének dátuma
+     * @param reservationList A foglalások, amelyek erre a szemeszterre
+     * vonatkoznak
+     * @param id Az azonosító
+     */
+    public Semester(String name, Date startDate, Date endDate, List<ClassReservation> reservationList, Integer id) {
+        super(id);
+        this.name = name;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.reservationList = reservationList;
+    }
 
     /**
      * A SemesterDTO objektum Semester objektummá konvertálását végrehajtó

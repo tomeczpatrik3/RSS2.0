@@ -15,7 +15,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -26,9 +25,8 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
+@AllArgsConstructor
 @Table(name = "AUTHORITIES")
 public class Authority extends BaseEntity {
 
@@ -46,7 +44,26 @@ public class Authority extends BaseEntity {
         @JoinColumn(name = "user_id", referencedColumnName = "ID")})
     @ManyToMany
     private List<User> userList;
-    
+
+    /**
+     * Az osztály üres konstruktora
+     */
+    public Authority() {
+    }
+
+    /**
+     * Az osztály konstruktora
+     *
+     * @param name Az engedély neve
+     * @param userList A felhasználók, akik rendelkeznek az engedéllyel
+     * @param id Az engedély azonosítója
+     */
+    public Authority(String name, List<User> userList, Integer id) {
+        super(id);
+        this.name = name;
+        this.userList = userList;
+    }
+
     /**
      * Felhasználó hozzáadása az adott engedélyhez
      *

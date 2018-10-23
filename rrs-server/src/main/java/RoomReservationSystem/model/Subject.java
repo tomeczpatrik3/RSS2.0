@@ -30,7 +30,6 @@ import lombok.NoArgsConstructor;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "SUBJECTS")
 public class Subject extends BaseEntity {
@@ -53,6 +52,27 @@ public class Subject extends BaseEntity {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "subject", targetEntity = ClassReservation.class)
     private List<ClassReservation> reservationList;
+
+    /**
+     * Az osztály üres konstruktora
+     */
+    public Subject() {
+    }
+
+    /**
+     * Az osztály konstruktora
+     *
+     * @param name A tantárgy neve
+     * @param code A tárgykód
+     * @param reservationList A tantárgyhoz tartozó foglalások
+     * @param id Az azonosító
+     */
+    public Subject(String name, String code, List<ClassReservation> reservationList, Integer id) {
+        super(id);
+        this.name = name;
+        this.code = code;
+        this.reservationList = reservationList;
+    }
 
     /**
      * A SubjectDTO objektum Subject objektummá konvertálását végrehajtó

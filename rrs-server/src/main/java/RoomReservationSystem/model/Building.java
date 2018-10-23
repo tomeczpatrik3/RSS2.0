@@ -19,7 +19,6 @@ import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 /**
  * Épület entitás
@@ -28,9 +27,8 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
+@AllArgsConstructor
 @Table(name = "BUILDINGS")
 public class Building extends BaseEntity {
 
@@ -46,6 +44,26 @@ public class Building extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "building", targetEntity = Classroom.class)
     private List<Classroom> classroomList;
 
+    /**
+     * Az osztály üres konstruktora
+     */
+    public Building() {
+    }
+
+    /**
+     * Az osztály konstruktora
+     * @param name Az épület neve
+     * @param classroomList A tantermek, amik az épületben vannak
+     * @param id Az azonosító
+     */
+    public Building(String name, List<Classroom> classroomList, Integer id) {
+        super(id);
+        this.name = name;
+        this.classroomList = classroomList;
+    }
+
+    
+    
     /**
      * A BuildingDTO objektum Building objektummá konvertálását végrehajtó
      * megtódus
