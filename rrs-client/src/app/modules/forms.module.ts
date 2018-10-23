@@ -11,7 +11,7 @@ import { EventReservationService } from "../services/event-reservation.service";
 import { SubjectService } from "../services/subject.service";
 import { BuildingService } from "../services/building.service";
 import { SemesterService } from "../services/semester.service";
-import { CalendarService } from "../services/calendar.service";
+import { EventService } from "../services/event.service";
 
 import { AddClassroomFormComponent } from "../components/forms/add-classroom-form/add-classroom-form.component";
 import { AddSubjectFormComponent } from "../components/forms/add-subject-form/add-subject-form.component";
@@ -82,7 +82,7 @@ import { UniqueSubjectCodeValidatorDirective } from "../directives/unique-subjec
     SubjectService,
     BuildingService,
     SemesterService,
-    CalendarService
+    EventService
   ], //Service(s)
   exports: [
     LoginFormComponent,

@@ -6,13 +6,10 @@ import {
   FormBuilder
 } from "@angular/forms";
 import { Observable, of } from "rxjs";
-import { filter, map } from "rxjs/operators";
-import { CalendarEvent } from "calendar-utils";
 import { UserService } from "../../../services/user.service";
 import { SubjectService } from "../../../services/subject.service";
 import { BuildingService } from "../../../services/building.service";
-import { ReservationInfo } from "../../../models/ReservationInfo";
-import { CalendarService } from "../../../services/calendar.service";
+import { EventService } from "../../../services/event.service";
 import { ReservationCalendarEvent } from "../../../models/ReservationCalendarEvent";
 import { Filter } from "../../../enums/Filter";
 import { ClassroomService } from "../../../services/classroom.service";
@@ -31,7 +28,7 @@ export class FilterReservationFormComponent implements OnInit {
   filterValues: string[] = [
     Filter.USER_NAME,
     Filter.BUILDING_NAME,
-    Filter.CLASSROOM_NAME,
+    //Filter.CLASSROOM_NAME,
     Filter.SUBJECT_NAME,
     Filter.SEMESTER_NAME,
     Filter.EVENT_NAME
@@ -61,7 +58,7 @@ export class FilterReservationFormComponent implements OnInit {
     private subjectService: SubjectService,
     private semesterService: SemesterService,
     private eventReservationService: EventReservationService,
-    private calendarService: CalendarService
+    private eventService: EventService
   ) {}
 
   ngOnInit() {}
@@ -125,13 +122,13 @@ export class FilterReservationFormComponent implements OnInit {
     switch (this.selectedFilter.value) {
       case Filter.USER_NAME: {
         this.eventEmitter.emit(
-          this.calendarService.findByUserName(this.selectedValue.value)
+          this.eventService.findByUserName(this.selectedValue.value)
         );
         break;
       }
       case Filter.BUILDING_NAME: {
         this.eventEmitter.emit(
-          this.calendarService.findByBuildingName(this.selectedValue.value)
+          this.eventService.findByBuildingName(this.selectedValue.value)
         );
         break;
       }
@@ -145,19 +142,19 @@ export class FilterReservationFormComponent implements OnInit {
       } */
       case Filter.SUBJECT_NAME: {
         this.eventEmitter.emit(
-          this.calendarService.findBySubjectName(this.selectedValue.value)
+          this.eventService.findBySubjectName(this.selectedValue.value)
         );
         break;
       }
       case Filter.SEMESTER_NAME: {
         this.eventEmitter.emit(
-          this.calendarService.findBySemesterName(this.selectedValue.value)
+          this.eventService.findBySemesterName(this.selectedValue.value)
         );
         break;
       }
       case Filter.EVENT_NAME: {
         this.eventEmitter.emit(
-          this.calendarService.findByEventName(this.selectedValue.value)
+          this.eventService.findByEventName(this.selectedValue.value)
         );
         break;
       }

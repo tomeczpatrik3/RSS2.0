@@ -9,7 +9,7 @@ import { CalendarHeaderComponent } from "../components/calendar/calendar-header/
 import { CalendarFullComponent } from "../components/calendar/calendar-full/calendar-full.component";
 import { CalendarCardComponent } from "../components/calendar/calendar-card/calendar-card.component";
 
-import { CalendarService } from "../services/calendar.service";
+import { EventService } from "../services/event.service";
 import { DialogService } from "../services/dialog.service";
 import { AuthService } from "../authentication/auth.service";
 import { OwnFormsModule } from "./forms.module";
@@ -33,7 +33,7 @@ registerLocaleData(localeHu);
     CalendarFullComponent,
     CalendarCardComponent
   ],
-  providers: [CalendarService, DialogService, AuthService],
+  providers: [EventService, DialogService, AuthService],
   exports: [
     CalendarHeaderComponent,
     CalendarFullComponent,

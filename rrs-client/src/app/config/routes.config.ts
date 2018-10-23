@@ -127,14 +127,14 @@ export class Routes {
   static SEMESTER_EXISTS_BY_NAME: string = "semester/existsByName";
 
   /*Kalendár*/
-  static CALENDAR_GET_EVENTS: string = "calendar/getEvents";
-  static CALENDAR_FIND_BY_USER_NAME: string = "calendar/findByUserName";
-  static CALENDAR_FIND_BY_BUILDING_NAME: string = "calendar/findByBuildingName";
-  static CALENDAR_FIND_BY_CLASSROOM_AND_BUILDING: string =
-    "calendar/findByClassroomAndBuilding";
-  static CALENDAR_FIND_BY_EVENT_NAME: string = "calendar/findByEventName";
-  static CALENDAR_FIND_BY_SUBJECT_NAME: string = "calendar/findBySubjectName";
-  static CALENDAR_FIND_BY_SEMESTER_NAME: string = "calendar/findBySemesterName";
+  static EVENT_GET_EVENTS: string = "event/getEvents";
+  static EVENT_FIND_BY_USER_NAME: string = "event/findByUserName";
+  static EVENT_FIND_BY_BUILDING_NAME: string = "event/findByBuildingName";
+  static EVENT_FIND_BY_CLASSROOM_AND_BUILDING: string =
+    "event/findByClassroomAndBuilding";
+  static EVENT_FIND_BY_EVENT_NAME: string = "event/findByEventName";
+  static EVENT_FIND_BY_SUBJECT_NAME: string = "event/findBySubjectName";
+  static EVENT_FIND_BY_SEMESTER_NAME: string = "event/findBySemesterName";
 
   /*Backend*/
   static BACKEND_API: string = "http://localhost:8080/api/";

@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ReservationCalendarEvent } from "../../../models/ReservationCalendarEvent";
-import { CalendarService } from "../../../services/calendar.service";
+import { EventService } from "../../../services/event.service";
 import { AuthService } from "../../../authentication/auth.service";
 import { Authorities } from "../../../config/authoritites.config";
 import { DialogService } from "../../../services/dialog.service";
@@ -17,13 +17,13 @@ export class ReservationTableComponent implements OnInit {
   reservationEvents: ReservationCalendarEvent[];
 
   constructor(
-    private calendarService: CalendarService,
+    private eventService: EventService,
     private authService: AuthService,
     private dialogService: DialogService
   ) {}
 
   ngOnInit() {
-    this.calendarService
+    this.eventService
       .getEvents()
       .subscribe(events => (this.reservationEvents = events));
   }

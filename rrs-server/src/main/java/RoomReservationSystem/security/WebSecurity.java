@@ -1,11 +1,11 @@
 package RoomReservationSystem.security;
 
-import static RoomReservationSystem.security.SecurityConstants.CALENDAR_URLS;
 import static RoomReservationSystem.security.SecurityConstants.CHECK_USERNAME_URL;
 import static RoomReservationSystem.security.SecurityConstants.CLASS_RESERVATIONS_FIND_BY_ID_URL;
 import static RoomReservationSystem.security.SecurityConstants.CLASS_RESERVATIONS_URL;
 import static RoomReservationSystem.security.SecurityConstants.EVENT_RESERVATIONS_FIND_BY_ID_URL;
 import static RoomReservationSystem.security.SecurityConstants.EVENT_RESERVATIONS_URL;
+import static RoomReservationSystem.security.SecurityConstants.EVENT_URLS;
 import static RoomReservationSystem.security.SecurityConstants.FRONTEND_ASSETS_URL;
 import static RoomReservationSystem.security.SecurityConstants.FRONTEND_HOME_URL;
 import static RoomReservationSystem.security.SecurityConstants.GET_BUILDING_NAMES_URL;
@@ -89,7 +89,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, GET_CLASSROOM_NAMES_URL).permitAll()
                 .antMatchers(HttpMethod.GET, GET_EVENT_NAMES_URL).permitAll()
                 
-                .antMatchers(HttpMethod.GET, CALENDAR_URLS).permitAll()
+                .antMatchers(HttpMethod.GET, EVENT_URLS).permitAll()
                 
                 .antMatchers(HttpMethod.GET, CLASS_RESERVATIONS_URL).permitAll()
                 .antMatchers(HttpMethod.GET, CLASS_RESERVATIONS_FIND_BY_ID_URL).permitAll()

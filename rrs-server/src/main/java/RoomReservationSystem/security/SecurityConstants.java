@@ -35,7 +35,7 @@ public class SecurityConstants {
     /**
      *
      */
-    public static final String CALENDAR_URLS = "/api/calendar/**";
+    public static final String EVENT_URLS = "/api/event/**";
 
     /**
      *
@@ -98,7 +98,7 @@ public class SecurityConstants {
     public static final String EVENT_RESERVATIONS_URL = "/api/eventReservation/getAccepted";
 
     /**
-     *
+     * 
      */
     public static final String EVENT_RESERVATIONS_FIND_BY_ID_URL = "/api/eventReservation/findById*";
 

@@ -18,7 +18,7 @@ import { colors } from "../../../utils/colors";
 
 import { CustomDateFormatter } from "../../../providers/custom-date-formatter.provider";
 import { CustomEventTitleFormatter } from "../../../providers/custom-event-title-formatter.provider";
-import { CalendarService } from "../../../services/calendar.service";
+import { EventService } from "../../../services/event.service";
 import { ReservationCalendarEvent } from "../../../models/ReservationCalendarEvent";
 import { AuthService } from "../../../authentication/auth.service";
 import { Authorities } from "../../../config/authoritites.config";
@@ -76,7 +76,7 @@ export class CalendarFullComponent implements OnInit {
   isAdmin: boolean = false;
 
   constructor(
-    private calendarService: CalendarService,
+    private eventService: EventService,
     private authService: AuthService,
     private dialogService: DialogService
   ) {}
@@ -147,7 +147,7 @@ export class CalendarFullComponent implements OnInit {
    * Az (összes) esemény betöltéséért felelős függvény:
    */
   fetchEvents(): void {
-    this.loadEvents(this.calendarService.getEvents());
+    this.loadEvents(this.eventService.getEvents());
   }
 
   /**
