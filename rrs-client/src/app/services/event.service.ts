@@ -2,34 +2,44 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
 import { Routes } from "../config/routes.config";
-import { ReservationCalendarEvent } from "../models/ReservationCalendarEvent";
+import { ReservationEvent } from "../models/ReservationEvent";
 
 /**
- * Az épületekhez tartozó service osztály
+ * Az eseményekhez (foglalás) tartozó service osztály
  */
 @Injectable()
 export class EventService {
   constructor(private http: HttpClient) {}
 
-  getEvents(): Observable<ReservationCalendarEvent[]> {
-    return <Observable<ReservationCalendarEvent[]>>(
+  /**
+   * Az események lekérdezéséért felelős függvény
+   */
+  getEvents(): Observable<ReservationEvent[]> {
+    return <Observable<ReservationEvent[]>>(
       this.http.get(Routes.getUrl(Routes.EVENT_GET_EVENTS))
     );
   }
 
-  findByUserName(userName: string): Observable<ReservationCalendarEvent[]> {
-    return <Observable<ReservationCalendarEvent[]>>(
+  /**
+   * Egy adott (teljes) névhez tartozó események lekérdezését megvalósító függvény
+   * @param userName A teljes név
+   */
+  findByUserName(userName: string): Observable<ReservationEvent[]> {
+    return <Observable<ReservationEvent[]>>(
       this.http.get(
-        Routes.getUrl(Routes.EVENT_FIND_BY_USER_NAME) +
-          `?userName=${userName}`
+        Routes.getUrl(Routes.EVENT_FIND_BY_USER_NAME) + `?userName=${userName}`
       )
     );
   }
 
+  /**
+   * Egy adott épülethez tartozó események lekérdezését megvalósító függvény
+   * @param buildingName Az épület neve
+   */
   findByBuildingName(
     buildingName: string
-  ): Observable<ReservationCalendarEvent[]> {
-    return <Observable<ReservationCalendarEvent[]>>(
+  ): Observable<ReservationEvent[]> {
+    return <Observable<ReservationEvent[]>>(
       this.http.get(
         Routes.getUrl(Routes.EVENT_FIND_BY_BUILDING_NAME) +
           `?buildingName=${buildingName}`
@@ -37,11 +47,16 @@ export class EventService {
     );
   }
 
+  /**
+   * Egy adott épülethez és tanteremhez tartozó események lekérdezését megvalósító függvény
+   * @param classroom A tanterem neve
+   * @param building Az épület neve
+   */
   findByClassroomAndBuilding(
     classroom: string,
     building: string
-  ): Observable<ReservationCalendarEvent[]> {
-    return <Observable<ReservationCalendarEvent[]>>(
+  ): Observable<ReservationEvent[]> {
+    return <Observable<ReservationEvent[]>>(
       this.http.get(
         Routes.getUrl(Routes.EVENT_FIND_BY_CLASSROOM_AND_BUILDING) +
           `?classroom=${classroom}&building=${building}`
@@ -49,8 +64,12 @@ export class EventService {
     );
   }
 
-  findByEventName(eventName: string): Observable<ReservationCalendarEvent[]> {
-    return <Observable<ReservationCalendarEvent[]>>(
+  /**
+   * Egy adott (foglalás) névhez tartozó események lekérdezését megvalósító függvény
+   * @param eventName A foglalás neve
+   */
+  findByEventName(eventName: string): Observable<ReservationEvent[]> {
+    return <Observable<ReservationEvent[]>>(
       this.http.get(
         Routes.getUrl(Routes.EVENT_FIND_BY_EVENT_NAME) +
           `?eventName=${eventName}`
@@ -58,10 +77,14 @@ export class EventService {
     );
   }
 
+  /**
+   * Egy adott tantárgyhoz tartozó események lekérdezését megvalósító függvény
+   * @param subjectName A tantárgy neve
+   */
   findBySubjectName(
     subjectName: string
-  ): Observable<ReservationCalendarEvent[]> {
-    return <Observable<ReservationCalendarEvent[]>>(
+  ): Observable<ReservationEvent[]> {
+    return <Observable<ReservationEvent[]>>(
       this.http.get(
         Routes.getUrl(Routes.EVENT_FIND_BY_SUBJECT_NAME) +
           `?subjectName=${subjectName}`
@@ -69,10 +92,14 @@ export class EventService {
     );
   }
 
+  /**
+   * Egy adott szemeszterhez tartozó események lekérdezését megvalósító függvény
+   * @param semesterName A szemeszter "neve"
+   */
   findBySemesterName(
     semesterName: string
-  ): Observable<ReservationCalendarEvent[]> {
-    return <Observable<ReservationCalendarEvent[]>>(
+  ): Observable<ReservationEvent[]> {
+    return <Observable<ReservationEvent[]>>(
       this.http.get(
         Routes.getUrl(Routes.EVENT_FIND_BY_SEMESTER_NAME) +
           `?semesterName=${semesterName}`

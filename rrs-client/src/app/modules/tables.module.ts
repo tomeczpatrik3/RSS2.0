@@ -5,7 +5,6 @@ import { MaterialModule } from "./material.module";
 
 import { ClassroomService } from "../services/classroom.service";
 import { UserService } from "../services/user.service";
-import { ReservationService } from "../services/reservation.service";
 import { SubjectService } from "../services/subject.service";
 import { BuildingService } from "../services/building.service";
 import { SemesterService } from "../services/semester.service";
@@ -45,7 +44,7 @@ import { StatusConverterPipe } from "../pipes/statusConverter.pipe";
 
     EmptyPipe,
     StatusConverterPipe
-  ], //Komponensek, pipe-ok
+  ],
   providers: [
     ClassroomService,
     UserService,
@@ -54,7 +53,7 @@ import { StatusConverterPipe } from "../pipes/statusConverter.pipe";
     SubjectService,
     BuildingService,
     SemesterService
-  ], //Service(s)
+  ],
   exports: [
     ClassroomTableComponent,
     UserTableComponent,
@@ -67,6 +66,6 @@ import { StatusConverterPipe } from "../pipes/statusConverter.pipe";
     MyReservationsComponent,
     ReservationsComponent,
     PendingReservationsComponent,
-  ] //Amit akarunk, hogy más komponens használhasson
+  ]
 })
 export class TablesModule {}

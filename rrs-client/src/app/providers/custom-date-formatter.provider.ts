@@ -5,7 +5,7 @@ import { Month } from "../enums/Month";
 import { Day } from "../enums/Day";
 
 /**
- * A saját DateFormatter osztályunk
+ * A dátumok formázását tartalmazó osztály
  */
 export class CustomDateFormatter extends CalendarDateFormatter {
   /**

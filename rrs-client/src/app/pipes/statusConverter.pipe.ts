@@ -2,11 +2,15 @@ import { Pipe, PipeTransform } from "@angular/core";
 import { Statuses } from "../config/statuses.config";
 
 /**
- * Példa a használatra:
- * {{ value | statusConvert }}
+ * Status converter pipe
+ * Használata: {{ érték | statusConvert }}
  */
 @Pipe({ name: "statusConvert" })
 export class StatusConverterPipe implements PipeTransform {
+  /**
+   * Az átalakítást végző függvény
+   * @param value Az átalakítandó
+   */
   transform(value: string): string {
     if (value === Statuses.ACCEPTED) {
       return "Elfogadva";

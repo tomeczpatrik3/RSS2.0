@@ -73,7 +73,7 @@ import { UniqueSubjectCodeValidatorDirective } from "../directives/unique-subjec
     TakenSemesterNameValidatorDirective,
     TakenSubjectCodeValidatorDirective
 
-  ], //Komponensek, pipe-ok
+  ],
   providers: [
     ClassroomService,
     UserService,
@@ -83,7 +83,7 @@ import { UniqueSubjectCodeValidatorDirective } from "../directives/unique-subjec
     BuildingService,
     SemesterService,
     EventService
-  ], //Service(s)
+  ],
   exports: [
     LoginFormComponent,
     AddClassroomFormComponent,
@@ -102,6 +102,6 @@ import { UniqueSubjectCodeValidatorDirective } from "../directives/unique-subjec
 
     FormsModule,
     ReactiveFormsModule
-  ] //Amit akarunk, hogy más komponens használhasson
+  ]
 })
 export class OwnFormsModule {}

@@ -1,8 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
-import { HTTP_INTERCEPTORS } from "@angular/common/http";
-
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 import { RoutingModule } from "./routing/routing.module";
@@ -31,12 +29,10 @@ import { QuestionDialogComponent } from "./components/dialogs/question-dialog/qu
 import { InfoDialogComponent } from "./components/dialogs/info-dialog/info-dialog.component";
 import { FormDialogComponent } from "./components/dialogs/form-dialog/form-dialog.component";
 
-import { UpperCasePipe } from "@angular/common";
-
 import { httpInterceptorProviders } from "./interceptors/providers";
 
 export function jwtTokenGetter() {
-  return localStorage.getItem("token");;
+  return localStorage.getItem("token");
 }
 
 @NgModule({
@@ -52,14 +48,18 @@ export function jwtTokenGetter() {
     BrowserModule,
     HttpClientModule,
 
-    //Own modules:
+    /**
+     * Saját modulok:
+     */
     RoutingModule,
     MaterialModule,
     TablesModule,
     OwnFormsModule,
     OwnCalendarModule,
 
-    //Minden get esetén csatolja a tokent:
+    /**
+     * Minden get esetén csatolja a tokent:
+     */
     JwtModule.forRoot({
       config: {
         tokenGetter: jwtTokenGetter,
@@ -67,7 +67,9 @@ export function jwtTokenGetter() {
       }
     }),
 
-    //Dropdown-hoz:
+    /**
+     * A dropdown számára:
+     */
     NgbModule.forRoot()
   ],
   providers: [
@@ -79,7 +81,7 @@ export function jwtTokenGetter() {
     AuthGuard,
     RoleGuard,
     CanDeactivateGuard,
-    NavigationService,
+    NavigationService
   ],
   entryComponents: [
     InfoDialogComponent,

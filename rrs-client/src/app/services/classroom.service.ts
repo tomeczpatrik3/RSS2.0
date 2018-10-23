@@ -11,12 +11,19 @@ import { Classroom } from "../models/Classroom";
 export class ClassroomService {
   constructor(private http: HttpClient) {}
 
+  /**
+   * A tantermek lekérdezéséért felelős függvény
+   */
   getAll(): Observable<Classroom[]> {
     return <Observable<Classroom[]>>(
       this.http.get(Routes.getUrl(Routes.CLASSROOM_GET_ALL))
     );
   }
 
+  /**
+   * Egy adott épülethez tartozó tantermek neveinek lekérdezését megvalósító függvény
+   * @param building Az épület neve
+   */
   getNamesByBuilding(building: string): Observable<string[]> {
     return <Observable<string[]>>(
       this.http.get(
@@ -26,6 +33,10 @@ export class ClassroomService {
     );
   }
 
+  /**
+   * Egy adott névhez tartozó tantermek lekérdezését megvalósító függvény
+   * @param roomName A tanterem neve
+   */
   findByName(roomName: string): Observable<Classroom> {
     return <Observable<Classroom>>(
       this.http.get(
@@ -34,6 +45,10 @@ export class ClassroomService {
     );
   }
 
+  /**
+   * Egy adott épülethez tartozó tantermek lekérdezését megvalósító függvény
+   * @param buildingName Az épület neve
+   */
   findByBuildingName(buildingName: string): Observable<Classroom[]> {
     return <Observable<Classroom[]>>(
       this.http.get(
@@ -44,6 +59,11 @@ export class ClassroomService {
     );
   }
 
+  /**
+   * Egy adott névhez és épülethez tartozó tanterem lekérdezését megvalósító függvény
+   * @param name A tanterem neve
+   * @param buildingName Az épület neve
+   */
   findByNameAndBuildingName(
     name: string,
     buildingName: string
@@ -56,6 +76,10 @@ export class ClassroomService {
     );
   }
 
+  /**
+   * A PC-vel rendelkező/nem rendelkező tantermek lekérdezését megvalósító függvény
+   * @param hasPC Van-e PC?
+   */
   findByHasPC(hasPC: boolean): Observable<Classroom[]> {
     return <Observable<Classroom[]>>(
       this.http.get(
@@ -64,6 +88,10 @@ export class ClassroomService {
     );
   }
 
+  /**
+   * A projektorral rendelkező/nem rendelkező tantermek lekérdezését megvalósító függvény
+   * @param hasProjector Van-e projektor?
+   */
   findByHasProjector(hasProjector: boolean): Observable<Classroom[]> {
     return <Observable<Classroom[]>>(
       this.http.get(
@@ -74,6 +102,10 @@ export class ClassroomService {
     );
   }
 
+  /**
+   * A megadott számnál kevesebb székkel rendelkező tantermek lekérdezését megvalósító függvény
+   * @param chairs A székek száma
+   */
   findByChairsLessThan(chairs: number): Observable<Classroom[]> {
     return <Observable<Classroom[]>>(
       this.http.get(
@@ -82,6 +114,10 @@ export class ClassroomService {
     );
   }
 
+  /**
+   * A megadott számnál több székkel rendelkező tantermek lekérdezését megvalósító függvény
+   * @param chairs A székek száma
+   */
   findByChairsGreaterThan(chairs: number): Observable<Classroom[]> {
     return <Observable<Classroom[]>>(
       this.http.get(
@@ -92,6 +128,11 @@ export class ClassroomService {
     );
   }
 
+  /**
+   * A megadott számok közötti székkekel rendelkező tantermek lekérdezését megvalósító függvény
+   * @param from A székek száma (alsó korlát)
+   * @param to A székek száma (felső korlát)
+   */
   findByChairsBetween(from: number, to: number): Observable<Classroom[]> {
     return <Observable<Classroom[]>>(
       this.http.get(
@@ -101,6 +142,10 @@ export class ClassroomService {
     );
   }
 
+  /**
+   * A tanterem létrehozásáért felelős függvény
+   * @param classroom A tanterem objektum
+   */
   createClassroom(classroom: Classroom): Observable<Classroom> {
     return <Observable<Classroom>>(
       this.http.post(
@@ -110,6 +155,11 @@ export class ClassroomService {
     );
   }
 
+  /**
+   * Egy adott névhez és épülethez tartozó tanterem törléséért felelős függvény
+   * @param name A tanterem neve
+   * @param buildingName Az épület neve
+   */
   deleteByNameAndBuildingName(
     name: string,
     buildingName: string
@@ -122,12 +172,21 @@ export class ClassroomService {
     );
   }
 
+  /**
+   * Az azonosító alapján történő létezést ellenőrző függvény
+   * @param id Az azonosító
+   */
   existsById(id: number): Observable<boolean> {
     return <Observable<boolean>>(
       this.http.get(Routes.getUrl(Routes.CLASSROOM_EXISTS_BY_ID) + `?id=${id}`)
     );
   }
 
+  /**
+   * A név és épület alapján történő létezést ellenőrző függvény
+   * @param name A tanterem neve
+   * @param building Az épület neve
+   */
   existsByNameAndBuilding(name: string, building: string): Observable<boolean> {
     return <Observable<boolean>>(
       this.http.get(

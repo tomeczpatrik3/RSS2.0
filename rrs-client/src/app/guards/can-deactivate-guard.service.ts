@@ -1,9 +1,5 @@
 import { Injectable } from "@angular/core";
-import {
-  CanDeactivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot
-} from "@angular/router";
+import { CanDeactivate } from "@angular/router";
 import { Observable } from "rxjs/Observable";
 
 /**
@@ -17,7 +13,7 @@ export interface CanComponentDeactivate {
 }
 
 /**
- * CanDeactivateGuard osztály
+ * Az oldalak/formok elhagyásáért felelős guard
  */
 @Injectable()
 export class CanDeactivateGuard
@@ -28,14 +24,8 @@ export class CanDeactivateGuard
    * akkor a canDeactivate() függvény visszatérési értéke alapján döntjük el,
    * hogy az oldal elhagyható-e. Egyéb esetben elhagyható.
    * @param component A komponens
-   * @param route
-   * @param state
    */
-  canDeactivate(
-    component: CanComponentDeactivate,
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ) {
+  canDeactivate(component: CanComponentDeactivate) {
     return component.canDeactivate ? component.canDeactivate() : true;
   }
 }

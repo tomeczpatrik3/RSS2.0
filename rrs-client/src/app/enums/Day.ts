@@ -1,3 +1,6 @@
+/**
+ * A nap felsorolási típus
+ */
 export enum Day {
   "Vasárnap",
   "Hétfő",

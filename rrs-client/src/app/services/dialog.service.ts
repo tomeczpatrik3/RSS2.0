@@ -10,10 +10,10 @@ export class DialogService {
   constructor(private dialog: MatDialog) {}
 
   /**
-   * Dialog megjelenítése, valamint adatok átadása
-   * @param title_ A dialog címe
-   * @param text_ A dialogban közölt üzenet
-   * @param dialogComponent A dialog komponens
+   * A dialógusok megjelenítésére szolgáló függvény
+   * @param title_ A cím
+   * @param text_ Az üzenet
+   * @param dialogComponent A dialógus komponens
    */
   openDialog(
     title_: string,
@@ -31,7 +31,19 @@ export class DialogService {
     return dialogRef.afterClosed();
   }
 
-  openFormDialog(title_: string, type_: string, id_: number, dialogComponent): Observable<boolean> {
+  /**
+   * A formokat tartalmazó dialógusok megjelenítésére szolgáló függvény
+   * @param title_ A cím
+   * @param type_  A típus
+   * @param id_ Az entitás azonosítója
+   * @param dialogComponent A dialógus komponens
+   */
+  openFormDialog(
+    title_: string,
+    type_: string,
+    id_: number,
+    dialogComponent
+  ): Observable<boolean> {
     let dialogRef = this.dialog.open(dialogComponent, {
       width: "600px",
       data: {

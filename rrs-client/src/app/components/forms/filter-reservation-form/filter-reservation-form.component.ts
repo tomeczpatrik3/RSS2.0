@@ -10,7 +10,7 @@ import { UserService } from "../../../services/user.service";
 import { SubjectService } from "../../../services/subject.service";
 import { BuildingService } from "../../../services/building.service";
 import { EventService } from "../../../services/event.service";
-import { ReservationCalendarEvent } from "../../../models/ReservationCalendarEvent";
+import { ReservationEvent } from "../../../models/ReservationEvent";
 import { Filter } from "../../../enums/Filter";
 import { ClassroomService } from "../../../services/classroom.service";
 import { SemesterService } from "../../../services/semester.service";
@@ -23,7 +23,7 @@ import { EventReservationService } from "../../../services/event-reservation.ser
 })
 export class FilterReservationFormComponent implements OnInit {
   @Output()
-  eventEmitter = new EventEmitter<Observable<ReservationCalendarEvent[]>>();
+  eventEmitter = new EventEmitter<Observable<ReservationEvent[]>>();
 
   filterValues: string[] = [
     Filter.USER_NAME,

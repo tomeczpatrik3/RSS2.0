@@ -192,6 +192,11 @@ export class NavigationService {
     });
   }
 
+  /**
+   * A függvény, ami visszaadja, hogy rendelkezünk-e az adott engedéllyel
+   * @param authorities Az engedélyek egy listában
+   * @param authority Az engedély
+   */
   private hasAuthority(authorities: string[], authority: string): boolean {
     return authorities.indexOf(authority) == -1 ? false : true;
   }

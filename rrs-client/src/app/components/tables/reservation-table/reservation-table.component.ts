@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ReservationCalendarEvent } from "../../../models/ReservationCalendarEvent";
+import { ReservationEvent } from "../../../models/ReservationEvent";
 import { EventService } from "../../../services/event.service";
 import { AuthService } from "../../../authentication/auth.service";
 import { Authorities } from "../../../config/authoritites.config";
@@ -14,7 +14,7 @@ import { ReservationType } from "../../../enums/ReservationType";
   styleUrls: ["./reservation-table.component.css"]
 })
 export class ReservationTableComponent implements OnInit {
-  reservationEvents: ReservationCalendarEvent[];
+  reservationEvents: ReservationEvent[];
 
   constructor(
     private eventService: EventService,
@@ -28,7 +28,7 @@ export class ReservationTableComponent implements OnInit {
       .subscribe(events => (this.reservationEvents = events));
   }
 
-  openPopup(event: ReservationCalendarEvent) {
+  openPopup(event: ReservationEvent) {
     let formType: string;
     if (this.authService.hasAuthority(Authorities.ROLE_ADMIN)) {
       if (event.info.type == ReservationType.EVENT) {

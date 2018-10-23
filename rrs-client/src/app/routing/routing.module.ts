@@ -1,7 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
-import { AppComponent } from "../components/app/app.component";
 import { DashboardComponent } from "../components/dashboard/dashboard.component";
 import { LoginFormComponent } from "../components/forms/login-form/login-form.component";
 import { UserTableComponent } from "../components/tables/user-table/user-table.component";
@@ -31,6 +30,9 @@ import { ReservationsComponent } from "../components/other/reservations/reservat
 import { PendingReservationsComponent } from "../components/other/pending-reservations/pending-reservations.component";
 import { CalendarCardComponent } from "../components/calendar/calendar-card/calendar-card.component";
 
+/**
+ * Az elérési útvonalakat tartalmazó tömb
+ */
 const routes: Routes = [
   {
     path: "",

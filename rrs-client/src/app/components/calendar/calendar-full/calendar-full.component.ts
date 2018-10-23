@@ -19,7 +19,7 @@ import { colors } from "../../../utils/colors";
 import { CustomDateFormatter } from "../../../providers/custom-date-formatter.provider";
 import { CustomEventTitleFormatter } from "../../../providers/custom-event-title-formatter.provider";
 import { EventService } from "../../../services/event.service";
-import { ReservationCalendarEvent } from "../../../models/ReservationCalendarEvent";
+import { ReservationEvent } from "../../../models/ReservationEvent";
 import { AuthService } from "../../../authentication/auth.service";
 import { Authorities } from "../../../config/authoritites.config";
 import { ReservationType } from "../../../enums/ReservationType";
@@ -153,10 +153,10 @@ export class CalendarFullComponent implements OnInit {
   /**
    * A paraméterben átadott események betöltéséért felelős függvény:
    */
-  loadEvents(observable$: Observable<ReservationCalendarEvent[]>): void {
+  loadEvents(observable$: Observable<ReservationEvent[]>): void {
     this.events$ = observable$.pipe(
-      map((results: ReservationCalendarEvent[]) => {
-        return results.map((event: ReservationCalendarEvent) => {
+      map((results: ReservationEvent[]) => {
+        return results.map((event: ReservationEvent) => {
           const info = event.info;
           return {
             title: event.title,

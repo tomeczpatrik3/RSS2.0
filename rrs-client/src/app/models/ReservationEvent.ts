@@ -1,6 +1,9 @@
 import { ReservationInfo } from "./ReservationInfo";
 
-export class ReservationCalendarEvent {
+/**
+ * A foglalás esemény entitás
+ */
+export class ReservationEvent {
   title: string;
   start: string;
   end: string;

@@ -1,8 +1,18 @@
 import { Day } from "../enums/Day";
-//Moment: a dátumok stringgé alakításához
-import * as moment from 'moment/moment';
+import * as moment from "moment/moment";
 
+/**
+ * A dátumokkal kapcsolatos műveletekért felelős osztály
+ */
 export class DateUtils {
+  /**
+   * Egy szemeszterre vonatkozó foglalás számára 
+   * a dátumok előállításáért felelős függvény
+   * @param semesterStart A szemeszter kezdete
+   * @param semesterEnd A szemeszter vége
+   * @param day A foglalás napja (a hét egy napja)
+   * @param time Az időpont
+   */
   public static getDates(
     semesterStart: string,
     semesterEnd: string,
@@ -23,6 +33,11 @@ export class DateUtils {
     return dates;
   }
 
+  /**
+   * A DateTime string előállításáért felelős függvény
+   * @param date A dátum
+   * @param time Az idő szöveges formátumban
+   */
   private static getDateTimeStr(date: Date, time: string): string {
     return `${moment(date).format("YYYY-MM-DD")} ${time}`;
   }

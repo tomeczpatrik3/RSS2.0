@@ -1,3 +1,6 @@
+/**
+ * A hónap felsorolási típus
+ */
 export enum Month {
   "Január",
   "Február",

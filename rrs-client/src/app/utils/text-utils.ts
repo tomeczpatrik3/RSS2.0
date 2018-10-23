@@ -1,3 +1,6 @@
+/**
+ * A szövegekkel kapcsolatos műveletekért felelős osztály
+ */
 export class TextUtils {
   /**
    * Sortörések hozzáadása a szöveghez:

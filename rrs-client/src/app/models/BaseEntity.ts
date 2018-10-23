@@ -1,3 +1,6 @@
+/**
+ * Az alapvető entitás
+ */
 export class BaseEntity {
     protected id: number;
 

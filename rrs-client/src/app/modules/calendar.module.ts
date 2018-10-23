@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { CalendarModule, DateAdapter } from "angular-calendar";
 import { adapterFactory } from "angular-calendar/date-adapters/date-fns";
+
 import localeHu from "@angular/common/locales/hu";
 import { registerLocaleData } from "@angular/common";
 
@@ -12,6 +13,7 @@ import { CalendarCardComponent } from "../components/calendar/calendar-card/cale
 import { EventService } from "../services/event.service";
 import { DialogService } from "../services/dialog.service";
 import { AuthService } from "../authentication/auth.service";
+
 import { OwnFormsModule } from "./forms.module";
 
 /**

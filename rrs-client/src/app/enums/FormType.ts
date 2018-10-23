@@ -1,3 +1,6 @@
+/**
+ * Az űrlap típus felsorlási típus
+ */
 export enum FormType {
     EDIT_EVENT_RESERVATION_FORM = "EDIT_EVENT_RESERVATION_FORM",
     EDIT_CLASS_RESERVATION_FORM = "EDIT_CLASS_RESERVATION_FORM",

@@ -1,3 +1,7 @@
+/**
+ * A fontosabb színeket tartalmazó osztály
+ * (A kalendár számára)
+ */
 export const colors: any = {
     red: {
       primary: '#ad2121',

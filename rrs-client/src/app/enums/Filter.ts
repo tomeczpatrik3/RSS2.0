@@ -1,3 +1,6 @@
+/**
+ * A szűrő felsorolási típus
+ */
 export enum Filter {
     USER_NAME = "A foglaló személy neve",
     BUILDING_NAME = "Az épület neve",
