@@ -3,33 +3,32 @@ import { NgModule } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
-import { RoutingModule } from "./routing/routing.module";
-import { TablesModule } from "./modules/tables.module";
-import { OwnFormsModule } from "./modules/forms.module";
-import { MaterialModule } from "./modules/material.module";
-import { OwnCalendarModule } from "./modules/calendar.module";
+import { AppRoutingModule } from "./app-routing.module";
 
-import { AppComponent } from "./components/app/app.component";
-import { DashboardComponent } from "./components/dashboard/dashboard.component";
-import { NavbarComponent } from "./components/navbar/navbar.component";
+import { AppComponent } from "./shared/components/app/app.component";
+import { DashboardComponent } from "./shared/components/dashboard/dashboard.component";
+import { NavbarComponent } from "./shared/components/navbar/navbar.component";
 
-import { ValidatorService } from "./services/validator.service";
-import { AuthService } from "./authentication/auth.service";
-import { DialogService } from "./services/dialog.service";
+import { ValidatorService } from "./shared/services/validator.service";
+import { AuthService } from "./shared/services/auth.service";
+import { DialogService } from "./shared/services/dialog.service";
 
-import { AuthGuard } from "./guards/auth-guard.service";
-import { RoleGuard } from "./guards/role-guard.service";
-import { CanDeactivateGuard } from "./guards/can-deactivate-guard.service";
+import { AuthGuard } from "./shared/guards/auth-guard.service";
+import { RoleGuard } from "./shared/guards/role-guard.service";
+import { CanDeactivateGuard } from "./shared/guards/can-deactivate-guard.service";
 
-import { NavigationService } from "./services/navigation.service";
+import { NavigationService } from "./shared/services/navigation.service";
 
 import { JwtModule, JwtHelperService } from "@auth0/angular-jwt";
 
-import { QuestionDialogComponent } from "./components/dialogs/question-dialog/question-dialog.component";
-import { InfoDialogComponent } from "./components/dialogs/info-dialog/info-dialog.component";
-import { FormDialogComponent } from "./components/dialogs/form-dialog/form-dialog.component";
+import { QuestionDialogComponent } from "./shared/components/dialogs/question-dialog/question-dialog.component";
+import { InfoDialogComponent } from "./shared/components/dialogs/info-dialog/info-dialog.component";
+import { FormDialogComponent } from "./shared/components/dialogs/form-dialog/form-dialog.component";
 
-import { httpInterceptorProviders } from "./interceptors/providers";
+import { httpInterceptorProviders } from "./shared/interceptors/providers";
+
+import { MaterialModule } from "./shared/modules/material.module";
+import { ReservationsModule } from "./modules/reservations/reservations.module";
 
 export function jwtTokenGetter() {
   return localStorage.getItem("token");
@@ -45,17 +44,11 @@ export function jwtTokenGetter() {
     FormDialogComponent
   ],
   imports: [
+    //Diallógusokhoz:
+
     BrowserModule,
     HttpClientModule,
-
-    /**
-     * Saját modulok:
-     */
-    RoutingModule,
     MaterialModule,
-    TablesModule,
-    OwnFormsModule,
-    OwnCalendarModule,
 
     /**
      * Minden get esetén csatolja a tokent:
@@ -70,7 +63,12 @@ export function jwtTokenGetter() {
     /**
      * A dropdown számára:
      */
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+
+    /**
+     * Routing:
+     */
+    AppRoutingModule
   ],
   providers: [
     ValidatorService,
