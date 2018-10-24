@@ -23,13 +23,13 @@ export class NavigationService {
       new MenuItem(
         "Simple",
         "Megjelenítés táblázatban",
-        "/reservations",
+        "/reservations/reservations",
         Authorities.ROLE_GUEST
       ),
       new MenuItem(
         "Simple",
         "Megjelenítés naptárban",
-        "/reservationsCalendar",
+        "/calendars/reservations",
         Authorities.ROLE_GUEST
       ),
       new MenuItem(
@@ -59,43 +59,43 @@ export class NavigationService {
       new MenuItem(
         "Simple",
         "Felhasználók",
-        "/tables/users",
+        "/users/tables/users",
         Authorities.ROLE_ADMIN
       ),
       new MenuItem(
         "Simple",
         "Tantermek",
-        "/tables/classrooms",
+        "/classrooms/tables/classrooms",
         Authorities.ROLE_ADMIN
       ),
       new MenuItem(
         "Simple",
         "Félévek",
-        "/tables/semesters",
+        "/semesters/tables/semesters",
         Authorities.ROLE_ADMIN
       ),
       new MenuItem(
         "Simple",
         "Tantárgyak",
-        "/tables/subjects",
+        "/subjects/tables/subjects",
         Authorities.ROLE_ADMIN
       ),
       new MenuItem(
         "Simple",
         "Épületek",
-        "/tables/buildings",
+        "/buildings/tables/buildings",
         Authorities.ROLE_ADMIN
       ),
       new MenuItem(
         "Simple",
         "Tantárgy foglalások",
-        "/tables/classReservations",
+        "/reservations/tables/classReservations",
         Authorities.ROLE_ADMIN
       ),
       new MenuItem(
         "Simple",
         "Esemény foglalások",
-        "/tables/eventReservations",
+        "/reservations/tables/eventReservations",
         Authorities.ROLE_ADMIN
       )
     ]),
@@ -107,49 +107,49 @@ export class NavigationService {
       new MenuItem(
         "Simple",
         "Új egyszerű foglalás",
-        "/forms/addSimpleReservation",
+        "/reservations/forms/addSimpleReservation",
         Authorities.ROLE_USER
       ),
       new MenuItem(
         "Simple",
         "Új szemeszterre vonatkozó foglalás",
-        "/forms/addSemesterReservation",
+        "/reservations/forms/addSemesterReservation",
         Authorities.ROLE_USER
       ),
       new MenuItem(
         "Simple",
         "Új eseményre vonatkozó foglalás",
-        "/forms/addEventReservation",
+        "/reservations/forms/addEventReservation",
         Authorities.ROLE_USER
       ),
       new MenuItem(
         "Simple",
         "Új szemeszter",
-        "/forms/addSemester",
+        "/semesters/forms/addSemester",
         Authorities.ROLE_ADMIN
       ),
       new MenuItem(
         "Simple",
         "Új felhasználó",
-        "/forms/addUser",
+        "/users/forms/addUser",
         Authorities.ROLE_ADMIN
       ),
       new MenuItem(
         "Simple",
         "Új tanterem",
-        "/forms/addClassroom",
+        "/classrooms/forms/addClassroom",
         Authorities.ROLE_ADMIN
       ),
       new MenuItem(
         "Simple",
         "Új tantárgy",
-        "/forms/addSubject",
+        "/subjects/forms/addSubject",
         Authorities.ROLE_ADMIN
       ),
       new MenuItem(
         "Simple",
         "Új épület",
-        "/forms/addBuilding",
+        "/buildings/forms/addBuilding",
         Authorities.ROLE_ADMIN
       )
     ])

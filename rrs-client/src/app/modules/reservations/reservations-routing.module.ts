@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AddSemesterFormComponent } from '../semesters/components/add-semester-form/add-semester-form.component';
 import { AddSemesterReservationFormComponent } from './components/add-semester-reservation-form/add-semester-reservation-form.component';
 import { RoleGuard } from '../../shared/guards/role-guard.service';
 import { CanDeactivateGuard } from '../../shared/guards/can-deactivate-guard.service';
@@ -39,7 +38,7 @@ const routes: Routes = [
   
   //Tables:
   {
-    path: "/tables/classReservations",
+    path: "tables/classReservations",
     component: ClassReservationTableComponent,
     canActivate: [RoleGuard],
     data: {
@@ -47,7 +46,7 @@ const routes: Routes = [
     }
   },
   {
-    path: "/tables/eventReservations",
+    path: "tables/eventReservations",
     component: EventReservationTableComponent,
     canActivate: [RoleGuard],
     data: {
@@ -57,7 +56,7 @@ const routes: Routes = [
 
   //Forms:
   {
-    path: "/forms/addEventReservation",
+    path: "forms/addEventReservation",
     component: AddEventReservationFormComponent,
     canActivate: [RoleGuard],
     canDeactivate: [CanDeactivateGuard],
@@ -66,7 +65,7 @@ const routes: Routes = [
     }
   },
   {
-    path: "/forms/addSimpleReservation",
+    path: "forms/addSimpleReservation",
     component: AddSimpleReservationFormComponent,
     canActivate: [RoleGuard],
     canDeactivate: [CanDeactivateGuard],
@@ -75,7 +74,7 @@ const routes: Routes = [
     }
   },
   {
-    path: "/forms/addSemesterReservation",
+    path: "forms/addSemesterReservation",
     component: AddSemesterReservationFormComponent,
     canActivate: [RoleGuard],
     canDeactivate: [CanDeactivateGuard],

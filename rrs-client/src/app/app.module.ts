@@ -29,6 +29,24 @@ import { httpInterceptorProviders } from "./shared/interceptors/providers";
 
 import { MaterialModule } from "./shared/modules/material.module";
 import { ReservationsModule } from "./modules/reservations/reservations.module";
+import { UserApiService } from "./shared/services/api/user.api.service";
+import { BuildingApiService } from "./shared/services/api/building.api.service";
+import { ClassroomApiService } from "./shared/services/api/classroom.api.service";
+import { SemesterApiService } from "./shared/services/api/semester.api.service";
+import { SubjectApiService } from "./shared/services/api/subject.api.service";
+import { EventApiService } from "./shared/services/api/event.api.service";
+import { ClassReservationApiService } from "./shared/services/api/class-reservation.api.service";
+import { EventReservationApiService } from "./shared/services/api/event-reservation.api.service";
+import { UniqueBuildingNameValidatorDirective } from "./shared/directives/unique-building-name.directive";
+import { TakenBuildingNameValidatorDirective } from "./shared/directives/taken-building-name.directive";
+import { UniqueEventNameValidatorDirective } from "./shared/directives/unique-event-name.directive";
+import { TakenEventNameValidatorDirective } from "./shared/directives/taken-event-name.directive";
+import { UniqueSemesterNameValidatorDirective } from "./shared/directives/unique-semester-name.directive";
+import { TakenSemesterNameValidatorDirective } from "./shared/directives/taken-semester-name.directive";
+import { UniqueSubjectCodeValidatorDirective } from "./shared/directives/unique-subject-code.directive";
+import { TakenSubjectCodeValidatorDirective } from "./shared/directives/taken-subject-code.directive";
+import { UniqueUsernameValidatorDirective } from "./shared/directives/unique-username.directive";
+import { TakenUsernameValidatorDirective } from "./shared/directives/taken-username.directive";
 
 export function jwtTokenGetter() {
   return localStorage.getItem("token");
@@ -41,10 +59,22 @@ export function jwtTokenGetter() {
     NavbarComponent,
     InfoDialogComponent,
     QuestionDialogComponent,
-    FormDialogComponent
+    FormDialogComponent,
+
+    UniqueBuildingNameValidatorDirective,
+    TakenBuildingNameValidatorDirective,
+    UniqueEventNameValidatorDirective,
+    TakenEventNameValidatorDirective,
+    UniqueSemesterNameValidatorDirective,
+    TakenSemesterNameValidatorDirective,
+    UniqueSubjectCodeValidatorDirective,
+    TakenSubjectCodeValidatorDirective,
+    UniqueUsernameValidatorDirective,
+    TakenUsernameValidatorDirective
   ],
   imports: [
     //Diallógusokhoz:
+    ReservationsModule,
 
     BrowserModule,
     HttpClientModule,
@@ -75,17 +105,34 @@ export function jwtTokenGetter() {
     DialogService,
     JwtHelperService,
     httpInterceptorProviders,
+
+    //Authentication:
     AuthService,
+
+    //Guards:
     AuthGuard,
     RoleGuard,
     CanDeactivateGuard,
-    NavigationService
+
+    //Navigation:
+    NavigationService,
+
+    //Api:
+    BuildingApiService,
+    ClassroomApiService,
+    SemesterApiService,
+    SubjectApiService,
+    UserApiService,
+    EventApiService,
+    ClassReservationApiService,
+    EventReservationApiService
   ],
   entryComponents: [
     InfoDialogComponent,
     QuestionDialogComponent,
     FormDialogComponent
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: []
 })
 export class AppModule {}

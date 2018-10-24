@@ -1,20 +1,14 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { BuildingApiService } from '../../shared/services/api/building.api.service';
-import { Building } from '../../shared/models/Building';
-import 'rxjs/add/operator/catch';
-import { ApiUtils } from '../../shared/utils/api-utils';
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs/Observable";
+import { BuildingApiService } from "../../shared/services/api/building.api.service";
+import { Building } from "../../shared/models/Building";
+import "rxjs/add/operator/catch";
 
 @Injectable()
 export class BuildingsDataService {
+  constructor(private api: BuildingApiService) {}
 
-  constructor(
-    private api: BuildingApiService,
-    private apiUtils: ApiUtils
-  ) {
-  }
-
-    /**
+  /**
    * Az épületek lekérdezéséért felelős függvény
    */
   getAll(): Observable<Building[]> {

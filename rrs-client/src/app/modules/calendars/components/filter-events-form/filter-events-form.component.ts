@@ -1,11 +1,11 @@
-import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import {
   Validators,
   FormGroup,
   FormControl,
   FormBuilder
 } from "@angular/forms";
-import { Observable, of } from "rxjs";
+import { Observable } from "rxjs";
 import { ReservationEvent } from "../../../../shared/models/ReservationEvent";
 import { Filter } from "../../../../shared/enums/Filter";
 import { UserApiService } from "../../../../shared/services/api/user.api.service";
@@ -16,11 +16,11 @@ import { SemesterApiService } from "../../../../shared/services/api/semester.api
 import { EventReservationApiService } from "../../../../shared/services/api/event-reservation.api.service";
 import { EventApiService } from "../../../../shared/services/api/event.api.service";
 @Component({
-  selector: "app-filter-reservation-form",
-  templateUrl: "./filter-reservation-form.component.html",
-  styleUrls: ["./filter-reservation-form.component.css"]
+  selector: "app-filter-events-form",
+  templateUrl: "./filter-events-form.component.html",
+  styleUrls: ["./filter-events-form.component.css"]
 })
-export class FilterReservationFormComponent implements OnInit {
+export class FilterEventsFormComponent implements OnInit {
   @Output()
   eventEmitter = new EventEmitter<Observable<ReservationEvent[]>>();
 
@@ -83,7 +83,7 @@ export class FilterReservationFormComponent implements OnInit {
         break;
       }
       case Filter.CLASSROOM_NAME: {
-/*         this.classroomService.getNamesByBuilding().subscribe(res => {
+        /*         this.classroomService.getNamesByBuilding().subscribe(res => {
           res.map(name => {
             this.loadedValues.push(name);
           });

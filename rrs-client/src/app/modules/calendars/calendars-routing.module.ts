@@ -5,7 +5,7 @@ import { CalendarCardComponent } from './components/calendar-card/calendar-card.
 
 const routes: Routes = [
   {
-    path: "/reservations",
+    path: "reservations",
     component: CalendarCardComponent
   },
 ];

@@ -9,7 +9,7 @@ import { CanDeactivateGuard } from '../../shared/guards/can-deactivate-guard.ser
 
 const routes: Routes = [
   {
-    path: "/tables/semesters",
+    path: "tables/semesters",
     component: SemesterTableComponent,
     canActivate: [RoleGuard],
     data: {
@@ -17,7 +17,7 @@ const routes: Routes = [
     }
   },
   {
-    path: "/forms/addSemester",
+    path: "forms/addSemester",
     component: AddSemesterFormComponent,
     canActivate: [RoleGuard],
     canDeactivate: [CanDeactivateGuard],

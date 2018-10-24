@@ -9,15 +9,15 @@ import { CanDeactivateGuard } from "../../shared/guards/can-deactivate-guard.ser
 
 const routes: Routes = [
   {
-    path: "/login",
+    path: "login",
     component: LoginFormComponent
   },
   {
-    path: "/register",
+    path: "register",
     component: AddUserFormComponent
   },
   {
-    path: "/tables/users",
+    path: "tables/users",
     component: UserTableComponent,
     canActivate: [RoleGuard],
     data: {
@@ -25,7 +25,7 @@ const routes: Routes = [
     }
   },
   {
-    path: "/forms/addUser",
+    path: "forms/addUser",
     component: AddUserFormComponent,
     canActivate: [RoleGuard],
     canDeactivate: [CanDeactivateGuard],
