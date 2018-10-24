@@ -22,13 +22,13 @@
       <li>
         <div class="dropdown-divider"></div>
         <div *ngIf="!isLoggedIn()">
-          <button class="dropdown-item" routerLink="/login">Bejelentkezés</button>
+          <button class="dropdown-item" routerLink="/users/login">Bejelentkezés</button>
         </div>
         <div *ngIf="isLoggedIn()">
           <button class="dropdown-item" routerLink="/dashboard" (click)="logOut()">Kijelentkezés</button>
         </div>
         <div *ngIf="!isLoggedIn()">
-          <button class="dropdown-item" routerLink="/register">Regisztráció</button>
+          <button class="dropdown-item" routerLink="/users/register">Regisztráció</button>
         </div>
       </li>
 
@@ -62,7 +62,7 @@
   </ul>
 
   <div class="nav-item" *ngIf="!isLoggedIn()">
-    <button class="btn btn-sm btn-outline-info my-2 my-sm-0" routerLink="/login">Bejelentkezés</button>
+    <button class="btn btn-sm btn-outline-info my-2 my-sm-0" routerLink="/users/login">Bejelentkezés</button>
   </div>
   <div class="nav-item" *ngIf="isLoggedIn()">
     <span class="navbar-text">
@@ -71,7 +71,7 @@
     <button class="btn btn-sm btn-outline-danger my-2 my-sm-0" routerLink="/dashboard" (click)="logOut()">Kijelentkezés</button>
   </div>
   <div class="nav-item" *ngIf="!isLoggedIn()">
-    <button class="btn btn-sm btn-outline-info my-2 my-sm-0" routerLink="/register">Regisztráció</button>
+    <button class="btn btn-sm btn-outline-info my-2 my-sm-0" routerLink="/users/register">Regisztráció</button>
   </div>
   </div>
 

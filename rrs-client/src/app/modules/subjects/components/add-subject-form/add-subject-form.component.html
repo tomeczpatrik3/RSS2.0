@@ -1,56 +1,49 @@
-<div class="card form-card">
-  <div class="card-header">
-    Tantárgy hozzáadása:
-  </div>
-  <div class="card-block">
-    <form [formGroup]="subjectForm" (ngSubmit)="addSubject()">
+<form [formGroup]="subjectForm" (ngSubmit)="addSubject()">
 
-      <div class="form-group row">
-        <label for="subjectCode" class="col-sm-4 col-form-label">Tantárgy kódja*</label>
-        <div class="col-sm-8">
-          <input class="form-control" type="text" id="subjectCode" required [formControl]="subjectCode">
+  <div class="form-group row">
+    <label for="subjectCode" class="col-sm-4 col-form-label">Tantárgy kódja*</label>
+    <div class="col-sm-8">
+      <input class="form-control" type="text" id="subjectCode" required [formControl]="subjectCode">
 
-          <div *ngIf="subjectCode.invalid && (subjectCode.dirty || subjectCode.touched)" class="alert alert-danger">
-            <div *ngIf="subjectCode.errors.minlength">
-              A tantárgy kódjának legalább 4 karakterből kell állnia.
-            </div>
-            <div *ngIf="subjectCode.errors.required">
-              A tantárgy kódját meg kell adni.
-            </div>
-            <div *ngIf="subjectCode.errors.maxlength">
-              A tantárgy kódja maximum 15 karakterből állhat.
-            </div>
-            <div *ngIf="subjectCode.errors.isTaken">
-              Ilyen tárgykód már létezik.
-            </div>
-          </div>
+      <div *ngIf="subjectCode.invalid && (subjectCode.dirty || subjectCode.touched)" class="alert alert-danger">
+        <div *ngIf="subjectCode.errors.minlength">
+          A tantárgy kódjának legalább 4 karakterből kell állnia.
+        </div>
+        <div *ngIf="subjectCode.errors.required">
+          A tantárgy kódját meg kell adni.
+        </div>
+        <div *ngIf="subjectCode.errors.maxlength">
+          A tantárgy kódja maximum 15 karakterből állhat.
+        </div>
+        <div *ngIf="subjectCode.errors.isTaken">
+          Ilyen tárgykód már létezik.
         </div>
       </div>
+    </div>
+  </div>
 
-      <div class="form-group row">
-        <label for="subjectName" class="col-sm-4 col-form-label">Tantárgy neve*</label>
-        <div class="col-sm-8">
-          <input class="form-control" type="text" id="subjectName" required [formControl]="subjectName">
+  <div class="form-group row">
+    <label for="subjectName" class="col-sm-4 col-form-label">Tantárgy neve*</label>
+    <div class="col-sm-8">
+      <input class="form-control" type="text" id="subjectName" required [formControl]="subjectName">
 
-          <div *ngIf="subjectName.invalid && (subjectName.dirty || subjectName.touched)" class="alert alert-danger">
-            <div *ngIf="subjectName.errors.minlength">
-              A tantárgy nevének legalább 5 karakterből kell állnia.
-            </div>
-            <div *ngIf="subjectName.errors.required">
-              A tantárgy nevét meg kell adni.
-            </div>
-            <div *ngIf="subjectName.errors.maxlength">
-              A tantárgy neve maximum 30 karakterből állhat.
-            </div>
-          </div>
+      <div *ngIf="subjectName.invalid && (subjectName.dirty || subjectName.touched)" class="alert alert-danger">
+        <div *ngIf="subjectName.errors.minlength">
+          A tantárgy nevének legalább 5 karakterből kell állnia.
+        </div>
+        <div *ngIf="subjectName.errors.required">
+          A tantárgy nevét meg kell adni.
+        </div>
+        <div *ngIf="subjectName.errors.maxlength">
+          A tantárgy neve maximum 30 karakterből állhat.
         </div>
       </div>
-
-
-      <div class="btn-padding">
-        <button type="submit" class="btn btn-success btn-space" [disabled]="!subjectForm.valid">Hozzáadás</button>
-        <button type="button" class="btn btn-secondary btn-space" (click)="subjectForm.reset()">Törlés</button>
-      </div>
-    </form>
+    </div>
   </div>
-</div>
+
+
+  <div class="btn-padding">
+    <button type="submit" class="btn btn-success btn-space" [disabled]="!subjectForm.valid">Hozzáadás</button>
+    <button type="button" class="btn btn-secondary btn-space" (click)="subjectForm.reset()">Törlés</button>
+  </div>
+</form>

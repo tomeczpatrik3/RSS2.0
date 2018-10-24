@@ -10,8 +10,6 @@ import {
 import { Router } from "@angular/router";
 import { AddReservation } from "../add-reservaion";
 import { Observable } from "rxjs";
-import { Day } from "../../../../shared/enums/Day";
-import { Semester } from "../../../../shared/models/Semester";
 import { AuthService } from "../../../../shared/services/auth.service";
 import { ClassroomApiService } from "../../../../shared/services/api/classroom.api.service";
 import { SubjectApiService } from "../../../../shared/services/api/subject.api.service";
@@ -19,7 +17,7 @@ import { BuildingApiService } from "../../../../shared/services/api/building.api
 import { SemesterApiService } from "../../../../shared/services/api/semester.api.service";
 import { DialogService } from "../../../../shared/services/dialog.service";
 import { ValidatorService } from "../../../../shared/services/validator.service";
-import { ClassReservationApiService } from "../../../../shared/services/api/class-reservation.api.service";
+import { ClassReservationsDataService } from "../../class-reservations.data.service";
 import { TakenBuildingNameValidator } from "../../../../shared/directives/taken-building-name.directive";
 import { TakenSemesterNameValidator } from "../../../../shared/directives/taken-semester-name.directive";
 import { TakenSubjectCodeValidator } from "../../../../shared/directives/taken-subject-code.directive";
@@ -48,7 +46,7 @@ export class AddSimpleReservationFormComponent extends AddReservation {
     protected dialogService: DialogService,
     protected validatorService: ValidatorService,
     protected router: Router,
-    private classReservationService: ClassReservationApiService,
+    private classReservationService: ClassReservationsDataService,
     private buildingValidator: TakenBuildingNameValidator,
     private semesterValidator: TakenSemesterNameValidator,
     private subjectValidator: TakenSubjectCodeValidator

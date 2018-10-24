@@ -8,7 +8,6 @@ import {
 import { AccountCredentials } from "../../../../shared/models/AccountCredentials";
 import { AuthService } from "../../../../shared/services/auth.service";
 import { Router } from "@angular/router";
-import { NavbarComponent } from "../../../../shared/components/navbar/navbar.component";
 import { NavigationService } from "../../../../shared/services/navigation.service";
 
 @Component({

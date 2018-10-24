@@ -1,12 +1,6 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
-import {
-  Validators,
-  FormGroup,
-  FormControl,
-  FormBuilder,
-  EmailValidator
-} from "@angular/forms";
-import { UserApiService } from "../../../../shared/services/api/user.api.service";
+import { Component, OnInit } from "@angular/core";
+import { Validators, FormGroup, FormControl } from "@angular/forms";
+import { UsersDataService } from "../../users.data.service";
 import { DialogService } from "../../../../shared/services/dialog.service";
 import { UniqueUsernameValidator } from "../../../../shared/directives/unique-username.directive";
 import { passwordValidator } from "../../../../shared/directives/confirm-password.directive";
@@ -27,7 +21,7 @@ export class AddUserFormComponent implements OnInit {
   userForm: FormGroup;
 
   constructor(
-    private userService: UserApiService,
+    private userService: UsersDataService,
     private dialogService: DialogService,
     private usernameValidator: UniqueUsernameValidator
   ) {}
@@ -41,7 +35,9 @@ export class AddUserFormComponent implements OnInit {
             Validators.minLength(5),
             Validators.maxLength(30)
           ],
-          asyncValidators: this.usernameValidator.validate.bind(this.usernameValidator),
+          asyncValidators: this.usernameValidator.validate.bind(
+            this.usernameValidator
+          ),
           updateOn: "blur"
         }),
         alterEgo: new FormControl(""),

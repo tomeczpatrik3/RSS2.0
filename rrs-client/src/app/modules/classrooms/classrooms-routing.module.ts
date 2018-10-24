@@ -1,23 +1,23 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ClassroomTableComponent } from '../classrooms/components/classroom-table/classroom-table.component';
 import { RoleGuard } from '../../shared/guards/role-guard.service';
 import { Authorities } from '../../shared/config/authoritites.config';
-import { AddClassroomFormComponent } from '../classrooms/components/add-classroom-form/add-classroom-form.component';
 import { CanDeactivateGuard } from '../../shared/guards/can-deactivate-guard.service';
+import { ClassroomTablePageComponent } from './pages/classroom-table-page/classroom-table-page.component';
+import { AddClassroomPageComponent } from './pages/add-classroom-page/add-classroom-page.component';
 
 const routes: Routes = [
   {
-    path: "tables/classrooms",
-    component: ClassroomTableComponent,
+    path: "classrooms",
+    component: ClassroomTablePageComponent,
     canActivate: [RoleGuard],
     data: {
       authority: Authorities.ROLE_ADMIN
     }
   },
   {
-    path: "forms/addClassroom",
-    component: AddClassroomFormComponent,
+    path: "addClassroom",
+    component: AddClassroomPageComponent,
     canActivate: [RoleGuard],
     canDeactivate: [CanDeactivateGuard],
     data: {

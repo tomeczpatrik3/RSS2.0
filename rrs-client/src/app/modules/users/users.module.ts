@@ -5,6 +5,10 @@ import { AddUserFormComponent } from './components/add-user-form/add-user-form.c
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { UserTableComponent } from './components/user-table/user-table.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UsersDataService } from './users.data.service';
+import { AddUserPageComponent } from './pages/add-user-page/add-user-page.component';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { UserPageComponent } from './pages/user-page/user-page.component';
 
 @NgModule({
   imports: [
@@ -16,10 +20,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   declarations: [
     AddUserFormComponent,
     LoginFormComponent,
-    UserTableComponent
+    UserTableComponent,
+    AddUserPageComponent,
+    LoginPageComponent,
+    UserPageComponent
   ],
   providers: [
-    
+    UsersDataService
   ]
 })
 export class UsersModule { }

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { EventReservation } from "../../../../shared/models/EventReservation";
-import { EventReservationApiService } from "../../../../shared/services/api/event-reservation.api.service";
+import { EventReservationsDataService } from "../../event-reservations.data.service";
 import { DialogService } from "../../../../shared/services/dialog.service";
 import { AuthService } from "../../../../shared/services/auth.service";
 import { Authorities } from "../../../../shared/config/authoritites.config";
@@ -21,7 +21,7 @@ export class EventReservationTableComponent implements OnInit {
   reservations: EventReservation[];
 
   constructor(
-    private eventReservationService: EventReservationApiService,
+    private eventReservationService: EventReservationsDataService,
     private dialogService: DialogService,
     private authService: AuthService
   ) {}

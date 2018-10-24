@@ -5,7 +5,7 @@ import {
   FormControl,
   FormBuilder
 } from "@angular/forms";
-import { SubjectApiService } from "../../../../shared/services/api/subject.api.service";
+import { SubjectsDataService } from "../../subjects.data.service";
 import { Subject } from "../../../../shared/models/Subject";
 import { InfoDialogComponent } from "../../../../shared/components/dialogs/info-dialog/info-dialog.component";
 import { DialogService } from "../../../../shared/services/dialog.service";
@@ -44,7 +44,7 @@ export class AddSubjectFormComponent implements OnInit {
 
   constructor(
     private builder: FormBuilder,
-    private subjectService: SubjectApiService,
+    private subjectService: SubjectsDataService,
     private dialogService: DialogService,
     private subjectValidator: UniqueSubjectCodeValidator
   ) {}

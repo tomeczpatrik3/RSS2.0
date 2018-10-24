@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { UserApiService } from '../../../../shared/services/api/user.api.service';
 import { EventReservation } from "../../../../shared/models/EventReservation";
-import { EventReservationApiService } from "../../../../shared/services/api/event-reservation.api.service";
+import { EventReservationsDataService } from "../../event-reservations.data.service";
 
 @Component({
   selector: "app-observe-event-reservation-form",
@@ -19,7 +19,7 @@ export class ObserveEventReservationFormComponent implements OnInit {
   fullName: string;
 
   constructor(
-    private eventReservationService: EventReservationApiService,
+    private eventReservationService: EventReservationsDataService,
     private userService: UserApiService
   ) {}
 

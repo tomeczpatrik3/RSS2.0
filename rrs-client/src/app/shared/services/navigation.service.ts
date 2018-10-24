@@ -23,19 +23,19 @@ export class NavigationService {
       new MenuItem(
         "Simple",
         "Megjelenítés táblázatban",
-        "/reservations/reservations",
+        "/events/events",
         Authorities.ROLE_GUEST
       ),
       new MenuItem(
         "Simple",
         "Megjelenítés naptárban",
-        "/calendars/reservations",
+        "/events/calendar",
         Authorities.ROLE_GUEST
       ),
       new MenuItem(
         "Simple",
         "Várakozó foglalások",
-        "/pendingReservations",
+        "/reservations/pendingReservations",
         Authorities.ROLE_ADMIN
       )
     ]),
@@ -47,7 +47,7 @@ export class NavigationService {
       new MenuItem(
         "Simple",
         "Megjelenítés táblázatban",
-        "/myReservations",
+        "/reservations/myReservations",
         Authorities.ROLE_USER
       )
     ]),
@@ -59,43 +59,43 @@ export class NavigationService {
       new MenuItem(
         "Simple",
         "Felhasználók",
-        "/users/tables/users",
+        "/users/users",
         Authorities.ROLE_ADMIN
       ),
       new MenuItem(
         "Simple",
         "Tantermek",
-        "/classrooms/tables/classrooms",
+        "/classrooms/classrooms",
         Authorities.ROLE_ADMIN
       ),
       new MenuItem(
         "Simple",
         "Félévek",
-        "/semesters/tables/semesters",
+        "/semesters/semesters",
         Authorities.ROLE_ADMIN
       ),
       new MenuItem(
         "Simple",
         "Tantárgyak",
-        "/subjects/tables/subjects",
+        "/subjects/subjects",
         Authorities.ROLE_ADMIN
       ),
       new MenuItem(
         "Simple",
         "Épületek",
-        "/buildings/tables/buildings",
+        "/buildings/buildings",
         Authorities.ROLE_ADMIN
       ),
       new MenuItem(
         "Simple",
         "Tantárgy foglalások",
-        "/reservations/tables/classReservations",
+        "/reservations/classReservations",
         Authorities.ROLE_ADMIN
       ),
       new MenuItem(
         "Simple",
         "Esemény foglalások",
-        "/reservations/tables/eventReservations",
+        "/reservations/eventReservations",
         Authorities.ROLE_ADMIN
       )
     ]),
@@ -107,49 +107,49 @@ export class NavigationService {
       new MenuItem(
         "Simple",
         "Új egyszerű foglalás",
-        "/reservations/forms/addSimpleReservation",
+        "/reservations/addSimpleReservation",
         Authorities.ROLE_USER
       ),
       new MenuItem(
         "Simple",
         "Új szemeszterre vonatkozó foglalás",
-        "/reservations/forms/addSemesterReservation",
+        "/reservations/addSemesterReservation",
         Authorities.ROLE_USER
       ),
       new MenuItem(
         "Simple",
         "Új eseményre vonatkozó foglalás",
-        "/reservations/forms/addEventReservation",
+        "/reservations/addEventReservation",
         Authorities.ROLE_USER
       ),
       new MenuItem(
         "Simple",
         "Új szemeszter",
-        "/semesters/forms/addSemester",
+        "/semesters/addSemester",
         Authorities.ROLE_ADMIN
       ),
       new MenuItem(
         "Simple",
         "Új felhasználó",
-        "/users/forms/addUser",
+        "/users/register",
         Authorities.ROLE_ADMIN
       ),
       new MenuItem(
         "Simple",
         "Új tanterem",
-        "/classrooms/forms/addClassroom",
+        "/classrooms/addClassroom",
         Authorities.ROLE_ADMIN
       ),
       new MenuItem(
         "Simple",
         "Új tantárgy",
-        "/subjects/forms/addSubject",
+        "/subjects/addSubject",
         Authorities.ROLE_ADMIN
       ),
       new MenuItem(
         "Simple",
         "Új épület",
-        "/buildings/forms/addBuilding",
+        "/buildings/addBuilding",
         Authorities.ROLE_ADMIN
       )
     ])

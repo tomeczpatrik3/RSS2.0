@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject } from '../../../../shared/models/Subject';
-import { SubjectApiService } from '../../../../shared/services/api/subject.api.service';
-import { DataSource } from '@angular/cdk/collections';
-import { Observable } from 'rxjs/Observable';
+import { SubjectsDataService } from "../../subjects.data.service";
 
 @Component({
   selector: 'app-subject-table',
@@ -14,7 +12,7 @@ export class SubjectTableComponent implements OnInit {
   subjects: Subject[];
 
   constructor(
-    private subjectService: SubjectApiService
+    private subjectService: SubjectsDataService
   ) {
   }
 

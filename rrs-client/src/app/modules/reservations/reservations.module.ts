@@ -9,13 +9,18 @@ import { EditClassReservationFormComponent } from "./components/edit-class-reser
 import { EditEventReservationFormComponent } from "./components/edit-event-reservation-form/edit-event-reservation-form.component";
 import { ObserveClassReservationFormComponent } from "./components/observe-class-reservation-form/observe-class-reservation-form.component";
 import { ObserveEventReservationFormComponent } from "./components/observe-event-reservation-form/observe-event-reservation-form.component";
-import { ReservationTableComponent } from "./components/reservation-table/reservation-table.component";
-import { MyReservationsComponent } from "./pages/my-reservations/my-reservations.component";
-import { PendingReservationsComponent } from "./pages/pending-reservations/pending-reservations.component";
-import { ReservationsComponent } from "./pages/reservations/reservations.component";
+import { MyReservationsPageComponent } from "./pages/my-reservations-page/my-reservations-page.component";
+import { PendingReservationsPageComponent } from "./pages/pending-reservations-page/pending-reservations-page.component";
 import { AddSemesterReservationFormComponent } from "./components/add-semester-reservation-form/add-semester-reservation-form.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { PipeModule } from "../../shared/modules/pipe.module";
+import { ClassReservationsDataService } from "./class-reservations.data.service";
+import { EventReservationsDataService } from "./event-reservations.data.service";
+import { AddEventReservationPageComponent } from './pages/add-event-reservation-page/add-event-reservation-page.component';
+import { AddSemesterReservationPageComponent } from './pages/add-semester-reservation-page/add-semester-reservation-page.component';
+import { AddSimpleReservationPageComponent } from './pages/add-simple-reservation-page/add-simple-reservation-page.component';
+import { ClassReservationPageComponent } from './pages/class-reservation-page/class-reservation-page.component';
+import { EventReservationPageComponent } from './pages/event-reservation-page/event-reservation-page.component';
 
 @NgModule({
   imports: [
@@ -36,29 +41,23 @@ import { PipeModule } from "../../shared/modules/pipe.module";
     ObserveClassReservationFormComponent,
     ObserveEventReservationFormComponent,
 
-    ReservationTableComponent,
-
-    MyReservationsComponent,
-    PendingReservationsComponent,
-    ReservationsComponent
+    MyReservationsPageComponent,
+    PendingReservationsPageComponent,
+    AddEventReservationPageComponent,
+    AddSimpleReservationPageComponent,
+    ClassReservationPageComponent,
+    EventReservationPageComponent,
+    AddSemesterReservationPageComponent,
   ],
-  providers: [],
+  providers: [
+    ClassReservationsDataService,
+    EventReservationsDataService
+  ],
   exports: [
-    AddEventReservationFormComponent,
-    AddSemesterReservationFormComponent,
-    AddSimpleReservationFormComponent,
-    ClassReservationTableComponent,
-    EventReservationTableComponent,
     EditClassReservationFormComponent,
     EditEventReservationFormComponent,
     ObserveClassReservationFormComponent,
     ObserveEventReservationFormComponent,
-
-    ReservationTableComponent,
-
-    MyReservationsComponent,
-    PendingReservationsComponent,
-    ReservationsComponent
   ]
 })
 export class ReservationsModule {}

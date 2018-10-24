@@ -1,25 +1,22 @@
-<div class="container">
-  <p class="table-name">Tantermek:</p>
-  <table class="table table-striped">
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Épület</th>
-        <th scope="col">Név</th>
-        <th scope="col">PC</th>
-        <th scope="col">Projektor</th>
-        <th scope="col">Székek száma</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let room of rooms; let i = index" (click)="onSelect(room)">
-        <th scope="row">{{i+1}}</th>
-        <td>{{room.building}}</td>
-        <td>{{room.name}}</td>
-        <td>{{ convertToString(room.hasPC) }}</td>
-        <td>{{ convertToString(room.hasProjector) }}</td>
-        <td>{{room.chairs}}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Épület</th>
+      <th scope="col">Név</th>
+      <th scope="col">PC</th>
+      <th scope="col">Projektor</th>
+      <th scope="col">Székek száma</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let room of rooms; let i = index" (click)="onSelect(room)">
+      <th scope="row">{{i+1}}</th>
+      <td>{{room.building}}</td>
+      <td>{{room.name}}</td>
+      <td>{{ convertToString(room.hasPC) }}</td>
+      <td>{{ convertToString(room.hasProjector) }}</td>
+      <td>{{room.chairs}}</td>
+    </tr>
+  </tbody>
+</table>

@@ -47,8 +47,8 @@ const routes: Routes = [
   },
 
   {
-    path: "calendars",
-    loadChildren: "./modules/calendars/calendars.module#CalendarsModule"
+    path: "events",
+    loadChildren: "./modules/events/events.module#EventsModule"
   }
 ];
 

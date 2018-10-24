@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import { BuildingsRoutingModule } from './buildings-routing.module';
 import { AddBuildingFormComponent } from './components/add-building-form/add-building-form.component';
 import { BuildingTableComponent } from './components/building-table/building-table.component';
-import { DialogService } from '../../shared/services/dialog.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BuildingsDataService } from './buildings.data.service';
+import { AddBuildingPageComponent } from './pages/add-building-page/add-building-page.component';
+import { BuildingTablePageComponent } from './pages/building-table-page/building-table-page.component';
 
 @NgModule({
   imports: [
@@ -16,10 +17,11 @@ import { BuildingsDataService } from './buildings.data.service';
   ],
   declarations: [
     AddBuildingFormComponent,
-    BuildingTableComponent
+    BuildingTableComponent,
+    AddBuildingPageComponent,
+    BuildingTablePageComponent
   ],
   providers:[
-    DialogService,
     BuildingsDataService
   ]
 })

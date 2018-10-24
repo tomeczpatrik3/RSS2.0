@@ -2,7 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { NavigationService } from "../../services/navigation.service";
 import { MenuItem } from "../../models/MenuItem";
 import { AuthService } from "../../services/auth.service";
-import { UpperCasePipe } from "@angular/common";
 
 @Component({
   selector: "app-navbar",

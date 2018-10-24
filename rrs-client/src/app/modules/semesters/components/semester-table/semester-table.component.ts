@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Semester } from '../../../../shared/models/Semester';
-import { SemesterApiService } from '../../../../shared/services/api/semester.api.service';
+import { SemesterDataService } from "../../semesters.data.service";
 
 @Component({
   selector: 'app-semester-table',
@@ -12,7 +12,7 @@ export class SemesterTableComponent implements OnInit {
   semesters: Semester[];
 
   constructor(
-    private semesterService: SemesterApiService
+    private semesterService: SemesterDataService
   ) {
   }
 

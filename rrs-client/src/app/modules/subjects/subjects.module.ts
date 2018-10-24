@@ -4,6 +4,10 @@ import { SubjectsRoutingModule } from './subjects-routing.module';
 import { AddSubjectFormComponent } from './components/add-subject-form/add-subject-form.component';
 import { SubjectTableComponent } from './components/subject-table/subject-table.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SubjectsDataService } from './subjects.data.service';
+import { SubjectApiService } from '../../shared/services/api/subject.api.service';
+import { SubjectPageComponent } from './pages/subject-page/subject-page.component';
+import { AddSubjectPageComponent } from './pages/add-subject-page/add-subject-page.component';
 
 @NgModule({
   imports: [
@@ -14,7 +18,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   declarations: [
     AddSubjectFormComponent,
-    SubjectTableComponent
+    SubjectTableComponent,
+    SubjectPageComponent,
+    AddSubjectPageComponent
+  ],
+  providers: [
+    SubjectApiService,
+    SubjectsDataService
   ]
 })
 export class SubjectsModule { }

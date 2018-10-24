@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { ClassReservation } from "../../../../shared/models/ClassReservation";
-import { ClassReservationApiService } from "../../../../shared/services/api/class-reservation.api.service";
+import { ClassReservationsDataService } from "../../class-reservations.data.service";
 import { DialogService } from "../../../../shared/services/dialog.service";
 import { AuthService } from "../../../../shared/services/auth.service";
 import { Authorities } from "../../../../shared/config/authoritites.config";
@@ -21,7 +21,7 @@ export class ClassReservationTableComponent implements OnInit {
   reservations: ClassReservation[];
 
   constructor(
-    private classReservationService: ClassReservationApiService,
+    private classReservationService: ClassReservationsDataService,
     private dialogService: DialogService,
     private authService: AuthService
   ) {}

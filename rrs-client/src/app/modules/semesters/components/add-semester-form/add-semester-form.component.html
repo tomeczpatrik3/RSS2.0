@@ -1,60 +1,53 @@
-<div class="card form-card">
-  <div class="card-header">
-    Szemeszter hozzáadása:
+<form [formGroup]="semesterForm" (ngSubmit)="addSemester()">
+
+  <div class="form-group row">
+    <label for="semesterName" class="col-sm-4 col-form-label">A szemeszter "neve"*</label>
+    <div class="col-sm-8">
+      <input class="form-control" type="text" id="semesterName" required [formControl]="semesterName">
+
+      <div *ngIf="semesterName.invalid && (semesterName.dirty || semesterName.touched)" class="alert alert-danger">
+        <div *ngIf="semesterName.errors.required">
+          A szemeszter nevét meg kell adni!
+        </div>
+        <div *ngIf="semesterName.errors.minlength || semesterName.errors.maxlength">
+          A szemeszternek pontosan 11 karakterből kell állni! pl.: 2017-2018/2.
+        </div>
+        <div *ngIf="semesterName.errors.isTaken">
+          Ez a szemeszter már létezik.
+        </div>
+      </div>
+
+
+    </div>
   </div>
-  <div class="card-block">
-    <form [formGroup]="semesterForm" (ngSubmit)="addSemester()">
 
-      <div class="form-group row">
-        <label for="semesterName" class="col-sm-4 col-form-label">A szemeszter "neve"*</label>
-        <div class="col-sm-8">
-          <input class="form-control" type="text" id="semesterName" required [formControl]="semesterName">
-
-          <div *ngIf="semesterName.invalid && (semesterName.dirty || semesterName.touched)" class="alert alert-danger">
-            <div *ngIf="semesterName.errors.required">
-              A szemeszter nevét meg kell adni!
-            </div>
-            <div *ngIf="semesterName.errors.minlength || semesterName.errors.maxlength">
-              A szemeszternek pontosan 11 karakterből kell állni! pl.: 2017-2018/2.
-            </div>
-            <div *ngIf="semesterName.errors.isTaken">
-                Ez a szemeszter már létezik.
-            </div>
-          </div>
-
-
+  <div class="form-group row">
+    <label for="startDate" class="col-sm-4 col-form-label">A szemeszter kezdetének dátuma*</label>
+    <div class="col-sm-8">
+      <input class="form-control" type="date" id="startDate" required [formControl]="startDate">
+      <div *ngIf="startDate.invalid && (startDate.dirty || startDate.touched)" class="alert alert-danger">
+        <div *ngIf="startDate.errors.required">
+          A dátumot meg kell adni.
         </div>
       </div>
-
-      <div class="form-group row">
-        <label for="startDate" class="col-sm-4 col-form-label">A szemeszter kezdetének dátuma*</label>
-        <div class="col-sm-8">
-          <input class="form-control" type="date" id="startDate" required [formControl]="startDate">
-          <div *ngIf="startDate.invalid && (startDate.dirty || startDate.touched)" class="alert alert-danger">
-            <div *ngIf="startDate.errors.required">
-              A dátumot meg kell adni.
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label for="endDate" class="col-sm-4 col-form-label">A szemeszter végének dátuma*</label>
-        <div class="col-sm-8">
-          <input class="form-control" type="date" id="endDate" required [formControl]="endDate">
-          <div *ngIf="endDate.invalid && (endDate.dirty || endDate.touched)" class="alert alert-danger">
-            <div *ngIf="endDate.errors.required">
-              A dátumot meg kell adni.
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="btn-padding">
-        <button type="submit" class="btn btn-success btn-space" [disabled]="!semesterForm.valid">Hozzáadás</button>
-        <button type="button" class="btn btn-secondary btn-space" (click)="semesterForm.reset()">Törlés</button>
-      </div>
-    </form>
+    </div>
   </div>
-</div>
+
+  <div class="form-group row">
+    <label for="endDate" class="col-sm-4 col-form-label">A szemeszter végének dátuma*</label>
+    <div class="col-sm-8">
+      <input class="form-control" type="date" id="endDate" required [formControl]="endDate">
+      <div *ngIf="endDate.invalid && (endDate.dirty || endDate.touched)" class="alert alert-danger">
+        <div *ngIf="endDate.errors.required">
+          A dátumot meg kell adni.
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="btn-padding">
+    <button type="submit" class="btn btn-success btn-space" [disabled]="!semesterForm.valid">Hozzáadás</button>
+    <button type="button" class="btn btn-secondary btn-space" (click)="semesterForm.reset()">Törlés</button>
+  </div>
+</form>

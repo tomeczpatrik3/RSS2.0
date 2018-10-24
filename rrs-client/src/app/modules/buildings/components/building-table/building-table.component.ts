@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Building } from '../../../../shared/models/Building';
-import { BuildingApiService } from '../../../../shared/services/api/building.api.service';
+import { BuildingsDataService } from "../../buildings.data.service";
 
 @Component({
   selector: 'app-building-table',
@@ -12,7 +12,7 @@ export class BuildingTableComponent implements OnInit {
   buildings: Building[];
 
   constructor(
-    private buildingService: BuildingApiService
+    private buildingService: BuildingsDataService
   ) {
   }
 

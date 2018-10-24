@@ -1,24 +1,24 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { SubjectTableComponent } from './components/subject-table/subject-table.component';
 import { RoleGuard } from '../../shared/guards/role-guard.service';
 import { Authorities } from '../../shared/config/authoritites.config';
-import { AddSubjectFormComponent } from './components/add-subject-form/add-subject-form.component';
 import { CanDeactivateGuard } from '../../shared/guards/can-deactivate-guard.service';
+import { SubjectPageComponent } from './pages/subject-page/subject-page.component';
+import { AddSubjectPageComponent } from './pages/add-subject-page/add-subject-page.component';
 
 
 const routes: Routes = [
   {
-    path: "tables/subjects",
-    component: SubjectTableComponent,
+    path: "subjects",
+    component: SubjectPageComponent,
     canActivate: [RoleGuard],
     data: {
       authority: Authorities.ROLE_ADMIN
     }
   },
   {
-    path: "forms/addSubject",
-    component: AddSubjectFormComponent,
+    path: "addSubject",
+    component: AddSubjectPageComponent,
     canActivate: [RoleGuard],
     canDeactivate: [CanDeactivateGuard],
     data: {

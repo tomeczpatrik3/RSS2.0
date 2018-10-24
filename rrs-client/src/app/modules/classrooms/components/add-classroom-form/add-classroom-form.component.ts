@@ -6,10 +6,8 @@ import {
   FormBuilder
 } from "@angular/forms";
 import { ValidatorService } from "../../../../shared/services/validator.service";
-import { ClassroomApiService } from "../../../../shared/services/api/classroom.api.service";
+import { ClassroomsDataService } from "../../classrooms.data.service";
 import { Classroom } from "../../../../shared/models/Classroom";
-import { SnackbarService } from "../../../../shared/services/snackbar.service";
-import { MatDialog } from "@angular/material";
 import { InfoDialogComponent } from "../../../../shared/components/dialogs/info-dialog/info-dialog.component";
 import { DialogService } from "../../../../shared/services/dialog.service";
 import { BuildingApiService } from "../../../../shared/services/api/building.api.service";
@@ -68,7 +66,7 @@ export class AddClassroomFormComponent implements OnInit {
   constructor(
     private builder: FormBuilder,
     private validatorService: ValidatorService,
-    private classroomService: ClassroomApiService,
+    private classroomService: ClassroomsDataService,
     private buildingService: BuildingApiService,
     private dialogService: DialogService,
     private buildingValidator: TakenBuildingNameValidator

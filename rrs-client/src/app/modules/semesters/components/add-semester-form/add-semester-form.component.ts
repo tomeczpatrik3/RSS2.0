@@ -6,7 +6,7 @@ import {
   FormBuilder
 } from "@angular/forms";
 import { DialogService } from "../../../../shared/services/dialog.service";
-import { SemesterApiService } from "../../../../shared/services/api/semester.api.service";
+import { SemesterDataService } from "../../semesters.data.service";
 import { UniqueSemesterNameValidator } from "../../../../shared/directives/unique-semester-name.directive";
 import { Semester } from "../../../../shared/models/Semester";
 import { TextUtils } from "../../../../shared/utils/text-utils";
@@ -46,7 +46,7 @@ export class AddSemesterFormComponent implements OnInit {
   constructor(
     private builder: FormBuilder,
     private dialogService: DialogService,
-    private semesterService: SemesterApiService,
+    private semesterService: SemesterDataService,
     private semesterValidator: UniqueSemesterNameValidator
   ) {}
 

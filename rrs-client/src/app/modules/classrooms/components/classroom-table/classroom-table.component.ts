@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Classroom } from '../../../../shared/models/Classroom';
-import { ClassroomApiService } from '../../../../shared/services/api/classroom.api.service';
-import { Observable } from 'rxjs/Observable';
-import { DataSource } from '@angular/cdk/collections';
+import { ClassroomsDataService } from "../../classrooms.data.service";
 import { DialogService } from '../../../../shared/services/dialog.service';
 import { InfoDialogComponent } from '../../../../shared/components/dialogs/info-dialog/info-dialog.component';
 
@@ -17,7 +15,7 @@ export class ClassroomTableComponent implements OnInit {
   selectedRoom: Classroom[];
 
   constructor(
-    private classroomService: ClassroomApiService,
+    private classroomService: ClassroomsDataService,
     private dialogService: DialogService
   ) {
   }

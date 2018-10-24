@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ClassReservation } from '../../../../shared/models/ClassReservation';
-import { ClassReservationApiService } from '../../../../shared/services/api/class-reservation.api.service';
+import { ClassReservationsDataService } from "../../class-reservations.data.service";
 import { UserApiService } from '../../../../shared/services/api/user.api.service';
 import { SubjectApiService } from '../../../../shared/services/api/subject.api.service';
 
@@ -23,7 +23,7 @@ export class ObserveClassReservationFormComponent implements OnInit {
   subjectName: string;
 
   constructor(
-    private classReservationService: ClassReservationApiService,
+    private classReservationService: ClassReservationsDataService,
     private userService: UserApiService,
     private subjectService: SubjectApiService
   ) {}

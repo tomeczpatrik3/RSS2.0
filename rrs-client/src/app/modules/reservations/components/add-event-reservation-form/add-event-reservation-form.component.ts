@@ -21,12 +21,12 @@ import { timeValidator } from "../../../../shared/directives/time.directive";
 import { SubjectApiService } from "../../../../shared/services/api/subject.api.service";
 import { BuildingApiService } from "../../../../shared/services/api/building.api.service";
 import { SemesterApiService } from "../../../../shared/services/api/semester.api.service";
-import { EventReservationApiService } from "../../../../shared/services/api/event-reservation.api.service";
+import { EventReservationsDataService } from "../../event-reservations.data.service";
 import { InfoDialogComponent } from "../../../../shared/components/dialogs/info-dialog/info-dialog.component";
 import { QuestionDialogComponent } from "../../../../shared/components/dialogs/question-dialog/question-dialog.component";
 
 @Component({
-  selector: "app-add-event-reservation-from",
+  selector: "app-add-event-reservation-form",
   templateUrl: "./add-event-reservation-form.component.html",
   styleUrls: ["./add-event-reservation-form.component.css"]
 })
@@ -106,7 +106,7 @@ export class AddEventReservationFormComponent extends AddReservation {
     protected dialogService: DialogService,
     protected validatorService: ValidatorService,
     protected router: Router,
-    private eventReservationService: EventReservationApiService,
+    private eventReservationService: EventReservationsDataService,
     private eventValidator: UniqueEventNameValidator,
     private buildingValidator: TakenBuildingNameValidator
   ) {

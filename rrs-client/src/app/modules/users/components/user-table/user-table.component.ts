@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../../../shared/models/User';
-import { UserApiService } from '../../../../shared/services/api/user.api.service';
-import { DataSource } from '@angular/cdk/collections';
-import { Observable } from 'rxjs/Observable';
+import { UsersDataService } from '../../users.data.service';
 
 @Component({
   selector: 'app-user-table',
@@ -14,7 +12,7 @@ export class UserTableComponent implements OnInit {
   users: User[];
 
   constructor(
-    private userService: UserApiService
+    private userService: UsersDataService
   ) {
   }
 
