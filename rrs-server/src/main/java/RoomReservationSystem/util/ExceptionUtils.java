@@ -1,6 +1,6 @@
 package RoomReservationSystem.util;
 
-import RoomReservationSystem.api.BuildingApiController;
+import RoomReservationSystem.controller.api.BuildingApiController;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.http.HttpStatus;

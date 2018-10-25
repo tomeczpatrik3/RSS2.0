@@ -32,12 +32,6 @@ export class NavigationService {
         "Megjelenítés naptárban",
         `${prefix}/events/calendar`,
         Authorities.ROLE_GUEST
-      ),
-      new MenuItem(
-        "Simple",
-        "Várakozó foglalások",
-        `${prefix}/reservations/pendingReservations`,
-        Authorities.ROLE_ADMIN
       )
     ]),
 
@@ -153,7 +147,14 @@ export class NavigationService {
         `${prefix}/buildings/addBuilding`,
         Authorities.ROLE_ADMIN
       )
-    ])
+    ]),
+
+    new MenuItem(
+      "Simple",
+      "Várakozó foglalások",
+      `${prefix}/reservations/pendingReservations`,
+      Authorities.ROLE_ADMIN
+    )
   ];
 
   constructor() {}

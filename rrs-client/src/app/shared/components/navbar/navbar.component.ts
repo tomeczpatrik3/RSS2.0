@@ -32,8 +32,8 @@ export class NavbarComponent implements OnInit {
     );
 
     /*Minden egyes ki-/bejelentkezésnél frissítjük a menüt*/
-    this.authService.loginStatus.subscribe(res => {
-      this.menuItems = this.navigationService.getMenu(res);
+    this.authService.loginStatus.subscribe(authorities => {
+      this.menuItems = this.navigationService.getMenu(authorities);
     });
   }
 
