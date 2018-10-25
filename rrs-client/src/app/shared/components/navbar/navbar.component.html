@@ -13,26 +13,26 @@
 
           <div *ngIf="menuItem.type=='Dropdown'">
             <div class="dropdown-divider"></div>
-        <li *ngFor="let dropdownMenuItem of menuItem.menuItems">
-          <button class="dropdown-item" routerLink="{{dropdownMenuItem.routerLink}}" routerLinkActive="active">{{dropdownMenuItem.name}}</button>
+            <li *ngFor="let dropdownMenuItem of menuItem.menuItems">
+              <button class="dropdown-item" routerLink="{{dropdownMenuItem.routerLink}}" routerLinkActive="active">{{dropdownMenuItem.name}}</button>
+            </li>
+          </div>
         </li>
+
+        <li>
+          <div class="dropdown-divider"></div>
+          <div *ngIf="!isLoggedIn()">
+            <button class="dropdown-item" routerLink="{{loginLink}}">Bejelentkezés</button>
+          </div>
+          <div *ngIf="isLoggedIn()">
+            <button class="dropdown-item" routerLink="{{dashboardLink}}" (click)="logOut()">Kijelentkezés</button>
+          </div>
+          <div *ngIf="!isLoggedIn()">
+            <button class="dropdown-item" routerLink="{{registerLink}}">Regisztráció</button>
+          </div>
+        </li>
+
       </div>
-      </li>
-
-      <li>
-        <div class="dropdown-divider"></div>
-        <div *ngIf="!isLoggedIn()">
-          <button class="dropdown-item" routerLink="{{loginLink}}">Bejelentkezés</button>
-        </div>
-        <div *ngIf="isLoggedIn()">
-          <button class="dropdown-item" routerLink="{{dashboardLink}}" (click)="logOut()">Kijelentkezés</button>
-        </div>
-        <div *ngIf="!isLoggedIn()">
-          <button class="dropdown-item" routerLink="{{registerLink}}">Regisztráció</button>
-        </div>
-      </li>
-
-    </div>
     </div>
   </button>
 
@@ -51,28 +51,28 @@
           <div ngbDropdown class="d-inline-block">
             <button class="btn btn-sm btn-outline-secondary" id="dropdownBasic1" ngbDropdownToggle>{{menuItem.name}}</button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-      <li *ngFor="let dropdownMenuItem of menuItem.menuItems">
-        <button class="dropdown-item" routerLink="{{dropdownMenuItem.routerLink}}" routerLinkActive="active">{{dropdownMenuItem.name}}</button>
+              <li *ngFor="let dropdownMenuItem of menuItem.menuItems">
+                <button class="dropdown-item" routerLink="{{dropdownMenuItem.routerLink}}" routerLinkActive="active">{{dropdownMenuItem.name}}</button>
+              </li>
+            </div>
+          </div>
+        </div>
+
       </li>
-  </div>
-  </div>
-  </div>
+    </ul>
 
-  </li>
-  </ul>
-
-  <div class="nav-item" *ngIf="!isLoggedIn()">
-    <button class="btn btn-sm btn-outline-info my-2 my-sm-0" routerLink="{{loginLink}}">Bejelentkezés</button>
-  </div>
-  <div class="nav-item" *ngIf="isLoggedIn()">
-    <span class="navbar-text">
-      <small>Bejelentkezve mint {{getName() | uppercase}}</small>
-    </span>
-    <button class="btn btn-sm btn-outline-danger my-2 my-sm-0" routerLink="{{dashboardLink}}" (click)="logOut()">Kijelentkezés</button>
-  </div>
-  <div class="nav-item" *ngIf="!isLoggedIn()">
-    <button class="btn btn-sm btn-outline-info my-2 my-sm-0" routerLink="{{registerLink}}">Regisztráció</button>
-  </div>
+    <div class="nav-item" *ngIf="!isLoggedIn()">
+      <button class="btn btn-sm btn-outline-info my-2 my-sm-0" routerLink="{{loginLink}}">Bejelentkezés</button>
+    </div>
+    <div class="nav-item" *ngIf="isLoggedIn()">
+      <span class="navbar-text">
+        <small>Bejelentkezve mint {{getName() | uppercase}}</small>
+      </span>
+      <button class="btn btn-sm btn-outline-danger my-2 my-sm-0" routerLink="{{dashboardLink}}" (click)="logOut()">Kijelentkezés</button>
+    </div>
+    <div class="nav-item" *ngIf="!isLoggedIn()">
+      <button class="btn btn-sm btn-outline-info my-2 my-sm-0" routerLink="{{registerLink}}">Regisztráció</button>
+    </div>
   </div>
 
 </nav>
