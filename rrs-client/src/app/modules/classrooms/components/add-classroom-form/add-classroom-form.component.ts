@@ -23,8 +23,10 @@ import { TakenBuildingNameValidator } from "../../../../shared/directives/taken-
   styleUrls: ["./add-classroom-form.component.css"]
 })
 export class AddClassroomFormComponent implements OnInit {
+  /*A betöltött épületek*/
   buildings: string[];
 
+  /*Az épület*/
   building = new FormControl("", {
     validators: [
       Validators.required,
@@ -37,21 +39,26 @@ export class AddClassroomFormComponent implements OnInit {
     updateOn: "blur"
   });
 
+  /*A tanterem neve*/
   roomName = new FormControl("", [
     Validators.required,
     Validators.minLength(3),
     Validators.maxLength(30)
   ]);
 
+  /*A székek száma*/
   chairs = new FormControl("", [
     Validators.required,
     this.validatorService.isInteger
   ]);
 
+  /*PC*/
   pc = new FormControl(false);
 
+  /*Projektor*/
   projector = new FormControl(false);
 
+  /*Az űrlap*/
   classroomForm: FormGroup = this.builder.group({
     building: this.building,
     roomName: this.roomName,
@@ -59,9 +66,6 @@ export class AddClassroomFormComponent implements OnInit {
     pc: this.pc,
     projector: this.projector
   });
-
-  //-----
-  letThrough: boolean;
 
   constructor(
     private builder: FormBuilder,
@@ -76,10 +80,16 @@ export class AddClassroomFormComponent implements OnInit {
     this.loadBuildings();
   }
 
+  /**
+   * Az épületek betöltéséért felelős függvény
+   */
   loadBuildings() {
     this.buildingService.getNames().subscribe(res => (this.buildings = res));
   }
 
+  /**
+   * Az űrlap tanteremmé konvertálását megvalósító függvény
+   */
   formToClassroom(): Classroom {
     return new Classroom(
       this.classroomForm.value.roomName,
@@ -90,11 +100,9 @@ export class AddClassroomFormComponent implements OnInit {
     );
   }
 
-  /*
-    Feliratkozunk, majd:
-    - hiba esetén jelzünk a hibát dialog segítségével
-    - siker esetén jelezzük a sikert dialog segítségével
-  */
+  /**
+   * Az tanterem létrehozását megvalósító függvény
+   */
   addClassroom() {
     this.classroomService
       .createClassroom(this.formToClassroom())
@@ -117,6 +125,9 @@ export class AddClassroomFormComponent implements OnInit {
     this.loadBuildings();
   }
 
+  /**
+   * Az űrlap elhagyásának engedélyezéséért/tiltásáért felelős függvény
+   */
   canDeactivate(): Observable<boolean> | boolean {
     if (this.classroomForm.dirty) {
       return this.dialogService.openDialog(

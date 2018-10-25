@@ -14,6 +14,7 @@ import { FormDialogComponent } from "../../../../shared/components/dialogs/form-
   styleUrls: ["./events-table.component.css"]
 })
 export class EventsTableComponent implements OnInit {
+  /*Az események*/
   reservationEvents: ReservationEvent[];
 
   constructor(
@@ -22,12 +23,20 @@ export class EventsTableComponent implements OnInit {
     private dialogService: DialogService
   ) {}
 
+  /**
+   * Az inicializálásért felelős függvény
+   * Események betöltése
+   */
   ngOnInit() {
     this.eventService
       .getEvents()
       .subscribe(events => (this.reservationEvents = events));
   }
 
+  /**
+   * A megfelelő (eseményhez tartozó) dialógus megjelenítéséért felelős függvény
+   * @param event Az esemény
+   */
   openPopup(event: ReservationEvent) {
     let formType: string;
     if (this.authService.hasAuthority(Authorities.ROLE_ADMIN)) {

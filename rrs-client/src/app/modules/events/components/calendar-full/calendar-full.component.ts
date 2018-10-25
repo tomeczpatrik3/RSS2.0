@@ -69,12 +69,11 @@ export class CalendarFullComponent implements OnInit {
    */
   excludeDays: number[] = [0, 6];
 
-  viewDate: Date = new Date();
-
+  /*Az események*/
   events$: Observable<Array<CalendarEvent<{ info: ReservationInfo }>>>;
 
+  viewDate: Date = new Date();
   activeDayIsOpen: boolean = false;
-
   isAdmin: boolean = false;
 
   constructor(
@@ -83,6 +82,9 @@ export class CalendarFullComponent implements OnInit {
     private dialogService: DialogService
   ) {}
 
+  /**
+   * Az inicializálásért felelős függvény
+   */
   ngOnInit(): void {
     this.isAdmin = this.authService.hasAuthority(Authorities.ROLE_ADMIN);
     this.fetchEvents();

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { UserApiService } from '../../../../shared/services/api/user.api.service';
+import { UserApiService } from "../../../../shared/services/api/user.api.service";
 import { EventReservation } from "../../../../shared/models/EventReservation";
 import { EventReservationsDataService } from "../../event-reservations.data.service";
 
@@ -9,13 +9,16 @@ import { EventReservationsDataService } from "../../event-reservations.data.serv
   styleUrls: ["./observe-event-reservation-form.component.css"]
 })
 export class ObserveEventReservationFormComponent implements OnInit {
+  /*A foglalás azonosítója*/
   @Input()
   reservationID: number;
 
   @Output()
   submitEvent = new EventEmitter<boolean>();
 
+  /*A foglalás*/
   model: EventReservation;
+  /*A teljes név*/
   fullName: string;
 
   constructor(
@@ -23,6 +26,11 @@ export class ObserveEventReservationFormComponent implements OnInit {
     private userService: UserApiService
   ) {}
 
+  /**
+   * Az inicializálásért felelős függvény
+   * A foglalás, valamint a teljes név betöltése.
+   * Kezdés és befejezés formázása
+   */
   ngOnInit() {
     this.eventReservationService.findById(this.reservationID).subscribe(res => {
       this.model = res;
@@ -34,6 +42,9 @@ export class ObserveEventReservationFormComponent implements OnInit {
     });
   }
 
+  /**
+   * A kilépésért felelős függvény
+   */
   onExit() {
     this.submitEvent.next(false);
   }

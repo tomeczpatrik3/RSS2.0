@@ -8,7 +8,7 @@ import { SubjectsDataService } from "../../subjects.data.service";
   styleUrls: ['./subject-table.component.css']
 })
 export class SubjectTableComponent implements OnInit {
-
+  /*A tantárgyak*/
   subjects: Subject[];
 
   constructor(
@@ -16,6 +16,10 @@ export class SubjectTableComponent implements OnInit {
   ) {
   }
 
+  /**
+   * Az inicializálásért felelős függvény
+   * A tantárgyak betöltése
+   */
   ngOnInit() {
     this.subjectService.getAll().subscribe(
       res => this.subjects = res

@@ -18,6 +18,7 @@ import { Observable } from "rxjs";
   styleUrls: ["./add-user-form.component.css"]
 })
 export class AddUserFormComponent implements OnInit {
+  /*Az űrlap*/
   userForm: FormGroup;
 
   constructor(
@@ -92,6 +93,9 @@ export class AddUserFormComponent implements OnInit {
     return this.userForm.get("confirmEmail");
   }
 
+  /**
+   * Az űrlap felhasználóvá konvertálását megvalósító függvény
+   */
   formToUser(): User {
     return new User(
       this.userForm.value.username,
@@ -101,11 +105,9 @@ export class AddUserFormComponent implements OnInit {
     );
   }
 
-  /*
-    Feliratkozunk, majd:
-    - hiba esetén jelzünk a hibát dialog segítségével
-    - siker esetén jelezzük a sikert dialog segítségével
-  */
+  /**
+   * A felhasználó létrehozását megvalósító függvény
+   */
   addUser() {
     this.userService
       .createUser(this.formToUser())
@@ -128,6 +130,9 @@ export class AddUserFormComponent implements OnInit {
     this.userForm.reset();
   }
 
+  /**
+   * Az űrlap elhagyásának engedélyezéséért/tiltásáért felelős függvény
+   */
   canDeactivate(): Observable<boolean> | boolean {
     if (this.userForm.dirty) {
       return this.dialogService.openDialog(

@@ -31,6 +31,7 @@ import { QuestionDialogComponent } from "../../../../shared/components/dialogs/q
   styleUrls: ["./add-event-reservation-form.component.css"]
 })
 export class AddEventReservationFormComponent extends AddReservation {
+  /*Az űrlap*/
   reservationForm: FormGroup;
 
   ngOnInit() {
@@ -123,6 +124,9 @@ export class AddEventReservationFormComponent extends AddReservation {
     );
   }
 
+  /**
+   * Az űrlap foglalássá konvertálását megvalósító függvény
+   */
   formToReservation() {
     return EventReservation.build(
       this.authService.getUsername(),
@@ -137,9 +141,7 @@ export class AddEventReservationFormComponent extends AddReservation {
   }
 
   /**
-   * Feliratkozunk, majd:
-   * - hiba esetén jelzünk a hibát dialog segítségével
-   * - siker esetén jelezzük a sikert dialog segítségével
+   * A foglalás létrehozását megvalósító függvény
    */
   addReservation() {
     this.eventReservationService
@@ -164,6 +166,9 @@ export class AddEventReservationFormComponent extends AddReservation {
     this.reservationForm.reset();
   }
 
+  /**
+   * Az űrlap elhagyásának engedélyezéséért/tiltásáért felelős függvény
+   */
   canDeactivate(): Observable<boolean> | boolean {
     if (this.reservationForm.dirty) {
       return this.dialogService.openDialog(

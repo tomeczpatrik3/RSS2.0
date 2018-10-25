@@ -8,26 +8,38 @@ import { ClassReservationsDataService } from "../../class-reservations.data.serv
   styleUrls: ['./edit-class-reservation-form.component.css']
 })
 export class EditClassReservationFormComponent implements OnInit {
+  /*A foglalás azonosítója*/
   @Input()
   reservationID: number;
 
   @Output()
   submitEvent = new EventEmitter<boolean>();
 
+  /*A foglalás*/
   model: ClassReservation;
 
   constructor(private classReservationService: ClassReservationsDataService) {}
 
+  /**
+   * Az inicializálásért felelős függvény
+   * A megfelelő foglalás betöltése
+   */
   ngOnInit() {
     this.classReservationService.findById(this.reservationID).subscribe(res => {
       this.model = res;
     });
   }
 
+  /**
+   * A módosításért felelős függvény
+   */
   onSubmit() {
     this.submitEvent.next(true);
   }
 
+  /**
+   * A kilépésért felelős függvény
+   */
   onExit() {
     this.submitEvent.next(false);
   }

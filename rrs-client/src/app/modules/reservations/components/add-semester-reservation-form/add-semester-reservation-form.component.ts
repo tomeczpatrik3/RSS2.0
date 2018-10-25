@@ -36,10 +36,11 @@ import { QuestionDialogComponent } from "../../../../shared/components/dialogs/q
   styleUrls: ["./add-semester-reservation-form.component.css"]
 })
 export class AddSemesterReservationFormComponent extends AddReservation {
+  /*A hét napjai*/
   days: String[] = [Day[1], Day[2], Day[3], Day[4], Day[5], Day[6], Day[0]];
-
+  /*A kiválasztott szemeszter*/
   selectedSemester: Semester;
-
+  /*Az űrlap*/
   reservationForm: FormGroup;
 
   constructor(
@@ -139,6 +140,9 @@ export class AddSemesterReservationFormComponent extends AddReservation {
     return this.reservationForm.get("note");
   }
 
+  /**
+   * Az űrlap foglalássá konvertálását megvalósító függvény
+   */
   formToReservation() {
     return ClassReservation.buildSemester(
       this.authService.getUsername(),
@@ -154,9 +158,7 @@ export class AddSemesterReservationFormComponent extends AddReservation {
   }
 
   /**
-   * Feliratkozunk, majd:
-   * - hiba esetén jelzünk a hibát dialog segítségével
-   * - siker esetén jelezzük a sikert dialog segítségével
+   * A foglalás létrehozását megvalósító függvény
    */
   addReservation() {
     this.classReservationService
@@ -180,6 +182,9 @@ export class AddSemesterReservationFormComponent extends AddReservation {
     this.reservationForm.reset();
   }
 
+  /**
+   * Az űrlap elhagyásának engedélyezéséért/tiltásáért felelős függvény
+   */
   canDeactivate(): Observable<boolean> | boolean {
     if (this.reservationForm.dirty) {
       return this.dialogService.openDialog(
@@ -191,6 +196,10 @@ export class AddSemesterReservationFormComponent extends AddReservation {
     return true;
   }
 
+  /**
+   * A szemeszter kiválasztásáért felelős függvény
+   * @param semesterName A szemeszter neve
+   */
   selectSemester(semesterName: string) {
     this.selectedSemester = this.semesters.filter(
       semester => semester.name === semesterName

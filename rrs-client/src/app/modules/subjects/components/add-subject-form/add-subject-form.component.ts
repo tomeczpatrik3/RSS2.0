@@ -21,12 +21,14 @@ import { UniqueSubjectCodeValidator } from "../../../../shared/directives/unique
   styleUrls: ["./add-subject-form.component.css"]
 })
 export class AddSubjectFormComponent implements OnInit {
+  /*A tárgy neve*/
   subjectName = new FormControl("", [
     Validators.required,
     Validators.minLength(5),
     Validators.maxLength(30)
   ]);
 
+  /*A tárgykód*/
   subjectCode = new FormControl("", {
     validators: [
       Validators.required,
@@ -37,6 +39,7 @@ export class AddSubjectFormComponent implements OnInit {
     updateOn: "blur"
   });
 
+  /*Az űrlap*/
   subjectForm: FormGroup = this.builder.group({
     subjectName: this.subjectName,
     subjectCode: this.subjectCode
@@ -51,6 +54,9 @@ export class AddSubjectFormComponent implements OnInit {
 
   ngOnInit() {}
 
+  /**
+   * Az űrlap tantárggyá konvertálását megvalósító függvény
+   */
   formToSubject(): Subject {
     return new Subject(
       this.subjectForm.value.subjectName,
@@ -58,11 +64,9 @@ export class AddSubjectFormComponent implements OnInit {
     );
   }
 
-  /*
-    Feliratkozunk, majd:
-    - hiba esetén jelzünk a hibát dialog segítségével
-    - siker esetén jelezzük a sikert dialog segítségével
-  */
+  /**
+   * A tantárgy létrehozását megvalósító függvény
+   */
   addSubject() {
     this.subjectService
       .createSubject(this.formToSubject())
@@ -84,6 +88,9 @@ export class AddSubjectFormComponent implements OnInit {
     this.subjectForm.reset();
   }
 
+  /**
+   * Az űrlap elhagyásának engedélyezéséért/tiltásáért felelős függvény
+   */
   canDeactivate(): Observable<boolean> | boolean {
     if (this.subjectForm.dirty) {
       return this.dialogService.openDialog(

@@ -7,13 +7,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClassroomsDataService } from './classrooms.data.service';
 import { ClassroomTablePageComponent } from './pages/classroom-table-page/classroom-table-page.component';
 import { AddClassroomPageComponent } from './pages/add-classroom-page/add-classroom-page.component';
+import { PipeModule } from '../../shared/modules/pipe.module';
 
 @NgModule({
   imports: [
     CommonModule,
     ClassroomsRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PipeModule.forRoot(),
   ],
   declarations: [
     AddClassroomFormComponent,

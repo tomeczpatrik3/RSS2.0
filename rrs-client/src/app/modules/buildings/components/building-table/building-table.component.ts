@@ -8,7 +8,7 @@ import { BuildingsDataService } from "../../buildings.data.service";
   styleUrls: ['./building-table.component.css']
 })
 export class BuildingTableComponent implements OnInit {
-
+  /*Az épületek*/
   buildings: Building[];
 
   constructor(
@@ -16,6 +16,10 @@ export class BuildingTableComponent implements OnInit {
   ) {
   }
 
+  /**
+   * Az inicializálásért felelős függvény
+   * Az épületek betöltése
+   */
   ngOnInit() {
     this.buildingService.getAll().subscribe(
       res => this.buildings = res

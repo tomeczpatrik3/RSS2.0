@@ -21,6 +21,7 @@ import { UniqueBuildingNameValidator } from "../../../../shared/directives/uniqu
   styleUrls: ["./add-building-form.component.css"]
 })
 export class AddBuildingFormComponent implements OnInit {
+  /*Az épület neve*/
   buildingName = new FormControl("", {
     validators: [
       Validators.required,
@@ -33,6 +34,7 @@ export class AddBuildingFormComponent implements OnInit {
     updateOn: "blur"
   });
 
+  /*Az űrlap*/
   buildingForm: FormGroup = this.builder.group({
     buildingName: this.buildingName
   });
@@ -46,18 +48,19 @@ export class AddBuildingFormComponent implements OnInit {
 
   ngOnInit() {}
 
-  formToSubject(): Building {
+  /**
+   * Az űrlap épületté konvertálását megvalósító függvény
+   */
+  formToBuilding(): Building {
     return new Building(this.buildingForm.value.buildingName);
   }
 
-  /*
-    Feliratkozunk, majd:
-    - hiba esetén jelzünk a hibát dialog segítségével
-    - siker esetén jelezzük a sikert dialog segítségével
-  */
+  /**
+   * Az épület létrehozását megvalósító függvény
+   */
   addBuilding() {
     this.buildingService
-      .createBuilding(this.formToSubject())
+      .createBuilding(this.formToBuilding())
       .subscribe(
         res => {},
         error =>
@@ -76,6 +79,9 @@ export class AddBuildingFormComponent implements OnInit {
     this.buildingForm.reset();
   }
 
+  /**
+   * Az űrlap elhagyásának engedélyezéséért/tiltásáért felelős függvény
+   */
   canDeactivate(): Observable<boolean> | boolean {
     if (this.buildingForm.dirty) {
       return this.dialogService.openDialog(

@@ -25,6 +25,7 @@ export class FilterEventsFormComponent implements OnInit {
   @Output()
   eventEmitter = new EventEmitter<Observable<ReservationEvent[]>>();
 
+  /*A szűrési lehetőségek*/
   filterValues: string[] = [
     Filter.USER_NAME,
     Filter.BUILDING_NAME,
@@ -33,21 +34,18 @@ export class FilterEventsFormComponent implements OnInit {
     Filter.SEMESTER_NAME,
     Filter.EVENT_NAME
   ];
-  classroomFilterName: string = Filter.CLASSROOM_NAME;
 
-  loadedBuildings: string[];
+  classroomFilterName: string = Filter.CLASSROOM_NAME;
   loadedValues: string[];
 
+  /*A kiválasztott szűrési típus*/
   selectedFilter = new FormControl("", [Validators.required]);
-
+  /*A kiválasztott érték*/
   selectedValue = new FormControl("", [Validators.required]);
-
-  selectedPlusValue = new FormControl("");
-
+  /*Az űrlap*/
   filterForm: FormGroup = this.builder.group({
     selectedFilter: this.selectedFilter,
-    selectedValue: this.selectedValue,
-    selectedPlusValue: this.selectedPlusValue
+    selectedValue: this.selectedValue
   });
 
   constructor(
@@ -63,6 +61,9 @@ export class FilterEventsFormComponent implements OnInit {
 
   ngOnInit() {}
 
+  /**
+   * A megfelelő értékek betöltéséért felelős függvény
+   */
   onFilterSelect() {
     this.loadedValues = [];
 
@@ -82,14 +83,6 @@ export class FilterEventsFormComponent implements OnInit {
           });
         });
         break;
-      }
-      case Filter.CLASSROOM_NAME: {
-        /*         this.classroomService.getNamesByBuilding().subscribe(res => {
-          res.map(name => {
-            this.loadedValues.push(name);
-          });
-        });
-        break; */
       }
       case Filter.SUBJECT_NAME: {
         this.subjectService.getSubjectNames().subscribe(res => {
@@ -118,6 +111,9 @@ export class FilterEventsFormComponent implements OnInit {
     }
   }
 
+  /**
+   * A szűrésért felelős függvény
+   */
   onFilter() {
     switch (this.selectedFilter.value) {
       case Filter.USER_NAME: {
@@ -132,14 +128,6 @@ export class FilterEventsFormComponent implements OnInit {
         );
         break;
       }
-      /*       case Filter.CLASSROOM_NAME: {
-        this.eventsService.getNamesByBuilding().subscribe(res => {
-          res.map(name => {
-            this.loadedValues.push(name);
-          });
-        });
-        break;
-      } */
       case Filter.SUBJECT_NAME: {
         this.eventEmitter.emit(
           this.eventsService.findBySubjectName(this.selectedValue.value)

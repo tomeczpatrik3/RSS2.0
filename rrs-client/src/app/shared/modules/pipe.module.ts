@@ -1,11 +1,12 @@
-import { NgModule }      from '@angular/core';
-import { EmptyPipe }          from '../pipes/empty.pipe';
-import { StatusConverterPipe }          from '../pipes/statusConverter.pipe';
+import { NgModule } from "@angular/core";
+import { EmptyPipe } from "../pipes/empty.pipe";
+import { StatusConverterPipe } from "../pipes/statusConverter.pipe";
+import { BooleanConverterPipe } from "../pipes/booleanConverter.pipe";
 
 @NgModule({
-    imports:        [],
-    declarations:   [EmptyPipe, StatusConverterPipe],
-    exports:        [EmptyPipe, StatusConverterPipe],
+  imports: [],
+  declarations: [EmptyPipe, StatusConverterPipe, BooleanConverterPipe],
+  exports: [EmptyPipe, StatusConverterPipe, BooleanConverterPipe]
 })
 
 /**
@@ -13,9 +14,9 @@ import { StatusConverterPipe }          from '../pipes/statusConverter.pipe';
  */
 export class PipeModule {
   static forRoot() {
-     return {
-         ngModule: PipeModule,
-         providers: [],
-     };
+    return {
+      ngModule: PipeModule,
+      providers: []
+    };
   }
-} 
+}

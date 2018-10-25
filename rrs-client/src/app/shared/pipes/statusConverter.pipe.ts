@@ -9,7 +9,7 @@ import { Statuses } from "../config/statuses.config";
 export class StatusConverterPipe implements PipeTransform {
   /**
    * Az átalakítást végző függvény
-   * @param value Az átalakítandó
+   * @param value Az átalakítandó érték
    */
   transform(value: string): string {
     if (value === Statuses.ACCEPTED) {

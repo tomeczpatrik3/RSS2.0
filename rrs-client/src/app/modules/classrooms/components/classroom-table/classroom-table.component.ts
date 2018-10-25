@@ -10,9 +10,8 @@ import { InfoDialogComponent } from '../../../../shared/components/dialogs/info-
   styleUrls: ['./classroom-table.component.css']
 })
 export class ClassroomTableComponent implements OnInit {
-
+  /*A tantermek*/
   rooms: Classroom[];
-  selectedRoom: Classroom[];
 
   constructor(
     private classroomService: ClassroomsDataService,
@@ -20,19 +19,13 @@ export class ClassroomTableComponent implements OnInit {
   ) {
   }
 
+  /**
+   * Az inicializálásért felelős függvény
+   * A tantermek betöltése
+   */
   ngOnInit() {
     this.classroomService.getAll().subscribe(
       res => this.rooms = res
     )
   }
-
-  convertToString(value: boolean): string {
-    return value ? 'Van' : 'Nincs';
-  }
-
-  onSelect(room) {
-    this.selectedRoom = room;
-    this.dialogService.openDialog("Tanterem adatai:", room, InfoDialogComponent);
-  }
-
 }

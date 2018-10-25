@@ -21,10 +21,11 @@ import { Observable } from "rxjs";
   styleUrls: ["./add-semester-form.component.css"]
 })
 export class AddSemesterFormComponent implements OnInit {
+  /*A szemeszter kezdete*/
   startDate = new FormControl("", [Validators.required]);
-
+  /*A szemeszter vége*/
   endDate = new FormControl("", [Validators.required]);
-
+  /*A szemeszter "neve"*/
   semesterName = new FormControl("", {
     validators: [
       Validators.required,
@@ -36,7 +37,7 @@ export class AddSemesterFormComponent implements OnInit {
     ),
     updateOn: "blur"
   });
-
+  /*Az űrlap*/
   semesterForm: FormGroup = this.builder.group({
     semesterName: this.semesterName,
     startDate: this.startDate,
@@ -52,6 +53,9 @@ export class AddSemesterFormComponent implements OnInit {
 
   ngOnInit() {}
 
+  /**
+   * A űrlap szemeszterré konvertálását megvalósító függvény
+   */
   formToSemester(): Semester {
     return new Semester(
       this.semesterForm.value.semesterName,
@@ -60,6 +64,9 @@ export class AddSemesterFormComponent implements OnInit {
     );
   }
 
+  /**
+   * A szemeszter létrehozását megvalósító függvény
+   */
   addSemester() {
     this.semesterService.createSemester(this.formToSemester()).subscribe(
       res => {},
@@ -81,6 +88,9 @@ export class AddSemesterFormComponent implements OnInit {
     this.semesterForm.reset();
   }
 
+  /**
+   * Az űrlap elhagyásának engedélyezéséért/tiltásáért felelős függvény
+   */
   canDeactivate(): Observable<boolean> | boolean {
     if (this.semesterForm.dirty) {
       return this.dialogService.openDialog(

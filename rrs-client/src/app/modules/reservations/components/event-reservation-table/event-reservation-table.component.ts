@@ -13,11 +13,14 @@ import { FormDialogComponent } from "../../../../shared/components/dialogs/form-
   styleUrls: ["./event-reservation-table.component.css"]
 })
 export class EventReservationTableComponent implements OnInit {
+  /*A felhasználónév*/
   @Input()
   user: string;
+  /*Függőben lévő foglalások?*/
   @Input()
   pending: boolean;
 
+  /*A foglalások*/
   reservations: EventReservation[];
 
   constructor(
@@ -26,6 +29,9 @@ export class EventReservationTableComponent implements OnInit {
     private authService: AuthService
   ) {}
 
+  /**
+   * Az inicializálásért felelős függvény
+   */
   ngOnInit() {
     if (!this.user && !this.pending) {
       //Null, empty
@@ -43,6 +49,10 @@ export class EventReservationTableComponent implements OnInit {
     }
   }
 
+  /**
+   * A megfelelő dialógus megjlenítéséért felelős függvény
+   * @param id A foglalás azonosítója
+   */
   openPopup(id: number) {
     let formType: string;
     if (this.authService.hasAuthority(Authorities.ROLE_ADMIN)) {

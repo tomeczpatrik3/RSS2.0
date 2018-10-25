@@ -15,18 +15,21 @@ import { NavigationService } from "../../../../shared/services/navigation.servic
   styleUrls: ["./login-form.component.css"]
 })
 export class LoginFormComponent implements OnInit {
+  /*A felhasználónév*/
   username = new FormControl("", [
     Validators.required,
     Validators.minLength(5),
     Validators.maxLength(30)
   ]);
 
+  /*A jelszó*/
   password = new FormControl("", [
     Validators.required,
     Validators.minLength(5),
     Validators.maxLength(30)
   ]);
 
+  /*Az űrlap*/
   loginForm: FormGroup = this.builder.group({
     username: this.username,
     password: this.password
@@ -40,6 +43,9 @@ export class LoginFormComponent implements OnInit {
 
   ngOnInit() {}
 
+  /**
+   * A bejelentkezésért felelős függvény
+   */
   login() {
     this.authService.login(
       new AccountCredentials(

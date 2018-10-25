@@ -8,16 +8,23 @@ import { EventReservationsDataService } from "../../event-reservations.data.serv
   styleUrls: ["./edit-event-reservation-form.component.css"]
 })
 export class EditEventReservationFormComponent implements OnInit {
+  /*A foglalás azonosítója*/
   @Input()
   reservationID: number;
 
   @Output()
   submitEvent = new EventEmitter<boolean>();
 
+  /*A foglalás*/
   model: EventReservation;
 
   constructor(private eventReservationService: EventReservationsDataService) {}
 
+  /**
+   * Az inicializálásért felelős függvény
+   * A megfelelő foglalás betöltése, valamint a
+   * kezdés és befejezés átkonvertálása
+   */
   ngOnInit() {
     this.eventReservationService.findById(this.reservationID).subscribe(res => {
       this.model = res;
@@ -26,10 +33,16 @@ export class EditEventReservationFormComponent implements OnInit {
     });
   }
 
+  /**
+   * A módosításért felelős függvény
+   */
   onSubmit() {
     this.submitEvent.next(true);
   }
 
+  /**
+   * A kilépésért felelős függvény
+   */
   onExit() {
     this.submitEvent.next(false);
   }

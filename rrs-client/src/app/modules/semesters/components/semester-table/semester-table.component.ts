@@ -9,6 +9,7 @@ import { SemesterDataService } from "../../semesters.data.service";
 })
 export class SemesterTableComponent implements OnInit {
 
+  /*A szemeszterek*/
   semesters: Semester[];
 
   constructor(
@@ -16,6 +17,10 @@ export class SemesterTableComponent implements OnInit {
   ) {
   }
 
+  /**
+   * Az inicializálásért felelős függvény
+   * A szemeszterek betöltése
+   */
   ngOnInit() {
     this.semesterService.getAll().subscribe(
       res => this.semesters = res

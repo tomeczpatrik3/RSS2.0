@@ -13,11 +13,14 @@ import { FormDialogComponent } from "../../../../shared/components/dialogs/form-
   styleUrls: ["./class-reservation-table.component.css"]
 })
 export class ClassReservationTableComponent implements OnInit {
+  /*A felhasználónév*/
   @Input()
   user: string;
+  /*Függőben lévő foglalások?*/
   @Input()
   pending: boolean;
 
+  /*A foglalások*/
   reservations: ClassReservation[];
 
   constructor(
@@ -26,6 +29,9 @@ export class ClassReservationTableComponent implements OnInit {
     private authService: AuthService
   ) {}
 
+  /**
+   * Az inicializálásért felelős függvény
+   */
   ngOnInit() {
     if (!this.user && !this.pending) {
       this.classReservationService
@@ -42,6 +48,10 @@ export class ClassReservationTableComponent implements OnInit {
     }
   }
 
+  /**
+   * A megfelelő dialógus megjlenítéséért felelős függvény
+   * @param id A foglalás azonosítója
+   */
   openPopup(id: number) {
     let formType: string;
     if (this.authService.hasAuthority(Authorities.ROLE_ADMIN)) {
