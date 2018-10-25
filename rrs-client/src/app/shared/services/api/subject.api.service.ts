@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Routes } from "../../config/routes.config";
+import { ApiEndpoints } from "../../config/api-endpoints.config";
 import { Subject } from "../../models/Subject";
 import { Observable } from "rxjs/Observable";
 
@@ -16,7 +16,7 @@ export class SubjectApiService {
    */
   getAll(): Observable<Subject[]> {
     return <Observable<Subject[]>>(
-      this.http.get(Routes.getUrl(Routes.SUBJECT_GET_ALL))
+      this.http.get(ApiEndpoints.getUrl(ApiEndpoints.SUBJECT_GET_ALL))
     );
   }
 
@@ -25,7 +25,7 @@ export class SubjectApiService {
    */
   getSubjectNames(): Observable<string[]> {
     return <Observable<string[]>>(
-      this.http.get(Routes.getUrl(Routes.SUBJECT_GET_SUBJECT_NAMES))
+      this.http.get(ApiEndpoints.getUrl(ApiEndpoints.SUBJECT_GET_SUBJECT_NAMES))
     );
   }
 
@@ -36,7 +36,7 @@ export class SubjectApiService {
   getSubjectName(subjectCode: string): Observable<any> {
     return <Observable<any>>(
       this.http.get(
-        Routes.getUrl(Routes.SUBJECT_GET_SUBJECT_NAME) +
+        ApiEndpoints.getUrl(ApiEndpoints.SUBJECT_GET_SUBJECT_NAME) +
           `?subjectCode=${subjectCode}`
       )
     );
@@ -48,7 +48,7 @@ export class SubjectApiService {
    */
   createSubject(subject: Subject): Observable<Subject> {
     return <Observable<Subject>>(
-      this.http.post(Routes.getUrl(Routes.SUBJECT_CREATE_SUBJECT), subject)
+      this.http.post(ApiEndpoints.getUrl(ApiEndpoints.SUBJECT_CREATE_SUBJECT), subject)
     );
   }
 
@@ -59,7 +59,7 @@ export class SubjectApiService {
   deleteByCode(subjectCode: string): Observable<any> {
     return <Observable<any>>(
       this.http.delete(
-        Routes.getUrl(Routes.SUBJECT_DELETE_BY_CODE) +
+        ApiEndpoints.getUrl(ApiEndpoints.SUBJECT_DELETE_BY_CODE) +
           `?subjectCode=${subjectCode}`
       )
     );
@@ -71,7 +71,7 @@ export class SubjectApiService {
    */
   existsById(id: number): Observable<boolean> {
     return <Observable<boolean>>(
-      this.http.get(Routes.getUrl(Routes.SUBJECT_EXISTS_BY_ID) + `?id=${id}`)
+      this.http.get(ApiEndpoints.getUrl(ApiEndpoints.SUBJECT_EXISTS_BY_ID) + `?id=${id}`)
     );
   }
 
@@ -82,7 +82,7 @@ export class SubjectApiService {
   existsByCode(code: string): Observable<boolean> {
     return <Observable<boolean>>(
       this.http.get(
-        Routes.getUrl(Routes.SUBJECT_EXISTS_BY_CODE) + `?code=${code}`
+        ApiEndpoints.getUrl(ApiEndpoints.SUBJECT_EXISTS_BY_CODE) + `?code=${code}`
       )
     );
   }

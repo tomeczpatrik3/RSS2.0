@@ -8,6 +8,9 @@ import { StatusConverterPipe }          from '../pipes/statusConverter.pipe';
     exports:        [EmptyPipe, StatusConverterPipe],
 })
 
+/**
+ * A pipe-okat tartalmazó modul
+ */
 export class PipeModule {
   static forRoot() {
      return {

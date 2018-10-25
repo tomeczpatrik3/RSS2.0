@@ -12,9 +12,17 @@ import { Observable } from "rxjs";
 @Injectable({
   providedIn: "root"
 })
+/**
+ * A validátor ami azt vizsgálja, hogy egy adott felhasználónév
+ * létezik-e és hibát jelez, ha nem
+ */
 export class TakenUsernameValidator implements AsyncValidator {
   constructor(private userService: UserApiService) {}
 
+  /**
+   * A validálást végző függvény
+   * @param ctrl A formcontrol
+   */
   validate(
     ctrl: AbstractControl
   ): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
@@ -35,6 +43,9 @@ export class TakenUsernameValidator implements AsyncValidator {
     }
   ]
 })
+/**
+ * TakenUsernameValidator direktíva
+ */
 export class TakenUsernameValidatorDirective {
   constructor(private validator: TakenUsernameValidator) {}
 

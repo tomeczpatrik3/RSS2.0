@@ -2,52 +2,54 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { DashboardComponent } from "./shared/components/dashboard/dashboard.component";
 
+export const prefix: string = "web";
+
 /**
  * Az elérési útvonalakat tartalmazó tömb
  */
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "/dashboard",
+    redirectTo: `${prefix}/dashboard`,
     pathMatch: "full"
   },
   {
-    path: "dashboard",
+    path: `${prefix}/dashboard`,
     component: DashboardComponent
   },
 
   {
-    path: "users",
+    path: `${prefix}/users`,
     loadChildren: "./modules/users/users.module#UsersModule"
   },
 
   {
-    path: "buildings",
+    path: `${prefix}/buildings`,
     loadChildren: "./modules/buildings/buildings.module#BuildingsModule"
   },
 
   {
-    path: "classrooms",
+    path: `${prefix}/classrooms`,
     loadChildren: "./modules/classrooms/classrooms.module#ClassroomsModule"
   },
 
   {
-    path: "semesters",
+    path: `${prefix}/semesters`,
     loadChildren: "./modules/semesters/semesters.module#SemestersModule"
   },
 
   {
-    path: "subjects",
+    path: `${prefix}/subjects`,
     loadChildren: "./modules/subjects/subjects.module#SubjectsModule"
   },
 
   {
-    path: "reservations",
+    path: `${prefix}/reservations`,
     loadChildren: "./modules/reservations/reservations.module#ReservationsModule"
   },
 
   {
-    path: "events",
+    path: `${prefix}/events`,
     loadChildren: "./modules/events/events.module#EventsModule"
   }
 ];

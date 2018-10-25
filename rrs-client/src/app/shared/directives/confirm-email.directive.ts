@@ -2,7 +2,7 @@ import { ValidationErrors, ValidatorFn, FormGroup } from "@angular/forms";
 
 /**
  * Az e-mail címek egyezését validáló függvény
- * @param control A FormControl objektum
+ * @param control A FormGroup objektum
  */
 export const emailValidator: ValidatorFn = (
   control: FormGroup

@@ -12,9 +12,17 @@ import { BuildingApiService } from "../services/api/building.api.service";
 @Injectable({
   providedIn: "root"
 })
+/**
+ * A validátor ami azt vizsgálja, hogy egy adott épület név
+ * szabad-e és hibát jelez, ha nem
+ */
 export class UniqueBuildingNameValidator implements AsyncValidator {
   constructor(private buildingService: BuildingApiService) {}
 
+  /**
+   * A validálást végző függvény
+   * @param ctrl A formcontrol
+   */
   validate(
     ctrl: AbstractControl
   ): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
@@ -35,6 +43,9 @@ export class UniqueBuildingNameValidator implements AsyncValidator {
     }
   ]
 })
+/**
+ * UniqueBuildingNameValidator direktíva
+ */
 export class UniqueBuildingNameValidatorDirective {
   constructor(private validator: UniqueBuildingNameValidator) {}
 

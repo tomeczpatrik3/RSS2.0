@@ -2,7 +2,7 @@ import { ValidationErrors, ValidatorFn, FormGroup } from "@angular/forms";
 
 /**
  * Az jelszavak egyezését validáló függvény
- * @param control A FormControl objektum
+ * @param control A FormGroup objektum
  */
 export const passwordValidator: ValidatorFn = (
   control: FormGroup

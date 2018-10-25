@@ -7,7 +7,6 @@ import {
 } from "@angular/forms";
 import { AccountCredentials } from "../../../../shared/models/AccountCredentials";
 import { AuthService } from "../../../../shared/services/auth.service";
-import { Router } from "@angular/router";
 import { NavigationService } from "../../../../shared/services/navigation.service";
 
 @Component({
@@ -36,7 +35,6 @@ export class LoginFormComponent implements OnInit {
   constructor(
     private builder: FormBuilder,
     private authService: AuthService,
-    private router: Router,
     private navService: NavigationService
   ) {}
 
@@ -49,9 +47,6 @@ export class LoginFormComponent implements OnInit {
         this.loginForm.value.password
       )
     );
-
     this.loginForm.reset();
-
-    this.router.navigate(["dashboard"]);
   }
 }

@@ -47,6 +47,7 @@ import { UniqueSubjectCodeValidatorDirective } from "./shared/directives/unique-
 import { TakenSubjectCodeValidatorDirective } from "./shared/directives/taken-subject-code.directive";
 import { UniqueUsernameValidatorDirective } from "./shared/directives/unique-username.directive";
 import { TakenUsernameValidatorDirective } from "./shared/directives/taken-username.directive";
+import { FooterComponent } from './shared/components/footer/footer.component';
 
 export function jwtTokenGetter() {
   return localStorage.getItem("token");
@@ -70,7 +71,8 @@ export function jwtTokenGetter() {
     UniqueSubjectCodeValidatorDirective,
     TakenSubjectCodeValidatorDirective,
     UniqueUsernameValidatorDirective,
-    TakenUsernameValidatorDirective
+    TakenUsernameValidatorDirective,
+    FooterComponent
   ],
   imports: [
     //Diallógusokhoz:

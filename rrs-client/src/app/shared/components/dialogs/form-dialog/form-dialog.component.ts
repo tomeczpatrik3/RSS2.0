@@ -8,6 +8,9 @@ import { FormType } from "../../../enums/FormType";
   styleUrls: ["./form-dialog.component.css"]
 })
 export class FormDialogComponent implements OnInit {
+  /**
+   * A lehetséges/megjleníthető formok
+   */
   types: FormType[] = [
     FormType.EDIT_CLASS_RESERVATION_FORM,
     FormType.EDIT_EVENT_RESERVATION_FORM,
@@ -30,6 +33,11 @@ export class FormDialogComponent implements OnInit {
     this.thisDialogRef.close(false);
   }
 
+  /**
+   * A függvény, ami a beérkező logikai érték alapján eldönti
+   * hogy hogyan zárja be a dialógust
+   * @param event A beérkező esemény
+   */
   onClose(event: boolean) {
     if (event) {
       this.onCloseConfirm();

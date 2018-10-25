@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
-import { Routes } from "../../config/routes.config";
+import { ApiEndpoints } from "../../config/api-endpoints.config";
 import { Building } from "../../models/Building";
 
 /**
@@ -16,7 +16,7 @@ export class BuildingApiService {
    */
   getAll(): Observable<Building[]> {
     return <Observable<Building[]>>(
-      this.http.get(Routes.getUrl(Routes.BUILDING_GET_ALL))
+      this.http.get(ApiEndpoints.getUrl(ApiEndpoints.BUILDING_GET_ALL))
     );
   }
 
@@ -25,7 +25,7 @@ export class BuildingApiService {
    */
   getNames(): Observable<string[]> {
     return <Observable<string[]>>(
-      this.http.get(Routes.getUrl(Routes.BUILDING_GET_NAMES))
+      this.http.get(ApiEndpoints.getUrl(ApiEndpoints.BUILDING_GET_NAMES))
     );
   }
 
@@ -35,7 +35,7 @@ export class BuildingApiService {
    */
   findById(id: number): Observable<Building> {
     return <Observable<Building>>(
-      this.http.get(Routes.getUrl(Routes.BUILDING_FIND_BY_ID) + "/" + id)
+      this.http.get(ApiEndpoints.getUrl(ApiEndpoints.BUILDING_FIND_BY_ID) + "/" + id)
     );
   }
 
@@ -45,7 +45,7 @@ export class BuildingApiService {
    */
   findByName(name: string): Observable<Building> {
     return <Observable<Building>>(
-      this.http.get(Routes.getUrl(Routes.BUILDING_FIND_BY_NAME) + "/" + name)
+      this.http.get(ApiEndpoints.getUrl(ApiEndpoints.BUILDING_FIND_BY_NAME) + "/" + name)
     );
   }
 
@@ -55,7 +55,7 @@ export class BuildingApiService {
    */
   createBuilding(building: Building): Observable<Building> {
     return <Observable<Building>>(
-      this.http.post(Routes.getUrl(Routes.BUILDING_CREATE_BUILDING), building)
+      this.http.post(ApiEndpoints.getUrl(ApiEndpoints.BUILDING_CREATE_BUILDING), building)
     );
   }
 
@@ -66,7 +66,7 @@ export class BuildingApiService {
   deleteByName(name: string): Observable<any> {
     return <Observable<any>>(
       this.http.delete(
-        Routes.getUrl(Routes.BUILDING_DELETE_BY_NAME) + "/" + name
+        ApiEndpoints.getUrl(ApiEndpoints.BUILDING_DELETE_BY_NAME) + "/" + name
       )
     );
   }
@@ -77,7 +77,7 @@ export class BuildingApiService {
    */
   existsById(id: number): Observable<boolean> {
     return <Observable<boolean>>(
-      this.http.get(Routes.getUrl(Routes.BUILDING_EXISTS_BY_ID) + `?id=${id}`)
+      this.http.get(ApiEndpoints.getUrl(ApiEndpoints.BUILDING_EXISTS_BY_ID) + `?id=${id}`)
     );
   }
 
@@ -88,7 +88,7 @@ export class BuildingApiService {
   existsByName(name: string): Observable<boolean> {
     return <Observable<boolean>>(
       this.http.get(
-        Routes.getUrl(Routes.BUILDING_EXISTS_BY_NAME) + `?name=${name}`
+        ApiEndpoints.getUrl(ApiEndpoints.BUILDING_EXISTS_BY_NAME) + `?name=${name}`
       )
     );
   }

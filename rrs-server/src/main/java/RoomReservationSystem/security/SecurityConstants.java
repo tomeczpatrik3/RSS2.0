@@ -105,12 +105,17 @@ public class SecurityConstants {
     /**
      * Frontend home:
      */
-    public static final String FRONTEND_HOME_URL = "/*";
+    public static final String HOME_URL = "/*";
 
     /**
-     * Frontend home:
+     * Frontend assets:
      */
-    public static final String FRONTEND_ASSETS_URL = "/assets/*";
+    public static final String ASSETS_URL = "/assets/**";
+    
+    /**
+     * Frontend web:
+     */
+    public static final String WEB_URL = "/web/**";
 
     /**
      *

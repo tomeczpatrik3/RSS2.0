@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Routes } from "../../config/routes.config";
+import { ApiEndpoints } from "../../config/api-endpoints.config";
 import { User } from "../../models/User";
 import { Observable } from "rxjs/Observable";
 import { AccountCredentials } from "../../models/AccountCredentials";
@@ -18,7 +18,7 @@ export class UserApiService {
    */
   login(accountCredentials: AccountCredentials) {
     return this.http.post(
-      Routes.getUrl(Routes.USER_LOGIN),
+      ApiEndpoints.getUrl(ApiEndpoints.USER_LOGIN),
       accountCredentials,
       { observe: "response" }
     );
@@ -29,7 +29,7 @@ export class UserApiService {
    */
   getAll(): Observable<User[]> {
     return <Observable<User[]>>(
-      this.http.get(Routes.getUrl(Routes.USER_GET_ALL))
+      this.http.get(ApiEndpoints.getUrl(ApiEndpoints.USER_GET_ALL))
     );
   }
 
@@ -38,7 +38,7 @@ export class UserApiService {
    */
   getNames(): Observable<string[]> {
     return <Observable<string[]>>(
-      this.http.get(Routes.getUrl(Routes.USER_GET_NAMES))
+      this.http.get(ApiEndpoints.getUrl(ApiEndpoints.USER_GET_NAMES))
     );
   }
 
@@ -49,7 +49,7 @@ export class UserApiService {
   getNameByUsername(username: string): Observable<any> {
     return <Observable<any>>(
       this.http.get(
-        Routes.getUrl(Routes.USER_GET_NAME_BY_USERNAME) +
+        ApiEndpoints.getUrl(ApiEndpoints.USER_GET_NAME_BY_USERNAME) +
           `?username=${username}`
       )
     );
@@ -62,7 +62,7 @@ export class UserApiService {
   findByUsername(username: string): Observable<User> {
     return <Observable<User>>(
       this.http.get(
-        Routes.getUrl(Routes.USER_FIND_BY_USERNAME) + `?username=${username}`
+        ApiEndpoints.getUrl(ApiEndpoints.USER_FIND_BY_USERNAME) + `?username=${username}`
       )
     );
   }
@@ -73,7 +73,7 @@ export class UserApiService {
    */
   findByName(name: string): Observable<User[]> {
     return <Observable<User[]>>(
-      this.http.get(Routes.getUrl(Routes.USER_FIND_BY_NAME) + `?name=${name}`)
+      this.http.get(ApiEndpoints.getUrl(ApiEndpoints.USER_FIND_BY_NAME) + `?name=${name}`)
     );
   }
 
@@ -83,7 +83,7 @@ export class UserApiService {
    */
   createUser(user: User): Observable<User> {
     return <Observable<User>>(
-      this.http.post(Routes.getUrl(Routes.USER_CREATE_USER), user)
+      this.http.post(ApiEndpoints.getUrl(ApiEndpoints.USER_CREATE_USER), user)
     );
   }
 
@@ -94,7 +94,7 @@ export class UserApiService {
   deleteByUsername(username: string): Observable<any> {
     return <Observable<any>>(
       this.http.delete(
-        Routes.getUrl(Routes.USER_DELETE_BY_USERNAME) + `?username=${username}`
+        ApiEndpoints.getUrl(ApiEndpoints.USER_DELETE_BY_USERNAME) + `?username=${username}`
       )
     );
   }
@@ -105,7 +105,7 @@ export class UserApiService {
    */
   existsById(id: number): Observable<boolean> {
     return <Observable<boolean>>(
-      this.http.get(Routes.getUrl(Routes.USER_EXISTS_BY_ID) + `?id=${id}`)
+      this.http.get(ApiEndpoints.getUrl(ApiEndpoints.USER_EXISTS_BY_ID) + `?id=${id}`)
     );
   }
 
@@ -116,7 +116,7 @@ export class UserApiService {
   existsByUsername(username: string): Observable<boolean> {
     return <Observable<boolean>>(
       this.http.get(
-        Routes.getUrl(Routes.USER_EXISTS_BY_USERNAME) + `?username=${username}`
+        ApiEndpoints.getUrl(ApiEndpoints.USER_EXISTS_BY_USERNAME) + `?username=${username}`
       )
     );
   }
@@ -128,7 +128,7 @@ export class UserApiService {
   existsByEmail(email: string): Observable<boolean> {
     return <Observable<boolean>>(
       this.http.get(
-        Routes.getUrl(Routes.USER_EXISTS_BY_EMAIL) + `?email=${email}`
+        ApiEndpoints.getUrl(ApiEndpoints.USER_EXISTS_BY_EMAIL) + `?email=${email}`
       )
     );
   }

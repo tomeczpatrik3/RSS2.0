@@ -12,9 +12,17 @@ import { SubjectApiService } from "../services/api/subject.api.service";
 @Injectable({
   providedIn: "root"
 })
+/**
+ * A validátor ami azt vizsgálja, hogy egy adott tárgykód
+ * szabad-e és hibát jelez, ha nem
+ */
 export class UniqueSubjectCodeValidator implements AsyncValidator {
   constructor(private subjectService: SubjectApiService) {}
 
+  /**
+   * A validálást végző függvény
+   * @param ctrl A formcontrol
+   */
   validate(
     ctrl: AbstractControl
   ): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
@@ -35,6 +43,9 @@ export class UniqueSubjectCodeValidator implements AsyncValidator {
     }
   ]
 })
+/**
+ * UniqueSubjectCodeValidator direktíva
+ */
 export class UniqueSubjectCodeValidatorDirective {
   constructor(private validator: UniqueSubjectCodeValidator) {}
 

@@ -1,13 +1,12 @@
 package RoomReservationSystem.security;
 
+import static RoomReservationSystem.security.SecurityConstants.ASSETS_URL;
 import static RoomReservationSystem.security.SecurityConstants.CHECK_USERNAME_URL;
 import static RoomReservationSystem.security.SecurityConstants.CLASS_RESERVATIONS_FIND_BY_ID_URL;
 import static RoomReservationSystem.security.SecurityConstants.CLASS_RESERVATIONS_URL;
 import static RoomReservationSystem.security.SecurityConstants.EVENT_RESERVATIONS_FIND_BY_ID_URL;
 import static RoomReservationSystem.security.SecurityConstants.EVENT_RESERVATIONS_URL;
 import static RoomReservationSystem.security.SecurityConstants.EVENT_URLS;
-import static RoomReservationSystem.security.SecurityConstants.FRONTEND_ASSETS_URL;
-import static RoomReservationSystem.security.SecurityConstants.FRONTEND_HOME_URL;
 import static RoomReservationSystem.security.SecurityConstants.GET_BUILDING_NAMES_URL;
 import static RoomReservationSystem.security.SecurityConstants.GET_CLASSROOM_NAMES_URL;
 import static RoomReservationSystem.security.SecurityConstants.GET_EVENT_NAMES_URL;
@@ -33,6 +32,8 @@ import static RoomReservationSystem.security.SecurityConstants.GET_SUBJECT_NAMES
 import static RoomReservationSystem.security.SecurityConstants.GET_SUBJECT_NAME_URL;
 import static RoomReservationSystem.security.SecurityConstants.GET_USER_NAMES_URL;
 import static RoomReservationSystem.security.SecurityConstants.GET_USER_NAME_URL;
+import static RoomReservationSystem.security.SecurityConstants.HOME_URL;
+import static RoomReservationSystem.security.SecurityConstants.WEB_URL;
 
 /**
  *
@@ -73,8 +74,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 /**
                  * Frontend végpontok:
                  */
-                .antMatchers(FRONTEND_HOME_URL).permitAll()
-                .antMatchers(FRONTEND_ASSETS_URL).permitAll()
+                .antMatchers(HOME_URL).permitAll()
+                .antMatchers(ASSETS_URL).permitAll()
+                .antMatchers(WEB_URL).permitAll()
                 
                 .antMatchers(HttpMethod.POST, REGISTER_URL).permitAll()
                 .antMatchers(HttpMethod.GET, CHECK_USERNAME_URL).permitAll()

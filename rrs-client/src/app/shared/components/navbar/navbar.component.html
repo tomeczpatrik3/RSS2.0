@@ -22,13 +22,13 @@
       <li>
         <div class="dropdown-divider"></div>
         <div *ngIf="!isLoggedIn()">
-          <button class="dropdown-item" routerLink="/users/login">Bejelentkezés</button>
+          <button class="dropdown-item" routerLink="{{loginLink}}">Bejelentkezés</button>
         </div>
         <div *ngIf="isLoggedIn()">
-          <button class="dropdown-item" routerLink="/dashboard" (click)="logOut()">Kijelentkezés</button>
+          <button class="dropdown-item" routerLink="{{dashboardLink}}" (click)="logOut()">Kijelentkezés</button>
         </div>
         <div *ngIf="!isLoggedIn()">
-          <button class="dropdown-item" routerLink="/users/register">Regisztráció</button>
+          <button class="dropdown-item" routerLink="{{registerLink}}">Regisztráció</button>
         </div>
       </li>
 
@@ -62,16 +62,16 @@
   </ul>
 
   <div class="nav-item" *ngIf="!isLoggedIn()">
-    <button class="btn btn-sm btn-outline-info my-2 my-sm-0" routerLink="/users/login">Bejelentkezés</button>
+    <button class="btn btn-sm btn-outline-info my-2 my-sm-0" routerLink="{{loginLink}}">Bejelentkezés</button>
   </div>
   <div class="nav-item" *ngIf="isLoggedIn()">
     <span class="navbar-text">
       <small>Bejelentkezve mint {{getName() | uppercase}}</small>
     </span>
-    <button class="btn btn-sm btn-outline-danger my-2 my-sm-0" routerLink="/dashboard" (click)="logOut()">Kijelentkezés</button>
+    <button class="btn btn-sm btn-outline-danger my-2 my-sm-0" routerLink="{{dashboardLink}}" (click)="logOut()">Kijelentkezés</button>
   </div>
   <div class="nav-item" *ngIf="!isLoggedIn()">
-    <button class="btn btn-sm btn-outline-info my-2 my-sm-0" routerLink="/users/register">Regisztráció</button>
+    <button class="btn btn-sm btn-outline-info my-2 my-sm-0" routerLink="{{registerLink}}">Regisztráció</button>
   </div>
   </div>
 

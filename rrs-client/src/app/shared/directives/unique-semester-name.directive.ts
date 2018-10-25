@@ -12,9 +12,17 @@ import { SemesterApiService } from "../services/api/semester.api.service";
 @Injectable({
   providedIn: "root"
 })
+/**
+ * A validátor ami azt vizsgálja, hogy egy adott szemeszter név
+ * szabad-e és hibát jelez, ha nem
+ */
 export class UniqueSemesterNameValidator implements AsyncValidator {
   constructor(private semesterService: SemesterApiService) {}
 
+  /**
+   * A validálást végző függvény
+   * @param ctrl A formcontrol
+   */
   validate(
     ctrl: AbstractControl
   ): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
@@ -35,6 +43,9 @@ export class UniqueSemesterNameValidator implements AsyncValidator {
     }
   ]
 })
+/**
+ * UniqueSemesterNameValidator direktíva
+ */
 export class UniqueSemesterNameValidatorDirective {
   constructor(private validator: UniqueSemesterNameValidator) {}
 

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
-import { Routes } from "../../config/routes.config";
+import { ApiEndpoints } from "../../config/api-endpoints.config";
 import { ReservationEvent } from "../../models/ReservationEvent";
 
 /**
@@ -16,7 +16,7 @@ export class EventApiService {
    */
   getEvents(): Observable<ReservationEvent[]> {
     return <Observable<ReservationEvent[]>>(
-      this.http.get(Routes.getUrl(Routes.EVENT_GET_EVENTS))
+      this.http.get(ApiEndpoints.getUrl(ApiEndpoints.EVENT_GET_EVENTS))
     );
   }
 
@@ -27,7 +27,7 @@ export class EventApiService {
   findByUserName(userName: string): Observable<ReservationEvent[]> {
     return <Observable<ReservationEvent[]>>(
       this.http.get(
-        Routes.getUrl(Routes.EVENT_FIND_BY_USER_NAME) + `?userName=${userName}`
+        ApiEndpoints.getUrl(ApiEndpoints.EVENT_FIND_BY_USER_NAME) + `?userName=${userName}`
       )
     );
   }
@@ -41,7 +41,7 @@ export class EventApiService {
   ): Observable<ReservationEvent[]> {
     return <Observable<ReservationEvent[]>>(
       this.http.get(
-        Routes.getUrl(Routes.EVENT_FIND_BY_BUILDING_NAME) +
+        ApiEndpoints.getUrl(ApiEndpoints.EVENT_FIND_BY_BUILDING_NAME) +
           `?buildingName=${buildingName}`
       )
     );
@@ -58,7 +58,7 @@ export class EventApiService {
   ): Observable<ReservationEvent[]> {
     return <Observable<ReservationEvent[]>>(
       this.http.get(
-        Routes.getUrl(Routes.EVENT_FIND_BY_CLASSROOM_AND_BUILDING) +
+        ApiEndpoints.getUrl(ApiEndpoints.EVENT_FIND_BY_CLASSROOM_AND_BUILDING) +
           `?classroom=${classroom}&building=${building}`
       )
     );
@@ -71,7 +71,7 @@ export class EventApiService {
   findByEventName(eventName: string): Observable<ReservationEvent[]> {
     return <Observable<ReservationEvent[]>>(
       this.http.get(
-        Routes.getUrl(Routes.EVENT_FIND_BY_EVENT_NAME) +
+        ApiEndpoints.getUrl(ApiEndpoints.EVENT_FIND_BY_EVENT_NAME) +
           `?eventName=${eventName}`
       )
     );
@@ -86,7 +86,7 @@ export class EventApiService {
   ): Observable<ReservationEvent[]> {
     return <Observable<ReservationEvent[]>>(
       this.http.get(
-        Routes.getUrl(Routes.EVENT_FIND_BY_SUBJECT_NAME) +
+        ApiEndpoints.getUrl(ApiEndpoints.EVENT_FIND_BY_SUBJECT_NAME) +
           `?subjectName=${subjectName}`
       )
     );
@@ -101,7 +101,7 @@ export class EventApiService {
   ): Observable<ReservationEvent[]> {
     return <Observable<ReservationEvent[]>>(
       this.http.get(
-        Routes.getUrl(Routes.EVENT_FIND_BY_SEMESTER_NAME) +
+        ApiEndpoints.getUrl(ApiEndpoints.EVENT_FIND_BY_SEMESTER_NAME) +
           `?semesterName=${semesterName}`
       )
     );

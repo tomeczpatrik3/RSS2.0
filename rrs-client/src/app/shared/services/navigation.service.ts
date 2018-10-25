@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { MenuItem } from "../models/MenuItem";
 import { Authorities } from "../config/authoritites.config";
+import { prefix } from "../../app-routing.module";
 
 /**
  * A menühöz tartozó service osztály
@@ -14,7 +15,7 @@ export class NavigationService {
     /**
      * Főoldal:
      */
-    new MenuItem("Simple", "Főoldal", "/dashboard", Authorities.ROLE_GUEST),
+    new MenuItem("Simple", "Főoldal", `${prefix}/dashboard`, Authorities.ROLE_GUEST),
 
     /**
      * Foglalások:
@@ -23,19 +24,19 @@ export class NavigationService {
       new MenuItem(
         "Simple",
         "Megjelenítés táblázatban",
-        "/events/events",
+        `${prefix}/events/events`,
         Authorities.ROLE_GUEST
       ),
       new MenuItem(
         "Simple",
         "Megjelenítés naptárban",
-        "/events/calendar",
+        `${prefix}/events/calendar`,
         Authorities.ROLE_GUEST
       ),
       new MenuItem(
         "Simple",
         "Várakozó foglalások",
-        "/reservations/pendingReservations",
+        `${prefix}/reservations/pendingReservations`,
         Authorities.ROLE_ADMIN
       )
     ]),
@@ -47,7 +48,7 @@ export class NavigationService {
       new MenuItem(
         "Simple",
         "Megjelenítés táblázatban",
-        "/reservations/myReservations",
+        `${prefix}/reservations/myReservations`,
         Authorities.ROLE_USER
       )
     ]),
@@ -59,43 +60,43 @@ export class NavigationService {
       new MenuItem(
         "Simple",
         "Felhasználók",
-        "/users/users",
+        `${prefix}/users/users`,
         Authorities.ROLE_ADMIN
       ),
       new MenuItem(
         "Simple",
         "Tantermek",
-        "/classrooms/classrooms",
+        `${prefix}/classrooms/classrooms`,
         Authorities.ROLE_ADMIN
       ),
       new MenuItem(
         "Simple",
         "Félévek",
-        "/semesters/semesters",
+        `${prefix}/semesters/semesters`,
         Authorities.ROLE_ADMIN
       ),
       new MenuItem(
         "Simple",
         "Tantárgyak",
-        "/subjects/subjects",
+        `${prefix}/subjects/subjects`,
         Authorities.ROLE_ADMIN
       ),
       new MenuItem(
         "Simple",
         "Épületek",
-        "/buildings/buildings",
+        `${prefix}/buildings/buildings`,
         Authorities.ROLE_ADMIN
       ),
       new MenuItem(
         "Simple",
         "Tantárgy foglalások",
-        "/reservations/classReservations",
+        `${prefix}/reservations/classReservations`,
         Authorities.ROLE_ADMIN
       ),
       new MenuItem(
         "Simple",
         "Esemény foglalások",
-        "/reservations/eventReservations",
+        `${prefix}/reservations/eventReservations`,
         Authorities.ROLE_ADMIN
       )
     ]),
@@ -107,49 +108,49 @@ export class NavigationService {
       new MenuItem(
         "Simple",
         "Új egyszerű foglalás",
-        "/reservations/addSimpleReservation",
+        `${prefix}/reservations/addSimpleReservation`,
         Authorities.ROLE_USER
       ),
       new MenuItem(
         "Simple",
         "Új szemeszterre vonatkozó foglalás",
-        "/reservations/addSemesterReservation",
+        `${prefix}/reservations/addSemesterReservation`,
         Authorities.ROLE_USER
       ),
       new MenuItem(
         "Simple",
         "Új eseményre vonatkozó foglalás",
-        "/reservations/addEventReservation",
+        `${prefix}/reservations/addEventReservation`,
         Authorities.ROLE_USER
       ),
       new MenuItem(
         "Simple",
         "Új szemeszter",
-        "/semesters/addSemester",
+        `${prefix}/semesters/addSemester`,
         Authorities.ROLE_ADMIN
       ),
       new MenuItem(
         "Simple",
         "Új felhasználó",
-        "/users/register",
+        `${prefix}/users/register`,
         Authorities.ROLE_ADMIN
       ),
       new MenuItem(
         "Simple",
         "Új tanterem",
-        "/classrooms/addClassroom",
+        `${prefix}/classrooms/addClassroom`,
         Authorities.ROLE_ADMIN
       ),
       new MenuItem(
         "Simple",
         "Új tantárgy",
-        "/subjects/addSubject",
+        `${prefix}/subjects/addSubject`,
         Authorities.ROLE_ADMIN
       ),
       new MenuItem(
         "Simple",
         "Új épület",
-        "/buildings/addBuilding",
+        `${prefix}/buildings/addBuilding`,
         Authorities.ROLE_ADMIN
       )
     ])

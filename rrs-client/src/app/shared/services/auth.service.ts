@@ -11,6 +11,8 @@ import { DialogService } from "../services/dialog.service";
 import { InfoDialogComponent } from "../components/dialogs/info-dialog/info-dialog.component";
 import { Authorities } from "../config/authoritites.config";
 import { Authentication } from "../config/authentication.config";
+import { prefix } from "../../app-routing.module";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class AuthService {
@@ -20,7 +22,8 @@ export class AuthService {
   constructor(
     private userService: UserApiService,
     private jwtHelper: JwtHelperService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private router: Router,
   ) {}
 
   /**
@@ -31,6 +34,7 @@ export class AuthService {
     return this.userService.login(accountCredentials).subscribe(
       (response: HttpResponse<any>) => {
         this.setSession(response);
+        this.router.navigate([`${prefix}/dashboard`]);
       },
       error => {
         this.dialogService.openDialog(

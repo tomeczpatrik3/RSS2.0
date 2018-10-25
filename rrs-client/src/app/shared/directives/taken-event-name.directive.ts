@@ -12,9 +12,17 @@ import { EventReservationApiService } from "../services/api/event-reservation.ap
 @Injectable({
   providedIn: "root"
 })
+/**
+ * A validátor ami azt vizsgálja, hogy egy adott esemény név
+ * létezik-e és hibát jelez, ha nem
+ */
 export class TakenEventNameValidator implements AsyncValidator {
   constructor(private eventReservationService: EventReservationApiService) {}
 
+  /**
+   * A validálást végző függvény
+   * @param ctrl A formcontrol
+   */
   validate(
     ctrl: AbstractControl
   ): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
@@ -35,6 +43,9 @@ export class TakenEventNameValidator implements AsyncValidator {
     }
   ]
 })
+/**
+ * TakenEventNameValidator direktíva
+ */
 export class TakenEventNameValidatorDirective {
   constructor(private validator: TakenEventNameValidator) {}
 

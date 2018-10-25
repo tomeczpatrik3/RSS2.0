@@ -16,7 +16,9 @@ import {
   MatDialogModule
 } from '@angular/material';
 
-
+/**
+ * Matrial modul
+ */
 @NgModule({
   imports: [
       CommonModule,

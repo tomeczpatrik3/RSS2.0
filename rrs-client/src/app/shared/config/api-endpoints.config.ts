@@ -3,7 +3,7 @@ import { environment } from '../../../environments/environment';
 /**
  * Az api végpontokat tartalmazó osztály
  */
-export class Routes {
+export class ApiEndpoints {
   /*Felhasználók:*/
   static USER_LOGIN: string = "user/login";
   static USER_GET_ALL: string = "user/getAll";
