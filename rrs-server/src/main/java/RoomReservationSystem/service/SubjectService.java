@@ -22,12 +22,14 @@ public interface SubjectService {
 
     Subject findById(int id) throws SubjectNotExistsException;
 
+    Subject update(int id, Subject subject) throws SubjectNotExistsException;
+
     List<Subject> findAll();
 
     List<Subject> findByName(String name);
 
     List<String> getSubjectNames();
-    
+
     Map<String, String> getSubjectName(String subjectCode) throws SubjectNotExistsException;
 
     Subject findByDTO(SubjectDTO subjectDTO);

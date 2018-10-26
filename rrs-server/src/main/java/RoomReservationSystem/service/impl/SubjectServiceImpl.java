@@ -43,6 +43,24 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     /**
+     * A tantárgy azonosító alapján történő frissítését megvalósító függvény
+     *
+     * @param id Az azonosító
+     * @param subject A tantárgy
+     * @return A frissített tantárgy
+     * @throws SubjectNotExistsException
+     */
+    @Override
+    public Subject update(int id, Subject subject) throws SubjectNotExistsException {
+        if (subjectRepository.findById(id) == null) {
+            throw new SubjectNotExistsException(String.format("Ilyen azonosítóval (%d) rendelkező tantárgy nem létezik!", id));
+        } else {
+            subject.setId(id);
+            return subjectRepository.save(subject);
+        }
+    }
+
+    /**
      * A tantárgy kód alapján történő törlését megvalósító függvény
      *
      * @param code A törlendő tantárgy kódja

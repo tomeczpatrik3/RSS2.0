@@ -11,8 +11,6 @@ import RoomReservationSystem.service.SemesterService;
 import static RoomReservationSystem.util.ExceptionUtils.handleException;
 import static RoomReservationSystem.util.ValidationUtils.concatErrors;
 import RoomReservationSystem.validation.SemesterValidator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +18,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -104,6 +104,33 @@ public class SemesterApiController {
     }
 
     /**
+     * A szemeszterek frissítéséért felelős függvény
+     *
+     * @param id Az azonosító
+     * @param semesterDTO A szemester
+     * @param bindingResult A BindingResult objektum
+     * @return A megfelelő válasz entitás
+     */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PutMapping("/update/{id}")
+    public ResponseEntity update(@PathVariable int id, @RequestBody SemesterDTO semesterDTO, BindingResult bindingResult) {
+        semesterValidator.validate(semesterDTO, bindingResult);
+        if (!bindingResult.hasErrors()) {
+            try {
+                Semester updated = semesterService.update(
+                        id,
+                        toSemester(semesterDTO)
+                );
+                return ResponseEntity.status(HttpStatus.CREATED).body(toSemesterDTO(updated));
+            } catch (SemesterNotExistsException ex) {
+                return handleException(ex);
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
+        }
+    }
+
+    /**
      * A függvény ami törli az adott névhez tartozó szemesztert
      *
      * @param name A név
@@ -119,7 +146,7 @@ public class SemesterApiController {
             return handleException(ex);
         }
     }
-    
+
     /**
      * A függvény ami visszaadja, hogy létezik-e az adott azonosítóhoz tartozó
      * entitás
@@ -132,10 +159,9 @@ public class SemesterApiController {
     public ResponseEntity existsById(@RequestParam(value = "id", required = true) int id) {
         return ResponseEntity.status(HttpStatus.OK).body(semesterService.existsById(id));
     }
-    
+
     /**
-     * A függvény ami visszaadja, hogy létezik-e az adott névhez tartozó
-     * entitás
+     * A függvény ami visszaadja, hogy létezik-e az adott névhez tartozó entitás
      *
      * @param name A szemeszter neve
      * @return A megfelelő válasz entitás

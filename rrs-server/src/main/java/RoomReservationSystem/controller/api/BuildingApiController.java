@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,10 +35,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/api/building")
 public class BuildingApiController {
-    
+
     @Autowired
     private BuildingService buildingService;
-    
+
     @Autowired
     private BuildingValidator buildingValidator;
 
@@ -120,6 +121,30 @@ public class BuildingApiController {
     }
 
     /**
+     * Az épületek frissítéséért felelős függvény
+     *
+     * @param id Az azonosító
+     * @param buildingDTO Az épület
+     * @param bindingResult A BindingResult objektum
+     * @return A megfelelő válasz entitás
+     */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PutMapping("/update/{id}")
+    public ResponseEntity update(@PathVariable int id, @RequestBody BuildingDTO buildingDTO, BindingResult bindingResult) {
+        buildingValidator.validate(buildingDTO, bindingResult);
+        if (!bindingResult.hasErrors()) {
+            try {
+                Building updated = buildingService.update(id, toBuilding(buildingDTO));
+                return ResponseEntity.status(HttpStatus.CREATED).body(toBuildingDTO(updated));
+            } catch (BuildingNotExistsException | NullPointerException ex) {
+                return handleException(ex);
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
+        }
+    }
+
+    /**
      * A függvény ami törli az adott névhez tartozó épületet
      *
      * @param name A név
@@ -148,10 +173,9 @@ public class BuildingApiController {
     public ResponseEntity existsById(@RequestParam(value = "id", required = true) int id) {
         return ResponseEntity.status(HttpStatus.OK).body(buildingService.existsById(id));
     }
-    
+
     /**
-     * A függvény ami visszaadja, hogy létezik-e az adott névhez tartozó
-     * entitás
+     * A függvény ami visszaadja, hogy létezik-e az adott névhez tartozó entitás
      *
      * @param name Az épület neve
      * @return A megfelelő válasz entitás

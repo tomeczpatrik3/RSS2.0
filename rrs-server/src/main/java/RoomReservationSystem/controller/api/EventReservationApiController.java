@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -217,6 +218,31 @@ public class EventReservationApiController extends ReservationApiController {
                 EventReservation saved = eventService.save(eventReservationDTO);
                 return ResponseEntity.status(HttpStatus.CREATED).body(toEventReservationDTO(saved));
             } catch (UserNotExistsException | ClassroomNotExistsException | StatusNotExistsException | SemesterNotExistsException | BuildingNotExistsException | NullPointerException ex) {
+                return handleException(ex);
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
+        }
+    }
+    
+    /**
+     * A foglalások frissítéséért felelős függvény
+     *
+     * @param id Az azonosító
+     * @param eventReservationDTO A foglalás
+     * @param bindingResult A BindingResult objektum
+     * @return A megfelelő válasz entitás
+     */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PutMapping("/update/{id}")
+    public ResponseEntity update(@PathVariable int id, @RequestBody EventReservationDTO eventReservationDTO, BindingResult bindingResult) {
+        baseRValidator.validate(eventReservationDTO, bindingResult);
+        eventRValidator.validate(eventReservationDTO, bindingResult);
+        if (!bindingResult.hasErrors()) {
+            try {
+                EventReservation updated = eventService.update(id, eventReservationDTO);
+                return ResponseEntity.status(HttpStatus.CREATED).body(toEventReservationDTO(updated));
+            } catch (EventReservationNotExistsException | UserNotExistsException | ClassroomNotExistsException | StatusNotExistsException | SemesterNotExistsException | BuildingNotExistsException | NullPointerException ex) {
                 return handleException(ex);
             }
         } else {

@@ -51,6 +51,25 @@ public class SemesterServiceImpl implements SemesterService {
     }
 
     /**
+     * A szemeszeterek azonosító alapján történő frissítését megvalósító
+     * függvény
+     *
+     * @param id Az azonosító
+     * @param semester A szemeszter
+     * @return A frissített szemeszter
+     * @throws SemesterNotExistsException
+     */
+    @Override
+    public Semester update(int id, Semester semester) throws SemesterNotExistsException {
+        if (semesterRepository.findById(id) == null) {
+            throw new SemesterNotExistsException(String.format("Ilyen azonosítóval (%d) rendelkező szemeszter nem létezik!", id));
+        } else {
+            semester.setId(id);
+            return semesterRepository.save(semester);
+        }
+    }
+
+    /**
      * A szemeszterek neveinek lekérdezését megvalósító függvény
      *
      * @return A szemeszterek nevei egy listában

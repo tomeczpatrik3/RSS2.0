@@ -36,7 +36,8 @@ export class SemesterApiService {
   findByName(name: string): Observable<Semester> {
     return <Observable<Semester>>(
       this.http.get(
-        ApiEndpoints.getUrl(ApiEndpoints.SEMESTER_FIND_BY_NAME) + `?name=${name}`
+        ApiEndpoints.getUrl(ApiEndpoints.SEMESTER_FIND_BY_NAME) +
+          `?name=${name}`
       )
     );
   }
@@ -47,7 +48,24 @@ export class SemesterApiService {
    */
   createSemester(semester: Semester): Observable<Semester> {
     return <Observable<Semester>>(
-      this.http.post(ApiEndpoints.getUrl(ApiEndpoints.SEMESTER_CREATE_SEMESTER), semester)
+      this.http.post(
+        ApiEndpoints.getUrl(ApiEndpoints.SEMESTER_CREATE_SEMESTER),
+        semester
+      )
+    );
+  }
+
+  /**
+   * Az szemeszter frissítéséért felelős függvény
+   * @param id Az azonosító
+   * @param semester A szemeszter
+   */
+  update(id: number, semester: Semester): Observable<Semester> {
+    return <Observable<Semester>>(
+      this.http.put(
+        ApiEndpoints.getUrl(ApiEndpoints.SEMESTER_UPDATE) + `/${id}`,
+        semester
+      )
     );
   }
 
@@ -58,7 +76,8 @@ export class SemesterApiService {
   deleteByName(name: string): Observable<any> {
     return <Observable<any>>(
       this.http.delete(
-        ApiEndpoints.getUrl(ApiEndpoints.SEMESTER_DELETE_BY_NAME) + `?name=${name}`
+        ApiEndpoints.getUrl(ApiEndpoints.SEMESTER_DELETE_BY_NAME) +
+          `?name=${name}`
       )
     );
   }
@@ -69,7 +88,9 @@ export class SemesterApiService {
    */
   existsById(id: number): Observable<boolean> {
     return <Observable<boolean>>(
-      this.http.get(ApiEndpoints.getUrl(ApiEndpoints.SEMESTER_EXISTS_BY_ID) + `?id=${id}`)
+      this.http.get(
+        ApiEndpoints.getUrl(ApiEndpoints.SEMESTER_EXISTS_BY_ID) + `?id=${id}`
+      )
     );
   }
 
@@ -80,7 +101,8 @@ export class SemesterApiService {
   existsByName(name: string): Observable<boolean> {
     return <Observable<boolean>>(
       this.http.get(
-        ApiEndpoints.getUrl(ApiEndpoints.SEMESTER_EXISTS_BY_NAME) + `?name=${name}`
+        ApiEndpoints.getUrl(ApiEndpoints.SEMESTER_EXISTS_BY_NAME) +
+          `?name=${name}`
       )
     );
   }

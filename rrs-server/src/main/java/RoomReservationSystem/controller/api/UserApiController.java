@@ -8,13 +8,12 @@ import static RoomReservationSystem.dto.UserDTO.toUserDTO;
 import static RoomReservationSystem.dto.UserDTO.toUserDTOList;
 import RoomReservationSystem.exception.AuthorityAlredyExistsException;
 import RoomReservationSystem.exception.AuthorityNotExistsException;
+import RoomReservationSystem.exception.SubjectNotExistsException;
 import RoomReservationSystem.exception.UserAlredyExistsException;
 import RoomReservationSystem.exception.UserNotExistsException;
 import static RoomReservationSystem.util.ExceptionUtils.handleException;
 import static RoomReservationSystem.util.ValidationUtils.concatErrors;
-import java.util.Collections;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import static RoomReservationSystem.model.User.toUser;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +23,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -121,30 +122,31 @@ public class UserApiController {
     }
 
     /**
-     * A függvény ami firssíti a megfelelő felhasználót
+     * A felhasználók frissítéséért felelős függvény
      *
+     * @param id Az azonosító
      * @param userDTO A felhasználó
      * @param bindingResult A BindingResult objektum
      * @return A megfelelő válasz entitás
      */
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @PostMapping("/updateUser")
-    public ResponseEntity updateUser(@RequestBody UserDTO userDTO, BindingResult bindingResult
-    ) {
-        userValidator.validate(userDTO, bindingResult);
-        if (!bindingResult.hasErrors()) {
-            try {
-                userService.deleteByUsername(userDTO.getUsername());
-                User saved = userService.register(userDTO);
-                return ResponseEntity.status(HttpStatus.CREATED).body(saved);
-            } catch (UserNotExistsException | UserAlredyExistsException | AuthorityNotExistsException | AuthorityAlredyExistsException | NullPointerException ex) {
-                return handleException(ex);
-            }
-
-        } else {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
-        }
-    }
+//    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+//    @PutMapping("/update/{id}")
+//    public ResponseEntity update(@PathVariable int id, @RequestBody UserDTO userDTO, BindingResult bindingResult) {
+//        userValidator.validate(userDTO, bindingResult);
+//        if (!bindingResult.hasErrors()) {
+//            try {
+//                User updated = userService.update(
+//                        id,
+//                        toUser(userDTO)
+//                );
+//                return ResponseEntity.status(HttpStatus.CREATED).body(toUserDTO(updated));
+//            } catch (SubjectNotExistsException ex) {
+//                return handleException(ex);
+//            }
+//        } else {
+//            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
+//        }
+//    }
 
     /**
      * A függvény ami törli az adott felhasználónévhez tartozó felhasználót

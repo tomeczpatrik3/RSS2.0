@@ -48,7 +48,24 @@ export class SubjectApiService {
    */
   createSubject(subject: Subject): Observable<Subject> {
     return <Observable<Subject>>(
-      this.http.post(ApiEndpoints.getUrl(ApiEndpoints.SUBJECT_CREATE_SUBJECT), subject)
+      this.http.post(
+        ApiEndpoints.getUrl(ApiEndpoints.SUBJECT_CREATE_SUBJECT),
+        subject
+      )
+    );
+  }
+
+  /**
+   * Az tantárgy frissítéséért felelős függvény
+   * @param id Az azonosító
+   * @param subject A tantárgy
+   */
+  update(id: number, subject: Subject): Observable<Subject> {
+    return <Observable<Subject>>(
+      this.http.put(
+        ApiEndpoints.getUrl(ApiEndpoints.SUBJECT_UPDATE) + `/${id}`,
+        subject
+      )
     );
   }
 
@@ -71,7 +88,9 @@ export class SubjectApiService {
    */
   existsById(id: number): Observable<boolean> {
     return <Observable<boolean>>(
-      this.http.get(ApiEndpoints.getUrl(ApiEndpoints.SUBJECT_EXISTS_BY_ID) + `?id=${id}`)
+      this.http.get(
+        ApiEndpoints.getUrl(ApiEndpoints.SUBJECT_EXISTS_BY_ID) + `?id=${id}`
+      )
     );
   }
 
@@ -82,7 +101,8 @@ export class SubjectApiService {
   existsByCode(code: string): Observable<boolean> {
     return <Observable<boolean>>(
       this.http.get(
-        ApiEndpoints.getUrl(ApiEndpoints.SUBJECT_EXISTS_BY_CODE) + `?code=${code}`
+        ApiEndpoints.getUrl(ApiEndpoints.SUBJECT_EXISTS_BY_CODE) +
+          `?code=${code}`
       )
     );
   }

@@ -25,6 +25,8 @@ public interface ClassReservationService {
 
     ClassReservation setStatus(int id, String status) throws StatusNotExistsException, ClassReservationNotExistsException;
 
+    ClassReservation update(int id, ClassReservationDTO classReservationDTO) throws ClassReservationNotExistsException, UserNotExistsException, SubjectNotExistsException, ClassroomNotExistsException, StatusNotExistsException, SemesterNotExistsException, BuildingNotExistsException;
+
     List<ClassReservation> getAll();
 
     List<ClassReservation> findByUsername(String username) throws UserNotExistsException;

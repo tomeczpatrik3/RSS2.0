@@ -16,7 +16,9 @@ export class EventReservationApiService {
    */
   getAccepted(): Observable<EventReservation[]> {
     return <Observable<EventReservation[]>>(
-      this.http.get(ApiEndpoints.getUrl(ApiEndpoints.EVENT_RESERVATION_GET_ACCEPTED))
+      this.http.get(
+        ApiEndpoints.getUrl(ApiEndpoints.EVENT_RESERVATION_GET_ACCEPTED)
+      )
     );
   }
 
@@ -25,7 +27,9 @@ export class EventReservationApiService {
    */
   getPending(): Observable<EventReservation[]> {
     return <Observable<EventReservation[]>>(
-      this.http.get(ApiEndpoints.getUrl(ApiEndpoints.EVENT_RESERVATION_GET_PENDING))
+      this.http.get(
+        ApiEndpoints.getUrl(ApiEndpoints.EVENT_RESERVATION_GET_PENDING)
+      )
     );
   }
 
@@ -34,7 +38,9 @@ export class EventReservationApiService {
    */
   getEventNames(): Observable<string[]> {
     return <Observable<string[]>>(
-      this.http.get(ApiEndpoints.getUrl(ApiEndpoints.EVENT_RESERVATION_GET_NAMES))
+      this.http.get(
+        ApiEndpoints.getUrl(ApiEndpoints.EVENT_RESERVATION_GET_NAMES)
+      )
     );
   }
 
@@ -45,7 +51,8 @@ export class EventReservationApiService {
   findById(id: number): Observable<EventReservation> {
     return <Observable<EventReservation>>(
       this.http.get(
-        ApiEndpoints.getUrl(ApiEndpoints.EVENT_RESERVATION_FIND_BY_ID) + `?id=${id}`
+        ApiEndpoints.getUrl(ApiEndpoints.EVENT_RESERVATION_FIND_BY_ID) +
+          `?id=${id}`
       )
     );
   }
@@ -71,7 +78,9 @@ export class EventReservationApiService {
   findByStatus(status: string): Observable<EventReservation[]> {
     return <Observable<EventReservation[]>>(
       this.http.get(
-        ApiEndpoints.getUrl(ApiEndpoints.EVENT_RESERVATION_FIND_BY_STATUS + "/" + status)
+        ApiEndpoints.getUrl(
+          ApiEndpoints.EVENT_RESERVATION_FIND_BY_STATUS + "/" + status
+        )
       )
     );
   }
@@ -87,8 +96,9 @@ export class EventReservationApiService {
   ): Observable<EventReservation[]> {
     return <Observable<EventReservation[]>>(
       this.http.get(
-        ApiEndpoints.getUrl(ApiEndpoints.EVENT_RESERVATION_FIND_BY_BUILDING_AND_CLASSROOM) +
-          `?building=${building}&classroom=${classroom}`
+        ApiEndpoints.getUrl(
+          ApiEndpoints.EVENT_RESERVATION_FIND_BY_BUILDING_AND_CLASSROOM
+        ) + `?building=${building}&classroom=${classroom}`
       )
     );
   }
@@ -100,7 +110,9 @@ export class EventReservationApiService {
   findByName(name: string): Observable<EventReservation[]> {
     return <Observable<EventReservation[]>>(
       this.http.get(
-        ApiEndpoints.getUrl(ApiEndpoints.EVENT_RESERVATION_FIND_BY_NAME) + "/" + name
+        ApiEndpoints.getUrl(ApiEndpoints.EVENT_RESERVATION_FIND_BY_NAME) +
+          "/" +
+          name
       )
     );
   }
@@ -129,6 +141,23 @@ export class EventReservationApiService {
     return <Observable<EventReservation>>(
       this.http.post(
         ApiEndpoints.getUrl(ApiEndpoints.EVENT_RESERVATION_CREATE_RESERVATION),
+        reservation
+      )
+    );
+  }
+
+  /**
+   * Az foglalás frissítéséért felelős függvény
+   * @param id Az azonosító
+   * @param reservation A foglalás
+   */
+  update(
+    id: number,
+    reservation: EventReservation
+  ): Observable<EventReservation> {
+    return <Observable<EventReservation>>(
+      this.http.put(
+        ApiEndpoints.getUrl(ApiEndpoints.EVENT_RESERVATION_UPDATE) + `/${id}`,
         reservation
       )
     );
@@ -186,7 +215,8 @@ export class EventReservationApiService {
   deleteByName(name: string): Observable<any> {
     return <Observable<any>>(
       this.http.delete(
-        ApiEndpoints.getUrl(ApiEndpoints.EVENT_RESERVATION_DELETE_BY_NAME) + `?name=${name}`
+        ApiEndpoints.getUrl(ApiEndpoints.EVENT_RESERVATION_DELETE_BY_NAME) +
+          `?name=${name}`
       )
     );
   }
@@ -198,7 +228,8 @@ export class EventReservationApiService {
   existsById(id: number): Observable<boolean> {
     return <Observable<boolean>>(
       this.http.get(
-        ApiEndpoints.getUrl(ApiEndpoints.EVENT_RESERVATION_EXISTS_BY_ID) + `?id=${id}`
+        ApiEndpoints.getUrl(ApiEndpoints.EVENT_RESERVATION_EXISTS_BY_ID) +
+          `?id=${id}`
       )
     );
   }
@@ -210,7 +241,8 @@ export class EventReservationApiService {
   existsByName(name: string): Observable<boolean> {
     return <Observable<boolean>>(
       this.http.get(
-        ApiEndpoints.getUrl(ApiEndpoints.EVENT_RESERVATION_EXISTS_BY_NAME) + `?name=${name}`
+        ApiEndpoints.getUrl(ApiEndpoints.EVENT_RESERVATION_EXISTS_BY_NAME) +
+          `?name=${name}`
       )
     );
   }

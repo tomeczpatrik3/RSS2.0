@@ -23,6 +23,8 @@ public interface ClassroomService {
 
     Classroom findById(int id) throws ClassroomNotExistsException;
 
+    Classroom update(int id, Classroom classroom) throws ClassroomNotExistsException;
+
     List<Classroom> findByName(String name);
 
     List<Classroom> findAll();

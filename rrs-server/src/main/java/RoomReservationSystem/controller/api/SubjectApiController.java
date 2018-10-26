@@ -11,9 +11,6 @@ import RoomReservationSystem.exception.SubjectAlredyExistsException;
 import RoomReservationSystem.exception.SubjectNotExistsException;
 import static RoomReservationSystem.util.ExceptionUtils.handleException;
 import static RoomReservationSystem.util.ValidationUtils.concatErrors;
-import java.util.Collections;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +19,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -105,22 +104,25 @@ public class SubjectApiController {
     }
 
     /**
-     * A függvény ami firssíti a megfelelő tantárgyat
+     * A tantárgyak frissítéséért felelős függvény
      *
+     * @param id Az azonosító
      * @param subjectDTO A tantárgy
      * @param bindingResult A BindingResult objektum
      * @return A megfelelő válasz entitás
      */
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @PostMapping("/updateSubject")
-    public ResponseEntity updateSubject(@RequestBody SubjectDTO subjectDTO, BindingResult bindingResult) {
+    @PutMapping("/update/{id}")
+    public ResponseEntity update(@PathVariable int id, @RequestBody SubjectDTO subjectDTO, BindingResult bindingResult) {
         subjectValidator.validate(subjectDTO, bindingResult);
         if (!bindingResult.hasErrors()) {
             try {
-                subjectService.deleteByCode(subjectDTO.getCode());
-                Subject saved = subjectService.save(toSubject(subjectDTO));
-                return ResponseEntity.status(HttpStatus.CREATED).body(toSubjectDTO(saved));
-            } catch (SubjectNotExistsException | SubjectAlredyExistsException | NullPointerException ex) {
+                Subject updated = subjectService.update(
+                        id,
+                        toSubject(subjectDTO)
+                );
+                return ResponseEntity.status(HttpStatus.CREATED).body(toSubjectDTO(updated));
+            } catch (SubjectNotExistsException ex) {
                 return handleException(ex);
             }
         } else {

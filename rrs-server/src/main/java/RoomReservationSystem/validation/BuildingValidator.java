@@ -20,7 +20,7 @@ import org.springframework.validation.Validator;
 public class BuildingValidator implements Validator {
 
     @Autowired
-    BuildingService buildingService;
+    private BuildingService buildingService;
 
     /**
      * A függvény amely az objektum típusát

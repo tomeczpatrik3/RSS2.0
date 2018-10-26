@@ -97,6 +97,42 @@ public class ClassReservationServiceImpl implements ClassReservationService {
     }
 
     /**
+     * A foglalás azonosító alapján történő frissítését megvalósító függvény
+     *
+     * @param id Az azonosító
+     * @param classReservationDTO A foglalás
+     * @return A frissíttt foglalás
+     * @throws ClassReservationNotExistsException
+     * @throws UserNotExistsException
+     * @throws SubjectNotExistsException
+     * @throws ClassroomNotExistsException
+     * @throws StatusNotExistsException
+     * @throws SemesterNotExistsException
+     * @throws BuildingNotExistsException
+     */
+    @Override
+    public ClassReservation update(int id, ClassReservationDTO classReservationDTO) throws ClassReservationNotExistsException,
+            UserNotExistsException, SubjectNotExistsException, ClassroomNotExistsException, StatusNotExistsException, SemesterNotExistsException, BuildingNotExistsException {
+        if (repository.findById(id) == null) {
+            throw new ClassReservationNotExistsException(String.format("Ilyen azonosítóval (%d) rendelkező foglalás nem létezik", id));
+        } else {
+            ClassReservation converted = toClassReservation(
+                    userService.findByUsername(classReservationDTO.getUsername()), /*A foglaláshoz tartozó felhasználó*/
+                    subjectService.findByCode(classReservationDTO.getSubjectCode()), /*A foglaláshoz tartozó tantárgy*/
+                    classroomService.findByNameAndBuildingName( /*A foglaláshoz tartozó tanterem*/
+                            classReservationDTO.getClassroom(),
+                            classReservationDTO.getBuilding()),
+                    statusService.findByName("PENDING"), /*A foglalás státusza*/
+                    semesterService.findByName(classReservationDTO.getSemester()),
+                    Collections.emptyList(),
+                    classReservationDTO.getNote() /*A foglaláshoz tartozó megjegyzés*/
+            );
+            converted.setId(id);
+            return repository.save(converted);
+        }
+    }
+
+    /**
      * A foglalás id alapján történő keresését megvalósító függvény
      *
      * @param id A foglalás id-je

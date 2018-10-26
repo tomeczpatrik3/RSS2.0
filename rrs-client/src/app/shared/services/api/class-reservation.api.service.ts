@@ -16,7 +16,9 @@ export class ClassReservationApiService {
    */
   getAccepted(): Observable<ClassReservation[]> {
     return <Observable<ClassReservation[]>>(
-      this.http.get(ApiEndpoints.getUrl(ApiEndpoints.CLASS_RESERVATION_GET_ACCEPTED))
+      this.http.get(
+        ApiEndpoints.getUrl(ApiEndpoints.CLASS_RESERVATION_GET_ACCEPTED)
+      )
     );
   }
 
@@ -25,7 +27,9 @@ export class ClassReservationApiService {
    */
   getPending(): Observable<ClassReservation[]> {
     return <Observable<ClassReservation[]>>(
-      this.http.get(ApiEndpoints.getUrl(ApiEndpoints.CLASS_RESERVATION_GET_PENDING))
+      this.http.get(
+        ApiEndpoints.getUrl(ApiEndpoints.CLASS_RESERVATION_GET_PENDING)
+      )
     );
   }
 
@@ -36,7 +40,8 @@ export class ClassReservationApiService {
   findById(id: number): Observable<ClassReservation> {
     return <Observable<ClassReservation>>(
       this.http.get(
-        ApiEndpoints.getUrl(ApiEndpoints.CLASS_RESERVATION_FIND_BY_ID) + `?id=${id}`
+        ApiEndpoints.getUrl(ApiEndpoints.CLASS_RESERVATION_FIND_BY_ID) +
+          `?id=${id}`
       )
     );
   }
@@ -62,7 +67,9 @@ export class ClassReservationApiService {
   findByStatus(status: string): Observable<ClassReservation[]> {
     return <Observable<ClassReservation[]>>(
       this.http.get(
-        ApiEndpoints.getUrl(ApiEndpoints.CLASS_RESERVATION_FIND_BY_STATUS + "/" + status)
+        ApiEndpoints.getUrl(
+          ApiEndpoints.CLASS_RESERVATION_FIND_BY_STATUS + "/" + status
+        )
       )
     );
   }
@@ -78,8 +85,9 @@ export class ClassReservationApiService {
   ): Observable<ClassReservation[]> {
     return <Observable<ClassReservation[]>>(
       this.http.get(
-        ApiEndpoints.getUrl(ApiEndpoints.CLASS_RESERVATION_FIND_BY_BUILDING_AND_CLASSROOM) +
-          `?building=${building}&classroom=${classroom}`
+        ApiEndpoints.getUrl(
+          ApiEndpoints.CLASS_RESERVATION_FIND_BY_BUILDING_AND_CLASSROOM
+        ) + `?building=${building}&classroom=${classroom}`
       )
     );
   }
@@ -91,8 +99,9 @@ export class ClassReservationApiService {
   findBySubjectCode(subjectCode: string): Observable<ClassReservation[]> {
     return <Observable<ClassReservation[]>>(
       this.http.get(
-        ApiEndpoints.getUrl(ApiEndpoints.CLASS_RESERVATION_FIND_BY_SUBJECT_CODE) +
-          `?subjectCode=${subjectCode}`
+        ApiEndpoints.getUrl(
+          ApiEndpoints.CLASS_RESERVATION_FIND_BY_SUBJECT_CODE
+        ) + `?subjectCode=${subjectCode}`
       )
     );
   }
@@ -140,6 +149,23 @@ export class ClassReservationApiService {
   }
 
   /**
+   * Az foglalás frissítéséért felelős függvény
+   * @param id Az azonosító
+   * @param reservation A foglalás
+   */
+  update(
+    id: number,
+    reservation: ClassReservation
+  ): Observable<ClassReservation> {
+    return <Observable<ClassReservation>>(
+      this.http.put(
+        ApiEndpoints.getUrl(ApiEndpoints.CLASS_RESERVATION_UPDATE) + `/${id}`,
+        reservation
+      )
+    );
+  }
+
+  /**
    * A felhasználónév alapján történő törlésért felelős függvény
    * @param username A felhasználónév
    */
@@ -178,8 +204,9 @@ export class ClassReservationApiService {
   deleteBySubjectCode(subjectCode: string): Observable<any> {
     return <Observable<any>>(
       this.http.delete(
-        ApiEndpoints.getUrl(ApiEndpoints.CLASS_RESERVATION_DELETE_BY_SUBJECT_CODE) +
-          `?subjectCode=${subjectCode}`
+        ApiEndpoints.getUrl(
+          ApiEndpoints.CLASS_RESERVATION_DELETE_BY_SUBJECT_CODE
+        ) + `?subjectCode=${subjectCode}`
       )
     );
   }
@@ -217,7 +244,8 @@ export class ClassReservationApiService {
   existsById(id: number): Observable<boolean> {
     return <Observable<boolean>>(
       this.http.get(
-        ApiEndpoints.getUrl(ApiEndpoints.CLASS_RESERVATION_EXISTS_BY_ID) + `?id=${id}`
+        ApiEndpoints.getUrl(ApiEndpoints.CLASS_RESERVATION_EXISTS_BY_ID) +
+          `?id=${id}`
       )
     );
   }

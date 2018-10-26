@@ -20,6 +20,8 @@ public interface BuildingService {
     Building findByName(String name) throws BuildingNotExistsException;
 
     Building findById(int id) throws BuildingNotExistsException;
+    
+    Building update(int id, Building building) throws BuildingNotExistsException;
 
     List<Building> findAll();
 

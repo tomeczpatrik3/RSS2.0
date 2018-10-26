@@ -30,6 +30,7 @@ import static RoomReservationSystem.util.ValidationUtils.concatErrors;
 import RoomReservationSystem.validation.BaseReservationValidator;
 import RoomReservationSystem.validation.ClassReservationValidator;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 /**
  * A tanórákra vonatkozó foglalásokhoz tartozó végpontokat tartalmazó osztály
@@ -226,6 +227,31 @@ public class ClassReservationApiController extends ReservationApiController {
             }
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(concatErrors(bindingResult));
+        }
+    }
+
+    /**
+     * A foglalások frissítéséért felelős függvény
+     *
+     * @param id Az azonosító
+     * @param classReservationDTO A foglalás
+     * @param bindingResult A BindingResult objektum
+     * @return A megfelelő válasz entitás
+     */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PutMapping("/update/{id}")
+    public ResponseEntity update(@PathVariable int id, @RequestBody ClassReservationDTO classReservationDTO, BindingResult bindingResult) {
+        baseRValidator.validate(classReservationDTO, bindingResult);
+        classRValidator.validate(classReservationDTO, bindingResult);
+        if (!bindingResult.hasErrors()) {
+            try {
+                ClassReservation updated = classService.update(id, classReservationDTO);
+                return ResponseEntity.status(HttpStatus.CREATED).body(toClassReservationDTO(updated));
+            } catch (ClassReservationNotExistsException | UserNotExistsException | SubjectNotExistsException | ClassroomNotExistsException | StatusNotExistsException | SemesterNotExistsException | BuildingNotExistsException ex) {
+                return handleException(ex);
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
         }
     }
 

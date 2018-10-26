@@ -56,6 +56,24 @@ public class BuildingServiceImpl implements BuildingService {
     }
 
     /**
+     * Az épületek azonosító alapján történő frissítését megvalósító függvény
+     *
+     * @param id Az azonosító
+     * @param building Az épület
+     * @return A frissített épület
+     * @throws BuildingNotExistsException
+     */
+    @Override
+    public Building update(int id, Building building) throws BuildingNotExistsException {
+        if (buildingRepository.findById(id) == null) {
+            throw new BuildingNotExistsException(String.format("Nem létezik ilyen azonosítóval (%d) rendelkező épület!", id));
+        } else {
+            building.setId(id);
+            return buildingRepository.save(building);
+        }
+    }
+
+    /**
      * A név alapján történő keresést megvalósító függvény
      *
      * @param name Az épület neve

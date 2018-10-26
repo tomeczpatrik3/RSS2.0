@@ -1,4 +1,4 @@
-import { environment } from '../../../environments/environment';
+import { environment } from "../../../environments/environment";
 
 /**
  * Az api végpontokat tartalmazó osztály
@@ -25,6 +25,7 @@ export class ApiEndpoints {
   static SUBJECT_DELETE_BY_CODE: string = "subject/deleteByCode";
   static SUBJECT_EXISTS_BY_ID: string = "subject/existsById";
   static SUBJECT_EXISTS_BY_CODE: string = "subject/existsByCode";
+  static SUBJECT_UPDATE: string = "subject/update";
 
   /*Órára vonatkozó foglalások*/
   static CLASS_RESERVATION_GET_ACCEPTED: string =
@@ -55,6 +56,7 @@ export class ApiEndpoints {
   static CLASS_RESERVATION_DELETE_BY_STATUS: string =
     "classReservation/deleteByStatus";
   static CLASS_RESERVATION_EXISTS_BY_ID: string = "classReservation/existsById";
+  static CLASS_RESERVATION_UPDATE: string = "classReservation/update";
 
   /*Eseményre vonatkozó foglalások*/
   static EVENT_RESERVATION_GET_ACCEPTED: string =
@@ -83,6 +85,7 @@ export class ApiEndpoints {
   static EVENT_RESERVATION_EXISTS_BY_ID: string = "eventReservation/existsById";
   static EVENT_RESERVATION_EXISTS_BY_NAME: string =
     "eventReservation/existsByName";
+  static EVENT_RESERVATION_UPDATE: string = "eventReservation/update";
 
   /*Tantermek:*/
   static CLASSROOM_GET_ALL: string = "classroom/getAll";
@@ -108,6 +111,7 @@ export class ApiEndpoints {
   static CLASSROOM_EXISTS_BY_ID: string = "classroom/existsById";
   static CLASSROOM_EXISTS_BY_NAME_AND_BUILDING: string =
     "classroom/existsByNameAndBuilding";
+  static CLASSROOM_UPDATE: string = "classroom/update";
 
   /*Épületek:*/
   static BUILDING_GET_ALL: string = "building/getAll";
@@ -118,6 +122,7 @@ export class ApiEndpoints {
   static BUILDING_DELETE_BY_NAME: string = "building/deleteByName";
   static BUILDING_EXISTS_BY_ID: string = "building/existsById";
   static BUILDING_EXISTS_BY_NAME: string = "building/existsByName";
+  static BUILDING_UPDATE: string = "building/update";
 
   /*Szemeszterek*/
   static SEMESTER_GET_ALL: string = "semester/getAll";
@@ -127,6 +132,7 @@ export class ApiEndpoints {
   static SEMESTER_DELETE_BY_NAME: string = "semester/deleteByName";
   static SEMESTER_EXISTS_BY_ID: string = "semester/existsById";
   static SEMESTER_EXISTS_BY_NAME: string = "semester/existsByName";
+  static SEMESTER_UPDATE: string = "semester/update";
 
   /*Kalendár*/
   static EVENT_GET_EVENTS: string = "event/getEvents";
@@ -143,6 +149,6 @@ export class ApiEndpoints {
    * @param route A route
    */
   static getUrl(route: string): string {
-    return  environment.apiUrl + `${route}`;
+    return environment.apiUrl + `${route}`;
   }
 }

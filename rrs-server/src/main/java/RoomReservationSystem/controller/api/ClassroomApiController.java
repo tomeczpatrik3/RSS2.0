@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -200,6 +201,33 @@ public class ClassroomApiController {
     }
 
     /**
+     * A tantermek frissítéséért felelős függvény
+     *
+     * @param id Az azonosító
+     * @param classroomDTO A tanterem
+     * @param bindingResult A BindingResult objektum
+     * @return A megfelelő válasz entitás
+     */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PutMapping("/update/{id}")
+    public ResponseEntity update(@PathVariable int id, @RequestBody ClassroomDTO classroomDTO, BindingResult bindingResult) {
+        classroomValidator.validate(classroomDTO, bindingResult);
+        if (!bindingResult.hasErrors()) {
+            try {
+                Classroom updated = classroomService.update(
+                        id, 
+                        toClassroom(classroomDTO, buildingService.findByName(classroomDTO.getBuilding()))
+                );
+                return ResponseEntity.status(HttpStatus.CREATED).body(toClassroomDTO(updated));
+            } catch (ClassroomNotExistsException | BuildingNotExistsException | NullPointerException ex) {
+                return handleException(ex);
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
+        }
+    }
+
+    /**
      * A függvény ami törli az adott névhez és épülethez tartozó termet
      *
      * @param name A terem neve
@@ -288,7 +316,7 @@ public class ClassroomApiController {
             return handleException(ex);
         }
     }
-    
+
     @GetMapping("/getNamesByBuilding")
     public ResponseEntity getNamesByBuilding(@RequestParam(value = "building", required = true) String building) {
         try {

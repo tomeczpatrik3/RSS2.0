@@ -65,6 +65,24 @@ public class ClassroomServiceImpl implements ClassroomService {
     }
 
     /**
+     * A tantermek azonosító alapján történő frissítését megvalósító függvény
+     *
+     * @param id Az azonosító
+     * @param classroom A tanterem
+     * @return A frissített tanterem
+     * @throws ClassroomNotExistsException
+     */
+    @Override
+    public Classroom update(int id, Classroom classroom) throws ClassroomNotExistsException {
+        if (classroomRepository.findById(id) == null) {
+            throw new ClassroomNotExistsException(String.format("Ilyen azonosítóval (%d) rendelkező tanterem nem létezik!", id));
+        } else {
+            classroom.setId(id);
+            return classroomRepository.save(classroom);
+        }
+    }
+
+    /**
      * Az összes osztályterem lekérdezését megvalósító függvény
      *
      * @return Az osztálytermek egy listában

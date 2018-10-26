@@ -40,7 +40,9 @@ export class ClassroomApiService {
   findByName(roomName: string): Observable<Classroom> {
     return <Observable<Classroom>>(
       this.http.get(
-        ApiEndpoints.getUrl(ApiEndpoints.CLASSROOM_FIND_BY_NAME) + "/" + roomName
+        ApiEndpoints.getUrl(ApiEndpoints.CLASSROOM_FIND_BY_NAME) +
+          "/" +
+          roomName
       )
     );
   }
@@ -70,8 +72,9 @@ export class ClassroomApiService {
   ): Observable<Classroom> {
     return <Observable<Classroom>>(
       this.http.get(
-        ApiEndpoints.getUrl(ApiEndpoints.CLASSROOM_FIND_BY_NAME_AND_BUILDING_NAME) +
-          `?name=${name}&buildingName=${buildingName}`
+        ApiEndpoints.getUrl(
+          ApiEndpoints.CLASSROOM_FIND_BY_NAME_AND_BUILDING_NAME
+        ) + `?name=${name}&buildingName=${buildingName}`
       )
     );
   }
@@ -109,7 +112,9 @@ export class ClassroomApiService {
   findByChairsLessThan(chairs: number): Observable<Classroom[]> {
     return <Observable<Classroom[]>>(
       this.http.get(
-        ApiEndpoints.getUrl(ApiEndpoints.CLASSROOM_FIND_BY_CHAIRS_LESS_THAN) + "/" + chairs
+        ApiEndpoints.getUrl(ApiEndpoints.CLASSROOM_FIND_BY_CHAIRS_LESS_THAN) +
+          "/" +
+          chairs
       )
     );
   }
@@ -121,7 +126,9 @@ export class ClassroomApiService {
   findByChairsGreaterThan(chairs: number): Observable<Classroom[]> {
     return <Observable<Classroom[]>>(
       this.http.get(
-        ApiEndpoints.getUrl(ApiEndpoints.CLASSROOM_FIND_BY_CHAIRS_GREATER_THAN) +
+        ApiEndpoints.getUrl(
+          ApiEndpoints.CLASSROOM_FIND_BY_CHAIRS_GREATER_THAN
+        ) +
           "/" +
           chairs
       )
@@ -156,6 +163,20 @@ export class ClassroomApiService {
   }
 
   /**
+   * Az tanterem frissítéséért felelős függvény
+   * @param id Az azonosító
+   * @param reservation A tanterem
+   */
+  update(id: number, classroom: Classroom): Observable<Classroom> {
+    return <Observable<Classroom>>(
+      this.http.put(
+        ApiEndpoints.getUrl(ApiEndpoints.CLASSROOM_UPDATE) + `/${id}`,
+        classroom
+      )
+    );
+  }
+
+  /**
    * Egy adott névhez és épülethez tartozó tanterem törléséért felelős függvény
    * @param name A tanterem neve
    * @param buildingName Az épület neve
@@ -166,8 +187,9 @@ export class ClassroomApiService {
   ): Observable<any> {
     return <Observable<any>>(
       this.http.delete(
-        ApiEndpoints.getUrl(ApiEndpoints.CLASSROOM_DELETE_BY_NAME_AND_BUILDING_NAME) +
-          `?name=${name}&buildingName=${buildingName}`
+        ApiEndpoints.getUrl(
+          ApiEndpoints.CLASSROOM_DELETE_BY_NAME_AND_BUILDING_NAME
+        ) + `?name=${name}&buildingName=${buildingName}`
       )
     );
   }
@@ -178,7 +200,9 @@ export class ClassroomApiService {
    */
   existsById(id: number): Observable<boolean> {
     return <Observable<boolean>>(
-      this.http.get(ApiEndpoints.getUrl(ApiEndpoints.CLASSROOM_EXISTS_BY_ID) + `?id=${id}`)
+      this.http.get(
+        ApiEndpoints.getUrl(ApiEndpoints.CLASSROOM_EXISTS_BY_ID) + `?id=${id}`
+      )
     );
   }
 
@@ -190,8 +214,9 @@ export class ClassroomApiService {
   existsByNameAndBuilding(name: string, building: string): Observable<boolean> {
     return <Observable<boolean>>(
       this.http.get(
-        ApiEndpoints.getUrl(ApiEndpoints.CLASSROOM_EXISTS_BY_NAME_AND_BUILDING) +
-          `?name=${name}&building=${building}`
+        ApiEndpoints.getUrl(
+          ApiEndpoints.CLASSROOM_EXISTS_BY_NAME_AND_BUILDING
+        ) + `?name=${name}&building=${building}`
       )
     );
   }

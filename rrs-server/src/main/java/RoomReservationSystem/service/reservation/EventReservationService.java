@@ -26,6 +26,8 @@ public interface EventReservationService {
 
     EventReservation findByName(String name) throws EventReservationNotExistsException;
 
+    EventReservation update(int id, EventReservationDTO eventReservationDTO) throws EventReservationNotExistsException, UserNotExistsException, ClassroomNotExistsException, StatusNotExistsException, SemesterNotExistsException, BuildingNotExistsException;
+
     List<EventReservation> getAll();
 
     List<EventReservation> findByUsername(String username) throws UserNotExistsException;
@@ -33,7 +35,7 @@ public interface EventReservationService {
     List<EventReservation> findByStatus(String statusName) throws StatusNotExistsException;
 
     List<EventReservation> findByBuildingAndClassroom(String building, String classroom) throws ClassroomNotExistsException, BuildingNotExistsException;
-    
+
     List<String> getNames();
 
     boolean existsById(int id);

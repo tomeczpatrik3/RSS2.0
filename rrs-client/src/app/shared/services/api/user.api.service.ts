@@ -88,6 +88,20 @@ export class UserApiService {
   }
 
   /**
+   * Az felhasználó frissítéséért felelős függvény
+   * @param id Az azonosító
+   * @param user A felhasználó
+   */
+/*   update(id: number, user: User): Observable<User> {
+    return <Observable<User>>(
+      this.http.put(
+        ApiEndpoints.getUrl(ApiEndpoints.USER_UPDATE) + `/${id}`,
+        user
+      )
+    );
+  } */
+
+  /**
    * A felhasználónév alapján történő törlésért felelős függvény
    * @param username A felhasználónév
    */

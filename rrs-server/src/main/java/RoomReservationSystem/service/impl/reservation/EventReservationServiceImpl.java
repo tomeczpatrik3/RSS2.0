@@ -95,14 +95,54 @@ public class EventReservationServiceImpl implements EventReservationService {
     }
 
     /**
+     * A foglalás azonosító alapján történő frissítését megvalósító függvény
+     *
+     * @param id Az azonosító
+     * @param eventReservationDTO A foglalás
+     * @return A frissített foglalás
+     * @throws EventReservationNotExistsException
+     * @throws UserNotExistsException
+     * @throws ClassroomNotExistsException
+     * @throws StatusNotExistsException
+     * @throws SemesterNotExistsException
+     * @throws BuildingNotExistsException
+     */
+    @Override
+    public EventReservation update(int id, EventReservationDTO eventReservationDTO)
+            throws EventReservationNotExistsException, UserNotExistsException, ClassroomNotExistsException, StatusNotExistsException, SemesterNotExistsException, BuildingNotExistsException {
+        if (repository.findById(id) == null) {
+            throw new EventReservationNotExistsException(String.format("Ilyen azonosítóval (%d) rendelkező foglalás nem létezik", id));
+        } else {
+            EventReservation converted = toEventReservation(
+                    userService.findByUsername(eventReservationDTO.getUsername()), /*A foglaláshoz tartozó felhasználó*/
+                    classroomService.findByNameAndBuildingName( /*A foglaláshoz tartozó tanterem*/
+                            eventReservationDTO.getClassroom(),
+                            eventReservationDTO.getBuilding()),
+                    statusService.findByName("PENDING"), /*A foglalás státusza*/
+                    Collections.emptyList(),
+                    eventReservationDTO.getName(), /*A foglalás neve*/
+                    eventReservationDTO.getNote() /*A foglaláshoz tartozó megjegyzés*/
+            );
+            converted.setId(id);
+            return repository.save(converted);
+        }
+    }
+
+    /**
      * A foglalás id alapján történő keresését megvalósító függvény
      *
      * @param id A foglalás id-je
-     * @return A foglalás ha létezik, null egyébként
+     * @return A foglalás
+     * @throws EventReservationNotExistsException
      */
     @Override
-    public EventReservation findById(int id) {
-        return repository.findById(id);
+    public EventReservation findById(int id) throws EventReservationNotExistsException {
+        EventReservation found = repository.findById(id);
+        if (found == null) {
+            throw new EventReservationNotExistsException(String.format("Ilyen azonosítóval (%d) rendelkező foglalás nem létezik", id));
+        } else {
+            return found;
+        }
     }
 
     /**

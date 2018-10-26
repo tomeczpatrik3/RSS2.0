@@ -28,6 +28,8 @@ public interface UserService extends UserDetailsService {
     User findByUsername(String username) throws UsernameNotFoundException, UserNotExistsException;
 
     User findById(int id) throws UserNotExistsException;
+    
+    User update(int id, User user) throws UserNotExistsException;
 
     List<User> findAll();
 
