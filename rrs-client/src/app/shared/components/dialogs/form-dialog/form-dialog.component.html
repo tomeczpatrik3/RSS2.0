@@ -13,6 +13,21 @@
     </div>
     <div class="container" *ngIf="types[3] == data.type">
       <app-observe-event-reservation-form [reservationID]="data.id" (submitEvent)="onClose($event)"></app-observe-event-reservation-form>
-    </div> <!-- Használat pl: (submitEvent)="deletePhone($event)"-->
+    </div>
+    <div class="container" *ngIf="types[4] == data.type">
+      <app-edit-building-form [buildingID]="data.id" (submitEvent)="onClose($event)"></app-edit-building-form>
+    </div>
+    <div class="container" *ngIf="types[5] == data.type">
+      <app-edit-classroom-form [classroomID]="data.id" (submitEvent)="onClose($event)"></app-edit-classroom-form>
+    </div>      
+    <div class="container" *ngIf="types[6] == data.type">
+      <app-edit-semester-form [semesterID]="data.id" (submitEvent)="onClose($event)"></app-edit-semester-form>
+    </div>    
+    <div class="container" *ngIf="types[7] == data.type">
+      <app-edit-subject-form [subjectID]="data.id" (submitEvent)="onClose($event)"></app-edit-subject-form>
+    </div>    
+    <div class="container" *ngIf="types[8] == data.type">
+      <app-edit-user-form [userID]="data.id" (submitEvent)="onClose($event)"></app-edit-user-form>
+    </div>    
   </mat-dialog-content>
 </div>

@@ -8,6 +8,7 @@ import { ClassroomsDataService } from './classrooms.data.service';
 import { ClassroomTablePageComponent } from './pages/classroom-table-page/classroom-table-page.component';
 import { AddClassroomPageComponent } from './pages/add-classroom-page/add-classroom-page.component';
 import { PipeModule } from '../../shared/modules/pipe.module';
+import { EditClassroomFormComponent } from './components/edit-classroom-form/edit-classroom-form.component';
 
 @NgModule({
   imports: [
@@ -21,10 +22,14 @@ import { PipeModule } from '../../shared/modules/pipe.module';
     AddClassroomFormComponent,
     ClassroomTableComponent,
     ClassroomTablePageComponent,
-    AddClassroomPageComponent
+    AddClassroomPageComponent,
+    EditClassroomFormComponent
   ],
   providers: [
     ClassroomsDataService
+  ],
+  exports: [
+    EditClassroomFormComponent
   ]
 })
 export class ClassroomsModule { }

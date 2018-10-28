@@ -8,12 +8,10 @@ import static RoomReservationSystem.dto.UserDTO.toUserDTO;
 import static RoomReservationSystem.dto.UserDTO.toUserDTOList;
 import RoomReservationSystem.exception.AuthorityAlredyExistsException;
 import RoomReservationSystem.exception.AuthorityNotExistsException;
-import RoomReservationSystem.exception.SubjectNotExistsException;
 import RoomReservationSystem.exception.UserAlredyExistsException;
 import RoomReservationSystem.exception.UserNotExistsException;
 import static RoomReservationSystem.util.ExceptionUtils.handleException;
 import static RoomReservationSystem.util.ValidationUtils.concatErrors;
-import static RoomReservationSystem.model.User.toUser;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -67,6 +65,22 @@ public class UserApiController {
     @GetMapping("/getNames")
     public ResponseEntity getNames() {
         return ResponseEntity.ok(userService.getNames());
+    }
+
+    /**
+     * A függvény ami visszaadja az adott azonosítóval rendelkező felhasználót
+     *
+     * @param id Az azonosító
+     * @return A megfelelő válasz entitás
+     */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping("/findById/{id}")
+    public ResponseEntity findByName(@PathVariable int id) {
+        try {
+            return ResponseEntity.ok(toUserDTO(userService.findById(id)));
+        } catch (UserNotExistsException ex) {
+            return handleException(ex);
+        }
     }
 
     /**
@@ -129,24 +143,24 @@ public class UserApiController {
      * @param bindingResult A BindingResult objektum
      * @return A megfelelő válasz entitás
      */
-//    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-//    @PutMapping("/update/{id}")
-//    public ResponseEntity update(@PathVariable int id, @RequestBody UserDTO userDTO, BindingResult bindingResult) {
-//        userValidator.validate(userDTO, bindingResult);
-//        if (!bindingResult.hasErrors()) {
-//            try {
-//                User updated = userService.update(
-//                        id,
-//                        toUser(userDTO)
-//                );
-//                return ResponseEntity.status(HttpStatus.CREATED).body(toUserDTO(updated));
-//            } catch (SubjectNotExistsException ex) {
-//                return handleException(ex);
-//            }
-//        } else {
-//            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
-//        }
-//    }
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PutMapping("/update/{id}")
+    public ResponseEntity update(@PathVariable int id, @RequestBody UserDTO userDTO, BindingResult bindingResult) {
+        userValidator.validate(userDTO, bindingResult);
+        if (!bindingResult.hasErrors()) {
+            try {
+                User updated = userService.update(
+                        id,
+                        userDTO
+                );
+                return ResponseEntity.status(HttpStatus.CREATED).body(toUserDTO(updated));
+            } catch (UserNotExistsException ex) {
+                return handleException(ex);
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
+        }
+    }
 
     /**
      * A függvény ami törli az adott felhasználónévhez tartozó felhasználót

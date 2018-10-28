@@ -26,6 +26,14 @@ export class ClassroomsDataService {
   }
 
   /**
+   * Az azonosító alapján történő lekérdezést megvalósító függvény
+   * @param id Az azonosító
+   */
+  findById(id: number): Observable<Classroom> {
+    return this.api.findById(id);
+  }
+
+  /**
    * Egy adott névhez tartozó tantermek lekérdezését megvalósító függvény
    * @param roomName A tanterem neve
    */
@@ -100,6 +108,15 @@ export class ClassroomsDataService {
    */
   createClassroom(classroom: Classroom): Observable<Classroom> {
     return this.api.createClassroom(classroom);
+  }
+
+  /**
+   * Az tanterem frissítéséért felelős függvény
+   * @param id Az azonosító
+   * @param reservation A tanterem
+   */
+  update(id: number, classroom: Classroom): Observable<Classroom> {
+    return this.api.update(id, classroom);
   }
 
   /**

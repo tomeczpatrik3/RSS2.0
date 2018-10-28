@@ -9,6 +9,7 @@ export class ApiEndpoints {
   static USER_GET_ALL: string = "user/getAll";
   static USER_GET_NAMES: string = "user/getNames";
   static USER_GET_NAME_BY_USERNAME: string = "user/getName";
+  static USER_FIND_BY_ID: string = "user/findById";
   static USER_FIND_BY_USERNAME: string = "user/findByUsername";
   static USER_FIND_BY_NAME: string = "user/findByName";
   static USER_CREATE_USER: string = "user/createUser";
@@ -16,11 +17,13 @@ export class ApiEndpoints {
   static USER_EXISTS_BY_ID: string = "user/existsById";
   static USER_EXISTS_BY_USERNAME: string = "user/existsByUsername";
   static USER_EXISTS_BY_EMAIL: string = "user/existsByEmail";
+  static USER_UPDATE: string = "user/update";
 
   /*Tantárgyak:*/
   static SUBJECT_GET_ALL: string = "subject/getAll";
   static SUBJECT_GET_SUBJECT_NAMES: string = "subject/getSubjectNames";
   static SUBJECT_GET_SUBJECT_NAME: string = "subject/getSubjectName";
+  static SUBJECT_FIND_BY_ID: string = "subject/findById";
   static SUBJECT_CREATE_SUBJECT: string = "subject/createSubject";
   static SUBJECT_DELETE_BY_CODE: string = "subject/deleteByCode";
   static SUBJECT_EXISTS_BY_ID: string = "subject/existsById";
@@ -91,6 +94,7 @@ export class ApiEndpoints {
   static CLASSROOM_GET_ALL: string = "classroom/getAll";
   static CLASSROOM_GET_NAMES_BY_BUILDING: string =
     "classroom/getNamesByBuilding";
+  static CLASSROOM_FIND_BY_ID: string = "classroom/findById";
   static CLASSROOM_FIND_BY_NAME: string = "classroom/findByName";
   static CLASSROOM_FIND_BY_BUILDING_NAME: string =
     "classroom/findByBuildingName";
@@ -127,6 +131,7 @@ export class ApiEndpoints {
   /*Szemeszterek*/
   static SEMESTER_GET_ALL: string = "semester/getAll";
   static SEMESTER_GET_NAMES: string = "semester/getSemesterNames";
+  static SEMESTER_FIND_BY_ID: string = "semester/findById";
   static SEMESTER_FIND_BY_NAME: string = "semester/findByName";
   static SEMESTER_CREATE_SEMESTER: string = "semester/createSemester";
   static SEMESTER_DELETE_BY_NAME: string = "semester/deleteByName";

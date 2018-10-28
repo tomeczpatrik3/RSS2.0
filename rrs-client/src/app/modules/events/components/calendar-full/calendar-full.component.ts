@@ -14,7 +14,7 @@ import {
 import { EventAction } from "calendar-utils";
 import { subDays, addDays } from "date-fns";
 import { isSameMonth, isSameDay } from "date-fns";
-import { Observable} from "rxjs";
+import { Observable } from "rxjs";
 import { colors } from "../../../../shared/utils/colors";
 
 import { CustomDateFormatter } from "../../providers/custom-date-formatter.provider";
@@ -124,22 +124,34 @@ export class CalendarFullComponent implements OnInit {
         label: ' <i class="fa fa-edit"></i>',
         onClick: ({ event }: { event: CalendarEvent }): void => {
           if (event.meta && event.meta.info.type === ReservationType.CLASS) {
-            this.dialogService.openFormDialog(
-              "Foglalás szerkesztése:",
-              FormType.EDIT_CLASS_RESERVATION_FORM,
-              event.meta.info.id,
-              FormDialogComponent
-            );
+            this.dialogService
+              .openFormDialog(
+                "Foglalás szerkesztése:",
+                FormType.EDIT_CLASS_RESERVATION_FORM,
+                event.meta.info.id,
+                FormDialogComponent
+              )
+              .subscribe(result => {
+                if (result == true) {
+                  this.fetchEvents();
+                }
+              });
           } else if (
             event.meta &&
             event.meta.info.type === ReservationType.EVENT
           ) {
-            this.dialogService.openFormDialog(
-              "Foglalás szerkesztése:",
-              FormType.EDIT_EVENT_RESERVATION_FORM,
-              event.meta.info.id,
-              FormDialogComponent
-            );
+            this.dialogService
+              .openFormDialog(
+                "Foglalás szerkesztése:",
+                FormType.EDIT_EVENT_RESERVATION_FORM,
+                event.meta.info.id,
+                FormDialogComponent
+              )
+              .subscribe(result => {
+                if (result == true) {
+                  this.fetchEvents();
+                }
+              });
           }
         }
       });

@@ -30,6 +30,18 @@ export class SemesterApiService {
   }
 
   /**
+   * Egy adott azonosító alapján történő lekérdezését megvalósító függvény
+   * @param id Az azonosító
+   */
+  findById(id: number): Observable<Semester> {
+    return <Observable<Semester>>(
+      this.http.get(
+        ApiEndpoints.getUrl(ApiEndpoints.SEMESTER_FIND_BY_ID) + `/${id}`
+      )
+    );
+  }
+
+  /**
    * Egy adott szemeszter név alapján történő lekérdezését megvalósító függvény
    * @param name A szemeszter "neve"
    */

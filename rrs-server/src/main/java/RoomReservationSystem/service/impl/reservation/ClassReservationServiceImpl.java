@@ -122,7 +122,7 @@ public class ClassReservationServiceImpl implements ClassReservationService {
                     classroomService.findByNameAndBuildingName( /*A foglaláshoz tartozó tanterem*/
                             classReservationDTO.getClassroom(),
                             classReservationDTO.getBuilding()),
-                    statusService.findByName("PENDING"), /*A foglalás státusza*/
+                    statusService.findByName(classReservationDTO.getStatus()), /*A foglalás státusza*/
                     semesterService.findByName(classReservationDTO.getSemester()),
                     Collections.emptyList(),
                     classReservationDTO.getNote() /*A foglaláshoz tartozó megjegyzés*/

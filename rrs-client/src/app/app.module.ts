@@ -48,6 +48,12 @@ import { TakenSubjectCodeValidatorDirective } from "./shared/directives/taken-su
 import { UniqueUsernameValidatorDirective } from "./shared/directives/unique-username.directive";
 import { TakenUsernameValidatorDirective } from "./shared/directives/taken-username.directive";
 import { FooterComponent } from './shared/components/footer/footer.component';
+import { BuildingsModule } from "./modules/buildings/buildings.module";
+import { ClassroomsModule } from "./modules/classrooms/classrooms.module";
+import { NumberValidatorDirective } from "./shared/directives/number.directive";
+import { SemestersModule } from "./modules/semesters/semesters.module";
+import { SubjectsModule } from "./modules/subjects/subjects.module";
+import { UsersModule } from "./modules/users/users.module";
 
 export function jwtTokenGetter() {
   return localStorage.getItem("token");
@@ -72,11 +78,18 @@ export function jwtTokenGetter() {
     TakenSubjectCodeValidatorDirective,
     UniqueUsernameValidatorDirective,
     TakenUsernameValidatorDirective,
+    NumberValidatorDirective,
+
     FooterComponent
   ],
   imports: [
     //Diallógusokhoz:
     ReservationsModule,
+    BuildingsModule,
+    ClassroomsModule,
+    SemestersModule,
+    SubjectsModule,
+    UsersModule,
 
     BrowserModule,
     HttpClientModule,

@@ -95,6 +95,18 @@ export class EventReservationsDataService {
   }
 
   /**
+   * Az foglalás frissítéséért felelős függvény
+   * @param id Az azonosító
+   * @param reservation A foglalás
+   */
+  update(
+    id: number,
+    reservation: EventReservation
+  ): Observable<EventReservation> {
+    return this.api.update(id, reservation);
+  }
+
+  /**
    * A felhasználónév alapján történő törlésért felelős függvény
    * @param username A felhasználónév
    */

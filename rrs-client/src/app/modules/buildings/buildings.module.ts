@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BuildingsDataService } from './buildings.data.service';
 import { AddBuildingPageComponent } from './pages/add-building-page/add-building-page.component';
 import { BuildingTablePageComponent } from './pages/building-table-page/building-table-page.component';
+import { EditBuildingFormComponent } from './components/edit-building-form/edit-building-form.component';
 
 @NgModule({
   imports: [
@@ -19,10 +20,14 @@ import { BuildingTablePageComponent } from './pages/building-table-page/building
     AddBuildingFormComponent,
     BuildingTableComponent,
     AddBuildingPageComponent,
-    BuildingTablePageComponent
+    BuildingTablePageComponent,
+    EditBuildingFormComponent
   ],
   providers:[
     BuildingsDataService
+  ],
+  exports: [
+    EditBuildingFormComponent
   ]
 })
 export class BuildingsModule { }

@@ -3,7 +3,6 @@ import { Observable } from "rxjs/Observable";
 import { SemesterApiService } from "../../shared/services/api/semester.api.service";
 import { Semester } from "../../shared/models/Semester";
 
-
 /**
  * Az szemeszterekhez tartozó service osztály
  */
@@ -26,6 +25,14 @@ export class SemesterDataService {
   }
 
   /**
+   * Egy adott azonosító alapján történő lekérdezését megvalósító függvény
+   * @param id Az azonosító
+   */
+  findById(id: number): Observable<Semester> {
+    return this.api.findById(id);
+  }
+
+  /**
    * Egy adott szemeszter név alapján történő lekérdezését megvalósító függvény
    * @param name A szemeszter "neve"
    */
@@ -39,6 +46,15 @@ export class SemesterDataService {
    */
   createSemester(semester: Semester): Observable<Semester> {
     return this.api.createSemester(semester);
+  }
+
+  /**
+   * Az szemeszter frissítéséért felelős függvény
+   * @param id Az azonosító
+   * @param semester A szemeszter
+   */
+  update(id: number, semester: Semester): Observable<Semester> {
+    return this.api.update(id, semester);
   }
 
   /**

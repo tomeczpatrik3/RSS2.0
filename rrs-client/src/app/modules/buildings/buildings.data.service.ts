@@ -47,6 +47,15 @@ export class BuildingsDataService {
   }
 
   /**
+   * Az épület frissítéséért felelős függvény
+   * @param id Az azonosító
+   * @param building Az épület
+   */
+  update(id: number, building: Building): Observable<Building> {
+    return this.api.update(id, building);
+  }
+
+  /**
    * A név alapján történő törlésért felelős függvény
    * @param name Az épület neve
    */

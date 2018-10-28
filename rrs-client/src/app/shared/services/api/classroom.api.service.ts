@@ -34,6 +34,18 @@ export class ClassroomApiService {
   }
 
   /**
+   * Az azonosító alapján történő lekérdezést megvalósító függvény
+   * @param id Az azonosító
+   */
+  findById(id: number): Observable<Classroom> {
+    return <Observable<Classroom>>(
+      this.http.get(
+        ApiEndpoints.getUrl(ApiEndpoints.CLASSROOM_FIND_BY_ID) + "/" + id
+      )
+    );
+  }
+
+  /**
    * Egy adott névhez tartozó tantermek lekérdezését megvalósító függvény
    * @param roomName A tanterem neve
    */

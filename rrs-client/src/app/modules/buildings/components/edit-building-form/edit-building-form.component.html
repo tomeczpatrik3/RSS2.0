@@ -1,0 +1,31 @@
+<div class="container" *ngIf="model">
+  <form (ngSubmit)="onSubmit()" #editEventReservationForm="ngForm">
+
+    <div class="form-group row">
+      <label for="name" class="col-sm-4 col-form-label">Az épület neve:</label>
+      <div class="col-sm-8">
+        <input class="form-control" id="name" required minlength="3" maxlength="30" [(ngModel)]="model.name"
+          name="name" #name="ngModel" [ngModelOptions]="{ updateOn: 'blur' }" >
+        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger name-errors">
+
+          <div *ngIf="name.errors.required">
+            Az épület nevét meg kell adni.
+          </div>
+          <div *ngIf="name.errors.minlength">
+            Az épület neve legalább 3 karakter hoszzú kell hogy legyen.
+          </div>
+          <div *ngIf="name.errors.maxlength">
+            Az épület neve legfeljebb 30 karakter hoszzú lehet.
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-padding">
+      <button type="submit" class="btn btn-success btn-space" [disabled]="!editEventReservationForm.form.valid">Módosítás</button>
+      <button type="button" class="btn btn-danger btn-space" (click)="onExit()">Kilépés</button>
+    </div>
+
+  </form>
+</div>

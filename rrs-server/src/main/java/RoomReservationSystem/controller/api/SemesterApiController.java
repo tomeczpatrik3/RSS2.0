@@ -80,6 +80,22 @@ public class SemesterApiController {
     }
 
     /**
+     * A függvény ami visszaadja az adott azonosítóval rendelkező szemesztert
+     *
+     * @param id Az azonosító
+     * @return A megfelelő válasz entitás
+     */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping("/findById/{id}")
+    public ResponseEntity findByName(@PathVariable int id) {
+        try {
+            return ResponseEntity.ok(toSemesterDTO(semesterService.findById(id)));
+        } catch (SemesterNotExistsException ex) {
+            return handleException(ex);
+        }
+    }
+
+    /**
      * A függvény ami létrehozza a megfelelő szemesztert
      *
      * @param semesterDTO A szemeszter

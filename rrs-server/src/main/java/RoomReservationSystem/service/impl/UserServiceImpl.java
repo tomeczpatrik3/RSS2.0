@@ -94,17 +94,20 @@ public class UserServiceImpl implements UserService {
      * A felhasználó azonosító alapján történő frissítését megvalósító függvény
      *
      * @param id Az azonosító
-     * @param user A felhasználó
+     * @param userDTO A felhasználó
      * @return A frissített felhasználó
      * @throws UserNotExistsException
      */
     @Override
-    public User update(int id, User user) throws UserNotExistsException {
+    public User update(int id, UserDTO userDTO) throws UserNotExistsException {
         if (userRepository.findById(id) == null) {
             throw new UserNotExistsException(String.format("Ilyen azonosítóval (%d) rendelkező felhasználó nem létezik!", id));
         } else {
-            user.setId(id);
-            return userRepository.save(user);
+            User found = userRepository.findById(id);
+            found.setUsername(userDTO.getUsername());
+            found.setName(userDTO.getName());
+            found.setEmail(userDTO.getEmail());
+            return userRepository.save(found);
         }
     }
 

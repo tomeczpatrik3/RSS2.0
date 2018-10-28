@@ -15,7 +15,12 @@ export class FormDialogComponent implements OnInit {
     FormType.EDIT_CLASS_RESERVATION_FORM,
     FormType.EDIT_EVENT_RESERVATION_FORM,
     FormType.OBSERVE_CLASS_RESERVATION_FORM,
-    FormType.OBSERVE_EVENT_RESERVATION_FORM
+    FormType.OBSERVE_EVENT_RESERVATION_FORM,
+    FormType.EDIT_BUILDING_FORM,
+    FormType.EDIT_CLASSROOM_FORM,
+    FormType.EDIT_SEMESTER_FORM,
+    FormType.EDIT_SUBJECT_FORM,
+    FormType.EDIT_USER_FORM
   ];
 
   constructor(

@@ -78,6 +78,22 @@ public class SubjectApiController {
             return handleException(ex);
         }
     }
+    
+    /**
+     * A függvény ami visszaadja az adott azonosítóval rendelkező tantárgyat
+     *
+     * @param id Az azonosító
+     * @return A megfelelő válasz entitás
+     */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping("/findById/{id}")
+    public ResponseEntity findByName(@PathVariable int id) {
+        try {
+            return ResponseEntity.ok(toSubjectDTO(subjectService.findById(id)));
+        } catch (SubjectNotExistsException ex) {
+            return handleException(ex);
+        }
+    }
 
     /**
      * A függvény ami létrehozza a megfelelő tantárgyat

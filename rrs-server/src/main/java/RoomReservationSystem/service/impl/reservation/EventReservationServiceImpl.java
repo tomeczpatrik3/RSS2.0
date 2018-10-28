@@ -118,7 +118,7 @@ public class EventReservationServiceImpl implements EventReservationService {
                     classroomService.findByNameAndBuildingName( /*A foglaláshoz tartozó tanterem*/
                             eventReservationDTO.getClassroom(),
                             eventReservationDTO.getBuilding()),
-                    statusService.findByName("PENDING"), /*A foglalás státusza*/
+                    statusService.findByName(eventReservationDTO.getStatus()), /*A foglalás státusza*/
                     Collections.emptyList(),
                     eventReservationDTO.getName(), /*A foglalás neve*/
                     eventReservationDTO.getNote() /*A foglaláshoz tartozó megjegyzés*/

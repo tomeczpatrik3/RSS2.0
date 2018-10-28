@@ -1,0 +1,76 @@
+<div class="container" *ngIf="model">
+  <form (ngSubmit)="onSubmit()" #editEventReservationForm="ngForm">
+
+    <div class="form-group row">
+      <label for="username" class="col-sm-4 col-form-label">A felhasználónév:</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" id="username" required disabled minlength="5" maxlength="30" [(ngModel)]="model.username"
+          name="username" #username="ngModel">
+        <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-danger">
+
+          <div *ngIf="username.errors.required">
+            A felhasználónevet meg kell adni.
+          </div>
+          <div *ngIf="username.errors.minlength">
+            A felhasználónév legalább 5 karakter hoszzú kell hogy legyen.
+          </div>
+          <div *ngIf="username.errors.maxlength">
+            A felhasználónév legfeljebb 30 karakter hoszzú lehet.
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="name" class="col-sm-4 col-form-label">A felhasználó (teljes) neve:</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" id="name" required minlength="5" maxlength="30" [(ngModel)]="model.name"
+          name="name" #name="ngModel">
+        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+
+          <div *ngIf="name.errors.required">
+            A felhasználó (teljes) nevét meg kell adni.
+          </div>
+          <div *ngIf="name.errors.minlength">
+            A felhasználó (teljes) neve legalább 5 karakter hoszzú kell hogy legyen.
+          </div>
+          <div *ngIf="name.errors.maxlength">
+            A felhasználó (teljes) neve legfeljebb 30 karakter hoszzú lehet.
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="email" class="col-sm-4 col-form-label">Az e-mail cím:</label>
+      <div class="col-sm-8">
+        <input type="email" class="form-control" id="email" required [pattern]="emailPattern" minlength="5" maxlength="30" [(ngModel)]="model.email"
+          name="email" #email="ngModel">
+        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+
+          <div *ngIf="email.errors.required">
+            Az e-mail címet meg kell adni.
+          </div>
+          <div *ngIf="email.errors.minlength">
+            Az e-mail cím legalább 5 karakter hoszzú kell hogy legyen.
+          </div>
+          <div *ngIf="email.errors.maxlength">
+            Az e-mail cím legfeljebb 30 karakter hoszzú lehet.
+          </div>
+          <div *ngIf="email.errors.pattern">
+            Az e-mail cím nem megfelelő formátumú.
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-padding">
+      <button type="submit" class="btn btn-success btn-space" [disabled]="!editEventReservationForm.form.valid">Módosítás</button>
+      <button type="button" class="btn btn-danger btn-space" (click)="onExit()">Kilépés</button>
+    </div>
+
+  </form>
+</div>

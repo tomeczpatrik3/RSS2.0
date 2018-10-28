@@ -33,11 +33,28 @@ export class SubjectsDataService {
   }
 
   /**
+   * Egy adott azonosító alapján történő lekérdezését megvalósító függvény
+   * @param id Az azonosító
+   */
+  findById(id: number): Observable<Subject> {
+    return this.api.findById(id);
+  }
+
+  /**
    * A tantárgy létrehozásáért felelős függvény
    * @param subject A tantárgy objektum
    */
   createSubject(subject: Subject): Observable<Subject> {
     return this.api.createSubject(subject);
+  }
+
+  /**
+   * Az tantárgy frissítéséért felelős függvény
+   * @param id Az azonosító
+   * @param subject A tantárgy
+   */
+  update(id: number, subject: Subject): Observable<Subject> {
+    return this.api.update(id, subject);
   }
 
   /**

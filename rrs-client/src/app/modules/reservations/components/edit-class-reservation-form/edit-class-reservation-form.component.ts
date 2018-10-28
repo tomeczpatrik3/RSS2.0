@@ -1,11 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ClassReservation } from '../../../../shared/models/ClassReservation';
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { ClassReservation } from "../../../../shared/models/ClassReservation";
 import { ClassReservationsDataService } from "../../class-reservations.data.service";
 
 @Component({
-  selector: 'app-edit-class-reservation-form',
-  templateUrl: './edit-class-reservation-form.component.html',
-  styleUrls: ['./edit-class-reservation-form.component.css']
+  selector: "app-edit-class-reservation-form",
+  templateUrl: "./edit-class-reservation-form.component.html",
+  styleUrls: ["./edit-class-reservation-form.component.css"]
 })
 export class EditClassReservationFormComponent implements OnInit {
   /*A foglalás azonosítója*/
@@ -34,6 +34,9 @@ export class EditClassReservationFormComponent implements OnInit {
    * A módosításért felelős függvény
    */
   onSubmit() {
+    this.classReservationService
+      .update(this.reservationID, this.model)
+      .subscribe(result => console.log(result));
     this.submitEvent.next(true);
   }
 

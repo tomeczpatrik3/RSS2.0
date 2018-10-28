@@ -29,7 +29,7 @@ public interface UserService extends UserDetailsService {
 
     User findById(int id) throws UserNotExistsException;
     
-    User update(int id, User user) throws UserNotExistsException;
+    User update(int id, UserDTO userDTO) throws UserNotExistsException;
 
     List<User> findAll();
 

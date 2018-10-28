@@ -37,6 +37,9 @@ export class EditEventReservationFormComponent implements OnInit {
    * A módosításért felelős függvény
    */
   onSubmit() {
+    this.eventReservationService
+      .update(this.reservationID, this.model)
+      .subscribe(result => console.log(result));
     this.submitEvent.next(true);
   }
 

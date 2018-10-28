@@ -50,14 +50,11 @@
   <div class="form-group row">
     <label for="chairs" class="col-sm-4 col-form-label">Székek száma*</label>
     <div class="col-sm-8">
-      <input type="text" class="form-control" id="chairs" required [formControl]="chairs">
+      <input type="number" class="form-control" id="chairs" required [formControl]="chairs">
 
       <div *ngIf="chairs.invalid && (chairs.dirty || chairs.touched)" class="alert alert-danger">
         <div *ngIf="chairs.errors.required">
           A székek számát meg kell adni.
-        </div>
-        <div *ngIf="chairs.errors.notNumeric">
-          Hibás formátum.
         </div>
       </div>
 

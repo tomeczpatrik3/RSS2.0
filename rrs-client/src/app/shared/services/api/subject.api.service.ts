@@ -43,6 +43,18 @@ export class SubjectApiService {
   }
 
   /**
+   * Egy adott azonosító alapján történő lekérdezését megvalósító függvény
+   * @param id Az azonosító
+   */
+  findById(id: number): Observable<Subject> {
+    return <Observable<Subject>>(
+      this.http.get(
+        ApiEndpoints.getUrl(ApiEndpoints.SUBJECT_FIND_BY_ID) + `/${id}`
+      )
+    );
+  }
+
+  /**
    * A tantárgy létrehozásáért felelős függvény
    * @param subject A tantárgy objektum
    */

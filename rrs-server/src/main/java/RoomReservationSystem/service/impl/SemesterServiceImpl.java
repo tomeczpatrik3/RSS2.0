@@ -99,6 +99,16 @@ public class SemesterServiceImpl implements SemesterService {
             throw new SemesterNotExistsException(String.format("Ilyen névvel (%s) rendelkező szemeszter nem létezik!", name));
         }
     }
+    
+    @Override
+    public Semester findById(int id) throws SemesterNotExistsException {
+        Semester found = semesterRepository.findById(id);
+        if (found != null) {
+            return found;
+        } else {
+            throw new SemesterNotExistsException(String.format("Ilyen azonosítóval (%d) rendelkező szemeszter nem létezik!", id));
+        }        
+    }
 
     /**
      * A félévek név alapján történő törlését megvalósító függvény

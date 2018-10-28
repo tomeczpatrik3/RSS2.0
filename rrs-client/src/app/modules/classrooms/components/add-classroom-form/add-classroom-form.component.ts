@@ -5,7 +5,6 @@ import {
   FormControl,
   FormBuilder
 } from "@angular/forms";
-import { ValidatorService } from "../../../../shared/services/validator.service";
 import { ClassroomsDataService } from "../../classrooms.data.service";
 import { Classroom } from "../../../../shared/models/Classroom";
 import { InfoDialogComponent } from "../../../../shared/components/dialogs/info-dialog/info-dialog.component";
@@ -47,10 +46,7 @@ export class AddClassroomFormComponent implements OnInit {
   ]);
 
   /*A székek száma*/
-  chairs = new FormControl("", [
-    Validators.required,
-    this.validatorService.isInteger
-  ]);
+  chairs = new FormControl("", [Validators.required]);
 
   /*PC*/
   pc = new FormControl(false);
@@ -69,7 +65,6 @@ export class AddClassroomFormComponent implements OnInit {
 
   constructor(
     private builder: FormBuilder,
-    private validatorService: ValidatorService,
     private classroomService: ClassroomsDataService,
     private buildingService: BuildingApiService,
     private dialogService: DialogService,

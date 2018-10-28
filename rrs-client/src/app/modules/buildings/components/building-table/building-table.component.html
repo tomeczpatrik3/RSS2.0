@@ -6,7 +6,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let building of buildings; let i = index">
+    <tr *ngFor="let building of buildings; let i = index" (click)="openPopup(building.id)">
       <th scope="row">{{i+1}}</th>
       <td>{{building.name}}</td>
     </tr>

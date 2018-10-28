@@ -63,6 +63,22 @@ public class ClassroomApiController {
     }
 
     /**
+     * A függvény ami visszaadja az adott azonosítóval rendelkező termet
+     *
+     * @param id Az azonosító
+     * @return A megfelelő válasz entitás
+     */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping("/findById/{id}")
+    public ResponseEntity findByName(@PathVariable int id) {
+        try {
+            return ResponseEntity.ok(toClassroomDTO(classroomService.findById(id)));
+        } catch (ClassroomNotExistsException ex) {
+            return handleException(ex);
+        }
+    }
+
+    /**
      * A függvény ami visszaadja egy listában az adott névvel rendelkező
      * termeket
      *
@@ -215,7 +231,7 @@ public class ClassroomApiController {
         if (!bindingResult.hasErrors()) {
             try {
                 Classroom updated = classroomService.update(
-                        id, 
+                        id,
                         toClassroom(classroomDTO, buildingService.findByName(classroomDTO.getBuilding()))
                 );
                 return ResponseEntity.status(HttpStatus.CREATED).body(toClassroomDTO(updated));

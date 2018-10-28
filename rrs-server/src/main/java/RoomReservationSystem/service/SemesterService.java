@@ -21,6 +21,8 @@ public interface SemesterService {
     Semester save(Semester semester) throws SemesterAlredyExistsException;
 
     Semester findByName(String name) throws SemesterNotExistsException;
+    
+    Semester findById(int id) throws SemesterNotExistsException;
 
     Semester findByDTO(SemesterDTO semesterDTO);
     

@@ -42,6 +42,14 @@ export class UsersDataService {
   }
 
   /**
+   * Egy adott azonosító alapján történő lekérdezését megvalósító függvény
+   * @param id Az azonosító
+   */
+  findById(id: number): Observable<User> {
+    return this.api.findById(id);
+  }
+
+  /**
    * Egy adott felhasználó, felhasználónév alapján történő lekérdezését megvalósító függvény
    * @param username A felhasználónév
    */
@@ -63,6 +71,15 @@ export class UsersDataService {
    */
   createUser(user: User): Observable<User> {
     return this.api.createUser(user);
+  }
+
+  /**
+   * Az felhasználó frissítéséért felelős függvény
+   * @param id Az azonosító
+   * @param user A felhasználó
+   */
+  update(id: number, user: User): Observable<User> {
+    return this.api.update(id, user);
   }
 
   /**
