@@ -135,9 +135,9 @@ export class UserApiService {
    */
   existsById(id: number): Observable<boolean> {
     return <Observable<boolean>>(
-      this.http.get(
-        ApiEndpoints.getUrl(ApiEndpoints.USER_EXISTS_BY_ID) + `?id=${id}`
-      )
+      this.http.get(ApiEndpoints.getUrl(ApiEndpoints.USER_EXISTS_BY_ID), {
+        params: { id: id.toString() }
+      })
     );
   }
 
