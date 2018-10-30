@@ -10,9 +10,18 @@ public class SemesterNotExistsException extends Exception {
     /**
      * Az osztály konstruktora
      *
-     * @param message A hibaüzenet
+     * @param name A szemeszter neve
      */
-    public SemesterNotExistsException(String message) {
-        super(message);
+    public SemesterNotExistsException(String name) {
+        super(String.format("Ilyen névvel (%s) rendelkező szemeszter nem létezik!", name));
+    }
+    
+    /**
+     * Az osztály konstruktora
+     *
+     * @param id Az azonosító
+     */
+    public SemesterNotExistsException(int id) {
+        super(String.format("Ilyen azonosítóval (%d) rendelkező szemeszter nem létezik!", id));
     }
 }

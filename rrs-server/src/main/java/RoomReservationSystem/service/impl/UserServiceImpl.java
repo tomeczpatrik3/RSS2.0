@@ -71,9 +71,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public User register(UserDTO userDTO) throws UserAlredyExistsException, AuthorityNotExistsException, AuthorityAlredyExistsException {
         if (userRepository.findByUsername(userDTO.getUsername()) != null) {
-            throw new UserAlredyExistsException(String.format("Ilyen felhasználónévvel (%s) rendelkező felhasználó már létezik!", userDTO.getUsername()));
+            throw new UserAlredyExistsException(userDTO.getUsername());
         } else if (userRepository.findByEmail(userDTO.getEmail()) != null) {
-            throw new UserAlredyExistsException(String.format("Ilyen e-mail címmel (%s) rendelkező felhasználó már létezik!", userDTO.getEmail()));
+            throw new UserAlredyExistsException(userDTO.getEmail());
         } else {
             Authority userAuth = authorityService.findByName("ROLE_USER");
 
@@ -101,7 +101,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User update(int id, UserDTO userDTO) throws UserNotExistsException {
         if (userRepository.findById(id) == null) {
-            throw new UserNotExistsException(String.format("Ilyen azonosítóval (%d) rendelkező felhasználó nem létezik!", id));
+            throw new UserNotExistsException(id);
         } else {
             User found = userRepository.findById(id);
             found.setUsername(userDTO.getUsername());
@@ -125,7 +125,7 @@ public class UserServiceImpl implements UserService {
         if (found != null) {
             return found;
         } else {
-            throw new UserNotExistsException(String.format("Ilyen e-mail címmel (%s) rendelkező felhasználó nem létezik!", email));
+            throw new UserNotExistsException(email);
         }
     }
 
@@ -142,7 +142,7 @@ public class UserServiceImpl implements UserService {
         if (found != null) {
             return found;
         } else {
-            throw new UserNotExistsException(String.format("Ilyen azonosítóval (%d) rendelkező felhasználó nem létezik!", id));
+            throw new UserNotExistsException(id);
         }
     }
 
@@ -160,7 +160,7 @@ public class UserServiceImpl implements UserService {
         if (found != null) {
             return found;
         } else {
-            throw new UserNotExistsException(String.format("Ilyen felhasználónévvel (%s) rendelkező felhasználó nem létezik!", username));
+            throw new UserNotExistsException(username);
         }
     }
 
@@ -181,7 +181,7 @@ public class UserServiceImpl implements UserService {
 
             userRepository.deleteByUsername(username);
         } else {
-            throw new UserNotExistsException(String.format("Ilyen felhasználónévvel (%s) rendelkező felhasználó nem létezik!", username));
+            throw new UserNotExistsException(username);
         }
     }
 

@@ -23,6 +23,6 @@ public class ExceptionUtils {
      */
     public static <T extends Exception> ResponseEntity handleException(T ex) {
         Logger.getLogger(BuildingApiController.class.getName()).log(Level.WARNING, ex.getMessage(), ex);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 }

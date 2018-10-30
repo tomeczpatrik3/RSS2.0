@@ -10,9 +10,18 @@ public class StatusNotExistsException extends Exception {
     /**
      * Az osztály konstruktora
      *
-     * @param message A hibaüzenet
+     * @param name A státusz neve
      */
-    public StatusNotExistsException(String message) {
-        super(message);
+    public StatusNotExistsException(String name) {
+        super(String.format("Ilyen névvel (%s) rendelkező státusz nem létezik!", name));
+    }
+    
+    /**
+     * Az osztály konstruktora
+     *
+     * @param id Az azonosító
+     */
+    public StatusNotExistsException(int id) {
+        super(String.format("Ilyen azonosítóval (%d) rendelkező státusz nem létezik!", id));
     }
 }

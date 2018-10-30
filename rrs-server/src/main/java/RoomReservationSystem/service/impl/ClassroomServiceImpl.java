@@ -44,7 +44,7 @@ public class ClassroomServiceImpl implements ClassroomService {
         if (classroomRepository.findByNameAndBuilding(name, building) != null) {
             classroomRepository.deleteByNameAndBuilding(name, building);
         } else {
-            throw new ClassroomNotExistsException(String.format("Ehhez az épülethez (%s) nem tartozik ilyen nevű (%s) tanterem!", buildingName, name));
+            throw new ClassroomNotExistsException(buildingName, name);
         }
     }
 
@@ -60,7 +60,7 @@ public class ClassroomServiceImpl implements ClassroomService {
         if (classroomRepository.findByNameAndBuilding(classroom.getName(), classroom.getBuilding()) == null) {
             return classroomRepository.save(classroom);
         } else {
-            throw new ClassroomAlredyExistsException(String.format("Ehhez az épülethez (%s) már tartozik ilyen nevű (%s) tanterem!", classroom.getBuilding().getName(), classroom.getName()));
+            throw new ClassroomAlredyExistsException(classroom.getBuilding().getName(), classroom.getName());
         }
     }
 
@@ -75,7 +75,7 @@ public class ClassroomServiceImpl implements ClassroomService {
     @Override
     public Classroom update(int id, Classroom classroom) throws ClassroomNotExistsException {
         if (classroomRepository.findById(id) == null) {
-            throw new ClassroomNotExistsException(String.format("Ilyen azonosítóval (%d) rendelkező tanterem nem létezik!", id));
+            throw new ClassroomNotExistsException(id);
         } else {
             classroom.setId(id);
             return classroomRepository.save(classroom);
@@ -105,7 +105,7 @@ public class ClassroomServiceImpl implements ClassroomService {
         if (found != null) {
             return found;
         } else {
-            throw new ClassroomNotExistsException(String.format("Ilyen azonosítóval (%d) rendelkező tanterem nem létezik!", id));
+            throw new ClassroomNotExistsException(id);
         }
     }
 
@@ -215,7 +215,7 @@ public class ClassroomServiceImpl implements ClassroomService {
         if (found != null) {
             return found;
         } else {
-            throw new ClassroomNotExistsException(String.format("Ehhez az épülethez (%s) nem tartozik ilyen nevű (%s) tanterem!", buildingName, name));
+            throw new ClassroomNotExistsException(buildingName, name);
         }
     }
 

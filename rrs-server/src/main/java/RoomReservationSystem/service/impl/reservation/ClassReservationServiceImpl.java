@@ -114,7 +114,7 @@ public class ClassReservationServiceImpl implements ClassReservationService {
     public ClassReservation update(int id, ClassReservationDTO classReservationDTO) throws ClassReservationNotExistsException,
             UserNotExistsException, SubjectNotExistsException, ClassroomNotExistsException, StatusNotExistsException, SemesterNotExistsException, BuildingNotExistsException {
         if (repository.findById(id) == null) {
-            throw new ClassReservationNotExistsException(String.format("Ilyen azonosítóval (%d) rendelkező foglalás nem létezik", id));
+            throw new ClassReservationNotExistsException(id);
         } else {
             ClassReservation converted = toClassReservation(
                     userService.findByUsername(classReservationDTO.getUsername()), /*A foglaláshoz tartozó felhasználó*/
@@ -146,7 +146,7 @@ public class ClassReservationServiceImpl implements ClassReservationService {
         if (res != null) {
             return res;
         } else {
-            throw new ClassReservationNotExistsException(String.format("Ilyen azonosítóval (%d) rendelkező foglalás nem létezik", id));
+            throw new ClassReservationNotExistsException(id);
         }
     }
 
@@ -174,7 +174,7 @@ public class ClassReservationServiceImpl implements ClassReservationService {
         if (user != null) {
             return repository.findByUser(user);
         } else {
-            throw new UserNotExistsException(String.format("Ilyen felhasználónévvel (%s) rendelkező felhasználó nem létezik!", username));
+            throw new UserNotExistsException(username);
         }
     }
 
@@ -191,7 +191,7 @@ public class ClassReservationServiceImpl implements ClassReservationService {
         if (status != null) {
             return repository.findByStatus(status);
         } else {
-            throw new StatusNotExistsException(String.format("Ilyen névvel (%s) rendelkező státusz nem létezik!", statusName));
+            throw new StatusNotExistsException(statusName);
         }
     }
 
@@ -214,10 +214,10 @@ public class ClassReservationServiceImpl implements ClassReservationService {
                 res.setStatus(status);
                 return res;
             } else {
-                throw new StatusNotExistsException(String.format("Ilyen névvel (%s) rendelkező státusz nem létezik", statusName));
+                throw new StatusNotExistsException(statusName);
             }
         } else {
-            throw new ClassReservationNotExistsException(String.format("Ilyen azonosítóval (%d) rendelkező foglalás nem létezik", id));
+            throw new ClassReservationNotExistsException(id);
         }
     }
 

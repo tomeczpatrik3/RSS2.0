@@ -111,7 +111,7 @@ public class EventReservationServiceImpl implements EventReservationService {
     public EventReservation update(int id, EventReservationDTO eventReservationDTO)
             throws EventReservationNotExistsException, UserNotExistsException, ClassroomNotExistsException, StatusNotExistsException, SemesterNotExistsException, BuildingNotExistsException {
         if (repository.findById(id) == null) {
-            throw new EventReservationNotExistsException(String.format("Ilyen azonosítóval (%d) rendelkező foglalás nem létezik", id));
+            throw new EventReservationNotExistsException(id);
         } else {
             EventReservation converted = toEventReservation(
                     userService.findByUsername(eventReservationDTO.getUsername()), /*A foglaláshoz tartozó felhasználó*/
@@ -139,7 +139,7 @@ public class EventReservationServiceImpl implements EventReservationService {
     public EventReservation findById(int id) throws EventReservationNotExistsException {
         EventReservation found = repository.findById(id);
         if (found == null) {
-            throw new EventReservationNotExistsException(String.format("Ilyen azonosítóval (%d) rendelkező foglalás nem létezik", id));
+            throw new EventReservationNotExistsException(id);
         } else {
             return found;
         }
@@ -169,7 +169,7 @@ public class EventReservationServiceImpl implements EventReservationService {
         if (user != null) {
             return repository.findByUser(user);
         } else {
-            throw new UserNotExistsException(String.format("Ilyen felhasználónévvel (%s) rendelkező felhasználó nem létezik!", username));
+            throw new UserNotExistsException(username);
         }
 
     }
@@ -187,7 +187,7 @@ public class EventReservationServiceImpl implements EventReservationService {
         if (status != null) {
             return repository.findByStatus(status);
         } else {
-            throw new StatusNotExistsException(String.format("Ilyen névvel (%s) rendelkező státusz nem létezik!", statusName));
+            throw new StatusNotExistsException(statusName);
         }
     }
 
@@ -210,10 +210,10 @@ public class EventReservationServiceImpl implements EventReservationService {
                 res.setStatus(status);
                 return res;
             } else {
-                throw new StatusNotExistsException(String.format("Ilyen névvel (%s) rendelkező státusz nem létezik", statusName));
+                throw new StatusNotExistsException(statusName);
             }
         } else {
-            throw new EventReservationNotExistsException(String.format("Ilyen azonosítóval (%d) rendelkező foglalás nem létezik", id));
+            throw new EventReservationNotExistsException(id);
         }
     }
 
@@ -245,7 +245,7 @@ public class EventReservationServiceImpl implements EventReservationService {
         if (res != null) {
             return res;
         } else {
-            throw new EventReservationNotExistsException(String.format("Ilyen névvel (%s) rendelkező foglalás nem létezik", name));
+            throw new EventReservationNotExistsException(name);
         }
     }
 
@@ -295,7 +295,7 @@ public class EventReservationServiceImpl implements EventReservationService {
         if (repository.findByName(name) != null) {
             repository.deleteByName(name);
         } else {
-            throw new EventReservationNotExistsException(String.format("Ilyen névvel (%s) rendelkező foglalás nem létezik", name));
+            throw new EventReservationNotExistsException(name);
         }
     }
 

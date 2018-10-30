@@ -32,7 +32,7 @@ public class StatusServiceImpl implements StatusService {
         if (found != null) {
             return found;
         } else {
-            throw new StatusNotExistsException(String.format("Ilyen névvel (%s) rendelkező státusz nem létezik!", name));
+            throw new StatusNotExistsException(name);
         }
     }
 

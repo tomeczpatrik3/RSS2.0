@@ -10,9 +10,18 @@ public class UserNotExistsException extends Exception {
     /**
      * Az osztály konstruktora
      *
-     * @param message A hibaüzenet
+     * @param id Az azonosító
      */
-    public UserNotExistsException(String message) {
-        super(message);
+    public UserNotExistsException(int id) {
+        super(String.format("Ilyen azonosítóval (%d) rendelkező felhasználó nem létezik!", id));
+    }
+    
+     /**
+     * Az osztály konstruktora
+     *
+     * @param data Az "adat"
+     */
+    public UserNotExistsException(String data) {
+        super(String.format("Ilyen adatokkal (%s) rendelkező felhasználó nem létezik!", data));
     }
 }

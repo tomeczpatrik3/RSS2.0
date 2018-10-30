@@ -10,9 +10,9 @@ public class UserAlredyExistsException extends Exception {
     /**
      * Az osztály konstruktora
      *
-     * @param message A hibaüzenet
+     * @param data Az "adat"
      */
-    public UserAlredyExistsException(String message) {
-        super(message);
+    public UserAlredyExistsException(String data) {
+        super(String.format("Ilyen adatokkal (%s) rendelkező felhasználó már létezik!", data));
     }
 }

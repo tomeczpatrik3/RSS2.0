@@ -10,9 +10,9 @@ public class ClassReservationNotExistsException extends Exception {
     /**
      * Az osztály konstruktora
      *
-     * @param message A hibaüzenet
+     * @param id Az azonosító
      */
-    public ClassReservationNotExistsException(String message) {
-        super(message);
+    public ClassReservationNotExistsException(int id) {
+        super(String.format("Ilyen azonosítóval (%d) rendelkező foglalás nem létezik", id));
     }
 }

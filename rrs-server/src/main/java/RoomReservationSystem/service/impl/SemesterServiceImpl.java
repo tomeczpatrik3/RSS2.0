@@ -45,7 +45,7 @@ public class SemesterServiceImpl implements SemesterService {
         if (found == null) {
             return semesterRepository.save(semester);
         } else {
-            throw new SemesterAlredyExistsException(String.format("Ilyen névvel (%s) rendelkező szemeszter már létezik!", semester.getName()));
+            throw new SemesterAlredyExistsException(semester.getName());
         }
 
     }
@@ -62,7 +62,7 @@ public class SemesterServiceImpl implements SemesterService {
     @Override
     public Semester update(int id, Semester semester) throws SemesterNotExistsException {
         if (semesterRepository.findById(id) == null) {
-            throw new SemesterNotExistsException(String.format("Ilyen azonosítóval (%d) rendelkező szemeszter nem létezik!", id));
+            throw new SemesterNotExistsException(id);
         } else {
             semester.setId(id);
             return semesterRepository.save(semester);
@@ -96,7 +96,7 @@ public class SemesterServiceImpl implements SemesterService {
         if (found != null) {
             return found;
         } else {
-            throw new SemesterNotExistsException(String.format("Ilyen névvel (%s) rendelkező szemeszter nem létezik!", name));
+            throw new SemesterNotExistsException(name);
         }
     }
     
@@ -106,7 +106,7 @@ public class SemesterServiceImpl implements SemesterService {
         if (found != null) {
             return found;
         } else {
-            throw new SemesterNotExistsException(String.format("Ilyen azonosítóval (%d) rendelkező szemeszter nem létezik!", id));
+            throw new SemesterNotExistsException(id);
         }        
     }
 
@@ -121,7 +121,7 @@ public class SemesterServiceImpl implements SemesterService {
         if (semesterRepository.findByName(name) != null) {
             semesterRepository.deleteByName(name);
         } else {
-            throw new SemesterNotExistsException(String.format("Ilyen névvel (%s) rendelkező szemeszter nem létezik!", name));
+            throw new SemesterNotExistsException(name);
         }
     }
 

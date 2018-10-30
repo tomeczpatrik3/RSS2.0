@@ -10,9 +10,18 @@ public class EventReservationNotExistsException extends Exception {
     /**
      * Az osztály konstruktora
      *
-     * @param message A hibaüzenet
+     * @param id Az azonosító
      */
-    public EventReservationNotExistsException(String message) {
-        super(message);
+    public EventReservationNotExistsException(int id) {
+        super(String.format("Ilyen azonosítóval (%d) rendelkező foglalás nem létezik", id));
+    }
+    
+    /**
+     * Az osztály konstruktora
+     *
+     * @param name Az esemény neve
+     */
+    public EventReservationNotExistsException(String name) {
+        super(String.format("Ilyen névvel (%s) rendelkező foglalás nem létezik", name));
     }
 }

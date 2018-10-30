@@ -63,7 +63,7 @@ public class AuthorityServiceImpl implements AuthorityService {
         if (authorityRepository.findById(id) != null) {
             return authorityRepository.findById(id);
         } else {
-            throw new AuthorityNotExistsException(String.format("Ilyen azonosítóval (%d) rendelkező engedély nem létezik!", id));
+            throw new AuthorityNotExistsException(id);
         }
     }
 
@@ -102,7 +102,7 @@ public class AuthorityServiceImpl implements AuthorityService {
         if (authorityRepository.findByName(name) != null) {
             authorityRepository.removeByName(name);
         } else {
-            throw new AuthorityNotExistsException(String.format("Ilyen névvel (%s) rendelkező engedély nem létezik!", name));
+            throw new AuthorityNotExistsException(name);
         }
     }
 }

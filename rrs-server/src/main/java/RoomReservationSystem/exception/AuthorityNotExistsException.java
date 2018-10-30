@@ -10,9 +10,18 @@ public class AuthorityNotExistsException extends Exception {
     /**
      * Az osztály konstruktora
      *
-     * @param message A hibaüzenet
+     * @param id Az azonosító
      */
-    public AuthorityNotExistsException(String message) {
-        super(message);
+    public AuthorityNotExistsException(int id) {
+        super(String.format("Ilyen azonosítóval (%d) rendelkező engedély nem létezik!", id));
+    }
+    
+    /**
+     * Az osztály konstruktora
+     *
+     * @param name Az engedély neve
+     */
+    public AuthorityNotExistsException(String name) {
+        super(String.format("Ilyen névvel (%s) rendelkező engedély nem létezik!", name));
     }
 }

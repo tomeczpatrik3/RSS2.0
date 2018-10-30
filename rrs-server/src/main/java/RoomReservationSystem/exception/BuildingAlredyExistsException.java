@@ -10,9 +10,9 @@ public class BuildingAlredyExistsException extends Exception {
     /**
      * Az osztály konstruktora
      *
-     * @param message A hibaüzenet
+     * @param name Az épület neve
      */
-    public BuildingAlredyExistsException(String message) {
-        super(message);
+    public BuildingAlredyExistsException(String name) {
+        super(String.format("Már létezik ilyen névvel (%s) rendelkező épület!", name));
     }
 }

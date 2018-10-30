@@ -38,7 +38,7 @@ public class SubjectServiceImpl implements SubjectService {
         if (subjectRepository.findByCode(subject.getCode()) == null) {
             return subjectRepository.save(subject);
         } else {
-            throw new SubjectAlredyExistsException(String.format("Ilyen kóddal (%s) rendelkező tantárgy már létezik!", subject.getCode()));
+            throw new SubjectAlredyExistsException(subject.getCode());
         }
     }
 
@@ -53,7 +53,7 @@ public class SubjectServiceImpl implements SubjectService {
     @Override
     public Subject update(int id, Subject subject) throws SubjectNotExistsException {
         if (subjectRepository.findById(id) == null) {
-            throw new SubjectNotExistsException(String.format("Ilyen azonosítóval (%d) rendelkező tantárgy nem létezik!", id));
+            throw new SubjectNotExistsException(id);
         } else {
             subject.setId(id);
             return subjectRepository.save(subject);
@@ -71,7 +71,7 @@ public class SubjectServiceImpl implements SubjectService {
         if (subjectRepository.findByCode(code) != null) {
             subjectRepository.deleteByCode(code);
         } else {
-            throw new SubjectNotExistsException(String.format("Ilyen kóddal (%s) rendelkező tantárgy nem létezik!", code));
+            throw new SubjectNotExistsException(code);
         }
     }
 
@@ -98,7 +98,7 @@ public class SubjectServiceImpl implements SubjectService {
         if (found != null) {
             return found;
         } else {
-            throw new SubjectNotExistsException(String.format("Ilyen azonosítóval (%d) rendelkező tantárgy nem létezik!", id));
+            throw new SubjectNotExistsException(id);
         }
     }
 
@@ -126,7 +126,7 @@ public class SubjectServiceImpl implements SubjectService {
         if (found != null) {
             return found;
         } else {
-            throw new SubjectNotExistsException(String.format("Ilyen kóddal (%s) rendelkező tantárgy nem létezik!", code));
+            throw new SubjectNotExistsException(code);
         }
     }
 
