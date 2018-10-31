@@ -261,6 +261,21 @@ public class ClassReservationServiceImpl implements ClassReservationService {
     }
 
     /**
+     * Egy adott azonosítóhoz tartozó foglalás törlése
+     *
+     * @param id Az azonosító
+     * @throws ClassReservationNotExistsException
+     */
+    @Override
+    public void deleteById(int id) throws ClassReservationNotExistsException {
+        if (repository.findById(id) != null) {
+            repository.deleteById(id);
+        } else {
+            throw new ClassReservationNotExistsException(id);
+        }
+    }
+
+    /**
      * Egy adott felhasználóhoz tartozó foglalások törlése
      *
      * @param username A felhasználónév

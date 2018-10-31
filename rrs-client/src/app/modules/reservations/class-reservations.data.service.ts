@@ -108,6 +108,14 @@ export class ClassReservationsDataService {
   }
 
   /**
+   * Az azonosító alapján történő törlésért felelős függvény
+   * @param id Az azonosító
+   */
+  deleteById(id: number): Observable<any> {
+    return this.api.deleteById(id);
+  }
+
+  /**
    * A felhasználónév alapján történő törlésért felelős függvény
    * @param username A felhasználónév
    */

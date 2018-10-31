@@ -41,6 +41,8 @@ public interface EventReservationService {
     boolean existsById(int id);
 
     boolean existsByName(String name);
+    
+    void deleteById(int id) throws EventReservationNotExistsException;
 
     void deleteByUsername(String username) throws UserNotExistsException;
 

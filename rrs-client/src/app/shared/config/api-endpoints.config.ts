@@ -48,6 +48,7 @@ export class ApiEndpoints {
   static CLASS_RESERVATION_SET_STATUS: string = "classReservation/setStatus";
   static CLASS_RESERVATION_CREATE_RESERVATION: string =
     "classReservation/createReservation";
+  static CLASS_RESERVATION_DELETE_BY_ID: string = "classReservation/deleteById";
   static CLASS_RESERVATION_DELETE_BY_USERNAME: string =
     "classReservation/deleteByUsername";
   static CLASS_RESERVATION_DELETE_BY_BUILDING_AND_CLASSROOM: string =
@@ -77,6 +78,7 @@ export class ApiEndpoints {
   static EVENT_RESERVATION_SET_STATUS: string = "eventReservation/setStatus";
   static EVENT_RESERVATION_CREATE_RESERVATION: string =
     "eventReservation/createReservation";
+  static EVENT_RESERVATION_DELETE_BY_ID: string = "eventReservation/deleteById";
   static EVENT_RESERVATION_DELETE_BY_USERNAME: string =
     "eventReservation/deleteByUsername";
   static EVENT_RESERVATION_DELETE_BY_BUILDING_AND_CLASSROOM: string =

@@ -29,6 +29,8 @@ import static RoomReservationSystem.util.ExceptionUtils.handleException;
 import static RoomReservationSystem.util.ValidationUtils.concatErrors;
 import RoomReservationSystem.validation.BaseReservationValidator;
 import RoomReservationSystem.validation.ClassReservationValidator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
@@ -252,6 +254,24 @@ public class ClassReservationApiController extends ReservationApiController {
             }
         } else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
+        }
+    }
+    
+    /**
+     * A függvény ami törli az adott azonosítóhoz tartozó foglalásokat
+     *
+     * @param id Az azonosító
+     * @return A megfelelő válasz entitás
+     */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @DeleteMapping("/deleteById")
+    @Override
+    public ResponseEntity deleteById(@RequestParam(value = "id", required = true) int id) {
+        try {
+            classService.deleteById(id);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (ClassReservationNotExistsException ex) {
+            return handleException(ex);
         }
     }
 

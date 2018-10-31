@@ -39,8 +39,7 @@ export class EditEventReservationFormComponent implements OnInit {
   onSubmit() {
     this.eventReservationService
       .update(this.reservationID, this.model)
-      .subscribe(result => console.log(result));
-    this.submitEvent.next(true);
+      .subscribe(result => this.submitEvent.next(true));
   }
 
   /**
@@ -48,5 +47,14 @@ export class EditEventReservationFormComponent implements OnInit {
    */
   onExit() {
     this.submitEvent.next(false);
+  }
+
+  /**
+   * A törlésért felelős függvény
+   */
+  onDelete() {
+    this.eventReservationService
+      .deleteById(this.reservationID)
+      .subscribe(result => this.submitEvent.next(true));
   }
 }

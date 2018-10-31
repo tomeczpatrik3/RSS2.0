@@ -1,11 +1,11 @@
-import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
-import { Subject } from '../../../../shared/models/Subject';
-import { SubjectsDataService } from '../../subjects.data.service';
+import { Component, OnInit, Output, Input, EventEmitter } from "@angular/core";
+import { Subject } from "../../../../shared/models/Subject";
+import { SubjectsDataService } from "../../subjects.data.service";
 
 @Component({
-  selector: 'app-edit-subject-form',
-  templateUrl: './edit-subject-form.component.html',
-  styleUrls: ['./edit-subject-form.component.css']
+  selector: "app-edit-subject-form",
+  templateUrl: "./edit-subject-form.component.html",
+  styleUrls: ["./edit-subject-form.component.css"]
 })
 export class EditSubjectFormComponent implements OnInit {
   /*A tantárgy azonosítója*/
@@ -35,8 +35,7 @@ export class EditSubjectFormComponent implements OnInit {
   onSubmit() {
     this.subjectService
       .update(this.model.id, this.model)
-      .subscribe(semester => console.log(semester));
-    this.submitEvent.next(true);
+      .subscribe(semester => this.submitEvent.next(true));
   }
 
   /**

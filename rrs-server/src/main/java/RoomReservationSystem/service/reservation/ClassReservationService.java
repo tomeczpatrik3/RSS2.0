@@ -40,6 +40,8 @@ public interface ClassReservationService {
     List<ClassReservation> findBySemester(String semester) throws SemesterNotExistsException;
 
     boolean existsById(int id);
+    
+    void deleteById(int id) throws ClassReservationNotExistsException;
 
     void deleteByUsername(String username) throws UserNotExistsException;
 

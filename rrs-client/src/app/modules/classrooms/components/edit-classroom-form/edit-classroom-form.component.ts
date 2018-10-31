@@ -35,8 +35,7 @@ export class EditClassroomFormComponent implements OnInit {
   onSubmit() {
     this.classroomService
       .update(this.model.id, this.model)
-      .subscribe(classroom => console.log(classroom));
-    this.submitEvent.next(true);
+      .subscribe(classroom => this.submitEvent.next(true));
   }
 
   /**

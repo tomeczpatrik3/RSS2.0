@@ -1,4 +1,4 @@
-package RoomReservationSystem.service.impl.reservation;
+package RoomReservationSystem.service.impl;
 
 import RoomReservationSystem.dto.reservation.ReservationEventDTO;
 import RoomReservationSystem.dto.reservation.ReservationInfoDTO;
@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import RoomReservationSystem.service.reservation.ReservationEventService;
+import RoomReservationSystem.service.EventService;
 
 /**
  * A kalendár eseményekkel kapcsolatos műveletekért felelős osztály
@@ -25,7 +25,7 @@ import RoomReservationSystem.service.reservation.ReservationEventService;
  * @author Tomecz Patrik
  */
 @Service
-public class ReservationEventServiceImpl implements ReservationEventService {
+public class EventServiceImpl implements EventService {
 
     @Autowired
     private ClassReservationService classRService;
@@ -45,7 +45,7 @@ public class ReservationEventServiceImpl implements ReservationEventService {
             events.addAll(generateEvents(classRService.findByStatus("ACCEPTED")));
             events.addAll(generateEvents(eventRService.findByStatus("ACCEPTED")));
         } catch (StatusNotExistsException ex) {
-            Logger.getLogger(ReservationEventServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EventServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return events;
     }

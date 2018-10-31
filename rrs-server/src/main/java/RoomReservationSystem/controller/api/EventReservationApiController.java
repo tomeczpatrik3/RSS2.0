@@ -249,6 +249,24 @@ public class EventReservationApiController extends ReservationApiController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
         }
     }
+    
+    /**
+     * A függvény ami törli az adott azonosítóhoz tartozó foglalásokat
+     *
+     * @param id Az azonosító
+     * @return A megfelelő válasz entitás
+     */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @DeleteMapping("/deleteById")
+    @Override
+    public ResponseEntity deleteById(@RequestParam(value = "id", required = true) int id) {
+        try {
+            eventService.deleteById(id);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (EventReservationNotExistsException ex) {
+            return handleException(ex);
+        }
+    }
 
     /**
      * A függvény ami törli az adott felhasználóhoz tartozó foglalásokat

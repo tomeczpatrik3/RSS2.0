@@ -1,4 +1,4 @@
-package RoomReservationSystem.service.reservation;
+package RoomReservationSystem.service;
 
 import RoomReservationSystem.dto.reservation.ReservationEventDTO;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author Tomecz Patrik
  */
-public interface ReservationEventService {
+public interface EventService {
 
     List<ReservationEventDTO> getEvents();
 

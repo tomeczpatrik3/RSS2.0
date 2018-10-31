@@ -1,0 +1,322 @@
+{
+	"info": {
+		"_postman_id": "157fc750-052b-4d32-9a32-1bb2a6ffc881",
+		"name": "EventTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getEvents()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d4f25a0a-e12f-4b28-9d5c-1835d97111d2",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Author",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{api}}/event/getEvents",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"event",
+						"getEvents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findByUserName()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d4f25a0a-e12f-4b28-9d5c-1835d97111d2",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Author",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{api}}/event/findByUserName?userName=Admin Jani",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"event",
+						"findByUserName"
+					],
+					"query": [
+						{
+							"key": "userName",
+							"value": "Admin Jani"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findByBuildingName()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d4f25a0a-e12f-4b28-9d5c-1835d97111d2",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Author",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{api}}/event/findByBuildingName?buildingName=ÉSZAKI",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"event",
+						"findByBuildingName"
+					],
+					"query": [
+						{
+							"key": "buildingName",
+							"value": "ÉSZAKI"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findByClassroomNameAndBuilding()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d4f25a0a-e12f-4b28-9d5c-1835d97111d2",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Author",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{api}}/event/findByClassroomNameAndBuilding?classroom=Harmónai terem&building=ÉSZAKI",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"event",
+						"findByClassroomNameAndBuilding"
+					],
+					"query": [
+						{
+							"key": "classroom",
+							"value": "Harmónai terem"
+						},
+						{
+							"key": "building",
+							"value": "ÉSZAKI"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findByEventName()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d4f25a0a-e12f-4b28-9d5c-1835d97111d2",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Author",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{api}}/event/findByEventName?eventName=Teszt Foglalás",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"event",
+						"findByEventName"
+					],
+					"query": [
+						{
+							"key": "eventName",
+							"value": "Teszt Foglalás"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findBySubjectName()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d4f25a0a-e12f-4b28-9d5c-1835d97111d2",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Author",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{api}}/event/findBySubjectName?subjectName=Analízis 1 EA",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"event",
+						"findBySubjectName"
+					],
+					"query": [
+						{
+							"key": "subjectName",
+							"value": "Analízis 1 EA"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findBySemesterName()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d4f25a0a-e12f-4b28-9d5c-1835d97111d2",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Author",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{api}}/event/findBySemesterName?semesterName=2017-2018/2",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"event",
+						"findBySemesterName"
+					],
+					"query": [
+						{
+							"key": "semesterName",
+							"value": "2017-2018/2"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

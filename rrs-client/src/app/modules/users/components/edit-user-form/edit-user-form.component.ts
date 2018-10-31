@@ -38,8 +38,7 @@ export class EditUserFormComponent implements OnInit {
   onSubmit() {
     this.userService
       .update(this.model.id, this.model)
-      .subscribe(semester => console.log(semester));
-    this.submitEvent.next(true);
+      .subscribe(semester => this.submitEvent.next(true));
   }
 
   /**

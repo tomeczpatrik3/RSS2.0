@@ -70,6 +70,14 @@ public abstract class ReservationApiController {
     public abstract ResponseEntity setStatus(@RequestParam(value = "id", required = true) int id, @RequestParam(value = "status", required = true) String status);
 
     /**
+     * A függvény ami törli az adott azonosítóhoz tartozó foglalásokat
+     *
+     * @param id Az azonosító
+     * @return A megfelelő válasz entitás
+     */
+    public abstract ResponseEntity deleteById(@RequestParam(value = "id", required = true) int id);
+
+    /**
      * A függvény ami törli az adott felhasználónévhez tartozó foglalásokat
      *
      * @param username A felhasználónév

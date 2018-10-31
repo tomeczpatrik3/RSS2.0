@@ -1,12 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Semester } from '../../../../shared/models/Semester';
-import { SemesterDataService } from '../../semesters.data.service';
-import { patterns } from '../../../../shared/utils/patterns';
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Semester } from "../../../../shared/models/Semester";
+import { SemesterDataService } from "../../semesters.data.service";
+import { patterns } from "../../../../shared/utils/patterns";
 
 @Component({
-  selector: 'app-edit-semester-form',
-  templateUrl: './edit-semester-form.component.html',
-  styleUrls: ['./edit-semester-form.component.css']
+  selector: "app-edit-semester-form",
+  templateUrl: "./edit-semester-form.component.html",
+  styleUrls: ["./edit-semester-form.component.css"]
 })
 export class EditSemesterFormComponent implements OnInit {
   /*A tanterem azonosítója*/
@@ -38,8 +38,7 @@ export class EditSemesterFormComponent implements OnInit {
   onSubmit() {
     this.semesterService
       .update(this.model.id, this.model)
-      .subscribe(semester => console.log(semester));
-    this.submitEvent.next(true);
+      .subscribe(semester => this.submitEvent.next(true));
   }
 
   /**

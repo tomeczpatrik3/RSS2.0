@@ -166,6 +166,19 @@ export class ClassReservationApiService {
   }
 
   /**
+   * Az azonosító alapján történő törlésért felelős függvény
+   * @param id Az azonosító
+   */
+  deleteById(id: number): Observable<any> {
+    return <Observable<any>>(
+      this.http.delete(
+        ApiEndpoints.getUrl(ApiEndpoints.CLASS_RESERVATION_DELETE_BY_ID) +
+          `?id=${id}`
+      )
+    );
+  }
+
+  /**
    * A felhasználónév alapján történő törlésért felelős függvény
    * @param username A felhasználónév
    */

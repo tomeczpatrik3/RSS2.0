@@ -248,6 +248,21 @@ public class EventReservationServiceImpl implements EventReservationService {
             throw new EventReservationNotExistsException(name);
         }
     }
+    
+    /**
+     * Egy adott azonosítóhoz tartozó foglalás törlése
+     *
+     * @param id Az azonosító
+     * @throws EventReservationNotExistsException
+     */
+    @Override
+    public void deleteById(int id) throws EventReservationNotExistsException {
+        if (repository.findById(id) != null) {
+            repository.deleteById(id);
+        } else {
+            throw new EventReservationNotExistsException(id);
+        }
+    }
 
     /**
      * Egy adott felhasználóhoz tartozó foglalások törlése
