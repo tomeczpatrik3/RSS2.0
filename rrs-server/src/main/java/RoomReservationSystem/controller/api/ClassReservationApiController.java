@@ -29,8 +29,6 @@ import static RoomReservationSystem.util.ExceptionUtils.handleException;
 import static RoomReservationSystem.util.ValidationUtils.concatErrors;
 import RoomReservationSystem.validation.BaseReservationValidator;
 import RoomReservationSystem.validation.ClassReservationValidator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 

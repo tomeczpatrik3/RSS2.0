@@ -128,7 +128,21 @@ public class ClassReservationServiceImpl implements ClassReservationService {
                     classReservationDTO.getNote() /*A foglaláshoz tartozó megjegyzés*/
             );
             converted.setId(id);
-            return repository.save(converted);
+            
+            //Az entitás mentése:
+            ClassReservation saved = repository.save(converted);
+            //A régi dátum(ok) törlése:
+            reservationDateService.deleteByReservation(saved);
+            //Az új dátumok előállítása:
+            List<ReservationDate> reservationDates = getReservationDates(saved, classReservationDTO.getStartDates(), classReservationDTO.getEndDates());
+            //Az új dátumok mentése:
+            reservationDates.forEach((date) -> {
+                reservationDateService.save(date);
+            });
+            //Az új dátumok beállítása a foglalás számára:
+            saved.setDateList(reservationDates);
+
+            return saved;
         }
     }
 

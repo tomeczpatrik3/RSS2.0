@@ -52,13 +52,13 @@ public abstract class Reservation extends BaseEntity {
 
     /*A felhasználó aki foglalt*/
     @JsonIgnore
-    @JoinColumn(name = "USERS", referencedColumnName = "ID")
+    @JoinColumn(name = "USER", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private User user;
 
     /*A foglalás státusza*/
     @JsonIgnore
-    @JoinColumn(name = "STATUSES", referencedColumnName = "ID")
+    @JoinColumn(name = "STATUS", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Status status;
 

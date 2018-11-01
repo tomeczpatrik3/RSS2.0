@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "1c5e7128-6cb2-40fd-8320-f7682081d0f6",
+		"_postman_id": "a8ef2d83-4e2c-47ac-b4b0-c05c39f35087",
 		"name": "ClassroomTest",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -12,7 +12,6 @@
 					"listen": "test",
 					"script": {
 						"id": "7a17430c-77c2-4fe4-a645-629e88ad7824",
-						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
 							"",
@@ -20,7 +19,8 @@
 							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
 							"",
 							"tests[\"A tantermek száma\"] = data.length === 34;"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -37,13 +37,112 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{api}}/classroom/",
+					"raw": "{{api}}/classroom/getAll",
 					"host": [
 						"{{api}}"
 					],
 					"path": [
 						"classroom",
-						""
+						"getAll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getNamesByBuilding()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7a17430c-77c2-4fe4-a645-629e88ad7824",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A tantermek száma\"] = data.length === 16;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/classroom/getNamesByBuilding?building=ÉSZAKI",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"classroom",
+						"getNamesByBuilding"
+					],
+					"query": [
+						{
+							"key": "building",
+							"value": "ÉSZAKI"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findById()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5ccd654-fa49-4306-a47f-dbfdc0ea5432",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A tanterem neve\"] = data.name === \"Bolyai János előadó\";",
+							"tests[\"Az épület neve\"] = data.building === \"DÉLI\";",
+							"tests[\"PC\"] = data.hasPC === false;",
+							"tests[\"Projektor\"] = data.hasProjector === true;",
+							"tests[\"A székek száma\"] = data.chairs === 300;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/classroom/findById/1",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"classroom",
+						"findById",
+						"1"
 					]
 				}
 			},
@@ -106,7 +205,6 @@
 					"listen": "test",
 					"script": {
 						"id": "8aaf36d2-4a62-4aa3-9f17-f2535bc0c5a4",
-						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
 							"",
@@ -114,7 +212,8 @@
 							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
 							"",
 							"tests[\"A tantermek száma\"] = data.length === 16;"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -145,13 +244,70 @@
 			"response": []
 		},
 		{
+			"name": "findByNameAndBuildingName()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3a83329a-9d29-43f4-b008-dffbc8f8a342",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A tanterem neve\"] = data.name === \"Gróh terem\";",
+							"tests[\"A tanteremben van-e PC\"] = data.hasPC === false;",
+							"tests[\"A tanteremben van-e projektor\"] = data.hasProjector === true;",
+							"tests[\"A tanteremben lévő székek száma\"] = data.chairs === 150;",
+							"tests[\"Az épület amiben a terem található\"] = data.building === \"ÉSZAKI\";"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/classroom/findByNameAndBuildingName?name=Groh Terem&buildingName=ESZAKI",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"classroom",
+						"findByNameAndBuildingName"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Groh Terem"
+						},
+						{
+							"key": "buildingName",
+							"value": "ESZAKI"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "findByHasPC(true)",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"id": "dbeede3d-bdf8-4dbd-9c88-152afb4c29f3",
-						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
 							"",
@@ -159,7 +315,8 @@
 							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
 							"",
 							"tests[\"A PC-vel rendelkező tantermek száma\"] = data.length === 12;"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -196,7 +353,6 @@
 					"listen": "test",
 					"script": {
 						"id": "90063453-fa5e-46ce-9d3d-0514daacc2b8",
-						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
 							"",
@@ -204,7 +360,8 @@
 							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
 							"",
 							"tests[\"A PC-vel nem rendelkező tantermek száma\"] = data.length === 22;"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -241,7 +398,6 @@
 					"listen": "test",
 					"script": {
 						"id": "c5fe8434-71d1-4420-935e-e086aa0db24a",
-						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
 							"",
@@ -249,7 +405,8 @@
 							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
 							"",
 							"tests[\"A projektorral nem rendelkező tantermek száma\"] = data.length === 0;"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -469,6 +626,214 @@
 			"response": []
 		},
 		{
+			"name": "existsById (TRUE)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5ccd654-fa49-4306-a47f-dbfdc0ea5432",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A visszatérési érték\"] = data === true;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/classroom/existsById?id=1",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"classroom",
+						"existsById"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "existsById (FALSE)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5ccd654-fa49-4306-a47f-dbfdc0ea5432",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A visszatérési érték\"] = data === false;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/classroom/existsById?id=9999",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"classroom",
+						"existsById"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "9999"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "existsByNameAndBuilding (TRUE)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5ccd654-fa49-4306-a47f-dbfdc0ea5432",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A visszatérési érték\"] = data === true;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/classroom/existsByNameAndBuilding?name=00-725&building=DÉLI",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"classroom",
+						"existsByNameAndBuilding"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "00-725"
+						},
+						{
+							"key": "building",
+							"value": "DÉLI"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "existsByNameAndBuilding (FALSE)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5ccd654-fa49-4306-a47f-dbfdc0ea5432",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A visszatérési érték\"] = data === false;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/classroom/existsByNameAndBuilding?name=Ilyen terem nincs&building=DÉLI",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"classroom",
+						"existsByNameAndBuilding"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Ilyen terem nincs"
+						},
+						{
+							"key": "building",
+							"value": "DÉLI"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "createClassroom()",
 			"event": [
 				{
@@ -521,21 +886,77 @@
 			"response": []
 		},
 		{
+			"name": "update()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8901a7bb-0f17-410c-a570-3c6cebd6150b",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 201;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A tanterem neve\"] = data.name === \"Teszt terem\";",
+							"tests[\"A tanteremben van-e PC\"] = data.hasPC === false;",
+							"tests[\"A tanteremben van-e projektor\"] = data.hasProjector === true;",
+							"tests[\"A tanteremben lévő székek száma\"] = data.chairs === 50;",
+							"tests[\"Az épület amiben a tanterem található\"] = data.building === \"DÉLI\";",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Teszt terem\",\n    \"hasPC\": false,\n    \"hasProjector\": true,\n    \"chairs\": 50,\n    \"building\": \"DÉLI\"\n}"
+				},
+				"url": {
+					"raw": "{{api}}/classroom/update/35",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"classroom",
+						"update",
+						"35"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "deleteByNameAndBuildingName()",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"id": "663b3c53-3aa1-4cc5-957d-3d43ea2a2532",
-						"type": "text/javascript",
 						"exec": [
 							"tests[\"A státusz kód 200\"] = responseCode.code === 200;"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
 			"request": {
-				"method": "POST",
+				"method": "DELETE",
 				"header": [
 					{
 						"key": "Authorization",
@@ -547,7 +968,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{api}}/classroom/deleteByNameAndBuildingName?roomName=Teszt terem&buildingName=DÉLI",
+					"raw": "{{api}}/classroom/deleteByNameAndBuildingName?name=Teszt terem&buildingName=DÉLI",
 					"host": [
 						"{{api}}"
 					],
@@ -557,70 +978,12 @@
 					],
 					"query": [
 						{
-							"key": "roomName",
+							"key": "name",
 							"value": "Teszt terem"
 						},
 						{
 							"key": "buildingName",
 							"value": "DÉLI"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "findByNameAndBuildingName()",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "3a83329a-9d29-43f4-b008-dffbc8f8a342",
-						"type": "text/javascript",
-						"exec": [
-							"var data = JSON.parse(responseBody);",
-							"",
-							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
-							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
-							"",
-							"tests[\"A tanterem neve\"] = data.name === \"Gróh terem\";",
-							"tests[\"A tanteremben van-e PC\"] = data.hasPC === false;",
-							"tests[\"A tanteremben van-e projektor\"] = data.hasProjector === true;",
-							"tests[\"A tanteremben lévő székek száma\"] = data.chairs === 150;",
-							"tests[\"Az épület amiben a terem található\"] = data.building === \"ÉSZAKI\";"
-						]
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "Bearer {{token}}"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{api}}/classroom/findByNameAndBuildingName?name=Groh Terem&buildingName=ESZAKI",
-					"host": [
-						"{{api}}"
-					],
-					"path": [
-						"classroom",
-						"findByNameAndBuildingName"
-					],
-					"query": [
-						{
-							"key": "name",
-							"value": "Groh Terem"
-						},
-						{
-							"key": "buildingName",
-							"value": "ESZAKI"
 						}
 					]
 				}

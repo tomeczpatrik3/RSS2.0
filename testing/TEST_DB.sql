@@ -1,4 +1,11 @@
-﻿SET FOREIGN_KEY_CHECKS = 0; 
+﻿/*
+A teszt inditása előtt:
+1: admin regisztrálása
+2: jogosultság kiosztása az adatbázisban
+3: tesztkörnyzete frissítése
+*/
+
+SET FOREIGN_KEY_CHECKS = 0; 
 
 TRUNCATE TABLE `roomreservationdb`.`users_authorities`;
 TRUNCATE TABLE `roomreservationdb`.`users`;
@@ -55,11 +62,11 @@ INSERT INTO `roomreservationdb`.`classrooms` (`id`, `chairs`, `has_pc`, `has_pro
 INSERT INTO `roomreservationdb`.`classrooms` (`id`, `chairs`, `has_pc`, `has_projector`, `name`, `building`) VALUES ('33', '25', 1, 1, '00-803/2 Programozási Nyelvi Labor/2', 2);
 INSERT INTO `roomreservationdb`.`classrooms` (`id`, `chairs`, `has_pc`, `has_projector`, `name`, `building`) VALUES ('34', '100', 1, 1, '00-807 Adatbázis labor', 2);
 
-INSERT INTO `roomreservationdb`.`semesters` (`id`, `end_date`, `name`, `start_date`) VALUES ('1', '2017-09-03', '2017-2018/1', '2018-02-02');
-INSERT INTO `roomreservationdb`.`semesters` (`id`, `end_date`, `name`, `start_date`) VALUES ('2', '2018-02-03', '2017-2018/2', '2018-09-02');
-INSERT INTO `roomreservationdb`.`semesters` (`id`, `end_date`, `name`, `start_date`) VALUES ('3', '2017-02-03', '2016-2017/2', '2017-09-02');
-INSERT INTO `roomreservationdb`.`semesters` (`id`, `end_date`, `name`, `start_date`) VALUES ('4', '2016-09-03', '2016-2017/1', '2017-02-02');
-INSERT INTO `roomreservationdb`.`semesters` (`id`, `end_date`, `name`, `start_date`) VALUES ('5', '2016-02-03', '2015-2016/2', '2016-09-02');
+INSERT INTO `roomreservationdb`.`semesters` (`id`, `start_date`, `name`, `end_date`) VALUES ('1', '2017-09-03', '2017-2018/1', '2018-02-02');
+INSERT INTO `roomreservationdb`.`semesters` (`id`, `start_date`, `name`, `end_date`) VALUES ('2', '2018-02-03', '2017-2018/2', '2018-09-02');
+INSERT INTO `roomreservationdb`.`semesters` (`id`, `start_date`, `name`, `end_date`) VALUES ('3', '2017-02-03', '2016-2017/2', '2017-09-02');
+INSERT INTO `roomreservationdb`.`semesters` (`id`, `start_date`, `name`, `end_date`) VALUES ('4', '2016-09-03', '2016-2017/1', '2017-02-02');
+INSERT INTO `roomreservationdb`.`semesters` (`id`, `start_date`, `name`, `end_date`) VALUES ('5', '2016-02-03', '2015-2016/2', '2016-09-02');
 
 INSERT INTO `roomreservationdb`.`subjects` (`id`, `code`, `name`) VALUES ('1', 'IP-08cAN1E', 'Analízis 1 EA');
 INSERT INTO `roomreservationdb`.`subjects` (`id`, `code`, `name`) VALUES ('2', 'IP-08cAN1G', 'Analízis 1 Gyakorlat');
@@ -86,15 +93,46 @@ INSERT INTO `roomreservationdb`.`subjects` (`id`, `code`, `name`) VALUES ('22', 
 INSERT INTO `roomreservationdb`.`subjects` (`id`, `code`, `name`) VALUES ('23', 'mikrobb18ea', 'Mikrobiológia EA');
 INSERT INTO `roomreservationdb`.`subjects` (`id`, `code`, `name`) VALUES ('24', 'mikrobb18la', 'Mikrobiológiai gyakorlat GY');
 
-INSERT INTO `roomreservationdb`.`users` (`id`, `email`, `name`, `password`, `username`) VALUES ('999', 'TESTING@TESTING.COM',	'TEST_USER', 'itsOnlyATest', 'TEST');
+INSERT INTO `roomreservationdb`.`users` (`id`, `email`, `name`, `password`, `username`) VALUES ('1', 'testing1@testing.com',	'Teszt Gábor', 'itsOnlyATest', 'tesztGabi');
+INSERT INTO `roomreservationdb`.`users` (`id`, `email`, `name`, `password`, `username`) VALUES ('2', 'testing2@testing.com',	'Teszt János', 'itsOnlyATest', 'tesztJani');
 
-/*
--- admin - admin
-INSERT INTO `roomreservationdb`.`users` (`id`, `email`, `name`, `password`, `username`) VALUES ('1', 'admin@admin.com',	'ADMIN', '$2a$10$I2RfKrz8AonAKpxm.8OWS.AWnIg7iwnay81awm3AB0lotLlDOXMZm', 'admin');
+INSERT INTO `roomreservationdb`.`reservations` (`reservation_type`, `id`, `note`, `name`, `classroom`, `status`, `user`, `semester`, `subject`) VALUES ('CLASS',1,'Analízis 1 EA foglalás','',13,1,1,1,1);
+INSERT INTO `roomreservationdb`.`reservations` (`reservation_type`, `id`, `note`, `name`, `classroom`, `status`, `user`, `semester`, `subject`) VALUES ('CLASS',2,'Analízis 2 Gyakorlat','',17,2,2,2,4);
+INSERT INTO `roomreservationdb`.`reservations` (`reservation_type`, `id`, `note`, `name`, `classroom`, `status`, `user`, `semester`, `subject`) VALUES ('CLASS',3,'Kémbiz','',7,3,2,2,10);
+INSERT INTO `roomreservationdb`.`reservations` (`reservation_type`, `id`, `note`, `name`, `classroom`, `status`, `user`, `semester`, `subject`) VALUES ('EVENT',4,'Ez egy teszt','Teszt esemény',11,1,1,null, null);
 
-INSERT INTO `roomreservationdb`.`users_authorities` (`authority_id`, `user_id`) VALUES ('1', '1');
-INSERT INTO `roomreservationdb`.`users_authorities` (`authority_id`, `user_id`) VALUES ('2', '1');
-INSERT INTO `roomreservationdb`.`users_authorities` (`authority_id`, `user_id`) VALUES ('3', '1');
-*/
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (1,'2018-10-01 11:45:00','2018-10-01 10:15:00',1);
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (2,'2018-10-02 21:00:00','2018-10-02 19:45:00',2);
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (3,'2018-02-09 14:00:00','2018-02-09 10:15:00',3);
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (4,'2018-02-16 14:00:00','2018-02-16 10:15:00',3);
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (5,'2018-02-23 14:00:00','2018-02-23 10:15:00',3);
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (6,'2018-03-02 14:00:00','2018-03-02 10:15:00',3);
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (7,'2018-03-09 14:00:00','2018-03-09 10:15:00',3);
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (8,'2018-03-16 14:00:00','2018-03-16 10:15:00',3);
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (9,'2018-03-23 14:00:00','2018-03-23 10:15:00',3);
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (10,'2018-03-30 14:00:00','2018-03-30 10:15:00',3);
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (11,'2018-04-06 14:00:00','2018-04-06 10:15:00',3);
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (12,'2018-04-13 14:00:00','2018-04-13 10:15:00',3);
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (13,'2018-04-20 14:00:00','2018-04-20 10:15:00',3);
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (14,'2018-04-27 14:00:00','2018-04-27 10:15:00',3);
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (15,'2018-05-04 14:00:00','2018-05-04 10:15:00',3);
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (16,'2018-05-11 14:00:00','2018-05-11 10:15:00',3);
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (17,'2018-05-18 14:00:00','2018-05-18 10:15:00',3);
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (18,'2018-05-25 14:00:00','2018-05-25 10:15:00',3);
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (19,'2018-06-01 14:00:00','2018-06-01 10:15:00',3);
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (20,'2018-06-08 14:00:00','2018-06-08 10:15:00',3);
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (21,'2018-06-15 14:00:00','2018-06-15 10:15:00',3);
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (22,'2018-06-22 14:00:00','2018-06-22 10:15:00',3);
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (23,'2018-06-29 14:00:00','2018-06-29 10:15:00',3);
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (24,'2018-07-06 14:00:00','2018-07-06 10:15:00',3);
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (25,'2018-07-13 14:00:00','2018-07-13 10:15:00',3);
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (26,'2018-07-20 14:00:00','2018-07-20 10:15:00',3);
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (27,'2018-07-27 14:00:00','2018-07-27 10:15:00',3);
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (28,'2018-08-03 14:00:00','2018-08-03 10:15:00',3);
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (29,'2018-08-10 14:00:00','2018-08-10 10:15:00',3);
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (30,'2018-08-17 14:00:00','2018-08-17 10:15:00',3);
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (31,'2018-08-24 14:00:00','2018-08-24 10:15:00',3);
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (32,'2018-08-31 14:00:00','2018-08-31 10:15:00',3);
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (33,'2018-10-04 19:00:00','2018-10-04 17:45:00',4);
 
 SET FOREIGN_KEY_CHECKS = 1; 

@@ -264,42 +264,6 @@ public class ClassroomApiController {
     }
 
     /**
-     * A függvény ami firssíti a megfelelő termet
-     *
-     * @param classroomDTO A terem
-     * @param bindingResult A BindingResult objektum
-     * @return A megfelelő válasz entitás
-     */
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @PostMapping("/updateClassroom")
-    public ResponseEntity updateClassroom(@RequestBody ClassroomDTO classroomDTO, BindingResult bindingResult) {
-        classroomValidator.validate(classroomDTO, bindingResult);
-        if (bindingResult.hasErrors()
-                && bindingResult.getErrorCount() == 1
-                && bindingResult.getFieldError("name") != null) {
-
-            try {
-                classroomService.deleteByNameAndBuildingName(
-                        classroomDTO.getName(),
-                        classroomDTO.getBuilding()
-                );
-
-                Classroom saved = classroomService.save(toClassroom(
-                        classroomDTO,
-                        buildingService.findByName(classroomDTO.getBuilding())
-                ));
-
-                return ResponseEntity.status(HttpStatus.CREATED).body(toClassroomDTO(saved));
-            } catch (ClassroomAlredyExistsException | ClassroomNotExistsException | BuildingNotExistsException | NullPointerException ex) {
-                return handleException(ex);
-            }
-
-        } else {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
-        }
-    }
-
-    /**
      * A függvény ami visszaadja, hogy létezik-e az adott azonosítóhoz tartozó
      * entitás
      *

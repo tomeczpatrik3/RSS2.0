@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "157fc750-052b-4d32-9a32-1bb2a6ffc881",
+		"_postman_id": "dac1ac9b-06bf-4e1d-828a-3802996c54b7",
 		"name": "EventTest",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -12,13 +12,17 @@
 					"listen": "test",
 					"script": {
 						"id": "d4f25a0a-e12f-4b28-9d5c-1835d97111d2",
-						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
 							"",
 							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
-							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";"
-						]
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"Az események száma\"] = data.length === 2;",
+							"tests[\"A lista tartalmazza a 'ÉSZAKI - Jánossy Lajos terem: Analízis 1 EA'-t\"] = (responseBody.has(\"ÉSZAKI - Jánossy Lajos terem: Analízis 1 EA\"));",
+							"tests[\"A lista tartalmazza a 'DÉLI - Gallai Tibor terem: Teszt esemény'-t\"] = (responseBody.has(\"DÉLI - Gallai Tibor terem: Teszt esemény\"));"
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -30,7 +34,10 @@
 						"value": "Bearer {{token}}"
 					}
 				],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "{{api}}/event/getEvents",
 					"host": [
@@ -51,13 +58,17 @@
 					"listen": "test",
 					"script": {
 						"id": "d4f25a0a-e12f-4b28-9d5c-1835d97111d2",
-						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
 							"",
 							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
-							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";"
-						]
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"Az események száma\"] = data.length === 2;",
+							"tests[\"A lista tartalmazza a 'ÉSZAKI - Jánossy Lajos terem: Analízis 1 EA'-t\"] = (responseBody.has(\"ÉSZAKI - Jánossy Lajos terem: Analízis 1 EA\"));",
+							"tests[\"A lista tartalmazza a 'DÉLI - Gallai Tibor terem: Teszt esemény'-t\"] = (responseBody.has(\"DÉLI - Gallai Tibor terem: Teszt esemény\"));"
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -69,9 +80,12 @@
 						"value": "Bearer {{token}}"
 					}
 				],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
-					"raw": "{{api}}/event/findByUserName?userName=Admin Jani",
+					"raw": "{{api}}/event/findByUserName?userName=Teszt Gábor",
 					"host": [
 						"{{api}}"
 					],
@@ -82,7 +96,7 @@
 					"query": [
 						{
 							"key": "userName",
-							"value": "Admin Jani"
+							"value": "Teszt Gábor"
 						}
 					]
 				}
@@ -96,13 +110,16 @@
 					"listen": "test",
 					"script": {
 						"id": "d4f25a0a-e12f-4b28-9d5c-1835d97111d2",
-						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
 							"",
 							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
-							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";"
-						]
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"Az események száma\"] = data.length === 1;",
+							"tests[\"A lista tartalmazza a 'ÉSZAKI - Jánossy Lajos terem: Analízis 1 EA'-t\"] = (responseBody.has(\"ÉSZAKI - Jánossy Lajos terem: Analízis 1 EA\"));"
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -114,7 +131,10 @@
 						"value": "Bearer {{token}}"
 					}
 				],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "{{api}}/event/findByBuildingName?buildingName=ÉSZAKI",
 					"host": [
@@ -141,13 +161,16 @@
 					"listen": "test",
 					"script": {
 						"id": "d4f25a0a-e12f-4b28-9d5c-1835d97111d2",
-						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
 							"",
 							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
-							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";"
-						]
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"Az események száma\"] = data.length === 1;",
+							"tests[\"A lista tartalmazza a 'DÉLI - Gallai Tibor terem: Teszt esemény'-t\"] = (responseBody.has(\"DÉLI - Gallai Tibor terem: Teszt esemény\"));"
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -159,9 +182,12 @@
 						"value": "Bearer {{token}}"
 					}
 				],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
-					"raw": "{{api}}/event/findByClassroomNameAndBuilding?classroom=Harmónai terem&building=ÉSZAKI",
+					"raw": "{{api}}/event/findByClassroomNameAndBuilding?classroom=Gallai Tibor terem&building=DÉLI",
 					"host": [
 						"{{api}}"
 					],
@@ -172,11 +198,11 @@
 					"query": [
 						{
 							"key": "classroom",
-							"value": "Harmónai terem"
+							"value": "Gallai Tibor terem"
 						},
 						{
 							"key": "building",
-							"value": "ÉSZAKI"
+							"value": "DÉLI"
 						}
 					]
 				}
@@ -190,13 +216,16 @@
 					"listen": "test",
 					"script": {
 						"id": "d4f25a0a-e12f-4b28-9d5c-1835d97111d2",
-						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
 							"",
 							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
-							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";"
-						]
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"Az események száma\"] = data.length === 1;",
+							"tests[\"A lista tartalmazza a 'DÉLI - Gallai Tibor terem: Teszt esemény'-t\"] = (responseBody.has(\"DÉLI - Gallai Tibor terem: Teszt esemény\"));"
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -208,9 +237,12 @@
 						"value": "Bearer {{token}}"
 					}
 				],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
-					"raw": "{{api}}/event/findByEventName?eventName=Teszt Foglalás",
+					"raw": "{{api}}/event/findByEventName?eventName=Teszt esemény",
 					"host": [
 						"{{api}}"
 					],
@@ -221,7 +253,7 @@
 					"query": [
 						{
 							"key": "eventName",
-							"value": "Teszt Foglalás"
+							"value": "Teszt esemény"
 						}
 					]
 				}
@@ -235,13 +267,16 @@
 					"listen": "test",
 					"script": {
 						"id": "d4f25a0a-e12f-4b28-9d5c-1835d97111d2",
-						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
 							"",
 							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
-							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";"
-						]
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"Az események száma\"] = data.length === 1;",
+							"tests[\"A lista tartalmazza a 'ÉSZAKI - Jánossy Lajos terem: Analízis 1 EA'-t\"] = (responseBody.has(\"ÉSZAKI - Jánossy Lajos terem: Analízis 1 EA\"));"
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -253,7 +288,10 @@
 						"value": "Bearer {{token}}"
 					}
 				],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "{{api}}/event/findBySubjectName?subjectName=Analízis 1 EA",
 					"host": [
@@ -280,13 +318,16 @@
 					"listen": "test",
 					"script": {
 						"id": "d4f25a0a-e12f-4b28-9d5c-1835d97111d2",
-						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
 							"",
 							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
-							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";"
-						]
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"Az események száma\"] = data.length === 1;",
+							"tests[\"A lista tartalmazza a 'ÉSZAKI - Jánossy Lajos terem: Analízis 1 EA'-t\"] = (responseBody.has(\"ÉSZAKI - Jánossy Lajos terem: Analízis 1 EA\"));"
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -298,9 +339,12 @@
 						"value": "Bearer {{token}}"
 					}
 				],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
-					"raw": "{{api}}/event/findBySemesterName?semesterName=2017-2018/2",
+					"raw": "{{api}}/event/findBySemesterName?semesterName=2017-2018/1",
 					"host": [
 						"{{api}}"
 					],
@@ -311,7 +355,7 @@
 					"query": [
 						{
 							"key": "semesterName",
-							"value": "2017-2018/2"
+							"value": "2017-2018/1"
 						}
 					]
 				}

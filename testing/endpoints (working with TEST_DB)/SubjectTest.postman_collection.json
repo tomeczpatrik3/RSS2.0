@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "167621d0-6980-48cf-b29e-d5449ede4102",
+		"_postman_id": "eaa97744-a2a2-45c0-a1f0-80584ab6f870",
 		"name": "SubjectTest",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -12,7 +12,6 @@
 					"listen": "test",
 					"script": {
 						"id": "3dd9472f-803a-47ef-b871-ad3e5d5c6664",
-						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
 							"",
@@ -20,7 +19,8 @@
 							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
 							"",
 							"tests[\"A tantárgyak száma\"] = data.length === 24;"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -37,13 +37,13 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{api}}/subject/",
+					"raw": "{{api}}/subject/getAll",
 					"host": [
 						"{{api}}"
 					],
 					"path": [
 						"subject",
-						""
+						"getAll"
 					]
 				}
 			},
@@ -88,6 +88,302 @@
 					"path": [
 						"subject",
 						"getSubjectNames"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getSubjectName()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "36025e29-a0fe-400e-b97c-e0f879023d84",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A tantárgy neve\"] = data.name === \"Vektorszámítás\";"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/subject/getSubjectName?subjectCode=vektorf17ea",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"subject",
+						"getSubjectName"
+					],
+					"query": [
+						{
+							"key": "subjectCode",
+							"value": "vektorf17ea"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findById()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5ccd654-fa49-4306-a47f-dbfdc0ea5432",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A tantárgy neve\"] = data.name === \"Analízis 1 EA\";",
+							"tests[\"A tantárgy kódja\"] = data.code === \"IP-08cAN1E\";"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/subject/findById/1",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"subject",
+						"findById",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "existsById (TRUE)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5ccd654-fa49-4306-a47f-dbfdc0ea5432",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A visszatérési érték\"] = data === true;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/subject/existsById?id=1",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"subject",
+						"existsById"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "existsById (FALSE)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5ccd654-fa49-4306-a47f-dbfdc0ea5432",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A visszatérési érték\"] = data === false;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/subject/existsById?id=9999",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"subject",
+						"existsById"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "9999"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "existsByCode (TRUE)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5ccd654-fa49-4306-a47f-dbfdc0ea5432",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A visszatérési érték\"] = data === true;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/subject/existsByCode?code=mikrobb18ea",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"subject",
+						"existsByCode"
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "mikrobb18ea"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "existsByCode (FALSE)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5ccd654-fa49-4306-a47f-dbfdc0ea5432",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A visszatérési érték\"] = data === false;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/subject/existsByCode?code=nincsilyenkod",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"subject",
+						"existsByCode"
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "nincsilyenkod"
+						}
 					]
 				}
 			},
@@ -143,21 +439,72 @@
 			"response": []
 		},
 		{
+			"name": "update()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8901a7bb-0f17-410c-a570-3c6cebd6150b",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 201;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A tantárgy neve\"] = data.name === \"Teszt módosított tantárgy\";"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Teszt módosított tantárgy\",\n\t\"code\": \"test01\"\n}"
+				},
+				"url": {
+					"raw": "{{api}}/subject/update/25",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"subject",
+						"update",
+						"25"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "deleteByCode()",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"id": "3f3c7dc4-c76c-49f4-8596-d7f49ca1952a",
-						"type": "text/javascript",
 						"exec": [
 							"tests[\"A státusz kód 200\"] = responseCode.code === 200;"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
 			"request": {
-				"method": "POST",
+				"method": "DELETE",
 				"header": [
 					{
 						"key": "Authorization",
@@ -169,7 +516,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{api}}/subject/deleteByCode?code=test01",
+					"raw": "{{api}}/subject/deleteByCode?subjectCode=test01",
 					"host": [
 						"{{api}}"
 					],
@@ -179,7 +526,7 @@
 					],
 					"query": [
 						{
-							"key": "code",
+							"key": "subjectCode",
 							"value": "test01"
 						}
 					]

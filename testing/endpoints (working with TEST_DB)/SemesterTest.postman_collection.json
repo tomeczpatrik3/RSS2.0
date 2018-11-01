@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "42707ab4-9156-4013-bdbe-65e33431d10d",
+		"_postman_id": "2e27ec0b-564c-46b6-a2ef-0bda3269f9e5",
 		"name": "SemesterTest",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -12,15 +12,20 @@
 					"listen": "test",
 					"script": {
 						"id": "57ef6060-af66-45fc-ad25-643b6bc34291",
-						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
 							"",
 							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
 							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
 							"",
-							"tests[\"A szemeszterek száma\"] = data.length === 5;"
-						]
+							"tests[\"A szemeszterek száma\"] = data.length === 5;",
+							"tests[\"A lista tartalmazza a 2017-2018/1-t\"] = (responseBody.has(\"2017-2018/1\"));",
+							"tests[\"A lista tartalmazza a 2017-2018/2-t\"] = (responseBody.has(\"2017-2018/2\"));",
+							"tests[\"A lista tartalmazza a 2016-2017/2-t\"] = (responseBody.has(\"2016-2017/2\"));",
+							"tests[\"A lista tartalmazza a 2016-2017/2-t\"] = (responseBody.has(\"2016-2017/2\"));",
+							"tests[\"A lista tartalmazza a 2015-2016/2-t\"] = (responseBody.has(\"2015-2016/2\"));"
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -37,13 +42,13 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{api}}/semester/",
+					"raw": "{{api}}/semester/getAll",
 					"host": [
 						"{{api}}"
 					],
 					"path": [
 						"semester",
-						""
+						"getAll"
 					]
 				}
 			},
@@ -56,15 +61,20 @@
 					"listen": "test",
 					"script": {
 						"id": "9ff8a3ba-d5af-4b94-a8ea-535cb5fa095a",
-						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
 							"",
 							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
 							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
 							"",
-							"tests[\"A szemeszterek neveinek száma\"] = data.length === 5;"
-						]
+							"tests[\"A szemeszterek neveinek száma\"] = data.length === 5;",
+							"tests[\"A lista tartalmazza a 2017-2018/1-t\"] = (responseBody.has(\"2017-2018/1\"));",
+							"tests[\"A lista tartalmazza a 2017-2018/2-t\"] = (responseBody.has(\"2017-2018/2\"));",
+							"tests[\"A lista tartalmazza a 2016-2017/2-t\"] = (responseBody.has(\"2016-2017/2\"));",
+							"tests[\"A lista tartalmazza a 2016-2017/2-t\"] = (responseBody.has(\"2016-2017/2\"));",
+							"tests[\"A lista tartalmazza a 2015-2016/2-t\"] = (responseBody.has(\"2015-2016/2\"));"
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -89,6 +99,305 @@
 						"semester",
 						"getSemesterNames",
 						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findByName()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5ccd654-fa49-4306-a47f-dbfdc0ea5432",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"Az szemeszter neve\"] = data.name === \"2016-2017/1\";",
+							"tests[\"Az szemeszter kezdete\"] = data.startDate === \"2016-09-03\";",
+							"tests[\"Az szemeszter vége\"] = data.endDate === \"2017-02-02\";"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/semester/findByName?name=2016-2017/1",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"semester",
+						"findByName"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "2016-2017/1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findById()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5ccd654-fa49-4306-a47f-dbfdc0ea5432",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"Az szemeszter neve\"] = data.name === \"2017-2018/1\";",
+							"tests[\"Az szemeszter kezdete\"] = data.startDate === \"2017-09-03\";",
+							"tests[\"Az szemeszter vége\"] = data.endDate === \"2018-02-02\";"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/semester/findById/1",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"semester",
+						"findById",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "existsById (TRUE)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5ccd654-fa49-4306-a47f-dbfdc0ea5432",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A visszatérési érték\"] = data === true;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/semester/existsById?id=1",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"semester",
+						"existsById"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "existsById (FALSE)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5ccd654-fa49-4306-a47f-dbfdc0ea5432",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A visszatérési érték\"] = data === false;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/semester/existsById?id=9999",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"semester",
+						"existsById"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "9999"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "existsByName (TRUE)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5ccd654-fa49-4306-a47f-dbfdc0ea5432",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A visszatérési érték\"] = data === true;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/semester/existsByName?name=2017-2018/2",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"semester",
+						"existsByName"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "2017-2018/2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "existsByName (FALSE)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5ccd654-fa49-4306-a47f-dbfdc0ea5432",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A visszatérési érték\"] = data === false;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/semester/existsByName?name=NEM LETEZIK",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"semester",
+						"existsByName"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "NEM LETEZIK"
+						}
 					]
 				}
 			},
@@ -146,21 +455,74 @@
 			"response": []
 		},
 		{
+			"name": "update()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8901a7bb-0f17-410c-a570-3c6cebd6150b",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 201;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A szemeszter neve\"] = data.name === \"2012-2013/1\";",
+							"tests[\"A szemeszter kezdeti dátuma\"] = data.startDate === \"Fri Sep 03 00:00:00 CEST 2010\";",
+							"tests[\"A szemeszter befejezési dátuma\"] = data.endDate === \"Wed Feb 02 00:00:00 CET 2011\";"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"2012-2013/1\",\n\t\"startDate\": \"2010-09-03\",\n\t\"endDate\": \"2011-02-02\"\n}"
+				},
+				"url": {
+					"raw": "{{api}}/semester/update/6",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"semester",
+						"update",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "deleteByName()",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"id": "32204624-137a-40c8-b942-5547f76bd311",
-						"type": "text/javascript",
 						"exec": [
 							"tests[\"A státusz kód 200\"] = responseCode.code === 200;"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
 			"request": {
-				"method": "POST",
+				"method": "DELETE",
 				"header": [
 					{
 						"key": "Authorization",

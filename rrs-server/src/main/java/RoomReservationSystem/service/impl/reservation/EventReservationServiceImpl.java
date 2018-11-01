@@ -87,9 +87,9 @@ public class EventReservationServiceImpl implements EventReservationService {
                 getTimestamp(eventReservationDTO.getEndDate())
         );
 
-        reservationDateService.save(rDate);
+        ReservationDate saved = reservationDateService.save(rDate);
 
-        reservation.setDateList(Arrays.asList(rDate));
+        reservation.setDateList(Arrays.asList(saved));
 
         return reservation;
     }
@@ -124,7 +124,23 @@ public class EventReservationServiceImpl implements EventReservationService {
                     eventReservationDTO.getNote() /*A foglaláshoz tartozó megjegyzés*/
             );
             converted.setId(id);
-            return repository.save(converted);
+
+            //Az entitás mentése:
+            EventReservation saved = repository.save(converted);
+            //A régi dátum(ok) törlése:
+            reservationDateService.deleteByReservation(saved);
+            //Az új dátumok előállítása:
+            ReservationDate rDate = new ReservationDate(
+                    saved,
+                    getTimestamp(eventReservationDTO.getStartDate()),
+                    getTimestamp(eventReservationDTO.getEndDate())
+            );
+            //Az új dátumok mentése:
+            ReservationDate savedRDate = reservationDateService.save(rDate);
+            //Az új dátumok beállítása a foglalás számára:
+            saved.setDateList(Arrays.asList(savedRDate));
+
+            return saved;
         }
     }
 
@@ -248,7 +264,7 @@ public class EventReservationServiceImpl implements EventReservationService {
             throw new EventReservationNotExistsException(name);
         }
     }
-    
+
     /**
      * Egy adott azonosítóhoz tartozó foglalás törlése
      *

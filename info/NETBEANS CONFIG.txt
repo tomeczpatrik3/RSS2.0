@@ -1,0 +1,3 @@
+1: Maven letöltése, kicsomagolása
+2: Netbeans --> Tools --> Options --> Java --> Maven --> Kicsomagolt verzió kiválasztása
+3: rrs-server --> properties --> actions --> profile kiválasztása --> run project beállítása

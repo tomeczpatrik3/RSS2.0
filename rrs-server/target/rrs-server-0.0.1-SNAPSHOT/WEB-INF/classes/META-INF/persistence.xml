@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="rrs_RoomReservationSystem_jar_0.0.1-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <class>RoomReservationSystem.model.UsersAuthorities</class>
+    <class>RoomReservationSystem.model.Authority</class>
+    <class>RoomReservationSystem.model.Classroom</class>
+    <class>RoomReservationSystem.model.Subject</class>
+    <class>RoomReservationSystem.model.User</class>
+    <class>RoomReservationSystem.model.Building</class>
+    <class>RoomReservationSystem.model.reservation.Reservation</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/roomreservationdb?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="elteSzakdoga18"/>
+    </properties>
+  </persistence-unit>
+</persistence>
