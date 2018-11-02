@@ -10,6 +10,7 @@ C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\jav
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\validation\ClassroomValidator.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\repository\reservation\ClassReservationRepository.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\service\StatusService.java
+C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\dto\EventDTO.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\validation\SemesterValidator.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\service\ClassroomService.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\exception\EventReservationNotExistsException.java
@@ -84,7 +85,6 @@ C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\jav
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\exception\StatusNotExistsException.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\service\impl\SubjectServiceImpl.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\model\reservation\ArchivedReservation.java
-C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\dto\reservation\ReservationEventDTO.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\util\ValidationUtils.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\repository\SubjectRepository.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\validation\SubjectValidator.java

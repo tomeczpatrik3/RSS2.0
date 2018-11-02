@@ -160,18 +160,6 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     /**
-     * A DTO objektum alapján történő keresést megvalósító függvény (Annak
-     * ismeretében hogy melyik attribútum egyedi)
-     *
-     * @param subjectDTO A DTO objektum
-     * @return A Subject objektum ha létezik
-     */
-    @Override
-    public Subject findByDTO(SubjectDTO subjectDTO) {
-        return subjectRepository.findByCode(subjectDTO.getCode());
-    }
-
-    /**
      * A függvény amivel lekérdezhető, hogy létezik-e az adott azonosítóhoz
      * tartozó entitás
      *

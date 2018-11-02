@@ -36,8 +36,6 @@ public interface UserService extends UserDetailsService {
     List<User> findByName(String name);
 
     List<String> getNames();
-
-    User findByDTO(UserDTO userDTO);
     
     Map<String, String> getName(String username) throws UserNotExistsException;
 

@@ -1,6 +1,5 @@
 package RoomReservationSystem.service.impl;
 
-import RoomReservationSystem.dto.ClassroomDTO;
 import RoomReservationSystem.exception.BuildingNotExistsException;
 import RoomReservationSystem.exception.ClassroomAlredyExistsException;
 import RoomReservationSystem.exception.ClassroomNotExistsException;
@@ -217,22 +216,6 @@ public class ClassroomServiceImpl implements ClassroomService {
         } else {
             throw new ClassroomNotExistsException(buildingName, name);
         }
-    }
-
-    /**
-     * A DTO objektum alapján történő keresést megvalósító függvény (Annak
-     * ismeretében hogy melyik attribútum egyedi)
-     *
-     * @param classroomDTO A DTO objektum
-     * @return A Classroom objektum ha létezik
-     * @throws RoomReservationSystem.exception.BuildingNotExistsException
-     */
-    @Override
-    public Classroom findByDTO(ClassroomDTO classroomDTO) throws BuildingNotExistsException {
-        return classroomRepository.findByNameAndBuilding(
-                classroomDTO.getName(),
-                buildingService.findByName(classroomDTO.getBuilding())
-        );
     }
 
     /**

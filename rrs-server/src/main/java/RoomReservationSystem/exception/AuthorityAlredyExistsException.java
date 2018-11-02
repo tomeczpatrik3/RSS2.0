@@ -10,9 +10,9 @@ public class AuthorityAlredyExistsException extends Exception {
     /**
      * Az osztály konstruktora
      *
-     * @param message A hibaüzenet
+     * @param name Az engedély neve
      */
-    public AuthorityAlredyExistsException(String message) {
-        super(message);
+    public AuthorityAlredyExistsException(String name) {
+        super(String.format("Ilyen névvel (%s) rendelkező engedély már létezik!", name));
     }
 }

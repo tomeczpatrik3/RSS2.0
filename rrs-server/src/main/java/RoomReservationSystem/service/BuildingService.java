@@ -27,8 +27,6 @@ public interface BuildingService {
 
     List<String> getNames();
 
-    Building findByDTO(BuildingDTO buildingDTO);
-
     boolean existsById(int id);
 
     boolean existsByName(String name);

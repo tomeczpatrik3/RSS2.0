@@ -126,18 +126,6 @@ public class SemesterServiceImpl implements SemesterService {
     }
 
     /**
-     * A DTO objektum alapján történő keresést megvalósító függvény (Annak
-     * ismeretében hogy melyik attribútum egyedi)
-     *
-     * @param semesterDTO A DTO objektum
-     * @return A Semester objektum ha létezik
-     */
-    @Override
-    public Semester findByDTO(SemesterDTO semesterDTO) {
-        return semesterRepository.findByName(semesterDTO.getName());
-    }
-
-    /**
      * A függvény amivel lekérdezhető, hogy létezik-e az adott azonosítóhoz
      * tartozó entitás
      *

@@ -1,7 +1,6 @@
 package RoomReservationSystem.service.impl;
 
 import RoomReservationSystem.dto.UserDTO;
-import RoomReservationSystem.exception.AuthorityAlredyExistsException;
 import RoomReservationSystem.exception.AuthorityNotExistsException;
 import RoomReservationSystem.exception.UserAlredyExistsException;
 import RoomReservationSystem.exception.UserNotExistsException;
@@ -66,10 +65,9 @@ public class UserServiceImpl implements UserService {
      * @return A regisztrált felhasználó
      * @throws RoomReservationSystem.exception.UserAlredyExistsException
      * @throws RoomReservationSystem.exception.AuthorityNotExistsException
-     * @throws RoomReservationSystem.exception.AuthorityAlredyExistsException
      */
     @Override
-    public User register(UserDTO userDTO) throws UserAlredyExistsException, AuthorityNotExistsException, AuthorityAlredyExistsException {
+    public User register(UserDTO userDTO) throws UserAlredyExistsException, AuthorityNotExistsException {
         if (userRepository.findByUsername(userDTO.getUsername()) != null) {
             throw new UserAlredyExistsException(userDTO.getUsername());
         } else if (userRepository.findByEmail(userDTO.getEmail()) != null) {
@@ -219,18 +217,6 @@ public class UserServiceImpl implements UserService {
             names.add(user.getName());
         }
         return names;
-    }
-
-    /**
-     * A DTO objektum alapján történő keresést megvalósító függvény (Annak
-     * ismeretében hogy melyik attribútum egyedi)
-     *
-     * @param userDTO A DTO objektum
-     * @return A User objektum ha létezik
-     */
-    @Override
-    public User findByDTO(UserDTO userDTO) {
-        return userRepository.findByUsername(userDTO.getUsername());
     }
 
     /**

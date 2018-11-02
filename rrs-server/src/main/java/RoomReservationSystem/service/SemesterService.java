@@ -23,8 +23,6 @@ public interface SemesterService {
     Semester findByName(String name) throws SemesterNotExistsException;
     
     Semester findById(int id) throws SemesterNotExistsException;
-
-    Semester findByDTO(SemesterDTO semesterDTO);
     
     Semester update(int id, Semester semester) throws SemesterNotExistsException;
 

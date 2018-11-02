@@ -1,6 +1,6 @@
 package RoomReservationSystem.service;
 
-import RoomReservationSystem.dto.reservation.ReservationEventDTO;
+import RoomReservationSystem.dto.EventDTO;
 import java.util.List;
 
 /**
@@ -11,17 +11,17 @@ import java.util.List;
  */
 public interface EventService {
 
-    List<ReservationEventDTO> getEvents();
+    List<EventDTO> getEvents();
 
-    List<ReservationEventDTO> findByUserName(String name);
+    List<EventDTO> findByUserName(String name);
 
-    List<ReservationEventDTO> findByBuildingName(String buildingName);
+    List<EventDTO> findByBuildingName(String buildingName);
 
-    List<ReservationEventDTO> findByClassroomNameAndBuilding(String classroom, String building);
+    List<EventDTO> findByClassroomNameAndBuilding(String classroom, String building);
 
-    List<ReservationEventDTO> findByEventName(String eventName);
+    List<EventDTO> findByEventName(String eventName);
 
-    List<ReservationEventDTO> findBySubjectName(String subjectName);
+    List<EventDTO> findBySubjectName(String subjectName);
 
-    List<ReservationEventDTO> findBySemesterName(String semesterName);
+    List<EventDTO> findBySemesterName(String semesterName);
 }

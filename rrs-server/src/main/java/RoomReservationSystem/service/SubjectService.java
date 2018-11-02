@@ -32,8 +32,6 @@ public interface SubjectService {
 
     Map<String, String> getSubjectName(String subjectCode) throws SubjectNotExistsException;
 
-    Subject findByDTO(SubjectDTO subjectDTO);
-
     boolean existsById(int id);
 
     boolean existsByCode(String code);

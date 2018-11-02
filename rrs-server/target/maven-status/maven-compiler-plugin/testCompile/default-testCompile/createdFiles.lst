@@ -2,7 +2,7 @@ RoomReservationSystem\service\impl\SubjectServiceImplTest.class
 RoomReservationSystem\service\impl\UserServiceImplTest.class
 RoomReservationSystem\service\impl\BuildingServiceImplTest.class
 RoomReservationSystem\service\impl\ClassroomServiceImplTest.class
+RoomReservationSystem\service\impl\EventServiceImplTest.class
 RoomReservationSystem\service\impl\SemesterServiceImplTest.class
 RoomReservationSystem\service\impl\StatusServiceImplTest.class
-RoomReservationSystem\service\impl\SubjectNotFoundException.class
 RoomReservationSystem\service\impl\AuthorityServiceImplTest.class

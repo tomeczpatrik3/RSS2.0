@@ -25,14 +25,10 @@ public class AuthorityServiceImpl implements AuthorityService {
      *
      * @param authority Az engedély, amit szeretnénk eltárolni
      * @return Az eltárolt engedély
-     * @throws RoomReservationSystem.exception.AuthorityAlredyExistsException
      */
     @Override
-    public Authority save(Authority authority) throws AuthorityAlredyExistsException {
-//        if ( authorityRepository.findByName(authority.getName()) == null)
+    public Authority save(Authority authority) {
         return authorityRepository.save(authority);
-//        else
-//            throw new AuthorityAlredyExistsException(String.format("Ilyen névvel (%s) rendelkező engedély már létezik!", authority.getName().toUpperCase()));
     }
 
     /**

@@ -135,18 +135,6 @@ public class BuildingServiceImpl implements BuildingService {
     }
 
     /**
-     * A DTO objektum alapján történő keresést megvalósító függvény (Annak
-     * ismeretében hogy melyik attribútum egyedi)
-     *
-     * @param buildingDTO A DTO objektum
-     * @return A Building objektum ha létezik
-     */
-    @Override
-    public Building findByDTO(BuildingDTO buildingDTO) {
-        return buildingRepository.findByName(buildingDTO.getName());
-    }
-
-    /**
      * A függvény amivel lekérdezhető, hogy létezik-e az adott azonosítóhoz
      * tartozó entitás
      *

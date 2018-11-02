@@ -1,6 +1,6 @@
 package RoomReservationSystem.service.impl;
 
-import RoomReservationSystem.dto.reservation.ReservationEventDTO;
+import RoomReservationSystem.dto.EventDTO;
 import RoomReservationSystem.dto.reservation.ReservationInfoDTO;
 import RoomReservationSystem.enums.Type;
 import RoomReservationSystem.exception.StatusNotExistsException;
@@ -39,8 +39,8 @@ public class EventServiceImpl implements EventService {
      * @return Az elfogadott foglalások egy listában eseménnyé konvertálva
      */
     @Override
-    public List<ReservationEventDTO> getEvents() {
-        List<ReservationEventDTO> events = new ArrayList<>();
+    public List<EventDTO> getEvents() {
+        List<EventDTO> events = new ArrayList<>();
         try {
             events.addAll(generateEvents(classRService.findByStatus("ACCEPTED")));
             events.addAll(generateEvents(eventRService.findByStatus("ACCEPTED")));
@@ -57,7 +57,7 @@ public class EventServiceImpl implements EventService {
      * @return Az események egy listában
      */
     @Override
-    public List<ReservationEventDTO> findByUserName(String name) {
+    public List<EventDTO> findByUserName(String name) {
         return getEvents()
                 .stream()
                 .filter(event -> event.getInfo().getName().equals(name))
@@ -71,7 +71,7 @@ public class EventServiceImpl implements EventService {
      * @return Az események egy listában
      */
     @Override
-    public List<ReservationEventDTO> findByBuildingName(String buildingName) {
+    public List<EventDTO> findByBuildingName(String buildingName) {
         return getEvents()
                 .stream()
                 .filter(event -> event.getInfo().getBuilding().equals(buildingName))
@@ -87,7 +87,7 @@ public class EventServiceImpl implements EventService {
      * @return Az események egy listában
      */
     @Override
-    public List<ReservationEventDTO> findByClassroomNameAndBuilding(String classroom, String building) {
+    public List<EventDTO> findByClassroomNameAndBuilding(String classroom, String building) {
         return getEvents()
                 .stream()
                 .filter(event -> event.getInfo().getClassroom().equals(classroom) && event.getInfo().getBuilding().equals(building))
@@ -101,7 +101,7 @@ public class EventServiceImpl implements EventService {
      * @return Az események egy listában
      */
     @Override
-    public List<ReservationEventDTO> findByEventName(String eventName) {
+    public List<EventDTO> findByEventName(String eventName) {
         return getEvents()
                 .stream()
                 .filter(event -> event.getInfo().getEventName().equals(eventName))
@@ -115,7 +115,7 @@ public class EventServiceImpl implements EventService {
      * @return Az események egy listában
      */
     @Override
-    public List<ReservationEventDTO> findBySubjectName(String subjectName) {
+    public List<EventDTO> findBySubjectName(String subjectName) {
         return getEvents()
                 .stream()
                 .filter(event -> event.getInfo().getSubject().equals(subjectName))
@@ -130,7 +130,7 @@ public class EventServiceImpl implements EventService {
      * @return Az események egy listában
      */
     @Override
-    public List<ReservationEventDTO> findBySemesterName(String semesterName) {
+    public List<EventDTO> findBySemesterName(String semesterName) {
         return getEvents()
                 .stream()
                 .filter(event -> event.getInfo().getSemester().equals(semesterName))
@@ -144,8 +144,8 @@ public class EventServiceImpl implements EventService {
      * @param reservations A foglalások
      * @return A generált események egy listában
      */
-    private <T extends Reservation> List<ReservationEventDTO> generateEvents(List<T> reservations) {
-        List<ReservationEventDTO> events = new ArrayList<>();
+    private <T extends Reservation> List<EventDTO> generateEvents(List<T> reservations) {
+        List<EventDTO> events = new ArrayList<>();
 
         reservations.forEach((reservation) -> {
             Type type;
@@ -176,7 +176,7 @@ public class EventServiceImpl implements EventService {
             }
             List<ReservationDate> dates = reservation.getDateList();
             dates.forEach((date) -> {
-                events.add(new ReservationEventDTO(
+                events.add(new EventDTO(
                         date.getStart().toString(),
                         date.getEnd().toString(),
                         generateTitle(reservation),

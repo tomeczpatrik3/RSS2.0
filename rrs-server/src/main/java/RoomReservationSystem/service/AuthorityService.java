@@ -12,7 +12,7 @@ import RoomReservationSystem.model.Authority;
  */
 public interface AuthorityService {
 
-    Authority save(Authority authority) throws AuthorityAlredyExistsException;
+    Authority save(Authority authority);
 
     Authority findByName(String name) throws AuthorityNotExistsException;
 

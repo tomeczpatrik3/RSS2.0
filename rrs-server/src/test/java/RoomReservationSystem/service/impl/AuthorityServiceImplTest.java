@@ -1,15 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package RoomReservationSystem.service.impl;
 
+import RoomReservationSystem.exception.AuthorityAlredyExistsException;
 import RoomReservationSystem.exception.AuthorityNotExistsException;
 import RoomReservationSystem.model.Authority;
 import RoomReservationSystem.repository.AuthorityRepository;
 import java.util.Collections;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -20,8 +17,8 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 /**
- *
- * @author Piti
+ * Az engedélyekhez tartozó szervíz osztály tesztesetei
+ * @author Tomecz Patrik
  */
 @RunWith(MockitoJUnitRunner.class)
 public class AuthorityServiceImplTest {
@@ -32,7 +29,7 @@ public class AuthorityServiceImplTest {
     @Mock
     AuthorityRepository repository;
 
-    private final Authority TEST_AUTHORITY = new Authority("TEST_AUTH", Collections.EMPTY_LIST);
+    private final Authority TEST_AUTHORITY = new Authority("TEST_AUTH", Collections.EMPTY_LIST, 999);
 
     @Before
     public void setUp() {
@@ -43,43 +40,116 @@ public class AuthorityServiceImplTest {
     }
 
     /**
-     * Test of save method, of class AuthorityServiceImpl.
+     * A mentés tesztelésére szolgáló függvény
+     *
+     * @throws AuthorityAlredyExistsException A lehetséges kivétel
      */
     @Test
-    public void testSave() throws Exception {
+    public void testSave() throws AuthorityAlredyExistsException {
         Mockito.when(repository.save(TEST_AUTHORITY)).thenReturn(TEST_AUTHORITY);
         assertEquals(TEST_AUTHORITY, service.save(TEST_AUTHORITY));
     }
 
     /**
-     * Test of findByName method, of class AuthorityServiceImpl.
+     * A név alapján történő keresés tesztelésére szolgáló függvény
+     *
+     * @throws AuthorityNotExistsException A lehetséges kivétel
      */
     @Test
-    public void testFindByName() throws Exception {
-        Mockito.when(repository.findByName("TEST_AUTH")).thenReturn(TEST_AUTHORITY);
-
-        assertEquals(TEST_AUTHORITY, service.findByName("TEST_AUTH"));
+    public void testFindByName() throws AuthorityNotExistsException {
+        Mockito.when(repository.findByName(TEST_AUTHORITY.getName())).thenReturn(TEST_AUTHORITY);
+        assertEquals(TEST_AUTHORITY, service.findByName(TEST_AUTHORITY.getName()));
     }
 
+    /**
+     * A név alapján történő keresés nem létező engedély kivétel kiváltásának
+     * tesztelésére szolgáló függvény
+     *
+     * @throws AuthorityNotExistsException A lehetséges kivétel
+     */
     @Test(expected = AuthorityNotExistsException.class)
-    public void testFindByNameException() throws Exception {
+    public void testFindByNameException() throws AuthorityNotExistsException {
         service.findByName("EXCEPTION");
     }
 
     /**
-     * Test of removeByName method, of class AuthorityServiceImpl.
+     * Az azonosító alapján történő keresés tesztelésére szolgáló függvény
+     *
+     * @throws AuthorityNotExistsException A lehetséges kivétel
      */
     @Test
-    public void testRemoveByName() throws Exception {
-        Mockito.when(repository.findByName("TEST_AUTH")).thenReturn(TEST_AUTHORITY);
-        Mockito.doNothing().when(repository).removeByName("TEST_AUTH");
-
-        service.removeByName("TEST_AUTH");
+    public void testFindById() throws AuthorityNotExistsException {
+        Mockito.when(repository.findById(TEST_AUTHORITY.getId())).thenReturn(TEST_AUTHORITY);
+        assertEquals(TEST_AUTHORITY, service.findById(TEST_AUTHORITY.getId()));
     }
 
+    /**
+     * Az azonosító alapján történő keresés nem létező engedély kivétel
+     * kiváltásának tesztelésére szolgáló függvény
+     *
+     * @throws AuthorityNotExistsException A lehetséges kivétel
+     */
     @Test(expected = AuthorityNotExistsException.class)
-    public void testRemoveByNameException() throws Exception {
+    public void testFindByIdException() throws AuthorityNotExistsException {
+        Mockito.when(repository.findById(TEST_AUTHORITY.getId())).thenReturn(null);
+        service.findById(TEST_AUTHORITY.getId());
+    }
+
+    /**
+     * Az azonosító alapján történő létezés ellenőrzésének tesztelésére szolgáló
+     * függvény
+     *
+     * @throws AuthorityNotExistsException A lehetséges kivétel
+     */
+    @Test
+    public void testExistsById() throws AuthorityNotExistsException {
+        Mockito.when(repository.existsById(TEST_AUTHORITY.getId())).thenReturn(true);
+        boolean exists = service.existsById(TEST_AUTHORITY.getId());
+        Assert.assertTrue(exists);
+
+        Mockito.when(repository.existsById(TEST_AUTHORITY.getId())).thenReturn(false);
+        exists = service.existsById(TEST_AUTHORITY.getId());
+        Assert.assertFalse(exists);
+    }
+
+    /**
+     * Aa név alapján történő létezés ellenőrzésének tesztelésére szolgáló
+     * függvény
+     *
+     * @throws AuthorityNotExistsException A lehetséges kivétel
+     */
+    @Test
+    public void testExistsByName() throws AuthorityNotExistsException {
+        Mockito.when(repository.existsByName(TEST_AUTHORITY.getName())).thenReturn(true);
+        boolean exists = service.existsByName(TEST_AUTHORITY.getName());
+        Assert.assertTrue(exists);
+
+        Mockito.when(repository.existsByName(TEST_AUTHORITY.getName())).thenReturn(false);
+        exists = service.existsByName(TEST_AUTHORITY.getName());
+        Assert.assertFalse(exists);
+    }
+
+    /**
+     * A név alapján történő törlés tesztelésére szolgáló függvény
+     *
+     * @throws AuthorityNotExistsException A lehetséges kivétel
+     */
+    @Test
+    public void testRemoveByName() throws AuthorityNotExistsException {
+        Mockito.when(repository.findByName(TEST_AUTHORITY.getName())).thenReturn(TEST_AUTHORITY);
+        Mockito.doNothing().when(repository).removeByName(TEST_AUTHORITY.getName());
+
+        service.removeByName(TEST_AUTHORITY.getName());
+    }
+
+    /**
+     * A név alapján történő törlés nem létező engedély kivétel kiváltásának
+     * tesztelésére szolgáló függvény
+     *
+     * @throws AuthorityNotExistsException A lehetséges kivétel
+     */
+    @Test(expected = AuthorityNotExistsException.class)
+    public void testRemoveByNameException() throws AuthorityNotExistsException {
         service.removeByName("EXCEPTION");
     }
-
 }

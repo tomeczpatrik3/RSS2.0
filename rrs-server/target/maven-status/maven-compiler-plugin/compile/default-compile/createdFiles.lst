@@ -4,6 +4,7 @@ RoomReservationSystem\model\Subject.class
 RoomReservationSystem\service\reservation\ReservationDateService.class
 RoomReservationSystem\model\Status.class
 RoomReservationSystem\service\AuthorityService.class
+RoomReservationSystem\dto\EventDTO.class
 RoomReservationSystem\controller\api\SemesterApiController.class
 RoomReservationSystem\dto\reservation\ClassReservationDTO.class
 RoomReservationSystem\exception\SemesterAlredyExistsException.class
@@ -86,7 +87,6 @@ RoomReservationSystem\exception\SemesterNotExistsException.class
 RoomReservationSystem\exception\StatusNotExistsException.class
 RoomReservationSystem\service\impl\SubjectServiceImpl.class
 RoomReservationSystem\service\BuildingService.class
-RoomReservationSystem\dto\reservation\ReservationEventDTO.class
 RoomReservationSystem\validation\ClassroomValidator.class
 RoomReservationSystem\repository\SemesterRepository.class
 RoomReservationSystem\model\Building.class

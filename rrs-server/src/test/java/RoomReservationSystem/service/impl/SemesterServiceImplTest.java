@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package RoomReservationSystem.service.impl;
 
 import RoomReservationSystem.exception.SemesterAlredyExistsException;
@@ -15,6 +10,7 @@ import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.List;
 import static org.hamcrest.CoreMatchers.is;
+import org.junit.Assert;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
@@ -29,22 +25,23 @@ import org.mockito.runners.MockitoJUnitRunner;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class SemesterServiceImplTest {
-    
+
     @InjectMocks
     SemesterServiceImpl service;
 
     @Mock
     SemesterRepository repository;
-    
+
     private final Semester TEST_SEMESTER = new Semester(
-            "2011-2012/1", 
-            new GregorianCalendar(2011, Calendar.SEPTEMBER, 3).getTime(), 
+            "2011-2012/1",
+            new GregorianCalendar(2011, Calendar.SEPTEMBER, 3).getTime(),
             new GregorianCalendar(2012, Calendar.FEBRUARY, 2).getTime(),
-            Collections.EMPTY_LIST
+            Collections.EMPTY_LIST,
+            999
     );
 
     /**
-     * Test of getAll method, of class SemesterServiceImpl.
+     * A szemeszterek lekérdezésének tesztelésére szolgáló függvény
      */
     @Test
     public void testGetAll() {
@@ -56,24 +53,57 @@ public class SemesterServiceImplTest {
     }
 
     /**
-     * Test of save method, of class SemesterServiceImpl.
+     * A mentés tesztelésére szolgáló függvény
+     *
+     * @throws SemesterAlredyExistsException A lehetséges kivétel
      */
     @Test
-    public void testSave() throws Exception {
+    public void testSave() throws SemesterAlredyExistsException {
         Mockito.when(repository.save(TEST_SEMESTER)).thenReturn(TEST_SEMESTER);
         Semester found = service.save(TEST_SEMESTER);
         assertNotNull(found);
         assertEquals(TEST_SEMESTER, found);
     }
-    
+
+    /**
+     * A mentés már létező szemeszter kivétel kiváltásának tesztelésére szolgáló
+     * függvény
+     *
+     * @throws SemesterAlredyExistsException A lehetséges kivétel
+     */
     @Test(expected = SemesterAlredyExistsException.class)
-    public void testSaveException() throws Exception {
-        Mockito.when(repository.findByName("2011-2012/1")).thenReturn(TEST_SEMESTER);
+    public void testSaveException() throws SemesterAlredyExistsException {
+        Mockito.when(repository.findByName(TEST_SEMESTER.getName())).thenReturn(TEST_SEMESTER);
         service.save(TEST_SEMESTER);
+    }
+    
+    /**
+     * A frissítés tesztelésére szolgáló függvény
+     *
+     * @throws SemesterNotExistsException A lehetséges kivétel
+     */
+    @Test
+    public void testUpdate() throws SemesterNotExistsException {
+        Mockito.when(repository.findById(TEST_SEMESTER.getId())).thenReturn(TEST_SEMESTER);
+        Mockito.when(repository.save(TEST_SEMESTER)).thenReturn(TEST_SEMESTER);
+        Semester updated = service.update(TEST_SEMESTER.getId(), TEST_SEMESTER);
+        assertEquals(TEST_SEMESTER, updated);
+    }
+    
+    /**
+     * A frissítés nem létező szemeszter kivétel kiváltásának tesztelésére szolgáló
+     * függvény
+     *
+     * @throws SemesterNotExistsException A lehetséges kivétel
+     */    
+    @Test(expected = SemesterNotExistsException.class)
+    public void testUpdateException() throws SemesterNotExistsException {
+        Mockito.when(repository.findById(TEST_SEMESTER.getId())).thenReturn(null);
+        service.update(TEST_SEMESTER.getId(), TEST_SEMESTER);
     }
 
     /**
-     * Test of getNames method, of class SemesterServiceImpl.
+     * A szemeszterek neveinek a lekérdezését tesztelő függvény
      */
     @Test
     public void testGetNames() {
@@ -85,33 +115,102 @@ public class SemesterServiceImplTest {
     }
 
     /**
-     * Test of findByName method, of class SemesterServiceImpl.
+     * A név alapján történő keresés tesztelésére szolgáló függvény
+     *
+     * @throws SemesterNotExistsException A lehetséges kivétel
      */
     @Test
-    public void testFindByName() throws Exception {
-        Mockito.when(repository.findByName("2011-2012/1")).thenReturn(TEST_SEMESTER);
-        Semester found = service.findByName("2011-2012/1");
+    public void testFindByName() throws SemesterNotExistsException {
+        Mockito.when(repository.findByName(TEST_SEMESTER.getName())).thenReturn(TEST_SEMESTER);
+        Semester found = service.findByName(TEST_SEMESTER.getName());
         assertNotNull(found);
         assertEquals(TEST_SEMESTER, found);
     }
-    
+
+    /**
+     * A név alapján történő keresés nem létező szemeszter kivétel kiváltásának
+     * tesztelésére szolgáló függvény
+     *
+     * @throws SemesterNotExistsException A lehetséges kivétel
+     */
     @Test(expected = SemesterNotExistsException.class)
-    public void testFindByNameException() throws Exception {
+    public void testFindByNameException() throws SemesterNotExistsException {
         service.findByName("EXCEPTION");
+    }
+    
+     /**
+     * Az azonosító alapján történő keresés tesztelésére szolgáló függvény
+     *
+     * @throws SemesterNotExistsException A lehetséges kivétel
+     */
+    @Test
+    public void testFindById() throws SemesterNotExistsException {
+        Mockito.when(repository.findById(TEST_SEMESTER.getId())).thenReturn(TEST_SEMESTER);
+        Semester found = service.findById(TEST_SEMESTER.getId());
+        assertEquals(TEST_SEMESTER, found);
     }
 
     /**
-     * Test of deleteByName method, of class SemesterServiceImpl.
+     * Az azonosító alapján történő keresés nem létező épület kivétel
+     * kiváltásának tesztelésére szolgáló függvény
+     *
+     * @throws SemesterNotExistsException A lehetséges kivétel
+     */
+    @Test(expected = SemesterNotExistsException.class)
+    public void testFindByIdException() throws SemesterNotExistsException {
+        service.findById(1234);
+    }   
+
+    /**
+     * A név alapján történő törlés tesztelésére szolgáló függvény
+     *
+     * @throws SemesterNotExistsException A lehetséges kivétel
      */
     @Test
-    public void testDeleteByName() throws Exception {
-        Mockito.when(repository.findByName("2011-2012/1")).thenReturn(TEST_SEMESTER);
-        Mockito.doNothing().when(repository).deleteByName("2011-2012/1");
-        service.deleteByName("2011-2012/1");
+    public void testDeleteByName() throws SemesterNotExistsException {
+        Mockito.when(repository.findByName(TEST_SEMESTER.getName())).thenReturn(TEST_SEMESTER);
+        Mockito.doNothing().when(repository).deleteByName(TEST_SEMESTER.getName());
+        service.deleteByName(TEST_SEMESTER.getName());
+    }
+
+    /**
+     * A név alapján történő törlés nem létező szemeszter kivétel kiváltásának
+     * tesztelésére szolgáló függvény
+     *
+     * @throws SemesterNotExistsException A lehetséges kivétel
+     */
+    @Test(expected = SemesterNotExistsException.class)
+    public void testDeleteByNameException() throws SemesterNotExistsException {
+        service.deleteByName("EXCEPTION");
     }
     
-    @Test(expected = SemesterNotExistsException.class)
-    public void testDeleteByNameException() throws Exception {
-        service.deleteByName("EXCEPTION");
+    /**
+     * Az azonosító alapján történő létezés ellenőrzésének tesztelésére szolgáló
+     * függvény
+     */
+    @Test
+    public void testExistsById() {
+        Mockito.when(repository.existsById(TEST_SEMESTER.getId())).thenReturn(true);
+        boolean exists = service.existsById(TEST_SEMESTER.getId());
+        Assert.assertTrue(exists);
+
+        Mockito.when(repository.existsById(TEST_SEMESTER.getId())).thenReturn(false);
+        exists = service.existsById(TEST_SEMESTER.getId());
+        Assert.assertFalse(exists);
+    }
+
+    /**
+     * A név alapján történő létezés ellenőrzésének tesztelésére szolgáló
+     * függvény
+     */
+    @Test
+    public void testExistsByName() {
+        Mockito.when(repository.existsByName(TEST_SEMESTER.getName())).thenReturn(true);
+        boolean exists = service.existsByName(TEST_SEMESTER.getName());
+        Assert.assertTrue(exists);
+
+        Mockito.when(repository.existsByName(TEST_SEMESTER.getName())).thenReturn(false);
+        exists = service.existsByName(TEST_SEMESTER.getName());
+        Assert.assertFalse(exists);
     }
 }
