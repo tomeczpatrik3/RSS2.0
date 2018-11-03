@@ -25,8 +25,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
- *
- * @author Piti
+ * A felhasználókhoz tartozó szervíz osztály tesztesetei
+ * @author Tomecz Patrik
  */
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceImplTest {

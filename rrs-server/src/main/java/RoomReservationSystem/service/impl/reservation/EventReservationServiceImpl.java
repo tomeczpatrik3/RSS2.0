@@ -15,7 +15,6 @@ import RoomReservationSystem.model.reservation.ReservationDate;
 import RoomReservationSystem.repository.reservation.EventReservationRepository;
 import RoomReservationSystem.service.ClassroomService;
 import RoomReservationSystem.service.StatusService;
-import RoomReservationSystem.service.SubjectService;
 import RoomReservationSystem.service.UserService;
 import RoomReservationSystem.service.reservation.EventReservationService;
 import RoomReservationSystem.service.reservation.ReservationDateService;
@@ -47,9 +46,6 @@ public class EventReservationServiceImpl implements EventReservationService {
 
     @Autowired
     private ClassroomService classroomService;
-
-    @Autowired
-    private SubjectService subjectService;
 
     @Autowired
     private StatusService statusService;
@@ -177,16 +173,12 @@ public class EventReservationServiceImpl implements EventReservationService {
      *
      * @param username A felhasználónév
      * @return Az adott felhasználó által történt foglalások egy listában
-     * @throws RoomReservationSystem.exception.UserNotExistsException
+     * @throws UserNotExistsException
      */
     @Override
     public List<EventReservation> findByUsername(String username) throws UserNotExistsException {
         User user = userService.findByUsername(username);
-        if (user != null) {
-            return repository.findByUser(user);
-        } else {
-            throw new UserNotExistsException(username);
-        }
+        return repository.findByUser(user);
 
     }
 
@@ -213,9 +205,8 @@ public class EventReservationServiceImpl implements EventReservationService {
      * @param id A foglalás id-ja
      * @param statusName Az új státusz
      * @return A megváltoztatott státusszal rendelkező foglalás
-     * @throws RoomReservationSystem.exception.StatusNotExistsException
-     * @throws
-     * RoomReservationSystem.exception.EventReservationNotExistsException
+     * @throws StatusNotExistsException
+     * @throws EventReservationNotExistsException
      */
     @Override
     public EventReservation setStatus(int id, String statusName) throws StatusNotExistsException, EventReservationNotExistsException {

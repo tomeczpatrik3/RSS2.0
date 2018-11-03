@@ -5,12 +5,10 @@ import RoomReservationSystem.dto.reservation.ReservationInfoDTO;
 import RoomReservationSystem.enums.Type;
 import RoomReservationSystem.service.reservation.ClassReservationService;
 import RoomReservationSystem.service.reservation.EventReservationService;
-import java.util.Arrays;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 /**

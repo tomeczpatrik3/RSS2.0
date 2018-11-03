@@ -25,7 +25,7 @@ public interface UserService extends UserDetailsService {
 
     User findByEmail(String email) throws UserNotExistsException;
 
-    User findByUsername(String username) throws UsernameNotFoundException, UserNotExistsException;
+    User findByUsername(String username) throws UserNotExistsException;
 
     User findById(int id) throws UserNotExistsException;
     

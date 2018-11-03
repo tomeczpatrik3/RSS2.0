@@ -6,3 +6,4 @@ RoomReservationSystem\service\impl\EventServiceImplTest.class
 RoomReservationSystem\service\impl\SemesterServiceImplTest.class
 RoomReservationSystem\service\impl\StatusServiceImplTest.class
 RoomReservationSystem\service\impl\AuthorityServiceImplTest.class
+RoomReservationSystem\service\impl\EventReservationServiceImplTest.class

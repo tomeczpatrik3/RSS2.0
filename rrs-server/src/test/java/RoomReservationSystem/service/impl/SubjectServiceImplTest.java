@@ -18,8 +18,8 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 /**
- *
- * @author Piti
+ * A tantárgyakhoz tartozó szervíz osztály tesztesetei
+ * @author Tomecz Patrik
  */
 @RunWith(MockitoJUnitRunner.class)
 public class SubjectServiceImplTest {

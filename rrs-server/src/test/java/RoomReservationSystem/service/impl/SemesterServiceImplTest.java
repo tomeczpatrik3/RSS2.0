@@ -20,8 +20,8 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 /**
- *
- * @author Piti
+ * A szemeszterekhez tartozó szervíz osztály tesztesetei
+ * @author Tomecz Patrik
  */
 @RunWith(MockitoJUnitRunner.class)
 public class SemesterServiceImplTest {
