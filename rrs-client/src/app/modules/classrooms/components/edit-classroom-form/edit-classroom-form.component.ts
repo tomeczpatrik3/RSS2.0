@@ -1,6 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { Classroom } from "../../../../shared/models/Classroom";
 import { ClassroomsDataService } from "../../classrooms.data.service";
+import { DialogService } from "../../../../shared/services/dialog.service";
+import { TextUtils } from "../../../../shared/utils/text-utils";
+import { InfoDialogComponent } from "../../../../shared/components/dialogs/info-dialog/info-dialog.component";
 
 @Component({
   selector: "app-edit-classroom-form",
@@ -18,7 +21,10 @@ export class EditClassroomFormComponent implements OnInit {
   /*Az épület*/
   model: Classroom;
 
-  constructor(private classroomService: ClassroomsDataService) {}
+  constructor(
+    private classroomService: ClassroomsDataService,
+    private dialogService: DialogService
+  ) {}
 
   /**
    * Az inicializálásért felelős függvény
@@ -35,7 +41,15 @@ export class EditClassroomFormComponent implements OnInit {
   onSubmit() {
     this.classroomService
       .update(this.model.id, this.model)
-      .subscribe(classroom => this.submitEvent.next(true));
+      .subscribe(
+        () => this.submitEvent.next(true),
+        error =>
+          this.dialogService.openDialog(
+            "Tanterem szerkesztése:",
+            TextUtils.addBreaks(error.error),
+            InfoDialogComponent
+          )
+      );
   }
 
   /**

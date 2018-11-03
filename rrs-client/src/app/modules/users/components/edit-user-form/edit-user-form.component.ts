@@ -2,6 +2,9 @@ import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { User } from "../../../../shared/models/User";
 import { UsersDataService } from "../../users.data.service";
 import { patterns } from "../../../../shared/utils/patterns";
+import { TextUtils } from "../../../../shared/utils/text-utils";
+import { InfoDialogComponent } from "../../../../shared/components/dialogs/info-dialog/info-dialog.component";
+import { DialogService } from "../../../../shared/services/dialog.service";
 
 @Component({
   selector: "app-edit-user-form",
@@ -21,7 +24,10 @@ export class EditUserFormComponent implements OnInit {
   /*E-mail pattern */
   emailPattern: string = patterns.email;
 
-  constructor(private userService: UsersDataService) {}
+  constructor(
+    private userService: UsersDataService,
+    private dialogService: DialogService
+  ) {}
 
   /**
    * Az inicializálásért felelős függvény
@@ -38,7 +44,15 @@ export class EditUserFormComponent implements OnInit {
   onSubmit() {
     this.userService
       .update(this.model.id, this.model)
-      .subscribe(semester => this.submitEvent.next(true));
+      .subscribe(
+        () => this.submitEvent.next(true),
+        error =>
+          this.dialogService.openDialog(
+            "Felhasználó szerkesztése:",
+            TextUtils.addBreaks(error.error),
+            InfoDialogComponent
+          )
+      );
   }
 
   /**

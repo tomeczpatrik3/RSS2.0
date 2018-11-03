@@ -33,20 +33,7 @@ export class EventReservationTableComponent implements OnInit {
    * Az inicializálásért felelős függvény
    */
   ngOnInit() {
-    if (!this.user && !this.pending) {
-      //Null, empty
-      this.eventReservationService
-        .getAccepted()
-        .subscribe(res => (this.reservations = res));
-    } else if (this.user && !this.pending) {
-      this.eventReservationService
-        .findByUsername(this.user)
-        .subscribe(res => (this.reservations = res));
-    } else if (!this.user && this.pending) {
-      this.eventReservationService
-        .getPending()
-        .subscribe(res => (this.reservations = res));
-    }
+    this.refreshTable();
   }
 
   /**
@@ -61,11 +48,37 @@ export class EventReservationTableComponent implements OnInit {
       formType = FormType.OBSERVE_EVENT_RESERVATION_FORM;
     }
 
-    this.dialogService.openFormDialog(
-      "Foglalás szerkesztése:",
-      formType,
-      id,
-      FormDialogComponent
-    );
+    this.dialogService
+      .openFormDialog(
+        "Foglalás szerkesztése:",
+        formType,
+        id,
+        FormDialogComponent
+      )
+      .subscribe(result => {
+        if (result == true) {
+          this.refreshTable();
+        }
+      });
+  }
+
+  /**
+   * A táblázat frissítéséért felelős függvény
+   */
+  refreshTable(): void {
+    if (!this.user && !this.pending) {
+      //Null, empty
+      this.eventReservationService
+        .getAccepted()
+        .subscribe(res => (this.reservations = res));
+    } else if (this.user && !this.pending) {
+      this.eventReservationService
+        .findByUsername(this.user)
+        .subscribe(res => (this.reservations = res));
+    } else if (!this.user && this.pending) {
+      this.eventReservationService
+        .getPending()
+        .subscribe(res => (this.reservations = res));
+    }
   }
 }

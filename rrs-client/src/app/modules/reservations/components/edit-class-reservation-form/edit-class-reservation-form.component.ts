@@ -1,6 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { ClassReservation } from "../../../../shared/models/ClassReservation";
 import { ClassReservationsDataService } from "../../class-reservations.data.service";
+import { TextUtils } from "../../../../shared/utils/text-utils";
+import { InfoDialogComponent } from "../../../../shared/components/dialogs/info-dialog/info-dialog.component";
+import { DialogService } from "../../../../shared/services/dialog.service";
 
 @Component({
   selector: "app-edit-class-reservation-form",
@@ -18,7 +21,10 @@ export class EditClassReservationFormComponent implements OnInit {
   /*A foglalás*/
   model: ClassReservation;
 
-  constructor(private classReservationService: ClassReservationsDataService) {}
+  constructor(
+    private classReservationService: ClassReservationsDataService,
+    private dialogService: DialogService
+  ) {}
 
   /**
    * Az inicializálásért felelős függvény
@@ -36,7 +42,15 @@ export class EditClassReservationFormComponent implements OnInit {
   onSubmit() {
     this.classReservationService
       .update(this.reservationID, this.model)
-      .subscribe(result => this.submitEvent.next(true));
+      .subscribe(
+        () => this.submitEvent.next(true),
+        error =>
+          this.dialogService.openDialog(
+            "Foglalás szerkesztése:",
+            TextUtils.addBreaks(error.error),
+            InfoDialogComponent
+          )
+      );
   }
 
   /**

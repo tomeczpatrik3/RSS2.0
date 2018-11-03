@@ -21,7 +21,7 @@ import { CustomDateFormatter } from "../../providers/custom-date-formatter.provi
 import { CustomEventTitleFormatter } from "../../providers/custom-event-title-formatter.provider";
 
 import { EventsDataService } from "../../events.data.service";
-import { ReservationEvent } from "../../../../shared/models/ReservationEvent";
+import { Event } from "../../../../shared/models/Event";
 import { AuthService } from "../../../../shared/services/auth.service";
 import { DialogService } from "../../../../shared/services/dialog.service";
 
@@ -169,10 +169,10 @@ export class CalendarFullComponent implements OnInit {
   /**
    * A paraméterben átadott események betöltéséért felelős függvény:
    */
-  loadEvents(observable$: Observable<ReservationEvent[]>): void {
+  loadEvents(observable$: Observable<Event[]>): void {
     this.events$ = observable$.pipe(
-      map((results: ReservationEvent[]) => {
-        return results.map((event: ReservationEvent) => {
+      map((results: Event[]) => {
+        return results.map((event: Event) => {
           const info = event.info;
           return {
             title: event.title,

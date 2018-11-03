@@ -49,8 +49,8 @@ export class ClassroomApiService {
    * Egy adott névhez tartozó tantermek lekérdezését megvalósító függvény
    * @param roomName A tanterem neve
    */
-  findByName(roomName: string): Observable<Classroom> {
-    return <Observable<Classroom>>(
+  findByName(roomName: string): Observable<Classroom[]> {
+    return <Observable<Classroom[]>>(
       this.http.get(
         ApiEndpoints.getUrl(ApiEndpoints.CLASSROOM_FIND_BY_NAME) +
           "/" +

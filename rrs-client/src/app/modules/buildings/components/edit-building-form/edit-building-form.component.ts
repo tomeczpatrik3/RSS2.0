@@ -1,6 +1,9 @@
 import { Component, OnInit, Input, EventEmitter, Output } from "@angular/core";
 import { Building } from "../../../../shared/models/Building";
 import { BuildingsDataService } from "../../buildings.data.service";
+import { DialogService } from "../../../../shared/services/dialog.service";
+import { TextUtils } from "../../../../shared/utils/text-utils";
+import { InfoDialogComponent } from "../../../../shared/components/dialogs/info-dialog/info-dialog.component";
 
 @Component({
   selector: "app-edit-building-form",
@@ -18,7 +21,10 @@ export class EditBuildingFormComponent implements OnInit {
   /*Az épület*/
   model: Building;
 
-  constructor(private buildingService: BuildingsDataService) {}
+  constructor(
+    private buildingService: BuildingsDataService,
+    private dialogService: DialogService
+  ) {}
 
   /**
    * Az inicializálásért felelős függvény
@@ -35,7 +41,15 @@ export class EditBuildingFormComponent implements OnInit {
   onSubmit() {
     this.buildingService
       .update(this.model.id, this.model)
-      .subscribe(building => this.submitEvent.next(true));
+      .subscribe(
+        () => this.submitEvent.next(true),
+        error =>
+          this.dialogService.openDialog(
+            "Épület szerkesztése:",
+            TextUtils.addBreaks(error.error),
+            InfoDialogComponent
+          )
+      );
   }
 
   /**

@@ -6,7 +6,7 @@ import {
   FormBuilder
 } from "@angular/forms";
 import { Observable } from "rxjs";
-import { ReservationEvent } from "../../../../shared/models/ReservationEvent";
+import { Event } from "../../../../shared/models/Event";
 import { Filter } from "../../../../shared/enums/Filter";
 import { UserApiService } from "../../../../shared/services/api/user.api.service";
 import { BuildingApiService } from "../../../../shared/services/api/building.api.service";
@@ -23,7 +23,7 @@ import { EventsDataService } from "../../events.data.service";
 })
 export class FilterEventsFormComponent implements OnInit {
   @Output()
-  eventEmitter = new EventEmitter<Observable<ReservationEvent[]>>();
+  eventEmitter = new EventEmitter<Observable<Event[]>>();
 
   /*A szűrési lehetőségek*/
   filterValues: string[] = [

@@ -3,10 +3,7 @@ import {
   HttpClientTestingModule,
   HttpTestingController
 } from "@angular/common/http/testing";
-import {
-  HttpResponse,
-  HttpErrorResponse
-} from "@angular/common/http";
+import { HttpResponse, HttpErrorResponse } from "@angular/common/http";
 import { BuildingApiService } from "./building.api.service";
 import { Building } from "../../models/Building";
 import { ApiEndpoints } from "../../config/api-endpoints.config";
@@ -187,6 +184,26 @@ describe("BuildingApiService", () => {
       expect(req.request.method).toBe("PUT");
       req.flush(testBuilding);
     });
+
+    it("BuildingNotExistsException", () => {
+      let testBuilding: Building = new Building("TESZT1");
+      testBuilding.id = 1;
+      const errorMsg = "Nem létezik ilyen azonosítóval rendelkező épület";
+
+      service.update(1, testBuilding).subscribe(
+        building =>
+          fail("BuildingNotExistsException kellett volna hogy történjen!"),
+        (error: HttpErrorResponse) => {
+          expect(error.status).toEqual(404, "status");
+          expect(error.error).toEqual(errorMsg, "message");
+        }
+      );
+
+      const req = httpMock.expectOne(
+        ApiEndpoints.getUrl(ApiEndpoints.BUILDING_UPDATE) + `/1`
+      );
+      req.flush(errorMsg, { status: 404, statusText: "Not found" });
+    });
   });
 
   describe("#existsById", () => {
@@ -218,6 +235,38 @@ describe("BuildingApiService", () => {
       );
       expect(req.request.method).toBe("GET");
       req.event(new HttpResponse<boolean>({ body: testValue }));
+    });
+  });
+
+  describe("#existsByName", () => {
+    it("a visszatérési érték: Observable<boolean> (true)", () => {
+      const name: string = "Teszt épület";
+
+      service.existsByName(name).subscribe(result => {
+        expect(result).toEqual(true);
+      });
+
+      const req = httpMock.expectOne(
+        ApiEndpoints.getUrl(ApiEndpoints.BUILDING_EXISTS_BY_NAME) +
+          `?name=${name}`
+      );
+      expect(req.request.method).toBe("GET");
+      req.event(new HttpResponse<boolean>({ body: true }));
+    });
+
+    it("a visszatérési érték: Observable<boolean> (false)", () => {
+      const name: string = "Teszt épület";
+
+      service.existsByName(name).subscribe(result => {
+        expect(result).toEqual(false);
+      });
+
+      const req = httpMock.expectOne(
+        ApiEndpoints.getUrl(ApiEndpoints.BUILDING_EXISTS_BY_NAME) +
+          `?name=${name}`
+      );
+      expect(req.request.method).toBe("GET");
+      req.event(new HttpResponse<boolean>({ body: false }));
     });
   });
 });

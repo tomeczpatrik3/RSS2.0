@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { EventApiService } from "../../shared/services/api/event.api.service";
-import { ReservationEvent } from "../../shared/models/ReservationEvent";
+import { Event } from "../../shared/models/Event";
 
 /**
  * Az eseményekhez (foglalás) tartozó service osztály
@@ -13,7 +13,7 @@ export class EventsDataService {
   /**
    * Az események lekérdezéséért felelős függvény
    */
-  getEvents(): Observable<ReservationEvent[]> {
+  getEvents(): Observable<Event[]> {
     return this.api.getEvents();
   }
 
@@ -21,7 +21,7 @@ export class EventsDataService {
    * Egy adott (teljes) névhez tartozó események lekérdezését megvalósító függvény
    * @param userName A teljes név
    */
-  findByUserName(userName: string): Observable<ReservationEvent[]> {
+  findByUserName(userName: string): Observable<Event[]> {
     return this.api.findByUserName(userName);
   }
 
@@ -31,7 +31,7 @@ export class EventsDataService {
    */
   findByBuildingName(
     buildingName: string
-  ): Observable<ReservationEvent[]> {
+  ): Observable<Event[]> {
     return this.api.findByBuildingName(buildingName);
   }
 
@@ -43,7 +43,7 @@ export class EventsDataService {
   findByClassroomAndBuilding(
     classroom: string,
     building: string
-  ): Observable<ReservationEvent[]> {
+  ): Observable<Event[]> {
     return this.api.findByClassroomAndBuilding(classroom, building);
   }
 
@@ -51,7 +51,7 @@ export class EventsDataService {
    * Egy adott (foglalás) névhez tartozó események lekérdezését megvalósító függvény
    * @param eventName A foglalás neve
    */
-  findByEventName(eventName: string): Observable<ReservationEvent[]> {
+  findByEventName(eventName: string): Observable<Event[]> {
     return this.api.findByEventName(eventName);
   }
 
@@ -61,7 +61,7 @@ export class EventsDataService {
    */
   findBySubjectName(
     subjectName: string
-  ): Observable<ReservationEvent[]> {
+  ): Observable<Event[]> {
     return this.api.findBySubjectName(subjectName);
   }
 
@@ -71,7 +71,7 @@ export class EventsDataService {
    */
   findBySemesterName(
     semesterName: string
-  ): Observable<ReservationEvent[]> {
+  ): Observable<Event[]> {
     return this.api.findBySemesterName(semesterName);
   }
 }

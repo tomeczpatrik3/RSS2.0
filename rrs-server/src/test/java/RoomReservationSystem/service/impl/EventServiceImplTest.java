@@ -20,7 +20,7 @@ import org.mockito.runners.MockitoJUnitRunner;
  *
  * @author Tomecz Patrik
  */
-@RunWith(MockitoJUnitRunner.class)
+//@RunWith(MockitoJUnitRunner.class)
 public class EventServiceImplTest {
 
     @InjectMocks

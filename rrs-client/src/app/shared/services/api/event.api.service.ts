@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
 import { ApiEndpoints } from "../../config/api-endpoints.config";
-import { ReservationEvent } from "../../models/ReservationEvent";
+import { Event } from "../../models/Event";
 
 /**
  * Az eseményekhez (foglalás) tartozó service osztály
@@ -14,8 +14,8 @@ export class EventApiService {
   /**
    * Az események lekérdezéséért felelős függvény
    */
-  getEvents(): Observable<ReservationEvent[]> {
-    return <Observable<ReservationEvent[]>>(
+  getEvents(): Observable<Event[]> {
+    return <Observable<Event[]>>(
       this.http.get(ApiEndpoints.getUrl(ApiEndpoints.EVENT_GET_EVENTS))
     );
   }
@@ -24,8 +24,8 @@ export class EventApiService {
    * Egy adott (teljes) névhez tartozó események lekérdezését megvalósító függvény
    * @param userName A teljes név
    */
-  findByUserName(userName: string): Observable<ReservationEvent[]> {
-    return <Observable<ReservationEvent[]>>(
+  findByUserName(userName: string): Observable<Event[]> {
+    return <Observable<Event[]>>(
       this.http.get(
         ApiEndpoints.getUrl(ApiEndpoints.EVENT_FIND_BY_USER_NAME) + `?userName=${userName}`
       )
@@ -38,8 +38,8 @@ export class EventApiService {
    */
   findByBuildingName(
     buildingName: string
-  ): Observable<ReservationEvent[]> {
-    return <Observable<ReservationEvent[]>>(
+  ): Observable<Event[]> {
+    return <Observable<Event[]>>(
       this.http.get(
         ApiEndpoints.getUrl(ApiEndpoints.EVENT_FIND_BY_BUILDING_NAME) +
           `?buildingName=${buildingName}`
@@ -55,8 +55,8 @@ export class EventApiService {
   findByClassroomAndBuilding(
     classroom: string,
     building: string
-  ): Observable<ReservationEvent[]> {
-    return <Observable<ReservationEvent[]>>(
+  ): Observable<Event[]> {
+    return <Observable<Event[]>>(
       this.http.get(
         ApiEndpoints.getUrl(ApiEndpoints.EVENT_FIND_BY_CLASSROOM_AND_BUILDING) +
           `?classroom=${classroom}&building=${building}`
@@ -68,8 +68,8 @@ export class EventApiService {
    * Egy adott (foglalás) névhez tartozó események lekérdezését megvalósító függvény
    * @param eventName A foglalás neve
    */
-  findByEventName(eventName: string): Observable<ReservationEvent[]> {
-    return <Observable<ReservationEvent[]>>(
+  findByEventName(eventName: string): Observable<Event[]> {
+    return <Observable<Event[]>>(
       this.http.get(
         ApiEndpoints.getUrl(ApiEndpoints.EVENT_FIND_BY_EVENT_NAME) +
           `?eventName=${eventName}`
@@ -83,8 +83,8 @@ export class EventApiService {
    */
   findBySubjectName(
     subjectName: string
-  ): Observable<ReservationEvent[]> {
-    return <Observable<ReservationEvent[]>>(
+  ): Observable<Event[]> {
+    return <Observable<Event[]>>(
       this.http.get(
         ApiEndpoints.getUrl(ApiEndpoints.EVENT_FIND_BY_SUBJECT_NAME) +
           `?subjectName=${subjectName}`
@@ -98,8 +98,8 @@ export class EventApiService {
    */
   findBySemesterName(
     semesterName: string
-  ): Observable<ReservationEvent[]> {
-    return <Observable<ReservationEvent[]>>(
+  ): Observable<Event[]> {
+    return <Observable<Event[]>>(
       this.http.get(
         ApiEndpoints.getUrl(ApiEndpoints.EVENT_FIND_BY_SEMESTER_NAME) +
           `?semesterName=${semesterName}`

@@ -1,6 +1,9 @@
 import { Component, OnInit, Output, Input, EventEmitter } from "@angular/core";
 import { Subject } from "../../../../shared/models/Subject";
 import { SubjectsDataService } from "../../subjects.data.service";
+import { TextUtils } from "../../../../shared/utils/text-utils";
+import { InfoDialogComponent } from "../../../../shared/components/dialogs/info-dialog/info-dialog.component";
+import { DialogService } from "../../../../shared/services/dialog.service";
 
 @Component({
   selector: "app-edit-subject-form",
@@ -18,7 +21,10 @@ export class EditSubjectFormComponent implements OnInit {
   /*A tantárgy*/
   model: Subject;
 
-  constructor(private subjectService: SubjectsDataService) {}
+  constructor(
+    private subjectService: SubjectsDataService,
+    private dialogService: DialogService
+  ) {}
 
   /**
    * Az inicializálásért felelős függvény
@@ -35,7 +41,15 @@ export class EditSubjectFormComponent implements OnInit {
   onSubmit() {
     this.subjectService
       .update(this.model.id, this.model)
-      .subscribe(semester => this.submitEvent.next(true));
+      .subscribe(
+        () => this.submitEvent.next(true),
+        error =>
+          this.dialogService.openDialog(
+            "Tantárgy szerkesztése:",
+            TextUtils.addBreaks(error.error),
+            InfoDialogComponent
+          )
+      );
   }
 
   /**

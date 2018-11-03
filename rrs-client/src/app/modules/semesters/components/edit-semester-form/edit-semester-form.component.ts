@@ -2,6 +2,9 @@ import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { Semester } from "../../../../shared/models/Semester";
 import { SemesterDataService } from "../../semesters.data.service";
 import { patterns } from "../../../../shared/utils/patterns";
+import { TextUtils } from "../../../../shared/utils/text-utils";
+import { InfoDialogComponent } from "../../../../shared/components/dialogs/info-dialog/info-dialog.component";
+import { DialogService } from "../../../../shared/services/dialog.service";
 
 @Component({
   selector: "app-edit-semester-form",
@@ -21,7 +24,10 @@ export class EditSemesterFormComponent implements OnInit {
   /*A szemeszter név pattern*/
   semesterNamePattern: string = patterns.semesterName;
 
-  constructor(private semesterService: SemesterDataService) {}
+  constructor(
+    private semesterService: SemesterDataService,
+    private dialogService: DialogService
+  ) {}
 
   /**
    * Az inicializálásért felelős függvény
@@ -38,7 +44,15 @@ export class EditSemesterFormComponent implements OnInit {
   onSubmit() {
     this.semesterService
       .update(this.model.id, this.model)
-      .subscribe(semester => this.submitEvent.next(true));
+      .subscribe(
+        () => this.submitEvent.next(true),
+        error =>
+          this.dialogService.openDialog(
+            "Szemeszter szerkesztése:",
+            TextUtils.addBreaks(error.error),
+            InfoDialogComponent
+          )
+      );
   }
 
   /**

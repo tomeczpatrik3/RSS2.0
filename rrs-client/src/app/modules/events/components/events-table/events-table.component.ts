@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ReservationEvent } from "../../../../shared/models/ReservationEvent";
+import { Event } from "../../../../shared/models/Event";
 import { EventApiService } from "../../../../shared/services/api/event.api.service";
 import { AuthService } from "../../../../shared/services/auth.service";
 import { DialogService } from "../../../../shared/services/dialog.service";
@@ -15,7 +15,7 @@ import { FormDialogComponent } from "../../../../shared/components/dialogs/form-
 })
 export class EventsTableComponent implements OnInit {
   /*Az események*/
-  reservationEvents: ReservationEvent[];
+  reservationEvents: Event[];
 
   constructor(
     private eventService: EventApiService,
@@ -37,7 +37,7 @@ export class EventsTableComponent implements OnInit {
    * A megfelelő (eseményhez tartozó) dialógus megjelenítéséért felelős függvény
    * @param event Az esemény
    */
-  openPopup(event: ReservationEvent) {
+  openPopup(event: Event) {
     let formType: string;
     if (this.authService.hasAuthority(Authorities.ROLE_ADMIN)) {
       if (event.info.type == ReservationType.EVENT) {
