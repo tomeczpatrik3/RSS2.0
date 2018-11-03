@@ -48,7 +48,7 @@ public class ClassReservation extends Reservation {
      * @param dateList A foglalás lista
      * @param note A megjegyzés
      */
-    protected ClassReservation(
+    public ClassReservation(
             User user,
             Subject subject,
             Classroom classroom,
@@ -64,7 +64,7 @@ public class ClassReservation extends Reservation {
     /**
      * Az osztály üres konstruktora
      */
-    protected ClassReservation() {
+    public ClassReservation() {
         super();
     }
 

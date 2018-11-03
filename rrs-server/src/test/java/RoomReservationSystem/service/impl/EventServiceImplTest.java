@@ -5,10 +5,14 @@ import RoomReservationSystem.dto.reservation.ReservationInfoDTO;
 import RoomReservationSystem.enums.Type;
 import RoomReservationSystem.service.reservation.ClassReservationService;
 import RoomReservationSystem.service.reservation.EventReservationService;
+import java.util.Arrays;
+import java.util.List;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 /**
@@ -59,9 +63,11 @@ public class EventServiceImplTest {
                     "2018-2019/1"
             )
     );
-    
-    @Test
-    public void testGetEvents() {
-        //Mockito.when(classRService.findByStatus("ACCEPTED")).thenReturn();
-    }
+
+//    @Test
+//    public void testFindByUserName() {
+//        Mockito.when(service.getEvents()).thenReturn(Arrays.asList(TEST_EVENT_1, TEST_EVENT_2));
+//        List<EventDTO> found = service.findByUserName("Teszt János");
+//        assertEquals(TEST_EVENT_1, found.get(0));
+//    }
 }

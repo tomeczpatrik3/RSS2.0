@@ -145,6 +145,9 @@ public class EventReservationServiceImplTest {
         service.findById(1234);
     }
 
+    /**
+     * A foglalások lekérdezésének tesztelését megvalósító függvény
+     */
     @Test
     public void testGetAll() {
         Mockito.when(repository.findAll()).thenReturn(Arrays.asList(TEST_RESERVATION_1, TEST_RESERVATION_2));
@@ -186,10 +189,9 @@ public class EventReservationServiceImplTest {
      * A státusz alapján történő keresés tesztelésére szolgáló függvény
      *
      * @throws StatusNotExistsException A lehetséges kivétel
-     * @throws EventReservationNotExistsException A lehetséges kivétel
      */
     @Test
-    public void testFindByStatus() throws StatusNotExistsException, EventReservationNotExistsException {
+    public void testFindByStatus() throws StatusNotExistsException {
         Mockito.when(statusService.findByName(TEST_STATUS_1.getName())).thenReturn(TEST_STATUS_1);
         Mockito.when(repository.findByStatus(TEST_STATUS_1)).thenReturn(Arrays.asList(TEST_RESERVATION_1));
         List<EventReservation> found = service.findByStatus(TEST_STATUS_1.getName());
