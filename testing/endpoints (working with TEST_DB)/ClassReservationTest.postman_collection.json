@@ -737,14 +737,14 @@
 					"raw": "{\n\t\"username\": \"tesztGabi\",\n\t\"building\": \"ÉSZAKI\",\n\t\"classroom\": \"Eötvös terem\",\n\t\"status\": \"PENDING\",\n\t\"note\": \"Második teszt\",\n\t\"subjectCode\": \"szvetlen1k17ea\",\n\t\"semester\": \"2017-2018/1\",\n\t\"startDates\": [\"2017-10-12 14:00\"],\n\t\"endDates\": [\"2017-10-12 16:00\"]\n}"
 				},
 				"url": {
-					"raw": "{{api}}/classReservation/update/6",
+					"raw": "{{api}}/classReservation/update/5",
 					"host": [
 						"{{api}}"
 					],
 					"path": [
 						"classReservation",
 						"update",
-						"6"
+						"5"
 					]
 				}
 			},
@@ -784,7 +784,7 @@
 					"raw": "{\n\t\"username\": \"tesztGabi\",\n\t\"building\": \"ÉSZAKI\",\n\t\"classroom\": \"Eötvös terem\",\n\t\"status\": \"WHATEVER\",\n\t\"note\": \"Második teszt\",\n\t\"subjectCode\": \"szvetlen1k17ea\",\n\t\"semester\": \"2017-2018/1\",\n\t\"startDates\": [\"2017-10-12 14:00\"],\n\t\"endDates\": [\"2017-10-12 16:00\"]\n}"
 				},
 				"url": {
-					"raw": "{{api}}/classReservation/deleteById?id=6",
+					"raw": "{{api}}/classReservation/deleteById?id=5",
 					"host": [
 						"{{api}}"
 					],
@@ -795,7 +795,7 @@
 					"query": [
 						{
 							"key": "id",
-							"value": "6"
+							"value": "5"
 						}
 					]
 				}

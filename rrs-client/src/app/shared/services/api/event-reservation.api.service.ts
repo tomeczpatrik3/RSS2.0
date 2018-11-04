@@ -107,8 +107,8 @@ export class EventReservationApiService {
    * A foglalások név alapján történő lekérdezését megvalósító függvény
    * @param name A foglalás neve
    */
-  findByName(name: string): Observable<EventReservation[]> {
-    return <Observable<EventReservation[]>>(
+  findByName(name: string): Observable<EventReservation> {
+    return <Observable<EventReservation>>(
       this.http.get(
         ApiEndpoints.getUrl(ApiEndpoints.EVENT_RESERVATION_FIND_BY_NAME) +
           "/" +

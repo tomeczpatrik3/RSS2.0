@@ -1,0 +1,166 @@
+newman
+
+ClassReservationTest
+
+→ getAccepted()
+  GET http://localhost:8080/api/classReservation/getAccepted [200 OK, 573B, 51ms]
+  √  A státusz kód 200
+  √  A tartalom típusa
+  √  A foglalások száma
+  √  A lista tartalmazza a '1' azonosítót
+  √  A lista tartalmazza a 'tesztGabi'-t
+  √  A lista tartalmazza az 'ÉSZAKI'-t
+  √  A lista tartalmazza a 'Jánossy Lajos terem'-t
+
+→ getPending()
+  GET http://localhost:8080/api/classReservation/getPending [200 OK, 568B, 17ms]
+  √  A státusz kód 200
+  √  A tartalom típusa
+  √  A foglalások száma
+  √  A lista tartalmazza a '2' azonosítót
+  √  A lista tartalmazza a 'tesztJani'-t
+  √  A lista tartalmazza az 'ÉSZAKI'-t
+  √  A lista tartalmazza a 'Jedlik Ányos terem'-t
+
+→ findById()
+  GET http://localhost:8080/api/classReservation/findById?id=2 [200 OK, 566B, 17ms]
+  √  A státusz kód 200
+  √  A tartalom típusa
+  √  A foglalás azonosítója
+  √  A foglaló személy
+  √  Az épület
+  √  A tanterem
+
+→ findByUsername()
+  GET http://localhost:8080/api/classReservation/findByUsername/tesztJani [200 OK, 1.86KB, 29ms]
+  √  A státusz kód 200
+  √  A tartalom típusa
+  √  A foglalások száma
+  √  A lista tartalmazza a 'tesztJani'-t
+
+→ findByStatus()
+  GET http://localhost:8080/api/classReservation/findByStatus/DECLINED [200 OK, 1.62KB, 24ms]
+  √  A státusz kód 200
+  √  A tartalom típusa
+  √  A foglalások száma
+  √  A lista tartalmazza a 'tesztJani'-t
+
+→ findByBuildingAndClassroom()
+  GET http://localhost:8080/api/classReservation/findByBuildingAndClassroom?building=DÉLI&classroom=Erdos Pál terem [200 OK, 1.62KB, 25ms]
+  √  A státusz kód 200
+  √  A tartalom típusa
+  √  A foglalások száma
+  √  A lista tartalmazza a 'DÉLI'-t
+  √  A lista tartalmazza a 'Erdos Pál terem'-t
+
+→ findBySubjectCode()
+  GET http://localhost:8080/api/classReservation/findBySubjectCode?subjectCode=kembiztk17ea [200 OK, 1.62KB, 25ms]
+  √  A státusz kód 200
+  √  A tartalom típusa
+  √  A foglalások száma
+  √  A lista tartalmazza a 'kembiztk17ea'-t
+
+→ findBySemester()
+  GET http://localhost:8080/api/classReservation/findBySemester?semester=2017-2018/2 [200 OK, 1.86KB, 25ms]
+  √  A státusz kód 200
+  √  A tartalom típusa
+  √  A foglalások száma
+  √  A lista tartalmazza a '2017-2018/2'-t
+
+→ setStatus(ACCEPTED)
+  GET http://localhost:8080/api/classReservation/setStatus?id=2&status=ACCEPTED [200 OK, 567B, 15ms]
+  √  A státusz kód 200
+  √  A tartalom típusa
+  √  A foglalás azonosítója
+  √  A foglalás státusza
+
+→ setStatus(PENDING)
+  GET http://localhost:8080/api/classReservation/setStatus?id=2&status=PENDING [200 OK, 566B, 14ms]
+  √  A státusz kód 200
+  √  A tartalom típusa
+  √  A foglalás azonosítója
+  √  A foglalás státusza
+
+→ existsById (TRUE)
+  GET http://localhost:8080/api/classReservation/existsById?id=1 [200 OK, 316B, 10ms]
+  √  A státusz kód 200
+  √  A tartalom típusa
+  √  A visszatérési érték
+
+→ existsById (FALSE)
+  GET http://localhost:8080/api/classReservation/existsById?id=9999 [200 OK, 317B, 8ms]
+  √  A státusz kód 200
+  √  A tartalom típusa
+  √  A visszatérési érték
+
+→ createReservation()
+  POST http://localhost:8080/api/classReservation/createReservation [201 Created, 556B, 92ms]
+  √  A státusz kód 200
+  √  A tartalom típusa
+  √  A foglaló személy
+  √  Az épület
+  √  A tanterem
+  √  A státusz
+  √  A megjegyzés
+  √  A kezdési dátum
+  √  A befejezési dátum
+  √  A tárgykód
+  √  A szemezster
+
+→ update()
+  PUT http://localhost:8080/api/classReservation/update/5 [201 Created, 563B, 99ms]
+  √  A státusz kód 200
+  √  A tartalom típusa
+  √  A foglaló személy
+  √  Az épület
+  √  A tanterem
+  √  A státusz
+  √  A megjegyzés
+  √  A kezdési dátum
+  √  A befejezési dátum
+  √  A tárgykód
+  √  A szemezster
+
+→ deleteById()
+  DELETE http://localhost:8080/api/classReservation/deleteById?id=5 [200 OK, 257B, 78ms]
+  √  A státusz kód 200
+
+→ deleteByUsername()
+  DELETE http://localhost:8080/api/classReservation/deleteByUsername?username=tesztJani [200 OK, 257B, 757ms]
+  √  A státusz kód 200
+
+→ deleteByBuildingAndClassroom()
+  DELETE http://localhost:8080/api/classReservation/deleteByBuildingAndClassroom?building=ÉSZAKI&classroom=7.33 [200 OK, 257B, 40ms]
+  √  A státusz kód 200
+
+→ deleteBySubjectCode()
+  DELETE http://localhost:8080/api/classReservation/deleteBySubjectCode?subjectCode=kalkfm17ea [200 OK, 257B, 15ms]
+  √  A státusz kód 200
+
+→ deleteBySemester()
+  DELETE http://localhost:8080/api/classReservation/deleteBySemester?semester=2016-2017/1 [200 OK, 257B, 12ms]
+  √  A státusz kód 200
+
+→ deleteByStatus()
+  DELETE http://localhost:8080/api/classReservation/deleteByStatus?status=DECLINED [200 OK, 257B, 11ms]
+  √  A státusz kód 200
+
+┌─────────────────────────┬──────────┬──────────┐
+│                         │ executed │   failed │
+├─────────────────────────┼──────────┼──────────┤
+│              iterations │        1 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│                requests │       20 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│            test-scripts │       20 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│      prerequest-scripts │        0 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│              assertions │       83 │        0 │
+├─────────────────────────┴──────────┴──────────┤
+│ total run duration: 1847ms                    │
+├───────────────────────────────────────────────┤
+│ total data received: 8.78KB (approx)          │
+├───────────────────────────────────────────────┤
+│ average response time: 68ms                   │
+└───────────────────────────────────────────────┘

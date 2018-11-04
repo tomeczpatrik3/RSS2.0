@@ -824,14 +824,14 @@
 					"raw": "{\n\t\"username\": \"tesztGabi\",\n\t\"building\": \"ÉSZAKI\",\n\t\"classroom\": \"Eötvös terem\",\n\t\"status\": \"PENDING\",\n\t\"note\": \"Második teszt\",\n\t\"name\": \"Második teszt esemény\",\n\t\"startDate\": \"2020-10-12 14:00\",\n\t\"endDate\": \"2020-10-12 16:00\"\n}"
 				},
 				"url": {
-					"raw": "{{api}}/eventReservation/update/7",
+					"raw": "{{api}}/eventReservation/update/6",
 					"host": [
 						"{{api}}"
 					],
 					"path": [
 						"eventReservation",
 						"update",
-						"7"
+						"6"
 					]
 				}
 			},
@@ -871,7 +871,7 @@
 					"raw": "{\n\t\"username\": \"tesztGabi\",\n\t\"building\": \"ÉSZAKI\",\n\t\"classroom\": \"Eötvös terem\",\n\t\"status\": \"WHATEVER\",\n\t\"note\": \"Második teszt\",\n\t\"subjectCode\": \"szvetlen1k17ea\",\n\t\"semester\": \"2017-2018/1\",\n\t\"startDates\": [\"2017-10-12 14:00\"],\n\t\"endDates\": [\"2017-10-12 16:00\"]\n}"
 				},
 				"url": {
-					"raw": "{{api}}/eventReservation/deleteById?id=7",
+					"raw": "{{api}}/eventReservation/deleteById?id=6",
 					"host": [
 						"{{api}}"
 					],
@@ -882,7 +882,7 @@
 					"query": [
 						{
 							"key": "id",
-							"value": "7"
+							"value": "6"
 						}
 					]
 				}

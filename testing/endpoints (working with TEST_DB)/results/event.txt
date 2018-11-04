@@ -1,0 +1,74 @@
+newman
+
+EventTest
+
+→ getEvents()
+  GET http://localhost:8080/api/event/getEvents [200 OK, 912B, 45ms]
+  √  A státusz kód 200
+  √  A tartalom típusa
+  √  Az események száma
+  √  A lista tartalmazza a 'ÉSZAKI - Jánossy Lajos terem: Analízis 1 EA'-t
+  √  A lista tartalmazza a 'DÉLI - Gallai Tibor terem: Teszt esemény'-t
+
+→ findByUserName()
+  GET http://localhost:8080/api/event/findByUserName?userName=Teszt Gábor [200 OK, 912B, 23ms]
+  √  A státusz kód 200
+  √  A tartalom típusa
+  √  Az események száma
+  √  A lista tartalmazza a 'ÉSZAKI - Jánossy Lajos terem: Analízis 1 EA'-t
+  √  A lista tartalmazza a 'DÉLI - Gallai Tibor terem: Teszt esemény'-t
+
+→ findByBuildingName()
+  GET http://localhost:8080/api/event/findByBuildingName?buildingName=ÉSZAKI [200 OK, 622B, 40ms]
+  √  A státusz kód 200
+  √  A tartalom típusa
+  √  Az események száma
+  √  A lista tartalmazza a 'ÉSZAKI - Jánossy Lajos terem: Analízis 1 EA'-t
+
+→ findByClassroomNameAndBuilding()
+  GET http://localhost:8080/api/event/findByClassroomNameAndBuilding?classroom=Gallai Tibor terem&building=DÉLI [200 OK, 603B, 19ms]
+  √  A státusz kód 200
+  √  A tartalom típusa
+  √  Az események száma
+  √  A lista tartalmazza a 'DÉLI - Gallai Tibor terem: Teszt esemény'-t
+
+→ findByEventName()
+  GET http://localhost:8080/api/event/findByEventName?eventName=Teszt esemény [200 OK, 603B, 18ms]
+  √  A státusz kód 200
+  √  A tartalom típusa
+  √  Az események száma
+  √  A lista tartalmazza a 'DÉLI - Gallai Tibor terem: Teszt esemény'-t
+
+→ findBySubjectName()
+  GET http://localhost:8080/api/event/findBySubjectName?subjectName=Analízis 1 EA [200 OK, 622B, 19ms]
+  √  A státusz kód 200
+  √  A tartalom típusa
+  √  Az események száma
+  √  A lista tartalmazza a 'ÉSZAKI - Jánossy Lajos terem: Analízis 1 EA'-t
+
+→ findBySemesterName()
+  GET http://localhost:8080/api/event/findBySemesterName?semesterName=2017-2018/1 [200 OK, 622B, 19ms]
+  √  A státusz kód 200
+  √  A tartalom típusa
+  √  Az események száma
+  √  A lista tartalmazza a 'ÉSZAKI - Jánossy Lajos terem: Analízis 1 EA'-t
+
+┌─────────────────────────┬──────────┬──────────┐
+│                         │ executed │   failed │
+├─────────────────────────┼──────────┼──────────┤
+│              iterations │        1 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│                requests │        7 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│            test-scripts │        7 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│      prerequest-scripts │        0 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│              assertions │       30 │        0 │
+├─────────────────────────┴──────────┴──────────┤
+│ total run duration: 375ms                     │
+├───────────────────────────────────────────────┤
+│ total data received: 2.65KB (approx)          │
+├───────────────────────────────────────────────┤
+│ average response time: 26ms                   │
+└───────────────────────────────────────────────┘

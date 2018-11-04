@@ -121,7 +121,7 @@ public class EventReservationServiceImplTest {
             "Teszt esemény foglalás 2",
             "Ez egy teszt"
     );
-
+    
     /**
      * Az azonosító alapján történő keresés tesztelésére szolgáló függvény
      *

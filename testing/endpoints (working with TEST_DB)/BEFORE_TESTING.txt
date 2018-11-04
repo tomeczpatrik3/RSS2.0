@@ -4,7 +4,12 @@
 
 	ui: newman -- npm install newman --global;
 
-4 -- open cmd in test folder
-5 -- newman run collection-name.json  -e environment-name.json --insecure 
-	eg.: newman run BuildingTest.postman_collection.json  -e TestEnvironment.postman_environment.json --insecure 
-	or: newman run BuildingTest.postman_collection.json  -e TestEnvironment.postman_environment.json --insecure  > results\building.txt
+-- >
+	4 -- open cmd in test folder
+	5 -- newman run collection-name.json  -e environment-name.json --insecure 
+		eg.: newman run BuildingTest.postman_collection.json  -e TestEnvironment.postman_environment.json --insecure 
+		or: newman run BuildingTest.postman_collection.json  -e TestEnvironment.postman_environment.json --insecure  > results\building.txt
+
+-->
+	6 -- run "run_tests.sh"
+
