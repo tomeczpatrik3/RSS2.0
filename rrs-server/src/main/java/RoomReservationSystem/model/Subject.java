@@ -37,14 +37,13 @@ public class Subject extends BaseEntity {
     /*A tantárgy neve*/
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 255)
+    @Size(min = 1, max = 60)
     @Column(name = "NAME")
     private String name;
 
     /*A tantárgy kódja (tárgykód)*/
-    @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 255)
+    @Size(min = 1, max = 30)
     @Column(name = "CODE", unique = true)
     private String code;
 

@@ -71,7 +71,7 @@ export class EventReservationsDataService {
    * A foglalások név alapján történő lekérdezését megvalósító függvény
    * @param name A foglalás neve
    */
-  findByName(name: string): Observable<EventReservation[]> {
+  findByName(name: string): Observable<EventReservation> {
     return this.api.findByName(name);
   }
 

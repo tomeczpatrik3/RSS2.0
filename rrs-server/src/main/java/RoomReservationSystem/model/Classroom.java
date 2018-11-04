@@ -37,9 +37,8 @@ import lombok.NoArgsConstructor;
 public class Classroom extends BaseEntity {
 
     /*Az osztályterem neve*/
-    @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 255)
+    @Size(min = 1, max = 60)
     @Column(name = "NAME")
     private String name;
 

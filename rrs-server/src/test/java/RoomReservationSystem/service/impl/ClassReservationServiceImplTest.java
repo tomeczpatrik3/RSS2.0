@@ -260,6 +260,7 @@ public class ClassReservationServiceImplTest {
     public void testSetStatus() throws StatusNotExistsException, ClassReservationNotExistsException {
         Mockito.when(repository.findById(TEST_RESERVATION_1.getId())).thenReturn(TEST_RESERVATION_1);
         Mockito.when(statusService.findByName(TEST_STATUS_2.getName())).thenReturn(TEST_STATUS_2);
+        Mockito.when(repository.save(TEST_RESERVATION_1)).thenReturn(TEST_RESERVATION_1);
         ClassReservation changed = service.setStatus(TEST_RESERVATION_1.getId(), TEST_STATUS_2.getName());
         assertNotNull(changed);
         assertEquals(changed.getStatus(), TEST_STATUS_2);

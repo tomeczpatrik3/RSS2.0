@@ -12,8 +12,6 @@ import { ClassroomApiService } from "../../../../shared/services/api/classroom.a
 import { DialogService } from "../../../../shared/services/dialog.service";
 import { Router } from "@angular/router";
 import { EventReservation } from "../../../../shared/models/EventReservation";
-import { Observable } from "rxjs";
-import { MessageConstants } from "../../../../shared/config/message-constants.config";
 import { TextUtils } from "../../../../shared/utils/text-utils";
 import { UniqueEventNameValidator } from "../../../../shared/directives/unique-event-name.directive";
 import { TakenBuildingNameValidator } from "../../../../shared/directives/taken-building-name.directive";
@@ -23,7 +21,6 @@ import { BuildingApiService } from "../../../../shared/services/api/building.api
 import { SemesterApiService } from "../../../../shared/services/api/semester.api.service";
 import { EventReservationsDataService } from "../../event-reservations.data.service";
 import { InfoDialogComponent } from "../../../../shared/components/dialogs/info-dialog/info-dialog.component";
-import { QuestionDialogComponent } from "../../../../shared/components/dialogs/question-dialog/question-dialog.component";
 
 @Component({
   selector: "app-add-event-reservation-form",
@@ -164,19 +161,5 @@ export class AddEventReservationFormComponent extends AddReservation {
       );
 
     this.reservationForm.reset();
-  }
-
-  /**
-   * Az űrlap elhagyásának engedélyezéséért/tiltásáért felelős függvény
-   */
-  canDeactivate(): Observable<boolean> | boolean {
-    if (this.reservationForm.dirty) {
-      return this.dialogService.openDialog(
-        "Oldal elhagyása:",
-        MessageConstants.FORM_QUESTION_MESSAGE,
-        QuestionDialogComponent
-      );
-    }
-    return true;
   }
 }

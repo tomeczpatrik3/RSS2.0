@@ -215,7 +215,7 @@ public class EventReservationServiceImpl implements EventReservationService {
         if (res != null) {
             if (status != null) {
                 res.setStatus(status);
-                return res;
+                return repository.save(res);
             } else {
                 throw new StatusNotExistsException(statusName);
             }

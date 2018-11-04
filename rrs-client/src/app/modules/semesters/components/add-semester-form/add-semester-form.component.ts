@@ -11,9 +11,6 @@ import { UniqueSemesterNameValidator } from "../../../../shared/directives/uniqu
 import { Semester } from "../../../../shared/models/Semester";
 import { TextUtils } from "../../../../shared/utils/text-utils";
 import { InfoDialogComponent } from "../../../../shared/components/dialogs/info-dialog/info-dialog.component";
-import { MessageConstants } from "../../../../shared/config/message-constants.config";
-import { QuestionDialogComponent } from "../../../../shared/components/dialogs/question-dialog/question-dialog.component";
-import { Observable } from "rxjs";
 
 @Component({
   selector: "app-add-semester-form",
@@ -86,19 +83,5 @@ export class AddSemesterFormComponent implements OnInit {
     );
 
     this.semesterForm.reset();
-  }
-
-  /**
-   * Az űrlap elhagyásának engedélyezéséért/tiltásáért felelős függvény
-   */
-  canDeactivate(): Observable<boolean> | boolean {
-    if (this.semesterForm.dirty) {
-      return this.dialogService.openDialog(
-        "Oldal elhagyása:",
-        MessageConstants.FORM_QUESTION_MESSAGE,
-        QuestionDialogComponent
-      );
-    }
-    return true;
   }
 }

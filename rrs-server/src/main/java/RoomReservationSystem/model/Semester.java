@@ -36,9 +36,8 @@ import lombok.EqualsAndHashCode;
 public class Semester extends BaseEntity {
 
     /*Az szemeszter neve (pl: 2017-2018/2)*/
-    @Basic(optional = false)
     @NotNull
-    @Size(min = 11, max = 11)
+    @Size(min = 1, max = 30)
     @Column(name = "NAME", unique = true)
     private String name;
 

@@ -9,7 +9,6 @@ import {
 
 import { Router } from "@angular/router";
 import { AddReservation } from "../add-reservaion";
-import { Observable } from "rxjs";
 import { AuthService } from "../../../../shared/services/auth.service";
 import { ClassroomApiService } from "../../../../shared/services/api/classroom.api.service";
 import { SubjectApiService } from "../../../../shared/services/api/subject.api.service";
@@ -25,8 +24,6 @@ import { timeValidator } from "../../../../shared/directives/time.directive";
 import { ClassReservation } from "../../../../shared/models/ClassReservation";
 import { TextUtils } from "../../../../shared/utils/text-utils";
 import { InfoDialogComponent } from "../../../../shared/components/dialogs/info-dialog/info-dialog.component";
-import { MessageConstants } from "../../../../shared/config/message-constants.config";
-import { QuestionDialogComponent } from "../../../../shared/components/dialogs/question-dialog/question-dialog.component";
 
 @Component({
   selector: "app-add-simple-reservation-form",
@@ -174,19 +171,5 @@ export class AddSimpleReservationFormComponent extends AddReservation {
           )
       );
     this.reservationForm.reset();
-  }
-
-  /**
-   * Az űrlap elhagyásának engedélyezéséért/tiltásáért felelős függvény
-   */
-  canDeactivate(): Observable<boolean> | boolean {
-    if (this.reservationForm.dirty) {
-      return this.dialogService.openDialog(
-        "Oldal elhagyása:",
-        MessageConstants.FORM_QUESTION_MESSAGE,
-        QuestionDialogComponent
-      );
-    }
-    return true;
   }
 }

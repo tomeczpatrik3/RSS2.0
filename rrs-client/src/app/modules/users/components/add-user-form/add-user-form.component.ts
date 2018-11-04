@@ -8,9 +8,6 @@ import { emailValidator } from "../../../../shared/directives/confirm-email.dire
 import { User } from "../../../../shared/models/User";
 import { TextUtils } from "../../../../shared/utils/text-utils";
 import { InfoDialogComponent } from "../../../../shared/components/dialogs/info-dialog/info-dialog.component";
-import { MessageConstants } from "../../../../shared/config/message-constants.config";
-import { QuestionDialogComponent } from "../../../../shared/components/dialogs/question-dialog/question-dialog.component";
-import { Observable } from "rxjs";
 
 @Component({
   selector: "app-add-user-form",
@@ -128,19 +125,5 @@ export class AddUserFormComponent implements OnInit {
       );
 
     this.userForm.reset();
-  }
-
-  /**
-   * Az űrlap elhagyásának engedélyezéséért/tiltásáért felelős függvény
-   */
-  canDeactivate(): Observable<boolean> | boolean {
-    if (this.userForm.dirty) {
-      return this.dialogService.openDialog(
-        "Oldal elhagyása:",
-        MessageConstants.FORM_QUESTION_MESSAGE,
-        QuestionDialogComponent
-      );
-    }
-    return true;
   }
 }

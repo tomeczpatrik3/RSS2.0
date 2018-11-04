@@ -31,9 +31,7 @@ import lombok.EqualsAndHashCode;
 public class Authority extends BaseEntity {
 
     /*Az engedély neve*/
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
+    @Size(min = 1, max = 50)
     @Column(name = "NAME", unique = true)
     private String name;
 

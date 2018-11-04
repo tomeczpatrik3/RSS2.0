@@ -8,10 +8,11 @@
       <th scope="col">Státusz</th>
       <th scope="col">Megjegyzés</th>
       <th scope="col">Név</th>
+      <th scope="col">Műveletek</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let reservation of reservations; let i = index" (click)="openPopup(reservation.id)">
+    <tr *ngFor="let reservation of reservations; let i = index">
       <th scope="row">{{i+1}}</th>
       <td>{{reservation.username}}</td>
       <td>{{reservation.building}}</td>
@@ -19,6 +20,14 @@
       <td>{{reservation.status | statusConvert}}</td>
       <td>{{reservation.note | empty}}</td>
       <td>{{reservation.name}}</td>
+      <td *ngIf="pending">
+          <button type="button" class="btn btn-success btn-sm" (click)="accept(reservation.id)">Elfogadás</button>
+          /
+          <button type="button" class="btn btn-danger btn-sm" (click)="decline(reservation.id)">Elutasítás</button>
+        </td>
+        <td *ngIf="!pending">
+            <button type="button" class="btn btn-secondary btn-sm" (click)="openDetails(reservation.id)">Részletek</button>
+        </td>
     </tr>
   </tbody>
 </table>

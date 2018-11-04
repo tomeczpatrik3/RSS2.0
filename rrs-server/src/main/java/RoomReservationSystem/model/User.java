@@ -23,7 +23,6 @@ import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -42,9 +41,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class User extends BaseEntity implements UserDetails {
 
     /*Felhasználónév*/
-    @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 255)
+    @Size(min = 1, max = 60)
     @Column(name = "USERNAME", unique = true)
     private String username;
 
@@ -63,9 +61,8 @@ public class User extends BaseEntity implements UserDetails {
     private String name;
 
     /*A felhasználó e-mail címe*/
-    @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 255)
+    @Size(min = 1, max = 80)
     @Column(name = "EMAIL", unique = true)
     private String email;
 

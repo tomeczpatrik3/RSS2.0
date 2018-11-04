@@ -31,8 +31,8 @@ import lombok.NoArgsConstructor;
 public class Status extends BaseEntity {
 
     /*A státusz neve*/
-    @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 50)
     @Column(name = "name", unique = true)
     private String name;
 

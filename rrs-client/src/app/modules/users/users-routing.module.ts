@@ -1,8 +1,5 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { LoginFormComponent } from "./components/login-form/login-form.component";
-import { AddUserFormComponent } from "./components/add-user-form/add-user-form.component";
-import { UserTableComponent } from "./components/user-table/user-table.component";
 import { RoleGuard } from "../../shared/guards/role-guard.service";
 import { Authorities } from "../../shared/config/authoritites.config";
 import { CanDeactivateGuard } from "../../shared/guards/can-deactivate-guard.service";
@@ -17,7 +14,8 @@ const routes: Routes = [
   },
   {
     path: "register",
-    component: AddUserPageComponent
+    component: AddUserPageComponent,
+    canDeactivate: [CanDeactivateGuard]
   },
   {
     path: "users",
@@ -26,7 +24,7 @@ const routes: Routes = [
     data: {
       authority: Authorities.ROLE_ADMIN
     }
-  },
+  }
 ];
 
 @NgModule({

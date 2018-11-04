@@ -222,6 +222,7 @@ public class EventReservationServiceImplTest {
     public void testSetStatus() throws StatusNotExistsException, EventReservationNotExistsException {
         Mockito.when(repository.findById(TEST_RESERVATION_1.getId())).thenReturn(TEST_RESERVATION_1);
         Mockito.when(statusService.findByName(TEST_STATUS_2.getName())).thenReturn(TEST_STATUS_2);
+        Mockito.when(repository.save(TEST_RESERVATION_1)).thenReturn(TEST_RESERVATION_1);
         EventReservation changed = service.setStatus(TEST_RESERVATION_1.getId(), TEST_STATUS_2.getName());
         assertNotNull(changed);
         assertEquals(TEST_RESERVATION_1.getName(), changed.getName());

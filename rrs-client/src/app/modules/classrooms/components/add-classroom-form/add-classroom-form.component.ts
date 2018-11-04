@@ -10,9 +10,6 @@ import { Classroom } from "../../../../shared/models/Classroom";
 import { InfoDialogComponent } from "../../../../shared/components/dialogs/info-dialog/info-dialog.component";
 import { DialogService } from "../../../../shared/services/dialog.service";
 import { BuildingApiService } from "../../../../shared/services/api/building.api.service";
-import { QuestionDialogComponent } from "../../../../shared/components/dialogs/question-dialog/question-dialog.component";
-import { MessageConstants } from "../../../../shared/config/message-constants.config";
-import { Observable } from "rxjs";
 import { TextUtils } from "../../../../shared/utils/text-utils";
 import { TakenBuildingNameValidator } from "../../../../shared/directives/taken-building-name.directive";
 
@@ -118,19 +115,5 @@ export class AddClassroomFormComponent implements OnInit {
       );
     this.classroomForm.reset();
     this.loadBuildings();
-  }
-
-  /**
-   * Az űrlap elhagyásának engedélyezéséért/tiltásáért felelős függvény
-   */
-  canDeactivate(): Observable<boolean> | boolean {
-    if (this.classroomForm.dirty) {
-      return this.dialogService.openDialog(
-        "Oldal elhagyása:",
-        MessageConstants.FORM_QUESTION_MESSAGE,
-        QuestionDialogComponent
-      );
-    }
-    return true;
   }
 }

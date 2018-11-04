@@ -9,9 +9,6 @@ import { BuildingsDataService } from "../../buildings.data.service";
 import { DialogService } from "../../../../shared/services/dialog.service";
 import { Building } from "../../../../shared/models/Building";
 import { InfoDialogComponent } from "../../../../shared/components/dialogs/info-dialog/info-dialog.component";
-import { Observable } from "rxjs/Observable";
-import { QuestionDialogComponent } from "../../../../shared/components/dialogs/question-dialog/question-dialog.component";
-import { MessageConstants } from "../../../../shared/config/message-constants.config";
 import { TextUtils } from "../../../../shared/utils/text-utils";
 import { UniqueBuildingNameValidator } from "../../../../shared/directives/unique-building-name.directive";
 
@@ -77,19 +74,5 @@ export class AddBuildingFormComponent implements OnInit {
           )
       );
     this.buildingForm.reset();
-  }
-
-  /**
-   * Az űrlap elhagyásának engedélyezéséért/tiltásáért felelős függvény
-   */
-  canDeactivate(): Observable<boolean> | boolean {
-    if (this.buildingForm.dirty) {
-      return this.dialogService.openDialog(
-        "Oldal elhagyása:",
-        MessageConstants.FORM_QUESTION_MESSAGE,
-        QuestionDialogComponent
-      );
-    }
-    return true;
   }
 }

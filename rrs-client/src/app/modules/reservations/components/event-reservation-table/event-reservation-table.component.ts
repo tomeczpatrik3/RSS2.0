@@ -6,6 +6,9 @@ import { AuthService } from "../../../../shared/services/auth.service";
 import { Authorities } from "../../../../shared/config/authoritites.config";
 import { FormType } from "../../../../shared/enums/FormType";
 import { FormDialogComponent } from "../../../../shared/components/dialogs/form-dialog/form-dialog.component";
+import { Statuses } from "../../../../shared/config/statuses.config";
+import { TextUtils } from "../../../../shared/utils/text-utils";
+import { InfoDialogComponent } from "../../../../shared/components/dialogs/info-dialog/info-dialog.component";
 
 @Component({
   selector: "app-event-reservation-table",
@@ -16,9 +19,13 @@ export class EventReservationTableComponent implements OnInit {
   /*A felhasználónév*/
   @Input()
   user: string;
+
   /*Függőben lévő foglalások?*/
   @Input()
   pending: boolean;
+
+  /*A műveletek oszlop megjelenítése*/
+  displayActions: boolean;
 
   /*A foglalások*/
   reservations: EventReservation[];
@@ -40,7 +47,7 @@ export class EventReservationTableComponent implements OnInit {
    * A megfelelő dialógus megjlenítéséért felelős függvény
    * @param id A foglalás azonosítója
    */
-  openPopup(id: number) {
+  openDetails(id: number) {
     let formType: string;
     if (this.authService.hasAuthority(Authorities.ROLE_ADMIN)) {
       formType = FormType.EDIT_EVENT_RESERVATION_FORM;
@@ -79,6 +86,43 @@ export class EventReservationTableComponent implements OnInit {
       this.eventReservationService
         .getPending()
         .subscribe(res => (this.reservations = res));
+      this.displayActions = true;
     }
+  }
+
+  /**
+   * Az elfogadásért felelős függvény
+   * @param id A foglalás azonosítója
+   */
+  accept(id: number): void {
+    this.eventReservationService
+      .setStatus(id, Statuses.ACCEPTED)
+      .subscribe(
+        () => {},
+        error =>
+          this.dialogService.openDialog(
+            "Foglalás elfogadása:",
+            TextUtils.addBreaks(error.error),
+            InfoDialogComponent
+          )
+      );
+  }
+
+  /**
+   * Az elutasításért felelős függvény
+   * @param id A foglalás azonosítója
+   */
+  decline(id: number): void {
+    this.eventReservationService
+      .setStatus(id, Statuses.DECLINED)
+      .subscribe(
+        () => {},
+        error =>
+          this.dialogService.openDialog(
+            "Foglalás elutasítása:",
+            TextUtils.addBreaks(error.error),
+            InfoDialogComponent
+          )
+      );
   }
 }

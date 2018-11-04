@@ -37,7 +37,7 @@ export class ClassroomsDataService {
    * Egy adott névhez tartozó tantermek lekérdezését megvalósító függvény
    * @param roomName A tanterem neve
    */
-  findByName(roomName: string): Observable<Classroom> {
+  findByName(roomName: string): Observable<Classroom[]> {
     return this.api.findByName(roomName);
   }
 

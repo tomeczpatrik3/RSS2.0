@@ -25,9 +25,8 @@ import lombok.EqualsAndHashCode;
 public class EventReservation extends Reservation {
 
     /*A foglalás neve*/
-    @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 255)
+    @Size(min = 1, max = 60)
     @Column(name = "NAME")
     private String name;
 

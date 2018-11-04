@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Collections;
 import java.util.List;
 
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,12 +32,11 @@ import lombok.EqualsAndHashCode;
 public class Building extends BaseEntity {
 
     /*Az épület neve*/
-    @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 255)
+    @Size(min = 1, max = 60)
     @Column(name = "NAME", unique = true)
     private String name;
-    
+
     /*Az épülethez tartozó tantermek listája*/
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "building", targetEntity = Classroom.class)
@@ -52,6 +50,7 @@ public class Building extends BaseEntity {
 
     /**
      * Az osztály konstruktora
+     *
      * @param name Az épület neve
      * @param classroomList A tantermek, amik az épületben vannak
      * @param id Az azonosító
@@ -62,8 +61,6 @@ public class Building extends BaseEntity {
         this.classroomList = classroomList;
     }
 
-    
-    
     /**
      * A BuildingDTO objektum Building objektummá konvertálását végrehajtó
      * megtódus
