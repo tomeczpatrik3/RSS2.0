@@ -95,17 +95,17 @@ export class EventReservationTableComponent implements OnInit {
    * @param id A foglalás azonosítója
    */
   accept(id: number): void {
-    this.eventReservationService
-      .setStatus(id, Statuses.ACCEPTED)
-      .subscribe(
-        () => {},
-        error =>
-          this.dialogService.openDialog(
-            "Foglalás elfogadása:",
-            TextUtils.addBreaks(error.error),
-            InfoDialogComponent
-          )
-      );
+    this.eventReservationService.setStatus(id, Statuses.ACCEPTED).subscribe(
+      () => {
+        this.refreshTable();
+      },
+      error =>
+        this.dialogService.openDialog(
+          "Foglalás elfogadása:",
+          TextUtils.addBreaks(error.error),
+          InfoDialogComponent
+        )
+    );
   }
 
   /**
@@ -113,16 +113,16 @@ export class EventReservationTableComponent implements OnInit {
    * @param id A foglalás azonosítója
    */
   decline(id: number): void {
-    this.eventReservationService
-      .setStatus(id, Statuses.DECLINED)
-      .subscribe(
-        () => {},
-        error =>
-          this.dialogService.openDialog(
-            "Foglalás elutasítása:",
-            TextUtils.addBreaks(error.error),
-            InfoDialogComponent
-          )
-      );
+    this.eventReservationService.setStatus(id, Statuses.DECLINED).subscribe(
+      () => {
+        this.refreshTable();
+      },
+      error =>
+        this.dialogService.openDialog(
+          "Foglalás elutasítása:",
+          TextUtils.addBreaks(error.error),
+          InfoDialogComponent
+        )
+    );
   }
 }

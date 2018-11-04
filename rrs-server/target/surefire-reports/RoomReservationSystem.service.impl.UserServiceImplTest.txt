@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: RoomReservationSystem.service.impl.UserServiceImplTest
 -------------------------------------------------------------------------------
-Tests run: 22, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.175 s - in RoomReservationSystem.service.impl.UserServiceImplTest
+Tests run: 22, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.157 s - in RoomReservationSystem.service.impl.UserServiceImplTest
