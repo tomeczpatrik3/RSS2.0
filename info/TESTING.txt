@@ -1,0 +1,34 @@
+SPRING UNIT TESTING:
+
+https://www.youtube.com/watch?v=8S8o46avgAw
+
+https://stackoverflow.com/questions/31028359/spring-jparepository-save-does-not-mock-using-mockito
+
+https://stackoverflow.com/questions/51247796/how-to-mock-jpa-repositorys-save-method-in-unit-tests
+
+https://www.tutorialspoint.com/mockito/mockito_junit_integration.htm
+
+http://www.springboottutorial.com/unit-testing-for-spring-boot-rest-services
+
+ENDPOINTS:
+
+https://medium.com/@codebyjeff/using-postman-environment-variables-auth-tokens-ea9c4fe9d3d7
+
+https://dzone.com/articles/testing-apis-using-postman
+
+https://medium.com/aubergine-solutions/api-testing-using-postman-323670c89f6d
+
+-----
+
+https://www.baeldung.com/spring-boot-testing
+
+-----
+
+
+JSONPATH: https://www.pluralsight.com/blog/tutorials/introduction-to-jsonpath
+ResultActions: https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/ResultActions.html
+Testing with security: https://stackoverflow.com/questions/37817599/spring-boot-1-4-testing-with-security-enabled
+https://stackoverflow.com/questions/45241566/spring-boot-unit-tests-with-jwt-token-security
+
+https://stackoverflow.com/questions/49258766/spring-boot-2-0-x-disable-security-for-certain-profile
+https://stackoverflow.com/questions/38168163/setting-up-mockmvc-with-webmvctest-in-spring-boot-1-4-mvc-testing

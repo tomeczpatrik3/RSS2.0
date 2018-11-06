@@ -1,0 +1,532 @@
+{
+	"info": {
+		"_postman_id": "102cc29a-65e4-4512-b293-22ad23310dfb",
+		"name": "BuildingTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getAll()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d150e528-f28f-4075-9943-179b6ae6f273",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"Az épületek száma\"] = data.length === 2;",
+							"tests[\"A lista tartalmazza a DÉLI-t\"] = (responseBody.has(\"DÉLI\"));",
+							"tests[\"A lista tartalmazza az ÉSZAKI-t\"] = (responseBody.has(\"ÉSZAKI\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/building/getAll",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"building",
+						"getAll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getNames()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0bca981c-7579-4a00-9863-fb02ec06b98b",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"Az nevek mennyisége\"] = data.length === 2;",
+							"tests[\"A lista tartalmazza a DÉLI-t\"] = (responseBody.has(\"DÉLI\"));",
+							"tests[\"A lista tartalmazza a ÉSZAKI-t\"] = (responseBody.has(\"ÉSZAKI\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/building/getNames",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"building",
+						"getNames"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findByName()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "63270596-9b79-4650-9f67-3fd1a3d558b0",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"Az épület neve\"] = data.name === \"DÉLI\";"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/building/findByName/DELI",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"building",
+						"findByName",
+						"DELI"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findById()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5ccd654-fa49-4306-a47f-dbfdc0ea5432",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"Az épület neve\"] = data.name === \"ÉSZAKI\";"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/building/findById/1",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"building",
+						"findById",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "existsById (TRUE)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5ccd654-fa49-4306-a47f-dbfdc0ea5432",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A visszatérési érték\"] = data === true;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/building/existsById?id=1",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"building",
+						"existsById"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "existsById (FALSE)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5ccd654-fa49-4306-a47f-dbfdc0ea5432",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A visszatérési érték\"] = data === false;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/building/existsById?id=9999",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"building",
+						"existsById"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "9999"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "existsByName (TRUE)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5ccd654-fa49-4306-a47f-dbfdc0ea5432",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A visszatérési érték\"] = data === true;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/building/existsByName?name=ÉSZAKI",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"building",
+						"existsByName"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "ÉSZAKI"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "existsByName (FALSE)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5ccd654-fa49-4306-a47f-dbfdc0ea5432",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A visszatérési érték\"] = data === false;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/building/existsByName?name=NEM LETEZIK",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"building",
+						"existsByName"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "NEM LETEZIK"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createBuilding()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "20061aaa-64a7-4ade-9a8e-8592e4beaa7a",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 201\"] = responseCode.code === 201;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A létrehozott épület neve\"] = data.name === \"KELETI\";"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"KELETI\"\n}"
+				},
+				"url": {
+					"raw": "{{api}}/building/createBuilding/",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"building",
+						"createBuilding",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8901a7bb-0f17-410c-a570-3c6cebd6150b",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 201;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"Az épület neve\"] = data.name === \"NYUGATI\";",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"NYUGATI\"\n}"
+				},
+				"url": {
+					"raw": "{{api}}/building/update/3",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"building",
+						"update",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteByName()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8901a7bb-0f17-410c-a570-3c6cebd6150b",
+						"exec": [
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/building/deleteByName/NYUGATI",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"building",
+						"deleteByName",
+						"NYUGATI"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
