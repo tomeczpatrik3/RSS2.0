@@ -151,6 +151,14 @@ export class ApiEndpoints {
   static EVENT_FIND_BY_SUBJECT_NAME: string = "event/findBySubjectName";
   static EVENT_FIND_BY_SEMESTER_NAME: string = "event/findBySemesterName";
 
+  /*Üzenetek*/
+  static MESSAGE_FIND_OWN_BY_ID: string = "message/findOwnById";
+  static MESSAGE_FIND_BY_SENDER: string = "message/findBySender";
+  static MESSAGE_FIND_BY_RECIPIENT: string = "message/findByRecipient";
+  static MESSAGE_SEND_MESSAGE: string = "message/sendMessage";
+  static MESSAGE_GENERATE_SYSTEM_MESSAGE: string = "message/generateSystemMessage";
+  static MESSAGE_DELETE_OWN_BY_ID: string = "message/deleteOwnById";
+
   /**
    * Az adott route-hoz tartozó url-t előállító függvény
    * @param route A route
