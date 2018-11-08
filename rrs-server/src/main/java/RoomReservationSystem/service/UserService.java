@@ -30,6 +30,10 @@ public interface UserService extends UserDetailsService {
     User findById(int id) throws UserNotExistsException;
     
     User update(int id, UserDTO userDTO) throws UserNotExistsException;
+    
+    User getAuthenticatedUser();
+    
+    void setAuthenticatedUser(String username);
 
     List<User> findAll();
 

@@ -15,19 +15,18 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import javax.servlet.ServletContext;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
  *
- * @author tomeczp
+ * @author Tomecz Patrik
  */
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
     private UserServiceImpl userService;
-    
+
     /**
      *
      * @param authManager
@@ -46,8 +45,8 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
      */
     @Override
     protected void doFilterInternal(HttpServletRequest req,
-                                    HttpServletResponse res,
-                                    FilterChain chain) throws IOException, ServletException {
+            HttpServletResponse res,
+            FilterChain chain) throws IOException, ServletException {
         String header = req.getHeader(HEADER_STRING);
 
         if (header == null || !header.startsWith(TOKEN_PREFIX)) {
@@ -65,7 +64,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         String token = request.getHeader(HEADER_STRING);
         if (token != null) {
             // parse the token.
-            String user = Jwts.parser()
+            String username = Jwts.parser()
                     .setSigningKey(SECRET.getBytes())
                     .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
                     .getBody()
@@ -73,15 +72,16 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
             /*
                 Ha a userService még nincs inicalizálva:
-            */
+             */
             if (userService == null) {
                 ServletContext servletContext = request.getServletContext();
                 WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(servletContext);
                 userService = webApplicationContext.getBean(UserServiceImpl.class);
             }
-            
-            if (user != null) {
-                return new UsernamePasswordAuthenticationToken(user, null, userService.loadUserByUsername(user).getAuthorities());
+
+            if (username != null) {
+                userService.setAuthenticatedUser(username);
+                return new UsernamePasswordAuthenticationToken(username, null, userService.loadUserByUsername(username).getAuthorities());
             }
             return null;
         }

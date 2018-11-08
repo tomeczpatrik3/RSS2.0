@@ -2,7 +2,7 @@ package RoomReservationSystem.service.impl;
 
 import RoomReservationSystem.dto.EventDTO;
 import RoomReservationSystem.dto.reservation.ReservationInfoDTO;
-import RoomReservationSystem.enums.Type;
+import RoomReservationSystem.enums.ReservationType;
 import RoomReservationSystem.exception.StatusNotExistsException;
 import RoomReservationSystem.model.reservation.ClassReservation;
 import RoomReservationSystem.model.reservation.EventReservation;
@@ -148,10 +148,10 @@ public class EventServiceImpl implements EventService {
         List<EventDTO> events = new ArrayList<>();
 
         reservations.forEach((reservation) -> {
-            Type type;
+            ReservationType type;
             ReservationInfoDTO info;
             if (reservation instanceof ClassReservation) {
-                type = Type.CLASS;
+                type = ReservationType.CLASS;
                 info = new ReservationInfoDTO(
                         reservation.getId(),
                         type,
@@ -163,7 +163,7 @@ public class EventServiceImpl implements EventService {
                         ((ClassReservation) reservation).getSemester().getName()
                 );
             } else {
-                type = Type.EVENT;
+                type = ReservationType.EVENT;
                 info = new ReservationInfoDTO(
                         reservation.getId(),
                         type,

@@ -2,7 +2,7 @@ package RoomReservationSystem.service.impl;
 
 import RoomReservationSystem.dto.EventDTO;
 import RoomReservationSystem.dto.reservation.ReservationInfoDTO;
-import RoomReservationSystem.enums.Type;
+import RoomReservationSystem.enums.ReservationType;
 import RoomReservationSystem.service.reservation.ClassReservationService;
 import RoomReservationSystem.service.reservation.EventReservationService;
 import java.util.Arrays;
@@ -38,7 +38,7 @@ public class EventServiceImplTest {
             "Ez egy teszt óra foglalás",
             new ReservationInfoDTO(
                     1,
-                    Type.CLASS,
+                    ReservationType.CLASS,
                     "Teszt János",
                     "ÉSZAKI",
                     "Turán Pál tanterem",
@@ -54,7 +54,7 @@ public class EventServiceImplTest {
             "Ez egy teszt esemény foglalás",
             new ReservationInfoDTO(
                     1,
-                    Type.EVENT,
+                    ReservationType.EVENT,
                     "Teszt Gábor",
                     "DÉLI",
                     "Turán Pál tanterem",

@@ -31,6 +31,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 @Service
 public class UserServiceImpl implements UserService {
 
+    private User authenticatedUser;
+
     @Autowired
     private UserRepository userRepository;
 
@@ -107,6 +109,26 @@ public class UserServiceImpl implements UserService {
             found.setEmail(userDTO.getEmail());
             return userRepository.save(found);
         }
+    }
+
+    /**
+     * A bejelentkezett felhasználó lekérdezéséért felelős függvény
+     *
+     * @return A bejelentkezett felhasznnáló
+     */
+    @Override
+    public User getAuthenticatedUser() {
+        return this.authenticatedUser;
+    }
+
+    /**
+     * A bejelentkezett felhasználó beállításáért felelős függvény
+     *
+     * @param username A felhasználónév
+     */
+    @Override
+    public void setAuthenticatedUser(String username) {
+        this.authenticatedUser = userRepository.findByUsername(username);
     }
 
     /**

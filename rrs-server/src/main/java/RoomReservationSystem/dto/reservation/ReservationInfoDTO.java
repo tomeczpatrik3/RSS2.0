@@ -1,6 +1,6 @@
 package RoomReservationSystem.dto.reservation;
 
-import RoomReservationSystem.enums.Type;
+import RoomReservationSystem.enums.ReservationType;
 import lombok.Data;
 
 /**
@@ -14,7 +14,7 @@ public class ReservationInfoDTO {
     /*A foglalás azonosítója*/
     private long id;
     /*A foglalás típusa*/
-    private Type type;
+    private ReservationType type;
     /*A foglaló személy neve*/
     private String name;
     /*A foglaláshoz tartozó épület*/
@@ -45,7 +45,7 @@ public class ReservationInfoDTO {
      */
     public ReservationInfoDTO(
             long id,
-            Type type,
+            ReservationType type,
             String name,
             String building,
             String classroom,
@@ -69,7 +69,7 @@ public class ReservationInfoDTO {
      * @param subject A tantárgy neve
      * @param semester A szemeszter "neve"
      */
-    public ReservationInfoDTO(long id, Type type, String name, String building, String classroom, String note, String subject, String semester) {
+    public ReservationInfoDTO(long id, ReservationType type, String name, String building, String classroom, String note, String subject, String semester) {
         this(id, type, name, building, classroom, note);
         this.subject = subject;
         this.semester = semester;
@@ -86,7 +86,7 @@ public class ReservationInfoDTO {
      * @param note A megjegyzés
      * @param eventName Az esemény neve
      */
-    public ReservationInfoDTO(long id, Type type, String name, String building, String classroom, String note, String eventName) {
+    public ReservationInfoDTO(long id, ReservationType type, String name, String building, String classroom, String note, String eventName) {
         this(id, type, name, building, classroom, note);
         this.eventName = eventName;
         this.subject = "";
