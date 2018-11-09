@@ -2,6 +2,7 @@ C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\jav
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\controller\api\EventApiController.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\util\RegexUtils.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\dto\reservation\ClassReservationDTO.java
+C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\enums\ReservationType.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\dto\reservation\EventReservationDTO.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\service\impl\StatusServiceImpl.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\dto\reservation\ReservationDTO.java
@@ -26,6 +27,7 @@ C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\jav
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\service\impl\reservation\EventReservationServiceImpl.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\controller\api\EventReservationApiController.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\model\Subject.java
+C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\repository\MessageRepository.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\security\JWTAuthorizationFilter.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\validation\EventReservationValidator.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\exception\UserNotExistsException.java
@@ -40,10 +42,13 @@ C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\jav
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\service\reservation\ClassReservationService.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\exception\EventReservationAlredyExistsException.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\validation\ClassReservationValidator.java
+C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\controller\api\MessageApiController.java
+C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\enums\MessageType.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\RoomReservationSystemApplication.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\service\impl\reservation\ClassReservationServiceImpl.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\service\impl\SemesterServiceImpl.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\service\impl\UserServiceImpl.java
+C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\model\Message.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\controller\api\SubjectApiController.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\service\impl\ClassroomServiceImpl.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\service\impl\EventServiceImpl.java
@@ -56,10 +61,10 @@ C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\jav
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\repository\UserRepository.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\service\SubjectService.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\service\impl\BuildingServiceImpl.java
+C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\service\impl\MessageServiceImpl.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\dto\BuildingDTO.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\repository\reservation\EventReservationRepository.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\service\reservation\ReservationDateService.java
-C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\enums\Type.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\model\AccountCredentials.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\service\UserService.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\exception\BuildingNotExistsException.java
@@ -75,9 +80,11 @@ C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\jav
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\service\AuthorityService.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\controller\api\ReservationApiController.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\security\JWTAuthenticationFilter.java
+C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\exception\MessageNotExistsException.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\dto\reservation\ReservationInfoDTO.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\exception\ClassroomAlredyExistsException.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\model\reservation\ClassReservation.java
+C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\validation\MessageValidator.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\model\Authority.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\dto\StatusDTO.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\service\BuildingService.java
@@ -93,8 +100,10 @@ C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\jav
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\security\SecurityConstants.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\validation\BuildingValidator.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\exception\ClassReservationNotExistsException.java
+C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\dto\MessageDTO.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\dto\SemesterDTO.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\repository\reservation\ReservationDateRepository.java
+C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\service\MessageService.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\model\Status.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\model\Semester.java
 C:\Users\Patrik\Documents\GitHub\room_reservation_system\rrs-server\src\main\java\RoomReservationSystem\controller\api\ClassReservationApiController.java

@@ -155,8 +155,12 @@ export class ApiEndpoints {
   static MESSAGE_FIND_OWN_BY_ID: string = "message/findOwnById";
   static MESSAGE_FIND_BY_SENDER: string = "message/findBySender";
   static MESSAGE_FIND_BY_RECIPIENT: string = "message/findByRecipient";
+  static MESSAGES_FIND_OWN_MESSAGES: string = "message/findOwnMessages";
   static MESSAGE_SEND_MESSAGE: string = "message/sendMessage";
-  static MESSAGE_GENERATE_SYSTEM_MESSAGE: string = "message/generateSystemMessage";
+  static MESSAGE_GENERATE_SYSTEM_MESSAGE: string =
+    "message/generateSystemMessage";
+  static MESSAGE_MARK_OWN_AS_READ: string = "message/markOwnAsRead";
+  static MESSAGE_MARK_OWN_AS_UNREAD: string = "message/markOwnAsUnread";
   static MESSAGE_DELETE_OWN_BY_ID: string = "message/deleteOwnById";
 
   /**

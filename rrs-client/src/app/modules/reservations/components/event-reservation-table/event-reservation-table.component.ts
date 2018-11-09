@@ -9,6 +9,8 @@ import { FormDialogComponent } from "../../../../shared/components/dialogs/form-
 import { Statuses } from "../../../../shared/config/statuses.config";
 import { TextUtils } from "../../../../shared/utils/text-utils";
 import { InfoDialogComponent } from "../../../../shared/components/dialogs/info-dialog/info-dialog.component";
+import { MessageType } from "../../../../shared/enums/MessageType";
+import { MessageApiService } from "../../../../shared/services/api/message.api.service";
 
 @Component({
   selector: "app-event-reservation-table",
@@ -32,6 +34,7 @@ export class EventReservationTableComponent implements OnInit {
 
   constructor(
     private eventReservationService: EventReservationsDataService,
+    private messageService: MessageApiService,
     private dialogService: DialogService,
     private authService: AuthService
   ) {}
@@ -92,37 +95,69 @@ export class EventReservationTableComponent implements OnInit {
 
   /**
    * Az elfogadásért felelős függvény
-   * @param id A foglalás azonosítója
+   * @param reservation A foglalás
    */
-  accept(id: number): void {
-    this.eventReservationService.setStatus(id, Statuses.ACCEPTED).subscribe(
-      () => {
-        this.refreshTable();
-      },
-      error =>
-        this.dialogService.openDialog(
-          "Foglalás elfogadása:",
-          TextUtils.addBreaks(error.error),
-          InfoDialogComponent
-        )
-    );
+  accept(reservation: EventReservation): void {
+    this.eventReservationService
+      .setStatus(reservation.id, Statuses.ACCEPTED)
+      .subscribe(
+        () => {
+          this.messageService
+            .generateSystemMessage(
+              reservation.username,
+              reservation.id,
+              MessageType.ACCEPT_MSG
+            )
+            .subscribe(
+              () => this.refreshTable(),
+              error =>
+                this.dialogService.openDialog(
+                  "Rendszerüzenet generálása:",
+                  TextUtils.addBreaks(error.error),
+                  InfoDialogComponent
+                )
+            );
+        },
+        error =>
+          this.dialogService.openDialog(
+            "Foglalás elfogadása:",
+            TextUtils.addBreaks(error.error),
+            InfoDialogComponent
+          )
+      );
   }
 
   /**
    * Az elutasításért felelős függvény
-   * @param id A foglalás azonosítója
+   * @param reservation A foglalás
    */
-  decline(id: number): void {
-    this.eventReservationService.setStatus(id, Statuses.DECLINED).subscribe(
-      () => {
-        this.refreshTable();
-      },
-      error =>
-        this.dialogService.openDialog(
-          "Foglalás elutasítása:",
-          TextUtils.addBreaks(error.error),
-          InfoDialogComponent
-        )
-    );
+  decline(reservation: EventReservation): void {
+    this.eventReservationService
+      .setStatus(reservation.id, Statuses.DECLINED)
+      .subscribe(
+        () => {
+          this.messageService
+            .generateSystemMessage(
+              reservation.username,
+              reservation.id,
+              MessageType.DECLINE_MSG
+            )
+            .subscribe(
+              () => this.refreshTable(),
+              error =>
+                this.dialogService.openDialog(
+                  "Rendszerüzenet generálása:",
+                  TextUtils.addBreaks(error.error),
+                  InfoDialogComponent
+                )
+            );
+        },
+        error =>
+          this.dialogService.openDialog(
+            "Foglalás elutasítása:",
+            TextUtils.addBreaks(error.error),
+            InfoDialogComponent
+          )
+      );
   }
 }

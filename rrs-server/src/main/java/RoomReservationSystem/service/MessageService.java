@@ -26,6 +26,8 @@ public interface MessageService {
 
     List<Message> findByRecipient(String recipient) throws UserNotExistsException;
     
+    List<Message> findOwnMessages();
+    
     void markOwnAsRead(int id) throws MessageNotExistsException;
     
     void markOwnAsUnread(int id) throws MessageNotExistsException;

@@ -46,6 +46,18 @@ public class MessageServiceImpl implements MessageService {
     }
 
     /**
+     * A bejelentkezett felhasználóhoz tartozó üzenetek kilistázását lehetővé
+     * tevő függvény
+     *
+     * @return A megfelelő üzenetek egy listában
+     */
+    @Override
+    public List<Message> findOwnMessages() {
+        User authenticatedUser = this.userService.getAuthenticatedUser();
+        return messageRepository.findByRecipient(authenticatedUser);
+    }
+
+    /**
      * Az üzenet elküldését lehetővé tevő függvény
      *
      * @param messageDTO Az üzenet
@@ -66,8 +78,9 @@ public class MessageServiceImpl implements MessageService {
     }
 
     /**
-     * A rendszerüzenet generálásáért felelős függvény
-     * (jelenleg foglalások elfogadása, elutasítása)
+     * A rendszerüzenet generálásáért felelős függvény (jelenleg foglalások
+     * elfogadása, elutasítása)
+     *
      * @param recipient A címzett
      * @param reservationId A foglalás azonosítója
      * @param type Az üzenet típusa

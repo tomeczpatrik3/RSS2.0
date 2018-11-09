@@ -62,7 +62,7 @@ public class MessageApiController {
      * @param sender A feladó
      * @return A megfelelő válasz entitás
      */
-    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findBySender")
     public ResponseEntity findBySender(@RequestParam(value = "sender", required = true) String sender) {
         try {
@@ -78,7 +78,7 @@ public class MessageApiController {
      * @param recipient A címzett
      * @return A megfelelő válasz entitás
      */
-    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/findByRecipient")
     public ResponseEntity findByRecipient(@RequestParam(value = "recipient", required = true) String recipient) {
         try {
@@ -86,6 +86,18 @@ public class MessageApiController {
         } catch (UserNotExistsException ex) {
             return handleException(ex);
         }
+    }
+
+    /**
+     * A függvény ami visszaadja a saját üzeneteinket (bejelentkezett
+     * felhasználó)
+     *
+     * @return A megfelelő válasz entitás
+     */
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @GetMapping("/findOwnMessages")
+    public ResponseEntity findOwnMessages() {
+        return ResponseEntity.ok(toMessageDTOList(messageService.findOwnMessages()));
     }
 
     /**
@@ -128,6 +140,40 @@ public class MessageApiController {
         try {
             return ResponseEntity.ok(toMessageDTO(messageService.generateSystemMessage(recipient, reservationId, MessageType.valueOf(messageType))));
         } catch (UserNotExistsException ex) {
+            return handleException(ex);
+        }
+    }
+
+    /**
+     * A függvény ami "olvasott" státuszra állítja a megfelelő üzenetet
+     *
+     * @param id Az üzenet azonosítója
+     * @return A megfelelő válasz entitás
+     */
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @GetMapping("/markOwnAsRead")
+    public ResponseEntity markOwnAsRead(@RequestParam(value = "id", required = true) int id) {
+        try {
+            messageService.markOwnAsRead(id);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (MessageNotExistsException ex) {
+            return handleException(ex);
+        }
+    }
+
+    /**
+     * A függvény ami "nem olvasott" státuszra állítja a megfelelő üzenetet
+     *
+     * @param id Az üzenet azonosítója
+     * @return A megfelelő válasz entitás
+     */
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @GetMapping("/markOwnAsUnread")
+    public ResponseEntity markOwnAsUnread(@RequestParam(value = "id", required = true) int id) {
+        try {
+            messageService.markOwnAsUnread(id);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (MessageNotExistsException ex) {
             return handleException(ex);
         }
     }

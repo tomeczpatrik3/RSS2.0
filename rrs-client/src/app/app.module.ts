@@ -54,6 +54,7 @@ import { NumberValidatorDirective } from "./shared/directives/number.directive";
 import { SemestersModule } from "./modules/semesters/semesters.module";
 import { SubjectsModule } from "./modules/subjects/subjects.module";
 import { UsersModule } from "./modules/users/users.module";
+import { MessageApiService } from "./shared/services/api/message.api.service";
 
 export function jwtTokenGetter() {
   return localStorage.getItem("token");
@@ -139,6 +140,7 @@ export function jwtTokenGetter() {
     SubjectApiService,
     UserApiService,
     EventApiService,
+    MessageApiService,
     ClassReservationApiService,
     EventReservationApiService
   ],

@@ -1,0 +1,35 @@
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Feladó</th>
+      <th scope="col">Üzenet</th>
+      <th scope="col">Műveletek</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="let message of messages; let i = index"
+      [ngClass]="{ unread: message.unread }"
+    >
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ message.sender }}</td>
+      <td>{{ message.message }}</td>
+      <td>
+        <i
+          *ngIf="message.unread"
+          class="fa fa-check-square-o fa-lg"
+          aria-hidden="true"
+          title="Megjelölés olvasottként"
+          (click)="markAsRead(message)"
+        ></i>
+        <i
+          class="fa fa-trash fa-lg"
+          aria-hidden="true"
+          title="Üzenet törlése"
+          (click)="delete(message)"
+        ></i>
+      </td>
+    </tr>
+  </tbody>
+</table>

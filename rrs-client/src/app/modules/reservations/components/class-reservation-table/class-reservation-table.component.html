@@ -14,21 +14,32 @@
   </thead>
   <tbody>
     <tr *ngFor="let reservation of reservations; let i = index">
-      <th scope="row">{{i+1}}</th>
-      <td>{{reservation.username}}</td>
-      <td>{{reservation.building}}</td>
-      <td>{{reservation.classroom}}</td>
-      <td>{{reservation.status | statusConvert}}</td>
-      <td>{{reservation.note | empty}}</td>
-      <td>{{reservation.subjectCode}}</td>
-      <td>{{reservation.semester}}</td>
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ reservation.username }}</td>
+      <td>{{ reservation.building }}</td>
+      <td>{{ reservation.classroom }}</td>
+      <td>{{ reservation.status | statusConvert }}</td>
+      <td>{{ reservation.note | empty }}</td>
+      <td>{{ reservation.subjectCode }}</td>
+      <td>{{ reservation.semester }}</td>
       <td *ngIf="pending">
-        <button type="button" class="btn btn-success btn-sm" (click)="accept(reservation.id)">Elfogadás</button>
-        /
-        <button type="button" class="btn btn-danger btn-sm" (click)="decline(reservation.id)">Elutasítás</button>
+        <i
+          class="fa fa-check-circle fa-lg"
+          title="Elfogadás"
+          (click)="accept(reservation)"
+        ></i>
+        <i
+          class="fa fa-ban fa-lg"
+          title="Elutasítás"
+          (click)="decline(reservation)"
+        ></i>
       </td>
       <td *ngIf="!pending">
-          <button type="button" class="btn btn-secondary btn-sm" (click)="openDetails(reservation.id)">Részletek</button>
+        <i
+          class="fa fa-info-circle fa-lg"
+          title="Részletek"
+          (click)="openDetails(reservation.id)"
+        ></i>
       </td>
     </tr>
   </tbody>

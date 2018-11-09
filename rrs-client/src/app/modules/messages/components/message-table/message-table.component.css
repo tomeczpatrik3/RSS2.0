@@ -1,0 +1,5 @@
+/*Az olvasatlan üzenetekhez tartozó CSS osztály*/
+.unread {
+    /*font-weight: bold;*/
+    color: red;
+}

@@ -151,6 +151,13 @@ export class NavigationService {
 
     new MenuItem(
       "Simple",
+      "Üzenetek",
+      `${prefix}/messages/messages`,
+      Authorities.ROLE_USER
+    ),
+
+    new MenuItem(
+      "Simple",
       "Várakozó foglalások",
       `${prefix}/reservations/pendingReservations`,
       Authorities.ROLE_ADMIN

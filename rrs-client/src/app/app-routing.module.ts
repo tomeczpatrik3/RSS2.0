@@ -51,6 +51,11 @@ const routes: Routes = [
   {
     path: `${prefix}/events`,
     loadChildren: "./modules/events/events.module#EventsModule"
+  },
+
+  {
+    path: `${prefix}/messages`,
+    loadChildren: "./modules/messages/messages.module#MessagesModule"
   }
 ];
 

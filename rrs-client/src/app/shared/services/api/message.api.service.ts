@@ -37,6 +37,30 @@ export class MessageApiService {
   }
 
   /**
+   * Egy adott címzetthez tartozó üzenetek lekérdezését megvalósító függvény
+   * @param recipient A címzett felhasználóneve
+   */
+  findByRecipient(recipient: string): Observable<Message[]> {
+    return <Observable<Message[]>>(
+      this.http.get(
+        ApiEndpoints.getUrl(ApiEndpoints.MESSAGE_FIND_BY_RECIPIENT) +
+          `?recipient=${recipient}`
+      )
+    );
+  }
+
+  /**
+   * A bejelentkezett felhasználóhoz tartozó üzenetek lekérdezését megvalósító függvény
+   */
+  findOwnMessages(): Observable<Message[]> {
+    return <Observable<Message[]>>(
+      this.http.get(
+        ApiEndpoints.getUrl(ApiEndpoints.MESSAGES_FIND_OWN_MESSAGES)
+      )
+    );
+  }
+
+  /**
    * Egy adott üzenet elküldését megvalósító függvény
    * @param message Az üzenet
    */
@@ -66,6 +90,31 @@ export class MessageApiService {
           `?recipient=${recipient}` +
           `&reservationId=${reservationId}` +
           `&messageType=${messageType}`
+      )
+    );
+  }
+
+  /**
+   * Egy adott azonosítóhoz tartozó (saját) üzenet státuszát "olvasott"-ra állító függvény
+   * @param id Az azonosító
+   */
+  markOwnAsRead(id: number): Observable<any> {
+    return <Observable<any>>(
+      this.http.get(
+        ApiEndpoints.getUrl(ApiEndpoints.MESSAGE_MARK_OWN_AS_READ) + `?id=${id}`
+      )
+    );
+  }
+
+  /**
+   * Egy adott azonosítóhoz tartozó (saját) üzenet státuszát "nem olvasott"-ra állító függvény
+   * @param id Az azonosító
+   */
+  markOwnAsUnread(id: number): Observable<any> {
+    return <Observable<any>>(
+      this.http.get(
+        ApiEndpoints.getUrl(ApiEndpoints.MESSAGE_MARK_OWN_AS_UNREAD) +
+          `?id=${id}`
       )
     );
   }
