@@ -1,10 +1,10 @@
 ﻿A Postman tesztesetekről részletesebben írni, kiemelni a riport használatát, de nem felsorolni táblázatosan
-Egyszerű foglalás: csak naptár, jövőbeli időpont
+	-->Egyszerű foglalás: csak naptár, jövőbeli időpont
 Default: aktuális szemeszter, és maximum jövőbeli foglalás lehet pl: 2 félévre előre
 Kalendár csak szűrés után jelnjen meg
 	-->Értesítések/ üzenetek oldal 
 több mintaadat
-fake hírek hozzáadása a főoldalhoz
+	-->fake hírek hozzáadása a főoldalhoz
 
 másfeles térköz, bekezdések behúzása
 működési ábra

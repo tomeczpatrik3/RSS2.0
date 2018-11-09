@@ -11,6 +11,7 @@ import { UniqueSemesterNameValidator } from "../../../../shared/directives/uniqu
 import { Semester } from "../../../../shared/models/Semester";
 import { TextUtils } from "../../../../shared/utils/text-utils";
 import { InfoDialogComponent } from "../../../../shared/components/dialogs/info-dialog/info-dialog.component";
+import { ErrorDialogComponent } from "../../../../shared/components/dialogs/error-dialog/error-dialog.component";
 
 @Component({
   selector: "app-add-semester-form",
@@ -66,12 +67,12 @@ export class AddSemesterFormComponent implements OnInit {
    */
   addSemester() {
     this.semesterService.createSemester(this.formToSemester()).subscribe(
-      res => {},
+      () => {},
       error => {
         this.dialogService.openDialog(
           "Szemeszter hozzáadása:",
           TextUtils.addBreaks(error.error),
-          InfoDialogComponent
+          ErrorDialogComponent
         );
       },
       () =>

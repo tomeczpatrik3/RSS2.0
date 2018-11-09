@@ -49,6 +49,16 @@ export function isBefore(startTime: string, endTime: string): boolean {
   }
 }
 
+export function isFutureDate(dateStr: string): boolean {
+  const date = new Date(dateStr);
+  const now = new Date();
+  if (date > now) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 /**
  * A validálást végző metódusokat tartalmazó osztály
  */
@@ -74,5 +84,16 @@ export class ValidatorService {
       : {
           notTime: true
         };
+  };
+
+  /**
+   * A dátum validálását végző függvény
+   */
+  public isFutureDate = (control: FormControl) => {
+    return isFutureDate(control.value)
+    ? null
+    : {
+        isPastDate: true
+      };
   };
 }

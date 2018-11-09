@@ -22,6 +22,7 @@ import { NavigationService } from "./shared/services/navigation.service";
 import { JwtModule, JwtHelperService } from "@auth0/angular-jwt";
 
 import { QuestionDialogComponent } from "./shared/components/dialogs/question-dialog/question-dialog.component";
+import { ErrorDialogComponent } from "./shared/components/dialogs/error-dialog/error-dialog.component";
 import { InfoDialogComponent } from "./shared/components/dialogs/info-dialog/info-dialog.component";
 import { FormDialogComponent } from "./shared/components/dialogs/form-dialog/form-dialog.component";
 
@@ -35,8 +36,10 @@ import { ClassroomApiService } from "./shared/services/api/classroom.api.service
 import { SemesterApiService } from "./shared/services/api/semester.api.service";
 import { SubjectApiService } from "./shared/services/api/subject.api.service";
 import { EventApiService } from "./shared/services/api/event.api.service";
+import { MessageApiService } from "./shared/services/api/message.api.service";
 import { ClassReservationApiService } from "./shared/services/api/class-reservation.api.service";
 import { EventReservationApiService } from "./shared/services/api/event-reservation.api.service";
+
 import { UniqueBuildingNameValidatorDirective } from "./shared/directives/unique-building-name.directive";
 import { TakenBuildingNameValidatorDirective } from "./shared/directives/taken-building-name.directive";
 import { UniqueEventNameValidatorDirective } from "./shared/directives/unique-event-name.directive";
@@ -47,14 +50,17 @@ import { UniqueSubjectCodeValidatorDirective } from "./shared/directives/unique-
 import { TakenSubjectCodeValidatorDirective } from "./shared/directives/taken-subject-code.directive";
 import { UniqueUsernameValidatorDirective } from "./shared/directives/unique-username.directive";
 import { TakenUsernameValidatorDirective } from "./shared/directives/taken-username.directive";
+
 import { FooterComponent } from './shared/components/footer/footer.component';
+
 import { BuildingsModule } from "./modules/buildings/buildings.module";
 import { ClassroomsModule } from "./modules/classrooms/classrooms.module";
 import { NumberValidatorDirective } from "./shared/directives/number.directive";
 import { SemestersModule } from "./modules/semesters/semesters.module";
 import { SubjectsModule } from "./modules/subjects/subjects.module";
 import { UsersModule } from "./modules/users/users.module";
-import { MessageApiService } from "./shared/services/api/message.api.service";
+
+
 
 export function jwtTokenGetter() {
   return localStorage.getItem("token");
@@ -66,6 +72,7 @@ export function jwtTokenGetter() {
     DashboardComponent,
     NavbarComponent,
     InfoDialogComponent,
+    ErrorDialogComponent,
     QuestionDialogComponent,
     FormDialogComponent,
 
@@ -146,6 +153,7 @@ export function jwtTokenGetter() {
   ],
   entryComponents: [
     InfoDialogComponent,
+    ErrorDialogComponent,
     QuestionDialogComponent,
     FormDialogComponent
   ],

@@ -21,8 +21,16 @@
       <td>{{ reservation.note | empty }}</td>
       <td>{{ reservation.name }}</td>
       <td *ngIf="pending">
-        <i class="fa fa-check-circle fa-2x" (click)="accept(reservation)"></i>
-        <i class="far fa-times-circle fa-2x" (click)="decline(reservation)"></i>
+        <i
+          class="fa fa-check-circle fa-lg"
+          title="Elfogadás"
+          (click)="accept(reservation)"
+        ></i>
+        <i
+          class="fa fa-ban fa-lg"
+          title="Elutasítás"
+          (click)="decline(reservation)"
+        ></i>
       </td>
       <td *ngIf="!pending">
         <i

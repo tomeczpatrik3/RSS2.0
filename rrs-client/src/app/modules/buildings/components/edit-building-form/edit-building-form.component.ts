@@ -3,7 +3,7 @@ import { Building } from "../../../../shared/models/Building";
 import { BuildingsDataService } from "../../buildings.data.service";
 import { DialogService } from "../../../../shared/services/dialog.service";
 import { TextUtils } from "../../../../shared/utils/text-utils";
-import { InfoDialogComponent } from "../../../../shared/components/dialogs/info-dialog/info-dialog.component";
+import { ErrorDialogComponent } from "../../../../shared/components/dialogs/error-dialog/error-dialog.component";
 
 @Component({
   selector: "app-edit-building-form",
@@ -47,7 +47,7 @@ export class EditBuildingFormComponent implements OnInit {
           this.dialogService.openDialog(
             "Épület szerkesztése:",
             TextUtils.addBreaks(error.error),
-            InfoDialogComponent
+            ErrorDialogComponent
           )
       );
   }

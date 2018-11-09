@@ -6,7 +6,6 @@ import {
   FormBuilder
 } from "@angular/forms";
 
-
 import { Router } from "@angular/router";
 import { AddReservation } from "../add-reservaion";
 import { Day } from "../../../../shared/enums/Day";
@@ -26,6 +25,7 @@ import { timeValidator } from "../../../../shared/directives/time.directive";
 import { ClassReservation } from "../../../../shared/models/ClassReservation";
 import { TextUtils } from "../../../../shared/utils/text-utils";
 import { InfoDialogComponent } from "../../../../shared/components/dialogs/info-dialog/info-dialog.component";
+import { ErrorDialogComponent } from "../../../../shared/components/dialogs/error-dialog/error-dialog.component";
 
 @Component({
   selector: "app-add-semester-reservation-form",
@@ -161,12 +161,12 @@ export class AddSemesterReservationFormComponent extends AddReservation {
     this.classReservationService
       .createClassReservation(this.formToReservation())
       .subscribe(
-        res => {},
+        () => {},
         error => {
           this.dialogService.openDialog(
             "Foglalás hozzáadása:",
             TextUtils.addBreaks(error.error),
-            InfoDialogComponent
+            ErrorDialogComponent
           );
         },
         () =>

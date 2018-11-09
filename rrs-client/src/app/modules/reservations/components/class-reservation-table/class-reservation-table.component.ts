@@ -8,9 +8,9 @@ import { FormType } from "../../../../shared/enums/FormType";
 import { FormDialogComponent } from "../../../../shared/components/dialogs/form-dialog/form-dialog.component";
 import { Statuses } from "../../../../shared/config/statuses.config";
 import { TextUtils } from "../../../../shared/utils/text-utils";
-import { InfoDialogComponent } from "../../../../shared/components/dialogs/info-dialog/info-dialog.component";
 import { MessageApiService } from "../../../../shared/services/api/message.api.service";
 import { MessageType } from "../../../../shared/enums/MessageType";
+import { ErrorDialogComponent } from "../../../../shared/components/dialogs/error-dialog/error-dialog.component";
 
 @Component({
   selector: "app-class-reservation-table",
@@ -96,6 +96,13 @@ export class ClassReservationTableComponent implements OnInit {
     this.classReservationService
       .setStatus(reservation.id, Statuses.ACCEPTED)
       .subscribe(
+        () => {},
+        error =>
+          this.dialogService.openDialog(
+            "Foglalás elfogadása:",
+            TextUtils.addBreaks(error.error),
+            ErrorDialogComponent
+          ),
         () => {
           this.messageService
             .generateSystemMessage(
@@ -109,16 +116,10 @@ export class ClassReservationTableComponent implements OnInit {
                 this.dialogService.openDialog(
                   "Rendszerüzenet generálása:",
                   TextUtils.addBreaks(error.error),
-                  InfoDialogComponent
+                  ErrorDialogComponent
                 )
             );
-        },
-        error =>
-          this.dialogService.openDialog(
-            "Foglalás elfogadása:",
-            TextUtils.addBreaks(error.error),
-            InfoDialogComponent
-          )
+        }
       );
   }
 
@@ -130,6 +131,13 @@ export class ClassReservationTableComponent implements OnInit {
     this.classReservationService
       .setStatus(reservation.id, Statuses.DECLINED)
       .subscribe(
+        () => {},
+        error =>
+          this.dialogService.openDialog(
+            "Foglalás elutasítása:",
+            TextUtils.addBreaks(error.error),
+            ErrorDialogComponent
+          ),
         () => {
           this.messageService
             .generateSystemMessage(
@@ -143,16 +151,10 @@ export class ClassReservationTableComponent implements OnInit {
                 this.dialogService.openDialog(
                   "Rendszerüzenet generálása:",
                   TextUtils.addBreaks(error.error),
-                  InfoDialogComponent
+                  ErrorDialogComponent
                 )
             );
-        },
-        error =>
-          this.dialogService.openDialog(
-            "Foglalás elutasítása:",
-            TextUtils.addBreaks(error.error),
-            InfoDialogComponent
-          )
+        }
       );
   }
 }

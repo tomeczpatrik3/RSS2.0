@@ -1,10 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { MessagesDataService } from "../../messages.data.service";
-import { AuthService } from "../../../../shared/services/auth.service";
 import { Message } from "../../../../shared/models/Message";
 import { DialogService } from "../../../../shared/services/dialog.service";
 import { TextUtils } from "../../../../shared/utils/text-utils";
-import { InfoDialogComponent } from "../../../../shared/components/dialogs/info-dialog/info-dialog.component";
+import { ErrorDialogComponent } from "../../../../shared/components/dialogs/error-dialog/error-dialog.component";
 
 @Component({
   selector: "app-message-table",
@@ -50,7 +49,7 @@ export class MessageTableComponent implements OnInit {
           this.dialogService.openDialog(
             "Üzenet státuszának módosítása:",
             TextUtils.addBreaks(error.error),
-            InfoDialogComponent
+            ErrorDialogComponent
           )
       );
   }
@@ -68,7 +67,7 @@ export class MessageTableComponent implements OnInit {
           this.dialogService.openDialog(
             "Üzenet törlése:",
             TextUtils.addBreaks(error.error),
-            InfoDialogComponent
+            ErrorDialogComponent
           )
       );
   }

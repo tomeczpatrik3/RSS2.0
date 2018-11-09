@@ -3,7 +3,7 @@ import { Classroom } from "../../../../shared/models/Classroom";
 import { ClassroomsDataService } from "../../classrooms.data.service";
 import { DialogService } from "../../../../shared/services/dialog.service";
 import { TextUtils } from "../../../../shared/utils/text-utils";
-import { InfoDialogComponent } from "../../../../shared/components/dialogs/info-dialog/info-dialog.component";
+import { ErrorDialogComponent } from "../../../../shared/components/dialogs/error-dialog/error-dialog.component";
 
 @Component({
   selector: "app-edit-classroom-form",
@@ -47,7 +47,7 @@ export class EditClassroomFormComponent implements OnInit {
           this.dialogService.openDialog(
             "Tanterem szerkesztése:",
             TextUtils.addBreaks(error.error),
-            InfoDialogComponent
+            ErrorDialogComponent
           )
       );
   }

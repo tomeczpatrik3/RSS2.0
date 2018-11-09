@@ -36,7 +36,6 @@ export class ClassReservation extends BaseReservation {
     building: string,
     classroom: string,
     note: string,
-    semester: string,
     subjectCode: string,
     date: string,
     startTime: string,
@@ -48,7 +47,7 @@ export class ClassReservation extends BaseReservation {
       classroom,
       Statuses.PENDING,
       note,
-      semester,
+      "",
       subjectCode,
       [`${date} ${startTime}`],
       [`${date} ${endTime}`]

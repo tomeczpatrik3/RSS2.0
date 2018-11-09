@@ -2,8 +2,8 @@ import { Component, OnInit, Output, Input, EventEmitter } from "@angular/core";
 import { Subject } from "../../../../shared/models/Subject";
 import { SubjectsDataService } from "../../subjects.data.service";
 import { TextUtils } from "../../../../shared/utils/text-utils";
-import { InfoDialogComponent } from "../../../../shared/components/dialogs/info-dialog/info-dialog.component";
 import { DialogService } from "../../../../shared/services/dialog.service";
+import { ErrorDialogComponent } from "../../../../shared/components/dialogs/error-dialog/error-dialog.component";
 
 @Component({
   selector: "app-edit-subject-form",
@@ -47,7 +47,7 @@ export class EditSubjectFormComponent implements OnInit {
           this.dialogService.openDialog(
             "Tantárgy szerkesztése:",
             TextUtils.addBreaks(error.error),
-            InfoDialogComponent
+            ErrorDialogComponent
           )
       );
   }

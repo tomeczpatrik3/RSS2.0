@@ -4,6 +4,7 @@ import RoomReservationSystem.dto.SemesterDTO;
 import RoomReservationSystem.exception.SemesterAlredyExistsException;
 import RoomReservationSystem.exception.SemesterNotExistsException;
 import RoomReservationSystem.model.Semester;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,6 +24,8 @@ public interface SemesterService {
     Semester findByName(String name) throws SemesterNotExistsException;
     
     Semester findById(int id) throws SemesterNotExistsException;
+    
+    Semester findByDate(Date date) throws SemesterNotExistsException;
     
     Semester update(int id, Semester semester) throws SemesterNotExistsException;
 

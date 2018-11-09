@@ -66,7 +66,7 @@ public class EventReservationServiceImpl implements EventReservationService {
             throws UserNotExistsException, ClassroomNotExistsException, StatusNotExistsException, SemesterNotExistsException, BuildingNotExistsException {
         EventReservation reservation = repository.save(
                 toEventReservation(
-                        userService.findByUsername(eventReservationDTO.getUsername()), /*A foglaláshoz tartozó felhasználó*/
+                        userService.getAuthenticatedUser(), /*A foglaláshoz tartozó felhasználó*/
                         classroomService.findByNameAndBuildingName( /*A foglaláshoz tartozó tanterem*/
                                 eventReservationDTO.getClassroom(),
                                 eventReservationDTO.getBuilding()),

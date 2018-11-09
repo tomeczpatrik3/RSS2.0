@@ -12,6 +12,7 @@ import { DialogService } from "../../../../shared/services/dialog.service";
 import { BuildingApiService } from "../../../../shared/services/api/building.api.service";
 import { TextUtils } from "../../../../shared/utils/text-utils";
 import { TakenBuildingNameValidator } from "../../../../shared/directives/taken-building-name.directive";
+import { ErrorDialogComponent } from "../../../../shared/components/dialogs/error-dialog/error-dialog.component";
 
 @Component({
   selector: "app-add-classroom-form",
@@ -99,12 +100,12 @@ export class AddClassroomFormComponent implements OnInit {
     this.classroomService
       .createClassroom(this.formToClassroom())
       .subscribe(
-        res => {},
+        () => {},
         error =>
           this.dialogService.openDialog(
             "Tanterem hozzáadása:",
             TextUtils.addBreaks(error.error),
-            InfoDialogComponent
+            ErrorDialogComponent
           ),
         () =>
           this.dialogService.openDialog(

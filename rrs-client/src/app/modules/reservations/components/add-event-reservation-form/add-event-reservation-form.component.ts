@@ -21,6 +21,7 @@ import { BuildingApiService } from "../../../../shared/services/api/building.api
 import { SemesterApiService } from "../../../../shared/services/api/semester.api.service";
 import { EventReservationsDataService } from "../../event-reservations.data.service";
 import { InfoDialogComponent } from "../../../../shared/components/dialogs/info-dialog/info-dialog.component";
+import { ErrorDialogComponent } from "../../../../shared/components/dialogs/error-dialog/error-dialog.component";
 
 @Component({
   selector: "app-add-event-reservation-form",
@@ -53,7 +54,10 @@ export class AddEventReservationFormComponent extends AddReservation {
           updateOn: "blur"
         }),
         room: new FormControl("", [Validators.required]),
-        date: new FormControl("", [Validators.required]),
+        date: new FormControl("", [
+          Validators.required,
+          this.validatorService.isFutureDate
+        ]),
         startTime: new FormControl("", [
           Validators.required,
           this.validatorService.isTime,
@@ -144,12 +148,12 @@ export class AddEventReservationFormComponent extends AddReservation {
     this.eventReservationService
       .createEventReservation(this.formToReservation())
       .subscribe(
-        res => {},
+        () => {},
         error => {
           this.dialogService.openDialog(
             "Foglalás hozzáadása:",
             TextUtils.addBreaks(error.error),
-            InfoDialogComponent
+            ErrorDialogComponent
           );
         },
         () =>

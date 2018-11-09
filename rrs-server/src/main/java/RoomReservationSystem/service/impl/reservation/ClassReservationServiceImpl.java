@@ -8,6 +8,7 @@ import RoomReservationSystem.exception.SemesterNotExistsException;
 import RoomReservationSystem.exception.StatusNotExistsException;
 import RoomReservationSystem.exception.SubjectNotExistsException;
 import RoomReservationSystem.exception.UserNotExistsException;
+import RoomReservationSystem.model.Semester;
 import RoomReservationSystem.model.Status;
 import RoomReservationSystem.model.User;
 import RoomReservationSystem.model.reservation.ClassReservation;
@@ -25,7 +26,10 @@ import RoomReservationSystem.service.SemesterService;
 import RoomReservationSystem.service.reservation.ClassReservationService;
 import RoomReservationSystem.service.reservation.ReservationDateService;
 import static RoomReservationSystem.util.DateUtils.getReservationDates;
+import static RoomReservationSystem.util.DateUtils.getTimestamp;
+import java.sql.Timestamp;
 import java.util.Collections;
+import java.util.Date;
 
 /**
  * A tanórákra vonatkozó foglalásokkal kapcsolatos műveletekért felelős osztály
@@ -59,7 +63,7 @@ public class ClassReservationServiceImpl implements ClassReservationService {
     /**
      * A foglalás mentését megvalósító függvény
      *
-     * @param classReservationDTO Az egyszerű foglalás
+     * @param classReservationDTO A foglalás
      * @return A mentett foglalás
      * @throws RoomReservationSystem.exception.UserNotExistsException
      * @throws RoomReservationSystem.exception.SubjectNotExistsException
@@ -71,15 +75,27 @@ public class ClassReservationServiceImpl implements ClassReservationService {
     @Override
     public ClassReservation save(ClassReservationDTO classReservationDTO)
             throws UserNotExistsException, SubjectNotExistsException, ClassroomNotExistsException, StatusNotExistsException, SemesterNotExistsException, BuildingNotExistsException {
+
+        Semester semester;
+        if (classReservationDTO.getStartDates().length == 1 && classReservationDTO.getEndDates().length == 1) {
+            /*Ha egyszerű foglalásról van szó*/
+            semester = semesterService.findByDate(new Date(
+                    getTimestamp(classReservationDTO.getStartDates()[0]).getTime()
+            ));
+        } else {
+            /*Ha az adott szemeszterre vonatkozó foglalásról van szó*/
+            semester = semesterService.findByName(classReservationDTO.getSemester());
+        }
+
         ClassReservation reservation = repository.save(
                 toClassReservation(
-                        userService.findByUsername(classReservationDTO.getUsername()), /*A foglaláshoz tartozó felhasználó*/
+                        userService.getAuthenticatedUser(), /*A foglaláshoz tartozó felhasználó*/
                         subjectService.findByCode(classReservationDTO.getSubjectCode()), /*A foglaláshoz tartozó tantárgy*/
                         classroomService.findByNameAndBuildingName( /*A foglaláshoz tartozó tanterem*/
                                 classReservationDTO.getClassroom(),
                                 classReservationDTO.getBuilding()),
                         statusService.findByName("PENDING"), /*A foglalás státusza*/
-                        semesterService.findByName(classReservationDTO.getSemester()),
+                        semester,
                         Collections.emptyList(),
                         classReservationDTO.getNote() /*A foglaláshoz tartozó megjegyzés*/
                 )
@@ -128,7 +144,7 @@ public class ClassReservationServiceImpl implements ClassReservationService {
                     classReservationDTO.getNote() /*A foglaláshoz tartozó megjegyzés*/
             );
             converted.setId(id);
-            
+
             //Az entitás mentése:
             ClassReservation saved = repository.save(converted);
             //A régi dátum(ok) törlése:

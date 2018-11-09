@@ -8,11 +8,11 @@ import { JwtHelperService } from "@auth0/angular-jwt";
 
 import { Subject } from "rxjs/Subject";
 import { DialogService } from "../services/dialog.service";
-import { InfoDialogComponent } from "../components/dialogs/info-dialog/info-dialog.component";
 import { Authorities } from "../config/authoritites.config";
 import { Authentication } from "../config/authentication.config";
 import { prefix } from "../../app-routing.module";
 import { Router } from "@angular/router";
+import { ErrorDialogComponent } from "../components/dialogs/error-dialog/error-dialog.component";
 
 @Injectable()
 export class AuthService {
@@ -36,11 +36,11 @@ export class AuthService {
         this.setSession(response);
         this.router.navigate([`${prefix}/dashboard`]);
       },
-      error => {
+      () => {
         this.dialogService.openDialog(
           "Sikertelen bejelentkezés:",
           "Próbálkozzon újra a saját felhasználónév/jelszó kombinációjával!",
-          InfoDialogComponent
+          ErrorDialogComponent
         );
       }
     );

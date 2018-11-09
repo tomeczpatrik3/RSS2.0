@@ -7,7 +7,9 @@ import RoomReservationSystem.model.Semester;
 import RoomReservationSystem.repository.SemesterRepository;
 import RoomReservationSystem.service.SemesterService;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -99,7 +101,14 @@ public class SemesterServiceImpl implements SemesterService {
             throw new SemesterNotExistsException(name);
         }
     }
-    
+
+    /**
+     * A félévek azonosító szerint történő keresését megvalósító függvény
+     *
+     * @param id Az azonosító
+     * @return A megfelelő félév
+     * @throws SemesterNotExistsException A lehetséges kivétel
+     */
     @Override
     public Semester findById(int id) throws SemesterNotExistsException {
         Semester found = semesterRepository.findById(id);
@@ -107,7 +116,26 @@ public class SemesterServiceImpl implements SemesterService {
             return found;
         } else {
             throw new SemesterNotExistsException(id);
-        }        
+        }
+    }
+
+    /**
+     * Egy adott dátumhoz tartozó szemeszter keresését megvalósító függvény
+     *
+     * @param date A dátum
+     * @return A megfelelő szemeszter
+     * @throws SemesterNotExistsException A lehetséges kivétel
+     */
+    @Override
+    public Semester findByDate(Date date) throws SemesterNotExistsException {
+        List<Semester> found = this.getAll().stream().filter(semester
+                -> date.after(semester.getStartDate()) && date.before(semester.getEndDate())
+        ).collect(Collectors.toList());
+        if (found.size() == 1) {
+            return found.get(0);
+        } else {
+            throw new SemesterNotExistsException(date);
+        }
     }
 
     /**

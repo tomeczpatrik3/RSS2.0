@@ -6,7 +6,6 @@ import {
   FormBuilder
 } from "@angular/forms";
 
-
 import { Router } from "@angular/router";
 import { AddReservation } from "../add-reservaion";
 import { AuthService } from "../../../../shared/services/auth.service";
@@ -24,6 +23,7 @@ import { timeValidator } from "../../../../shared/directives/time.directive";
 import { ClassReservation } from "../../../../shared/models/ClassReservation";
 import { TextUtils } from "../../../../shared/utils/text-utils";
 import { InfoDialogComponent } from "../../../../shared/components/dialogs/info-dialog/info-dialog.component";
+import { ErrorDialogComponent } from "../../../../shared/components/dialogs/error-dialog/error-dialog.component";
 
 @Component({
   selector: "app-add-simple-reservation-form",
@@ -65,13 +65,6 @@ export class AddSimpleReservationFormComponent extends AddReservation {
   ngOnInit() {
     this.reservationForm = new FormGroup(
       {
-        semester: new FormControl("", {
-          validators: [Validators.required],
-          asyncValidators: this.semesterValidator.validate.bind(
-            this.semesterValidator
-          ),
-          updateOn: "blur"
-        }),
         subject: new FormControl("", {
           validators: [Validators.required],
           asyncValidators: this.subjectValidator.validate.bind(
@@ -87,7 +80,10 @@ export class AddSimpleReservationFormComponent extends AddReservation {
           updateOn: "blur"
         }),
         room: new FormControl("", [Validators.required]),
-        date: new FormControl("", [Validators.required]),
+        date: new FormControl("", [
+          Validators.required,
+          this.validatorService.isFutureDate
+        ]),
         startTime: new FormControl("", [
           Validators.required,
           this.validatorService.isTime,
@@ -104,10 +100,6 @@ export class AddSimpleReservationFormComponent extends AddReservation {
       },
       { validators: timeValidator }
     );
-  }
-
-  get semester() {
-    return this.reservationForm.get("semester");
   }
   get subject() {
     return this.reservationForm.get("subject");
@@ -131,7 +123,7 @@ export class AddSimpleReservationFormComponent extends AddReservation {
     return this.reservationForm.get("note");
   }
 
- /**
+  /**
    * Az űrlap foglalássá konvertálását megvalósító függvény
    */
   formToReservation() {
@@ -140,7 +132,6 @@ export class AddSimpleReservationFormComponent extends AddReservation {
       this.building.value,
       this.room.value,
       this.note.value,
-      this.semester.value,
       this.getSubjectCode(this.subject.value),
       this.date.value,
       this.startTime.value,
@@ -151,16 +142,16 @@ export class AddSimpleReservationFormComponent extends AddReservation {
   /**
    * A foglalás létrehozását megvalósító függvény
    */
-   addReservation() {
+  addReservation() {
     this.classReservationService
       .createClassReservation(this.formToReservation())
       .subscribe(
-        res => {},
+        () => {},
         error => {
           this.dialogService.openDialog(
             "Foglalás hozzáadása:",
             TextUtils.addBreaks(error.error),
-            InfoDialogComponent
+            ErrorDialogComponent
           );
         },
         () =>

@@ -48,7 +48,6 @@ public class ClassReservationValidator implements Validator {
      */
     @Override
     public void validate(Object target, Errors errors) {
-        ValidationUtils.rejectIfEmpty(errors, "semester", "classReservation.semester.empty", SEMESTER_NAME_EMPTY);
         ValidationUtils.rejectIfEmpty(errors, "subjectCode", "classReservation.subjectCode.empty", SUBJECT_CODE_EMPTY);
         ValidationUtils.rejectIfEmpty(errors, "startDates", "classReservation.startDates.empty", START_TIME_EMPTY);
         ValidationUtils.rejectIfEmpty(errors, "endDates", "classReservation.endDates.empty", END_TIME_EMPTY);
@@ -56,12 +55,14 @@ public class ClassReservationValidator implements Validator {
         ClassReservationDTO reservation = (ClassReservationDTO) target;
 
         /*Szemeszter nevének ellenőrzése*/
-        if (reservation.getSemester() != null && reservation.getSemester().length() != 11) {
-            errors.rejectValue("semester", "classReservation.semester.size", SEMESTER_NAME_SIZE);
-        }
+        if (!reservation.getSemester().isEmpty() && !reservation.getSemester().equals("")) {
+            if (reservation.getSemester() != null && reservation.getSemester().length() != 11) {
+                errors.rejectValue("semester", "classReservation.semester.size", SEMESTER_NAME_SIZE);
+            }
 
-        if (reservation.getSemester() != null && !isValidSemester(reservation.getSemester())) {
-            errors.rejectValue("semester", "classReservation.semester.invalidFormat", SEMESTER_INVALID_FORMAT);
+            if (reservation.getSemester() != null && !isValidSemester(reservation.getSemester())) {
+                errors.rejectValue("semester", "classReservation.semester.invalidFormat", SEMESTER_INVALID_FORMAT);
+            }
         }
 
         /*Tantárgy kód validálása*/

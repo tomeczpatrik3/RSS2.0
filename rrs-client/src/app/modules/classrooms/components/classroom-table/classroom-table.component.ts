@@ -2,7 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { Classroom } from "../../../../shared/models/Classroom";
 import { ClassroomsDataService } from "../../classrooms.data.service";
 import { DialogService } from "../../../../shared/services/dialog.service";
-import { InfoDialogComponent } from "../../../../shared/components/dialogs/info-dialog/info-dialog.component";
 import { AuthService } from "../../../../shared/services/auth.service";
 import { Authorities } from "../../../../shared/config/authoritites.config";
 import { FormType } from "../../../../shared/enums/FormType";

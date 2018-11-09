@@ -11,6 +11,7 @@ import { Building } from "../../../../shared/models/Building";
 import { InfoDialogComponent } from "../../../../shared/components/dialogs/info-dialog/info-dialog.component";
 import { TextUtils } from "../../../../shared/utils/text-utils";
 import { UniqueBuildingNameValidator } from "../../../../shared/directives/unique-building-name.directive";
+import { ErrorDialogComponent } from "../../../../shared/components/dialogs/error-dialog/error-dialog.component";
 
 @Component({
   selector: "app-add-building-form",
@@ -64,7 +65,7 @@ export class AddBuildingFormComponent implements OnInit {
           this.dialogService.openDialog(
             "Épület hozzáadása:",
             TextUtils.addBreaks(error.error),
-            InfoDialogComponent
+            ErrorDialogComponent
           ),
         () =>
           this.dialogService.openDialog(

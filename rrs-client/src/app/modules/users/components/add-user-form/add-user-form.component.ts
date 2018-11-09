@@ -8,6 +8,7 @@ import { emailValidator } from "../../../../shared/directives/confirm-email.dire
 import { User } from "../../../../shared/models/User";
 import { TextUtils } from "../../../../shared/utils/text-utils";
 import { InfoDialogComponent } from "../../../../shared/components/dialogs/info-dialog/info-dialog.component";
+import { ErrorDialogComponent } from "../../../../shared/components/dialogs/error-dialog/error-dialog.component";
 
 @Component({
   selector: "app-add-user-form",
@@ -109,12 +110,12 @@ export class AddUserFormComponent implements OnInit {
     this.userService
       .createUser(this.formToUser())
       .subscribe(
-        res => {},
+        () => {},
         error =>
           this.dialogService.openDialog(
             "Felhasználó hozzáadása:",
             TextUtils.addBreaks(error.error),
-            InfoDialogComponent
+            ErrorDialogComponent
           ),
         () =>
           this.dialogService.openDialog(

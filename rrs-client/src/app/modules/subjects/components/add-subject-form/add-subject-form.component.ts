@@ -11,6 +11,7 @@ import { InfoDialogComponent } from "../../../../shared/components/dialogs/info-
 import { DialogService } from "../../../../shared/services/dialog.service";
 import { TextUtils } from "../../../../shared/utils/text-utils";
 import { UniqueSubjectCodeValidator } from "../../../../shared/directives/unique-subject-code.directive";
+import { ErrorDialogComponent } from "../../../../shared/components/dialogs/error-dialog/error-dialog.component";
 
 @Component({
   selector: "app-add-subject-form",
@@ -68,12 +69,12 @@ export class AddSubjectFormComponent implements OnInit {
     this.subjectService
       .createSubject(this.formToSubject())
       .subscribe(
-        res => {},
+        () => {},
         error =>
           this.dialogService.openDialog(
             "Tantárgy hozzáadása:",
             TextUtils.addBreaks(error.error),
-            InfoDialogComponent
+            ErrorDialogComponent
           ),
         () =>
           this.dialogService.openDialog(
