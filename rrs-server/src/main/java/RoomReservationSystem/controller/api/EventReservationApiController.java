@@ -1,17 +1,18 @@
 package RoomReservationSystem.controller.api;
 
-import RoomReservationSystem.dto.reservation.EventReservationDTO;
-import static RoomReservationSystem.dto.reservation.EventReservationDTO.toEventReservationDTO;
-import static RoomReservationSystem.dto.reservation.EventReservationDTO.toEventReservationDTOList;
+import RoomReservationSystem.dto.EventReservationDTO;
+import static RoomReservationSystem.dto.EventReservationDTO.toEventReservationDTO;
+import static RoomReservationSystem.dto.EventReservationDTO.toEventReservationDTOList;
 import RoomReservationSystem.exception.BuildingNotExistsException;
 import RoomReservationSystem.exception.ClassroomNotExistsException;
+import RoomReservationSystem.exception.EventReservationAlredyExistsException;
 import RoomReservationSystem.exception.EventReservationNotExistsException;
 import RoomReservationSystem.exception.SemesterNotExistsException;
 import RoomReservationSystem.exception.StatusNotExistsException;
 import RoomReservationSystem.exception.UserNotExistsException;
-import RoomReservationSystem.model.reservation.EventReservation;
+import RoomReservationSystem.model.EventReservation;
 import RoomReservationSystem.service.StatusService;
-import RoomReservationSystem.service.reservation.EventReservationService;
+import RoomReservationSystem.service.EventReservationService;
 import static RoomReservationSystem.util.ExceptionUtils.handleException;
 import static RoomReservationSystem.util.ValidationUtils.concatErrors;
 import RoomReservationSystem.validation.BaseReservationValidator;
@@ -217,14 +218,14 @@ public class EventReservationApiController extends ReservationApiController {
             try {
                 EventReservation saved = eventService.save(eventReservationDTO);
                 return ResponseEntity.status(HttpStatus.CREATED).body(toEventReservationDTO(saved));
-            } catch (UserNotExistsException | ClassroomNotExistsException | StatusNotExistsException | SemesterNotExistsException | BuildingNotExistsException | NullPointerException ex) {
+            } catch (UserNotExistsException | ClassroomNotExistsException | StatusNotExistsException | SemesterNotExistsException | BuildingNotExistsException | EventReservationAlredyExistsException | NullPointerException ex) {
                 return handleException(ex);
             }
         } else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
         }
     }
-    
+
     /**
      * A foglalások frissítéséért felelős függvény
      *
@@ -249,7 +250,7 @@ public class EventReservationApiController extends ReservationApiController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
         }
     }
-    
+
     /**
      * A függvény ami törli az adott azonosítóhoz tartozó foglalásokat
      *

@@ -5,6 +5,8 @@
 	-->Értesítések/ üzenetek oldal 
 több mintaadat
 	-->fake hírek hozzáadása a főoldalhoz
+	-->új foglalásnál a szemeszter zártságának ellenőrzése
+saját foglalás szerkesztése CSAK SAJÁT
 
 másfeles térköz, bekezdések behúzása
 működési ábra

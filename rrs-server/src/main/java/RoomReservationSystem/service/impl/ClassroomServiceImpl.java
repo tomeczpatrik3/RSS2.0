@@ -34,8 +34,8 @@ public class ClassroomServiceImpl implements ClassroomService {
      *
      * @param name A törlendő osztályterem neve
      * @param buildingName Az épület neve
-     * @throws RoomReservationSystem.exception.BuildingNotExistsException
-     * @throws RoomReservationSystem.exception.ClassroomNotExistsException
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem létezik
+     * @throws ClassroomNotExistsException A lehetséges kivétel, ha a tanterem nem létezik
      */
     @Override
     public void deleteByNameAndBuildingName(String name, String buildingName) throws BuildingNotExistsException, ClassroomNotExistsException {
@@ -52,7 +52,7 @@ public class ClassroomServiceImpl implements ClassroomService {
      *
      * @param classroom A menteni kívánt terem
      * @return A mentett terem
-     * @throws RoomReservationSystem.exception.ClassroomAlredyExistsException
+     * @throws ClassroomAlredyExistsException A lehetséges kivétel, ha a tanterem már létezik
      */
     @Override
     public Classroom save(Classroom classroom) throws ClassroomAlredyExistsException {
@@ -69,7 +69,7 @@ public class ClassroomServiceImpl implements ClassroomService {
      * @param id Az azonosító
      * @param classroom A tanterem
      * @return A frissített tanterem
-     * @throws ClassroomNotExistsException
+     * @throws ClassroomNotExistsException A lehetséges kivétel, ha a tanterem nem létezik
      */
     @Override
     public Classroom update(int id, Classroom classroom) throws ClassroomNotExistsException {
@@ -96,7 +96,7 @@ public class ClassroomServiceImpl implements ClassroomService {
      *
      * @param id A terem id-ja
      * @return A terem ha létezik, null egyébként
-     * @throws RoomReservationSystem.exception.ClassroomNotExistsException
+     * @throws ClassroomNotExistsException A lehetséges kivétel, ha a tanterem nem létezik
      */
     @Override
     public Classroom findById(int id) throws ClassroomNotExistsException {
@@ -124,7 +124,7 @@ public class ClassroomServiceImpl implements ClassroomService {
      *
      * @param buildingName Az épület neve
      * @return A tanteremek egy listában
-     * @throws RoomReservationSystem.exception.BuildingNotExistsException
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem létezik
      */
     @Override
     public List<Classroom> findByBuildingName(String buildingName) throws BuildingNotExistsException {
@@ -204,8 +204,8 @@ public class ClassroomServiceImpl implements ClassroomService {
      * @param name A tanterem neve
      * @param buildingName Az épület neve
      * @return A tanterem ha van, null egyébként
-     * @throws RoomReservationSystem.exception.BuildingNotExistsException
-     * @throws RoomReservationSystem.exception.ClassroomNotExistsException
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem létezik
+     * @throws ClassroomNotExistsException A lehetséges kivétel, ha a tanterem nem létezik
      */
     @Override
     public Classroom findByNameAndBuildingName(String name, String buildingName) throws BuildingNotExistsException, ClassroomNotExistsException {
@@ -250,7 +250,7 @@ public class ClassroomServiceImpl implements ClassroomService {
      *
      * @param building Az épület neve
      * @return A nevek egy listában
-     * @throws BuildingNotExistsException
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem létezik
      */
     @Override
     public List<String> getNamesByBuilding(String building) throws BuildingNotExistsException {

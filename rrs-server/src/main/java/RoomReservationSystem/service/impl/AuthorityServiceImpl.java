@@ -35,8 +35,9 @@ public class AuthorityServiceImpl implements AuthorityService {
      * Az engedély név alapján történő keresését lehetővé tevő függvény
      *
      * @param name A keresendő engedély neve
-     * @return A névnek megfelelő engedély ha létezik, null egyébként
-     * @throws RoomReservationSystem.exception.AuthorityNotExistsException
+     * @return A névnek megfelelő engedély
+     * @throws AuthorityNotExistsException A lehetséges kivétel, ha az engedély
+     * nem létezik
      */
     @Override
     public Authority findByName(String name) throws AuthorityNotExistsException {
@@ -48,11 +49,12 @@ public class AuthorityServiceImpl implements AuthorityService {
     }
 
     /**
-     * Az engedély id alapján történő keresését lehetővé tevő függvény
+     * Az engedély azonosító alapján történő keresését lehetővé tevő függvény
      *
-     * @param id A keresendő engedély id-je
-     * @return Az id-nek megfelő engedély ha létezik, null egyébként
-     * @throws RoomReservationSystem.exception.AuthorityNotExistsException
+     * @param id Az azonosító
+     * @return Az azonosítónak megfelelő engedély
+     * @throws AuthorityNotExistsException A lehetséges kivétel, ha az engedély
+     * nem létezik
      */
     @Override
     public Authority findById(int id) throws AuthorityNotExistsException {
@@ -91,7 +93,8 @@ public class AuthorityServiceImpl implements AuthorityService {
      * Az engedély törlésére szolgáló függvény
      *
      * @param name Az engedély neve
-     * @throws RoomReservationSystem.exception.AuthorityNotExistsException
+     * @throws AuthorityNotExistsException A lehetséges kivétel, ha az engedély
+     * nem létezik
      */
     @Override
     public void removeByName(String name) throws AuthorityNotExistsException {

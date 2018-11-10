@@ -36,11 +36,11 @@ public class MessageDTO extends BaseDTO {
      * @param unread Az üzenet státusza
      */
     public MessageDTO(
-            long id,
             String sender,
             String recipient,
             String message,
-            boolean unread
+            boolean unread,
+            long id
     ) {
         super(id);
         this.sender = sender;
@@ -70,11 +70,11 @@ public class MessageDTO extends BaseDTO {
         }
 
         return new MessageDTO(
-                message.getId(),
                 from,
                 message.getRecipient().getUsername(),
                 message.getMessage(),
-                message.isUnread()
+                message.isUnread(),
+                message.getId()
         );
     }
 

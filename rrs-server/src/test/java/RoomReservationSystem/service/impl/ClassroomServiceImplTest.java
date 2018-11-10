@@ -21,6 +21,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 /**
  * A tantermekhez tartozó szervíz osztály tesztesetei
+ *
  * @author Tomecz Patrik
  */
 @RunWith(MockitoJUnitRunner.class)
@@ -42,9 +43,57 @@ public class ClassroomServiceImplTest {
     private final Classroom TEST_CLASS_3 = new Classroom("TESZT_TEREM_1", true, false, 50, Collections.EMPTY_LIST, TEST_BUILDING_2, 3);
 
     /**
+     * A név és épület alapján történő törlés tesztelésére szolgáló függvény
+     *
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem
+     * létezik
+     * @throws ClassroomNotExistsException A lehetséges kivétel, ha a tanterem
+     * nem létezik
+     */
+    @Test
+    public void deleteByNameAndBuildingName() throws BuildingNotExistsException, ClassroomNotExistsException {
+        Mockito.when(bService.findByName(TEST_CLASS_1.getBuilding().getName())).thenReturn(TEST_CLASS_1.getBuilding());
+        Mockito.when(cRepository.findByNameAndBuilding(TEST_CLASS_1.getName(), TEST_CLASS_1.getBuilding())).thenReturn(TEST_CLASS_1);
+        Mockito.doNothing().when(cRepository).deleteByNameAndBuilding(TEST_CLASS_1.getName(), TEST_CLASS_1.getBuilding());
+        service.deleteByNameAndBuildingName(TEST_CLASS_1.getName(), TEST_CLASS_1.getBuilding().getName());
+    }
+
+    /**
+     * A név és épület alapján történő törlés nem létező épület kivétel
+     * kiváltásának tesztelésére szolgáló függvény
+     *
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem
+     * létezik
+     * @throws ClassroomNotExistsException A lehetséges kivétel, ha a tanterem
+     * nem létezik
+     */
+    @Test(expected = BuildingNotExistsException.class)
+    public void deleteByNameAndBuildingNameExceptionOne() throws BuildingNotExistsException, ClassroomNotExistsException {
+        Mockito.when(bService.findByName(TEST_CLASS_1.getBuilding().getName())).thenThrow(new BuildingNotExistsException("EX"));
+        service.deleteByNameAndBuildingName(TEST_CLASS_1.getName(), TEST_CLASS_1.getBuilding().getName());
+    }
+
+    /**
+     * A név és épület alapján történő törlés nem létező tanterem kivétel
+     * kiváltásának tesztelésére szolgáló függvény
+     *
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem
+     * létezik
+     * @throws ClassroomNotExistsException A lehetséges kivétel, ha a tanterem
+     * nem létezik
+     */
+    @Test(expected = ClassroomNotExistsException.class)
+    public void deleteByNameAndBuildingNameExceptionTwo() throws BuildingNotExistsException, ClassroomNotExistsException {
+        Mockito.when(bService.findByName(TEST_CLASS_1.getBuilding().getName())).thenReturn(TEST_CLASS_1.getBuilding());
+        Mockito.when(cRepository.findByNameAndBuilding(TEST_CLASS_1.getName(), TEST_CLASS_1.getBuilding())).thenReturn(null);
+        service.deleteByNameAndBuildingName(TEST_CLASS_1.getName(), TEST_CLASS_1.getBuilding().getName());
+    }
+
+    /**
      * A mentés tesztelésére szolgáló függvény
      *
-     * @throws ClassroomAlredyExistsException A lehetséges kivétel
+     * @throws ClassroomAlredyExistsException A lehetséges kivétel, ha a
+     * tanterem már létezik
      */
     @Test
     public void testSave() throws ClassroomAlredyExistsException {
@@ -58,12 +107,40 @@ public class ClassroomServiceImplTest {
      * A mentés már létező tanterem kivétel kiváltásának tesztelésére szolgáló
      * függvény
      *
-     * @throws ClassroomAlredyExistsException A lehetséges kivétel
+     * @throws ClassroomAlredyExistsException A lehetséges kivétel, ha a
+     * tanterem már létezik
      */
     @Test(expected = ClassroomAlredyExistsException.class)
     public void testSaveException() throws ClassroomAlredyExistsException {
         Mockito.when(cRepository.findByNameAndBuilding(TEST_CLASS_1.getName(), TEST_BUILDING_1)).thenReturn(TEST_CLASS_1);
         service.save(TEST_CLASS_1);
+    }
+
+    /**
+     * A frissítés tesztelésére szolgáló függvény
+     *
+     * @throws ClassroomNotExistsException A lehetséges kivétel, ha a tanterem
+     * nem létezik
+     */
+    @Test
+    public void testUpdate() throws ClassroomNotExistsException {
+        Mockito.when(cRepository.findById(TEST_CLASS_1.getId())).thenReturn(TEST_CLASS_1);
+        Mockito.when(cRepository.save(TEST_CLASS_1)).thenReturn(TEST_CLASS_1);
+        Classroom found = service.update(TEST_CLASS_1.getId(), TEST_CLASS_1);
+        assertNotNull(found);
+        assertEquals(TEST_CLASS_1, found);
+    }
+
+    /**
+     * A frissítés nem létező tanterem kivétel kiváltásának tesztelésére
+     * szolgáló függvény
+     *
+     * @throws ClassroomNotExistsException A lehetséges kivétel, ha a tanterem
+     * nem létezik
+     */
+    @Test(expected = ClassroomNotExistsException.class)
+    public void testUpdateException() throws ClassroomNotExistsException {
+        service.update(12345, TEST_CLASS_1);
     }
 
     /**
@@ -103,7 +180,8 @@ public class ClassroomServiceImplTest {
     /**
      * Az épület alapján történő keresés tesztelésére szolgáló függvény
      *
-     * @throws BuildingNotExistsException A lehetséges kivétel
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem
+     * létezik
      */
     @Test
     public void testFindByBuildingName() throws Exception {
@@ -127,7 +205,8 @@ public class ClassroomServiceImplTest {
      * Az épület alapján történő keresés nem létező épület kivétel kiváltásának
      * tesztelésére szolgáló függvény
      *
-     * @throws BuildingNotExistsException A lehetséges kivétel
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem
+     * létezik
      */
     @Test(expected = BuildingNotExistsException.class)
     public void testFindByBuildingNameException() throws Exception {
@@ -242,8 +321,10 @@ public class ClassroomServiceImplTest {
      * Az épület és tanterem alapján történő keresés tesztelésére szolgáló
      * függvény
      *
-     * @throws BuildingNotExistsException A lehetséges kivétel
-     * @throws ClassroomNotExistsException A lehetséges kivétel
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem
+     * létezik
+     * @throws ClassroomNotExistsException A lehetséges kivétel, ha a tanterem
+     * nem létezik
      */
     @Test
     public void testFindByNameAndBuildingName() throws BuildingNotExistsException, ClassroomNotExistsException {
@@ -258,8 +339,10 @@ public class ClassroomServiceImplTest {
      * Az épület és tanterem alapján történő keresés nem létező épület kivétel
      * kiváltásának tesztelésére szolgáló függvény
      *
-     * @throws BuildingNotExistsException A lehetséges kivétel
-     * @throws ClassroomNotExistsException A lehetséges kivétel
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem
+     * létezik
+     * @throws ClassroomNotExistsException A lehetséges kivétel, ha a tanterem
+     * nem létezik
      */
     @Test(expected = BuildingNotExistsException.class)
     public void testFindByNameAndBuildingNameExceptionOne() throws BuildingNotExistsException, ClassroomNotExistsException {
@@ -271,8 +354,10 @@ public class ClassroomServiceImplTest {
      * Az épület és tanterem alapján történő keresés nem létező tanterem kivétel
      * kiváltásának tesztelésére szolgáló függvény
      *
-     * @throws BuildingNotExistsException A lehetséges kivétel
-     * @throws ClassroomNotExistsException A lehetséges kivétel
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem
+     * létezik
+     * @throws ClassroomNotExistsException A lehetséges kivétel, ha a tanterem
+     * nem létezik
      */
     @Test(expected = ClassroomNotExistsException.class)
     public void testFindByNameAndBuildingNameExceptionTwo() throws BuildingNotExistsException, ClassroomNotExistsException {
@@ -315,7 +400,8 @@ public class ClassroomServiceImplTest {
      * Egy adott épülethez tartozó tantermek neveinek lekérdezésének
      * tesztelésére szolgáló függvény
      *
-     * @throws BuildingNotExistsException A lehetséges kivétel
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem
+     * létezik
      */
     @Test
     public void getNamesByBuilding() throws BuildingNotExistsException {
@@ -330,7 +416,8 @@ public class ClassroomServiceImplTest {
      * Egy adott épülethez tartozó tantermek neveinek lekérdezése közben nem
      * létező épület kivétel kiváltásának tesztelésére szolgáló függvény
      *
-     * @throws BuildingNotExistsException A lehetséges kivétel
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem
+     * létezik
      */
     @Test(expected = BuildingNotExistsException.class)
     public void getNamesByBuildingException() throws BuildingNotExistsException {

@@ -10,9 +10,9 @@ public class EventReservationAlredyExistsException extends Exception {
     /**
      * Az osztály konstruktora
      *
-     * @param message A hibaüzenet
+     * @param name Az esemény neve
      */
-    public EventReservationAlredyExistsException(String message) {
-        super(message);
+    public EventReservationAlredyExistsException(String name) {
+        super(String.format("Ilyen névvel (%s) rendelkező esemény foglalás már létezik!", name));
     }
 }

@@ -31,7 +31,8 @@ public class SubjectServiceImpl implements SubjectService {
      *
      * @param subject A menteni kívánt tantárgy
      * @return A mentett tantárgy
-     * @throws RoomReservationSystem.exception.SubjectAlredyExistsException
+     * @throws SubjectAlredyExistsException A lehetséges kivétel, ha a tantárgy
+     * már létezik
      */
     @Override
     public Subject save(Subject subject) throws SubjectAlredyExistsException {
@@ -48,7 +49,8 @@ public class SubjectServiceImpl implements SubjectService {
      * @param id Az azonosító
      * @param subject A tantárgy
      * @return A frissített tantárgy
-     * @throws SubjectNotExistsException
+     * @throws SubjectNotExistsException A lehetséges kivétel, ha a tantárgy nem
+     * létezik
      */
     @Override
     public Subject update(int id, Subject subject) throws SubjectNotExistsException {
@@ -64,7 +66,8 @@ public class SubjectServiceImpl implements SubjectService {
      * A tantárgy kód alapján történő törlését megvalósító függvény
      *
      * @param code A törlendő tantárgy kódja
-     * @throws RoomReservationSystem.exception.SubjectNotExistsException
+     * @throws SubjectNotExistsException A lehetséges kivétel, ha a tantárgy nem
+     * létezik
      */
     @Override
     public void deleteByCode(String code) throws SubjectNotExistsException {
@@ -90,7 +93,8 @@ public class SubjectServiceImpl implements SubjectService {
      *
      * @param id A tantárgy id-ja
      * @return A tantárgy ha létezik, null egyébként
-     * @throws RoomReservationSystem.exception.SubjectNotExistsException
+     * @throws SubjectNotExistsException A lehetséges kivétel, ha a tantárgy nem
+     * létezik
      */
     @Override
     public Subject findById(int id) throws SubjectNotExistsException {
@@ -118,7 +122,8 @@ public class SubjectServiceImpl implements SubjectService {
      *
      * @param code A tantárgy kódja
      * @return A tantárgy ha létezik, null egyébként
-     * @throws RoomReservationSystem.exception.SubjectNotExistsException
+     * @throws SubjectNotExistsException A lehetséges kivétel, ha a tantárgy nem
+     * létezik
      */
     @Override
     public Subject findByCode(String code) throws SubjectNotExistsException {
@@ -152,7 +157,8 @@ public class SubjectServiceImpl implements SubjectService {
      *
      * @param subjectCode A tárgykód
      * @return A tantárgy neve
-     * @throws SubjectNotExistsException
+     * @throws SubjectNotExistsException A lehetséges kivétel, ha a tantárgy nem
+     * létezik
      */
     @Override
     public Map<String, String> getSubjectName(String subjectCode) throws SubjectNotExistsException {

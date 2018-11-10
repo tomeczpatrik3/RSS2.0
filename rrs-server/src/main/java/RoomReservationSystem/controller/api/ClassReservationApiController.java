@@ -1,16 +1,17 @@
 package RoomReservationSystem.controller.api;
 
-import RoomReservationSystem.dto.reservation.ClassReservationDTO;
-import static RoomReservationSystem.dto.reservation.ClassReservationDTO.toClassReservationDTO;
-import static RoomReservationSystem.dto.reservation.ClassReservationDTO.toClassReservationDTOList;
+import RoomReservationSystem.dto.ClassReservationDTO;
+import static RoomReservationSystem.dto.ClassReservationDTO.toClassReservationDTO;
+import static RoomReservationSystem.dto.ClassReservationDTO.toClassReservationDTOList;
 import RoomReservationSystem.exception.BuildingNotExistsException;
 import RoomReservationSystem.exception.ClassReservationNotExistsException;
 import RoomReservationSystem.exception.ClassroomNotExistsException;
 import RoomReservationSystem.exception.SemesterNotExistsException;
+import RoomReservationSystem.exception.SemesterNotOpenedException;
 import RoomReservationSystem.exception.StatusNotExistsException;
 import RoomReservationSystem.exception.SubjectNotExistsException;
 import RoomReservationSystem.exception.UserNotExistsException;
-import RoomReservationSystem.model.reservation.ClassReservation;
+import RoomReservationSystem.model.ClassReservation;
 import RoomReservationSystem.service.StatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import RoomReservationSystem.service.reservation.ClassReservationService;
+import RoomReservationSystem.service.ClassReservationService;
 import static RoomReservationSystem.util.ExceptionUtils.handleException;
 import static RoomReservationSystem.util.ValidationUtils.concatErrors;
 import RoomReservationSystem.validation.BaseReservationValidator;
@@ -222,7 +223,7 @@ public class ClassReservationApiController extends ReservationApiController {
             try {
                 ClassReservation saved = classService.save(classReservationDTO);
                 return ResponseEntity.status(HttpStatus.CREATED).body(toClassReservationDTO(saved));
-            } catch (UserNotExistsException | SubjectNotExistsException | ClassroomNotExistsException | StatusNotExistsException | SemesterNotExistsException | BuildingNotExistsException ex) {
+            } catch (UserNotExistsException | SubjectNotExistsException | ClassroomNotExistsException | StatusNotExistsException | SemesterNotExistsException | SemesterNotOpenedException | BuildingNotExistsException ex) {
                 return handleException(ex);
             }
         } else {
@@ -247,7 +248,7 @@ public class ClassReservationApiController extends ReservationApiController {
             try {
                 ClassReservation updated = classService.update(id, classReservationDTO);
                 return ResponseEntity.status(HttpStatus.CREATED).body(toClassReservationDTO(updated));
-            } catch (ClassReservationNotExistsException | UserNotExistsException | SubjectNotExistsException | ClassroomNotExistsException | StatusNotExistsException | SemesterNotExistsException | BuildingNotExistsException ex) {
+            } catch (ClassReservationNotExistsException | UserNotExistsException | SubjectNotExistsException | ClassroomNotExistsException | StatusNotExistsException | SemesterNotExistsException | SemesterNotOpenedException | BuildingNotExistsException ex) {
                 return handleException(ex);
             }
         } else {

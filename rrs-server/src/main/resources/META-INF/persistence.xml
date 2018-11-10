@@ -8,7 +8,7 @@
     <class>RoomReservationSystem.model.Subject</class>
     <class>RoomReservationSystem.model.User</class>
     <class>RoomReservationSystem.model.Building</class>
-    <class>RoomReservationSystem.model.reservation.Reservation</class>
+    <class>RoomReservationSystem.model.Reservation</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/roomreservationdb?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

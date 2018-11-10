@@ -1,7 +1,7 @@
 package RoomReservationSystem.validation;
 
 import static RoomReservationSystem.config.ErrorMessageConstants.*;
-import RoomReservationSystem.dto.reservation.ClassReservationDTO;
+import RoomReservationSystem.dto.ClassReservationDTO;
 
 import RoomReservationSystem.service.SemesterService;
 import RoomReservationSystem.service.SubjectService;

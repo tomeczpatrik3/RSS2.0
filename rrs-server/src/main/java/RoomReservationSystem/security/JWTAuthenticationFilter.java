@@ -32,45 +32,46 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
- * Az Authentikációért felelős osztály (filter)
+ * JWTAuthenticationFilter
+ *
  * @author Tomecz Patrik
  */
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
-    
+
     private AuthenticationManager authenticationManager;
     private UserServiceImpl userService;
-    
+
     /**
-     *
-     * @param authenticationManager
+     * A JWTAuthenticationFilter
+     * @param authenticationManager Az AuthenticationManager objektum
      */
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
     }
-    
+
     /**
-     *
-     * @param req
-     * @param res
-     * @return
-     * @throws AuthenticationException
+     * Az autentikáció megpróbálásáért felelős függvény
+     * @param req A kérés
+     * @param res A válasz
+     * @return A megfelelő Authentication objektum
+     * @throws AuthenticationException A lehetséges kivétel
      */
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req,
-                                                HttpServletResponse res) throws AuthenticationException {
+            HttpServletResponse res) throws AuthenticationException {
         try {
             AccountCredentials creds = new ObjectMapper()
                     .readValue(req.getInputStream(), AccountCredentials.class);
-            
+
             /*
                 Ha a userService még nincs inicalizálva:
-            */
+             */
             if (userService == null) {
                 ServletContext servletContext = req.getServletContext();
                 WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(servletContext);
                 userService = webApplicationContext.getBean(UserServiceImpl.class);
             }
-                        
+
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             creds.getUsername(),
@@ -84,26 +85,26 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 
     /**
-     *
-     * @param req
-     * @param res
-     * @param chain
-     * @param auth
-     * @throws IOException
-     * @throws ServletException
+     * A sikeres autentikáció utáni tevékenységekért felelős függvény
+     * @param req A kérés
+     * @param res A válasz
+     * @param chain A szűrő lánc
+     * @param auth Az Authentication objektum
+     * @throws IOException A lehetséges IO kivétel
+     * @throws ServletException A lehetséges "Servlet" kivétel
      */
     @Override
     protected void successfulAuthentication(HttpServletRequest req,
-                                            HttpServletResponse res,
-                                            FilterChain chain,
-                                            Authentication auth) throws IOException, ServletException {
+            HttpServletResponse res,
+            FilterChain chain,
+            Authentication auth) throws IOException, ServletException {
 
-        User user = (User)auth.getPrincipal();
+        User user = (User) auth.getPrincipal();
         Claims claims = Jwts.claims().setSubject(user.getUsername());
-        
+
         //Az angular szamara:
         claims.put("authorities", user.getAuthorities().stream().map(s -> s.toString()).collect(Collectors.toList()));
-        
+
         String token = Jwts.builder()
                 .setSubject(user.getUsername())
                 .setClaims(claims)

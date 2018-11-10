@@ -75,8 +75,24 @@ public class Message extends BaseEntity {
      * @param message Az üzenet
      */
     public Message(User sender, User recipient, String message) {
-        super();
         this.unread = true;
+        this.sender = sender;
+        this.recipient = recipient;
+        this.message = message;
+    }
+    
+    /**
+     * Az osztály konstruktora
+     *
+     * @param sender Az üzenet feladója
+     * @param recipient Az üzenet címzettje
+     * @param message Az üzenet
+     * @param unread Az üzenet státusza
+     * @param id Az azonosító
+     */
+    public Message(User sender, User recipient, String message, boolean unread, int id) {
+        super(id);
+        this.unread = unread;
         this.sender = sender;
         this.recipient = recipient;
         this.message = message;

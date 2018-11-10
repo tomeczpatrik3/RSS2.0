@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: RoomReservationSystem.service.impl.EventServiceImplTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0 s <<< FAILURE! - in RoomReservationSystem.service.impl.EventServiceImplTest
+testFindByUserName(RoomReservationSystem.service.impl.EventServiceImplTest)  Time elapsed: 0 s  <<< ERROR!
+java.lang.NullPointerException
+	at RoomReservationSystem.service.impl.EventServiceImplTest.testFindByUserName(EventServiceImplTest.java:67)
+

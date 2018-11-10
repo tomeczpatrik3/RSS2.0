@@ -2,6 +2,7 @@ package RoomReservationSystem.service.impl;
 
 import RoomReservationSystem.exception.SemesterAlredyExistsException;
 import RoomReservationSystem.exception.SemesterNotExistsException;
+import RoomReservationSystem.exception.SemesterNotOpenedException;
 import RoomReservationSystem.model.Semester;
 import RoomReservationSystem.repository.SemesterRepository;
 import java.util.Arrays;
@@ -21,6 +22,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 /**
  * A szemeszterekhez tartozó szervíz osztály tesztesetei
+ *
  * @author Tomecz Patrik
  */
 @RunWith(MockitoJUnitRunner.class)
@@ -40,7 +42,7 @@ public class SemesterServiceImplTest {
             Collections.EMPTY_LIST,
             999
     );
-    
+
     private final Semester TEST_SEMESTER_2 = new Semester(
             "2011-2012/2",
             new GregorianCalendar(2011, Calendar.SEPTEMBER, 3).getTime(),
@@ -61,7 +63,7 @@ public class SemesterServiceImplTest {
         assertThat(found.size(), is(1));
         assertEquals(TEST_SEMESTER_1, found.get(0));
     }
-    
+
     /**
      * A nyitott szemeszterek lekérdezésének tesztelésére szolgáló függvény
      */
@@ -77,7 +79,8 @@ public class SemesterServiceImplTest {
     /**
      * A mentés tesztelésére szolgáló függvény
      *
-     * @throws SemesterAlredyExistsException A lehetséges kivétel
+     * @throws SemesterAlredyExistsException A lehetséges kivétel, ha a
+     * szemeszter már létezik
      */
     @Test
     public void testSave() throws SemesterAlredyExistsException {
@@ -91,18 +94,20 @@ public class SemesterServiceImplTest {
      * A mentés már létező szemeszter kivétel kiváltásának tesztelésére szolgáló
      * függvény
      *
-     * @throws SemesterAlredyExistsException A lehetséges kivétel
+     * @throws SemesterAlredyExistsException A lehetséges kivétel, ha a
+     * szemeszter már létezik
      */
     @Test(expected = SemesterAlredyExistsException.class)
     public void testSaveException() throws SemesterAlredyExistsException {
         Mockito.when(repository.findByName(TEST_SEMESTER_1.getName())).thenReturn(TEST_SEMESTER_1);
         service.save(TEST_SEMESTER_1);
     }
-    
+
     /**
      * A frissítés tesztelésére szolgáló függvény
      *
-     * @throws SemesterNotExistsException A lehetséges kivétel
+     * @throws SemesterNotExistsException A lehetséges kivétel, ha a szemeszter
+     * nem létezik
      */
     @Test
     public void testUpdate() throws SemesterNotExistsException {
@@ -111,13 +116,14 @@ public class SemesterServiceImplTest {
         Semester updated = service.update(TEST_SEMESTER_1.getId(), TEST_SEMESTER_1);
         assertEquals(TEST_SEMESTER_1, updated);
     }
-    
+
     /**
-     * A frissítés nem létező szemeszter kivétel kiváltásának tesztelésére szolgáló
-     * függvény
+     * A frissítés nem létező szemeszter kivétel kiváltásának tesztelésére
+     * szolgáló függvény
      *
-     * @throws SemesterNotExistsException A lehetséges kivétel
-     */    
+     * @throws SemesterNotExistsException A lehetséges kivétel, ha a szemeszter
+     * nem létezik
+     */
     @Test(expected = SemesterNotExistsException.class)
     public void testUpdateException() throws SemesterNotExistsException {
         Mockito.when(repository.findById(TEST_SEMESTER_1.getId())).thenReturn(null);
@@ -139,7 +145,8 @@ public class SemesterServiceImplTest {
     /**
      * A név alapján történő keresés tesztelésére szolgáló függvény
      *
-     * @throws SemesterNotExistsException A lehetséges kivétel
+     * @throws SemesterNotExistsException A lehetséges kivétel, ha a szemeszter
+     * nem létezik
      */
     @Test
     public void testFindByName() throws SemesterNotExistsException {
@@ -153,17 +160,64 @@ public class SemesterServiceImplTest {
      * A név alapján történő keresés nem létező szemeszter kivétel kiváltásának
      * tesztelésére szolgáló függvény
      *
-     * @throws SemesterNotExistsException A lehetséges kivétel
+     * @throws SemesterNotExistsException A lehetséges kivétel, ha a szemeszter
+     * nem létezik
      */
     @Test(expected = SemesterNotExistsException.class)
     public void testFindByNameException() throws SemesterNotExistsException {
         service.findByName("EXCEPTION");
     }
-    
-     /**
+
+    /**
+     * A név alapján történő nyitott szemeszter keresésést tesztelő függvény
+     *
+     * @throws SemesterNotExistsException A lehetséges kivétel, ha a szemeszter
+     * nem létezik
+     * @throws SemesterNotOpenedException A lehetséges kivétel, ha a szemeszter
+     * nem nyitott
+     */
+    @Test
+    public void testFindOpenedByName() throws SemesterNotExistsException, SemesterNotOpenedException {
+        Mockito.when(repository.findByName(TEST_SEMESTER_2.getName())).thenReturn(TEST_SEMESTER_2);
+        Semester found = service.findOpenedByName(TEST_SEMESTER_2.getName());
+        assertNotNull(found);
+        assertEquals(TEST_SEMESTER_2, found);
+    }
+
+    /**
+     * A név alapján történő nyitott szemeszter keresésénel nem létező
+     * szemeszter kivétel kiváltásának tesztelését végző függvény
+     *
+     * @throws SemesterNotExistsException A lehetséges kivétel, ha a szemeszter
+     * nem létezik
+     * @throws SemesterNotOpenedException A lehetséges kivétel, ha a szemeszter
+     * nem nyitott
+     */
+    @Test(expected = SemesterNotExistsException.class)
+    public void testFindOpenedByNameExceptionOne() throws SemesterNotExistsException, SemesterNotOpenedException {
+        service.findOpenedByName("EXCEPTION");
+    }
+
+    /**
+     * A név alapján történő nyitott szemeszter keresésénel nem nyitott
+     * szemeszter kivétel kiváltásának tesztelését végző függvény
+     *
+     * @throws SemesterNotExistsException A lehetséges kivétel, ha a szemeszter
+     * nem létezik
+     * @throws SemesterNotOpenedException A lehetséges kivétel, ha a szemeszter
+     * nem nyitott
+     */
+    @Test(expected = SemesterNotOpenedException.class)
+    public void testFindOpenedByNameExceptionTwo() throws SemesterNotExistsException, SemesterNotOpenedException {
+        Mockito.when(repository.findByName(TEST_SEMESTER_1.getName())).thenReturn(TEST_SEMESTER_1);
+        service.findOpenedByName(TEST_SEMESTER_1.getName());
+    }
+
+    /**
      * Az azonosító alapján történő keresés tesztelésére szolgáló függvény
      *
-     * @throws SemesterNotExistsException A lehetséges kivétel
+     * @throws SemesterNotExistsException A lehetséges kivétel, ha a szemeszter
+     * nem létezik
      */
     @Test
     public void testFindById() throws SemesterNotExistsException {
@@ -176,17 +230,19 @@ public class SemesterServiceImplTest {
      * Az azonosító alapján történő keresés nem létező épület kivétel
      * kiváltásának tesztelésére szolgáló függvény
      *
-     * @throws SemesterNotExistsException A lehetséges kivétel
+     * @throws SemesterNotExistsException A lehetséges kivétel, ha a szemeszter
+     * nem létezik
      */
     @Test(expected = SemesterNotExistsException.class)
     public void testFindByIdException() throws SemesterNotExistsException {
         service.findById(1234);
-    }   
+    }
 
     /**
      * A név alapján történő törlés tesztelésére szolgáló függvény
      *
-     * @throws SemesterNotExistsException A lehetséges kivétel
+     * @throws SemesterNotExistsException A lehetséges kivétel, ha a szemeszter
+     * nem létezik
      */
     @Test
     public void testDeleteByName() throws SemesterNotExistsException {
@@ -199,13 +255,14 @@ public class SemesterServiceImplTest {
      * A név alapján történő törlés nem létező szemeszter kivétel kiváltásának
      * tesztelésére szolgáló függvény
      *
-     * @throws SemesterNotExistsException A lehetséges kivétel
+     * @throws SemesterNotExistsException A lehetséges kivétel, ha a szemeszter
+     * nem létezik
      */
     @Test(expected = SemesterNotExistsException.class)
     public void testDeleteByNameException() throws SemesterNotExistsException {
         service.deleteByName("EXCEPTION");
     }
-    
+
     /**
      * Az azonosító alapján történő létezés ellenőrzésének tesztelésére szolgáló
      * függvény

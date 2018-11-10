@@ -35,7 +35,7 @@ public class BuildingServiceImplTest {
     /**
      * A név alapján történő törlés tesztelésére szolgáló függvény
      *
-     * @throws BuildingNotExistsException A lehetséges kivétel
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem létezik
      */
     @Test
     public void testDeleteByName() throws BuildingNotExistsException {
@@ -48,7 +48,7 @@ public class BuildingServiceImplTest {
      * A név alapján történő törlés nem létező épület kivétel kiváltásának
      * tesztelésére szolgáló függvény
      *
-     * @throws BuildingNotExistsException A lehetséges kivétel
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem létezik
      */
     @Test(expected = BuildingNotExistsException.class)
     public void testDeleteByNameException() throws BuildingNotExistsException {
@@ -58,7 +58,7 @@ public class BuildingServiceImplTest {
     /**
      * A mentés tesztelésére szolgáló függvény
      *
-     * @throws BuildingAlredyExistsException A lehetséges kivétel
+     * @throws BuildingAlredyExistsException A lehetséges kivétel, ha az épület már létezik
      */
     @Test
     public void testSave() throws BuildingAlredyExistsException {
@@ -72,7 +72,7 @@ public class BuildingServiceImplTest {
      * A mentés már létező épület kivétel kiváltásának tesztelésére szolgáló
      * függvény
      *
-     * @throws BuildingAlredyExistsException A lehetséges kivétel
+     * @throws BuildingAlredyExistsException A lehetséges kivétel, ha az épület már létezik
      */
     @Test(expected = BuildingAlredyExistsException.class)
     public void testSaveException() throws BuildingAlredyExistsException {
@@ -83,7 +83,7 @@ public class BuildingServiceImplTest {
     /**
      * A frissítés tesztelésére szolgáló függvény
      *
-     * @throws BuildingNotExistsException A lehetséges kivétel
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem létezik
      */
     @Test
     public void testUpdate() throws BuildingNotExistsException {
@@ -98,7 +98,7 @@ public class BuildingServiceImplTest {
      * A frissítés nem létező épület kivétel kiváltásának tesztelésére szolgáló
      * függvény
      *
-     * @throws BuildingNotExistsException A lehetséges kivétel
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem létezik
      */
     @Test(expected = BuildingNotExistsException.class)
     public void testUpdateException() throws BuildingNotExistsException {
@@ -108,7 +108,7 @@ public class BuildingServiceImplTest {
     /**
      * A név alapján történő keresés tesztelésére szolgáló függvény
      *
-     * @throws BuildingNotExistsException A lehetséges kivétel
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem létezik
      */
     @Test
     public void testFindByName() throws BuildingNotExistsException {
@@ -122,7 +122,7 @@ public class BuildingServiceImplTest {
      * A név alapján történő keresés nem létező épület kivétel kiváltásának
      * tesztelésére szolgáló függvény
      *
-     * @throws BuildingNotExistsException A lehetséges kivétel
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem létezik
      */
     @Test(expected = BuildingNotExistsException.class)
     public void testFindByNameException() throws BuildingNotExistsException {
@@ -132,7 +132,7 @@ public class BuildingServiceImplTest {
     /**
      * Az azonosító alapján történő keresés tesztelésére szolgáló függvény
      *
-     * @throws BuildingNotExistsException A lehetséges kivétel
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem létezik
      */
     @Test
     public void testFindById() throws BuildingNotExistsException {
@@ -146,7 +146,7 @@ public class BuildingServiceImplTest {
      * Az azonosító alapján történő keresés nem létező épület kivétel
      * kiváltásának tesztelésére szolgáló függvény
      *
-     * @throws BuildingNotExistsException A lehetséges kivétel
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem létezik
      */
     @Test(expected = BuildingNotExistsException.class)
     public void testFindByIdException() throws BuildingNotExistsException {

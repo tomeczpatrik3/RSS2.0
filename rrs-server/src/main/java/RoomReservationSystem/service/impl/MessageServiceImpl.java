@@ -33,7 +33,8 @@ public class MessageServiceImpl implements MessageService {
      *
      * @param id Az azonosító
      * @return Az adott azonosítóval rendelkező üzenet
-     * @throws MessageNotExistsException A lehetséges kivétel
+     * @throws MessageNotExistsException A lehetséges kivétel, ha az üzenet nem
+     * létezik
      */
     @Override
     public Message findOwnById(int id) throws MessageNotExistsException {
@@ -62,7 +63,8 @@ public class MessageServiceImpl implements MessageService {
      *
      * @param messageDTO Az üzenet
      * @return Az elküldött üzenet
-     * @throws UserNotExistsException A lehetséges kivétel
+     * @throws UserNotExistsException A lehetséges kivétel, ha a felhasználó nem
+     * létezik
      */
     @Override
     public Message sendMessage(MessageDTO messageDTO) throws UserNotExistsException {
@@ -85,7 +87,8 @@ public class MessageServiceImpl implements MessageService {
      * @param reservationId A foglalás azonosítója
      * @param type Az üzenet típusa
      * @return A megfelelő üzenet
-     * @throws UserNotExistsException A lehetséges kivétel
+     * @throws UserNotExistsException A lehetséges kivétel A lehetséges kivétel,
+     * ha a felhasználó nem létezik
      */
     @Override
     public Message generateSystemMessage(String recipient, int reservationId, MessageType type) throws UserNotExistsException {
@@ -111,7 +114,8 @@ public class MessageServiceImpl implements MessageService {
      *
      * @param sender A feladó
      * @return A megfelelő üzenetek egy listában
-     * @throws UserNotExistsException A lehetséges kivétel
+     * @throws UserNotExistsException A lehetséges kivétel, ha a felhasználó nem
+     * létezik
      */
     @Override
     public List<Message> findBySender(String sender) throws UserNotExistsException {
@@ -124,7 +128,8 @@ public class MessageServiceImpl implements MessageService {
      *
      * @param recipient A címzett
      * @return A megfelelő üzenetek egy listában
-     * @throws UserNotExistsException A lehetséges kivétel
+     * @throws UserNotExistsException A lehetséges kivétel, ha a felhasználó nem
+     * létezik
      */
     @Override
     public List<Message> findByRecipient(String recipient) throws UserNotExistsException {
@@ -136,7 +141,8 @@ public class MessageServiceImpl implements MessageService {
      * függvény
      *
      * @param id Az azonosító
-     * @throws MessageNotExistsException A lehetséges kivétel
+     * @throws MessageNotExistsException A lehetséges kivétel, ha az üzenet nem
+     * létezik
      */
     @Override
     public void markOwnAsRead(int id) throws MessageNotExistsException {
@@ -155,7 +161,8 @@ public class MessageServiceImpl implements MessageService {
      * felelős függvény
      *
      * @param id Az azonosító
-     * @throws MessageNotExistsException A lehetséges kivétel
+     * @throws MessageNotExistsException A lehetséges kivétel, ha az üzenet nem
+     * létezik
      */
     @Override
     public void markOwnAsUnread(int id) throws MessageNotExistsException {
@@ -173,7 +180,8 @@ public class MessageServiceImpl implements MessageService {
      * A saját üzenet azonosító alapján történő törlését lehetővé tevő függvény
      *
      * @param id Az azonosító
-     * @throws MessageNotExistsException A lehetséges kivétel
+     * @throws MessageNotExistsException A lehetséges kivétel, ha az üzenet nem
+     * létezik
      */
     @Override
     public void deleteOwnById(int id) throws MessageNotExistsException {

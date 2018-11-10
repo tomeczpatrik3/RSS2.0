@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package RoomReservationSystem.service.impl;
 
 import RoomReservationSystem.exception.StatusNotExistsException;
@@ -35,7 +30,7 @@ public class StatusServiceImplTest {
     /**
      * A név alapján történő keresés tesztelésére szolgáló függvény
      *
-     * @throws StatusNotExistsException A lehetséges kivétel
+     * @throws StatusNotExistsException A lehetséges kivétel, ha a státusz már létezik
      */
     @Test
     public void testFindByName() throws StatusNotExistsException {
@@ -48,7 +43,7 @@ public class StatusServiceImplTest {
      * A név alapján történő keresés nem létező státusz kivétel kiváltásának
      * tesztelésére szolgáló függvény
      *
-     * @throws StatusNotExistsException A lehetséges kivétel
+     * @throws StatusNotExistsException A lehetséges kivétel, ha a státusz már létezik
      */
     @Test(expected = StatusNotExistsException.class)
     public void testFindByNameException() throws StatusNotExistsException {

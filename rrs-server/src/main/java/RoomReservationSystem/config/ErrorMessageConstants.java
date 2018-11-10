@@ -83,6 +83,7 @@ public class ErrorMessageConstants {
     public static final String RESERVATION_NOT_EXISTS = "Ilyen foglalás nem létezik!";
     public static final String END_DATE_BEFORE_START_DATE = "A befejezés időpontja nem előzheti meg a kezdés időpontját!";
     
+    /*Üzenetek*/
     public static final String MESSAGE_SENDER_EMPTY = "A küldő felhasználóneve nem lehet üres!";
     public static final String MESSAGE_RECIPIENT_EMPTY = "A címzett felhasználóneve nem lehet üres!";
     public static final String MESSAGE_MESSAGE_EMPTY = "A küldött üzenet tartalma nem lehet üres!";

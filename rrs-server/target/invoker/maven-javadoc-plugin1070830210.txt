@@ -1,0 +1,25 @@
+Invoking Maven for the goals: [org.apache.maven.plugins:maven-javadoc-plugin:3.0.1:javadoc] with no properties
+
+M2_HOME=C:\maven\bin\..
+MAVEN_OPTS=null
+JAVA_HOME=C:\Program Files\Java\jdk1.8.0_181
+JAVA_OPTS=null
+
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------------< rrs:rrs-client >---------------------------
+[INFO] Building rrs-client 0.0.1-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> maven-javadoc-plugin:3.0.1:javadoc (default-cli) > generate-sources @ rrs-client >>>
+[INFO] 
+[INFO] <<< maven-javadoc-plugin:3.0.1:javadoc (default-cli) < generate-sources @ rrs-client <<<
+[INFO] 
+[INFO] 
+[INFO] --- maven-javadoc-plugin:3.0.1:javadoc (default-cli) @ rrs-client ---
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 1.600 s
+[INFO] Finished at: 2018-11-10T15:47:21+01:00
+[INFO] ------------------------------------------------------------------------

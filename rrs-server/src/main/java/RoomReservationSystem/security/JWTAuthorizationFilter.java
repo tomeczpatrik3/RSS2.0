@@ -20,6 +20,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
+ * JWTAuthorizationFilter
  *
  * @author Tomecz Patrik
  */
@@ -28,20 +29,22 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     private UserServiceImpl userService;
 
     /**
+     * A JWTAuthorizationFilter
      *
-     * @param authManager
+     * @param authManager Az AuthenticationManager objektum
      */
     public JWTAuthorizationFilter(AuthenticationManager authManager) {
         super(authManager);
     }
 
     /**
+     * A szűrésért felelős függvény
      *
-     * @param req
-     * @param res
-     * @param chain
-     * @throws IOException
-     * @throws ServletException
+     * @param req A kérés
+     * @param res A választ
+     * @param chain A szűrő lánc
+     * @throws IOException A lehetséges IO kivétel
+     * @throws ServletException A lehetséges "Servlet" kivétel
      */
     @Override
     protected void doFilterInternal(HttpServletRequest req,
@@ -60,10 +63,17 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         chain.doFilter(req, res);
     }
 
+    /**
+     * A token létrehozásáért felelős függvény
+     *
+     * @param request A kérés
+     * @return UsernamePasswordAuthenticationToken A token (ha minden rendben
+     * volt)
+     */
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);
         if (token != null) {
-            // parse the token.
+            //A token elkészítése
             String username = Jwts.parser()
                     .setSigningKey(SECRET.getBytes())
                     .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))

@@ -19,6 +19,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 /**
  * A tantárgyakhoz tartozó szervíz osztály tesztesetei
+ *
  * @author Tomecz Patrik
  */
 @RunWith(MockitoJUnitRunner.class)
@@ -36,7 +37,8 @@ public class SubjectServiceImplTest {
     /**
      * A mentés tesztelésére szolgáló függvény
      *
-     * @throws SubjectAlredyExistsException A lehetséges kivétel
+     * @throws SubjectAlredyExistsException A lehetséges kivétel, ha a tantárgy
+     * már létezik
      */
     @Test
     public void testSave() throws SubjectAlredyExistsException {
@@ -50,7 +52,8 @@ public class SubjectServiceImplTest {
      * A mentés már létező tantárgy kivétel kiváltásának tesztelésére szolgáló
      * függvény
      *
-     * @throws SubjectAlredyExistsException A lehetséges kivétel
+     * @throws SubjectAlredyExistsException A lehetséges kivétel, ha a tantárgy
+     * már létezik
      */
     @Test(expected = SubjectAlredyExistsException.class)
     public void testSaveException() throws SubjectAlredyExistsException {
@@ -61,7 +64,8 @@ public class SubjectServiceImplTest {
     /**
      * A frissítés tesztelésére szolgáló függvény
      *
-     * @throws SubjectNotExistsException A lehetséges kivétel
+     * @throws SubjectNotExistsException A lehetséges kivétel, ha a tantárgy nem
+     * létezik
      */
     @Test
     public void testUpdate() throws SubjectNotExistsException {
@@ -75,7 +79,8 @@ public class SubjectServiceImplTest {
      * A frissítés nem létező tantárgy kivétel kiváltásának tesztelésére
      * szolgáló függvény
      *
-     * @throws SubjectNotExistsException A lehetséges kivétel
+     * @throws SubjectNotExistsException A lehetséges kivétel, ha a tantárgy nem
+     * létezik
      */
     @Test(expected = SubjectNotExistsException.class)
     public void testUpdateException() throws SubjectNotExistsException {
@@ -86,7 +91,8 @@ public class SubjectServiceImplTest {
     /**
      * A kód alapján történő törlés tesztelésére szolgáló függvény
      *
-     * @throws SubjectNotExistsException A lehetséges kivétel
+     * @throws SubjectNotExistsException A lehetséges kivétel, ha a tantárgy nem
+     * létezik
      */
     @Test
     public void testDeleteByCode() throws SubjectNotExistsException {
@@ -99,7 +105,8 @@ public class SubjectServiceImplTest {
      * A kód alapján történő törlés nem létező tantárgy kivétel kiváltásának
      * tesztelésére szolgáló függvény
      *
-     * @throws SubjectNotExistsException A lehetséges kivétel
+     * @throws SubjectNotExistsException A lehetséges kivétel, ha a tantárgy nem
+     * létezik
      */
     @Test(expected = SubjectNotExistsException.class)
     public void testDeleteByCodeException() throws SubjectNotExistsException {
@@ -120,7 +127,8 @@ public class SubjectServiceImplTest {
     /**
      * Az azonosító alapján történő keresés tesztelésére szolgáló függvény
      *
-     * @throws SubjectNotExistsException A lehetséges kivétel
+     * @throws SubjectNotExistsException A lehetséges kivétel, ha a tantárgy nem
+     * létezik
      */
     @Test
     public void testFindById() throws SubjectNotExistsException {
@@ -133,7 +141,8 @@ public class SubjectServiceImplTest {
      * Az azonosító alapján történő keresés nem létező tantárgy kivétel
      * kiváltásának tesztelésére szolgáló függvény
      *
-     * @throws SubjectNotExistsException A lehetséges kivétel
+     * @throws SubjectNotExistsException A lehetséges kivétel, ha a tantárgy nem
+     * létezik
      */
     @Test(expected = SubjectNotExistsException.class)
     public void testFindByIdException() throws SubjectNotExistsException {
@@ -159,7 +168,8 @@ public class SubjectServiceImplTest {
     /**
      * A tárgykód alapján történő keresés tesztelésére szolgáló függvény
      *
-     * @throws SubjectNotExistsException A lehetséges kivétel
+     * @throws SubjectNotExistsException A lehetséges kivétel, ha a tantárgy nem
+     * létezik
      */
     @Test
     public void testFindByCode() throws SubjectNotExistsException {
@@ -172,7 +182,8 @@ public class SubjectServiceImplTest {
      * A tárgykód alapján történő keresés nem létező tantárgy kivétel
      * kiváltásának tesztelésére szolgáló függvény
      *
-     * @throws SubjectNotExistsException A lehetséges kivétel
+     * @throws SubjectNotExistsException A lehetséges kivétel, ha a tantárgy nem
+     * létezik
      */
     @Test(expected = SubjectNotExistsException.class)
     public void testFindByCodeException() throws SubjectNotExistsException {
@@ -193,7 +204,8 @@ public class SubjectServiceImplTest {
     /**
      * A tárgykódhoz tartozó tantárgy nevének lekérdezését tesztelő függvény
      *
-     * @throws SubjectNotExistsException A lehetséges kivétel
+     * @throws SubjectNotExistsException A lehetséges kivétel, ha a tantárgy nem
+     * létezik
      */
     @Test
     public void testGetSubjectName() throws SubjectNotExistsException {
@@ -206,7 +218,8 @@ public class SubjectServiceImplTest {
      * A tárgykódhoz tartozó tantárgy nevének nem lekérdezése nem létező
      * tantárgy kivétel kiváltását tesztelő függvény
      *
-     * @throws SubjectNotExistsException A lehetséges kivétel
+     * @throws SubjectNotExistsException A lehetséges kivétel, ha a tantárgy nem
+     * létezik
      */
     @Test(expected = SubjectNotExistsException.class)
     public void testGetSubjectNameException() throws SubjectNotExistsException {

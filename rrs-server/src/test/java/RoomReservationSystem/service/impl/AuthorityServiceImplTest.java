@@ -18,6 +18,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 /**
  * Az engedélyekhez tartozó szervíz osztály tesztesetei
+ *
  * @author Tomecz Patrik
  */
 @RunWith(MockitoJUnitRunner.class)
@@ -41,11 +42,9 @@ public class AuthorityServiceImplTest {
 
     /**
      * A mentés tesztelésére szolgáló függvény
-     *
-     * @throws AuthorityAlredyExistsException A lehetséges kivétel
      */
     @Test
-    public void testSave() throws AuthorityAlredyExistsException {
+    public void testSave() {
         Mockito.when(repository.save(TEST_AUTHORITY)).thenReturn(TEST_AUTHORITY);
         assertEquals(TEST_AUTHORITY, service.save(TEST_AUTHORITY));
     }
@@ -53,7 +52,8 @@ public class AuthorityServiceImplTest {
     /**
      * A név alapján történő keresés tesztelésére szolgáló függvény
      *
-     * @throws AuthorityNotExistsException A lehetséges kivétel
+     * @throws AuthorityNotExistsException A lehetséges kivétel, ha az engedély
+     * nem létezik
      */
     @Test
     public void testFindByName() throws AuthorityNotExistsException {
@@ -65,7 +65,8 @@ public class AuthorityServiceImplTest {
      * A név alapján történő keresés nem létező engedély kivétel kiváltásának
      * tesztelésére szolgáló függvény
      *
-     * @throws AuthorityNotExistsException A lehetséges kivétel
+     * @throws AuthorityNotExistsException A lehetséges kivétel, ha az engedély
+     * nem létezik
      */
     @Test(expected = AuthorityNotExistsException.class)
     public void testFindByNameException() throws AuthorityNotExistsException {
@@ -75,7 +76,8 @@ public class AuthorityServiceImplTest {
     /**
      * Az azonosító alapján történő keresés tesztelésére szolgáló függvény
      *
-     * @throws AuthorityNotExistsException A lehetséges kivétel
+     * @throws AuthorityNotExistsException A lehetséges kivétel, ha az engedély
+     * nem létezik
      */
     @Test
     public void testFindById() throws AuthorityNotExistsException {
@@ -87,7 +89,8 @@ public class AuthorityServiceImplTest {
      * Az azonosító alapján történő keresés nem létező engedély kivétel
      * kiváltásának tesztelésére szolgáló függvény
      *
-     * @throws AuthorityNotExistsException A lehetséges kivétel
+     * @throws AuthorityNotExistsException A lehetséges kivétel, ha az engedély
+     * nem létezik
      */
     @Test(expected = AuthorityNotExistsException.class)
     public void testFindByIdException() throws AuthorityNotExistsException {
@@ -98,11 +101,9 @@ public class AuthorityServiceImplTest {
     /**
      * Az azonosító alapján történő létezés ellenőrzésének tesztelésére szolgáló
      * függvény
-     *
-     * @throws AuthorityNotExistsException A lehetséges kivétel
      */
     @Test
-    public void testExistsById() throws AuthorityNotExistsException {
+    public void testExistsById() {
         Mockito.when(repository.existsById(TEST_AUTHORITY.getId())).thenReturn(true);
         boolean exists = service.existsById(TEST_AUTHORITY.getId());
         Assert.assertTrue(exists);
@@ -115,11 +116,9 @@ public class AuthorityServiceImplTest {
     /**
      * Aa név alapján történő létezés ellenőrzésének tesztelésére szolgáló
      * függvény
-     *
-     * @throws AuthorityNotExistsException A lehetséges kivétel
      */
     @Test
-    public void testExistsByName() throws AuthorityNotExistsException {
+    public void testExistsByName() {
         Mockito.when(repository.existsByName(TEST_AUTHORITY.getName())).thenReturn(true);
         boolean exists = service.existsByName(TEST_AUTHORITY.getName());
         Assert.assertTrue(exists);
@@ -132,7 +131,8 @@ public class AuthorityServiceImplTest {
     /**
      * A név alapján történő törlés tesztelésére szolgáló függvény
      *
-     * @throws AuthorityNotExistsException A lehetséges kivétel
+     * @throws AuthorityNotExistsException A lehetséges kivétel, ha az engedély
+     * nem létezik
      */
     @Test
     public void testRemoveByName() throws AuthorityNotExistsException {
@@ -146,7 +146,8 @@ public class AuthorityServiceImplTest {
      * A név alapján történő törlés nem létező engedély kivétel kiváltásának
      * tesztelésére szolgáló függvény
      *
-     * @throws AuthorityNotExistsException A lehetséges kivétel
+     * @throws AuthorityNotExistsException A lehetséges kivétel, ha az engedély
+     * nem létezik
      */
     @Test(expected = AuthorityNotExistsException.class)
     public void testRemoveByNameException() throws AuthorityNotExistsException {

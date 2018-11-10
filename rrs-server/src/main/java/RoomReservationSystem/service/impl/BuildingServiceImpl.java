@@ -28,7 +28,7 @@ public class BuildingServiceImpl implements BuildingService {
      * Az épület név alapján történő törlésére szolgáló függvény
      *
      * @param name A törlendő épület neve
-     * @throws RoomReservationSystem.exception.BuildingNotExistsException
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem létezik
      */
     @Override
     public void deleteByName(String name) throws BuildingNotExistsException {
@@ -44,7 +44,7 @@ public class BuildingServiceImpl implements BuildingService {
      *
      * @param building Az épület, amit menteni szeretnénk
      * @return A mentett épület
-     * @throws RoomReservationSystem.exception.BuildingAlredyExistsException
+     * @throws BuildingAlredyExistsException A lehetséges kivétel, ha az épület már létezik
      */
     @Override
     public Building save(Building building) throws BuildingAlredyExistsException {
@@ -61,7 +61,7 @@ public class BuildingServiceImpl implements BuildingService {
      * @param id Az azonosító
      * @param building Az épület
      * @return A frissített épület
-     * @throws BuildingNotExistsException
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem létezik
      */
     @Override
     public Building update(int id, Building building) throws BuildingNotExistsException {
@@ -78,7 +78,7 @@ public class BuildingServiceImpl implements BuildingService {
      *
      * @param name Az épület neve
      * @return Az épület ha létezik, null egyébként
-     * @throws RoomReservationSystem.exception.BuildingNotExistsException
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem létezik
      */
     @Override
     public Building findByName(String name) throws BuildingNotExistsException {
@@ -95,7 +95,7 @@ public class BuildingServiceImpl implements BuildingService {
      *
      * @param id Az épület id-ja
      * @return Az épület ha létezik, null egyébként
-     * @throws RoomReservationSystem.exception.BuildingNotExistsException
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem létezik
      */
     @Override
     public Building findById(int id) throws BuildingNotExistsException {

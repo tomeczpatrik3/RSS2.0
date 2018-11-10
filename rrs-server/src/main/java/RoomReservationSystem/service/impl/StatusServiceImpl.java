@@ -24,7 +24,8 @@ public class StatusServiceImpl implements StatusService {
      *
      * @param name A státusz neve
      * @return A státusz ha létezik, null egyébként
-     * @throws RoomReservationSystem.exception.StatusNotExistsException
+     * @throws StatusNotExistsException A lehetséges kivétel, ha a státusz már
+     * létezik
      */
     @Override
     public Status findByName(String name) throws StatusNotExistsException {

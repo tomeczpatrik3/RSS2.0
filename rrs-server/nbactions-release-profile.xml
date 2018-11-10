@@ -9,10 +9,7 @@
                 <packaging>ejb</packaging>
             </packagings>
             <goals>
-                <goal>package</goal>
+                <goal>spring-boot:run</goal>
             </goals>
-            <properties>
-                <netbeans.deploy>true</netbeans.deploy>
-            </properties>
         </action>
     </actions>

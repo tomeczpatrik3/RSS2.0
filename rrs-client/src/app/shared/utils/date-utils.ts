@@ -19,8 +19,8 @@ export class DateUtils {
     day: string,
     time: string
   ): string[] {
-    let endDate = new Date(semesterStart);
-    let actDate = new Date(semesterEnd);
+    let endDate = new Date(semesterEnd);
+    let actDate = new Date(semesterStart);
     let dates: string[] = [];
 
     for (actDate; actDate <= endDate; actDate.setDate(actDate.getDate() + 1)) {
@@ -29,7 +29,6 @@ export class DateUtils {
       }
     }
 
-    console.log(dates);
     return dates;
   }
 

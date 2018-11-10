@@ -47,7 +47,8 @@ public class UserServiceImpl implements UserService {
      *
      * @param username A kívánt felhasználó felhasználóneve
      * @return A felhasználó ha létezik
-     * @throws UsernameNotFoundException Ha nem létezik ez a felhasználónév
+     * @throws UsernameNotFoundException A lehetséges kivétel, ha a
+     * felhasználónév nem létezik
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -65,8 +66,10 @@ public class UserServiceImpl implements UserService {
      *
      * @param userDTO A felhasználó adatai
      * @return A regisztrált felhasználó
-     * @throws RoomReservationSystem.exception.UserAlredyExistsException
-     * @throws RoomReservationSystem.exception.AuthorityNotExistsException
+     * @throws UserAlredyExistsException A lehetséges kivétel, ha a felhasználó
+     * már létezik
+     * @throws AuthorityNotExistsException A lehetséges kivétel, ha az engedély
+     * nem létezik
      */
     @Override
     public User register(UserDTO userDTO) throws UserAlredyExistsException, AuthorityNotExistsException {
@@ -96,7 +99,8 @@ public class UserServiceImpl implements UserService {
      * @param id Az azonosító
      * @param userDTO A felhasználó
      * @return A frissített felhasználó
-     * @throws UserNotExistsException
+     * @throws UserNotExistsException A lehetséges kivétel, ha a felhasználó nem
+     * létezik
      */
     @Override
     public User update(int id, UserDTO userDTO) throws UserNotExistsException {
@@ -137,7 +141,8 @@ public class UserServiceImpl implements UserService {
      *
      * @param email A felhasználó e-mail címe
      * @return A felhasználó ha létezik, null egyébként
-     * @throws RoomReservationSystem.exception.UserNotExistsException
+     * @throws UserNotExistsException A lehetséges kivétel, ha a felhasználó nem
+     * létezik
      */
     @Override
     public User findByEmail(String email) throws UserNotExistsException {
@@ -154,7 +159,8 @@ public class UserServiceImpl implements UserService {
      *
      * @param id A felhasználó id-ja
      * @return A felhasználó ha létezik, null egyébként
-     * @throws RoomReservationSystem.exception.UserNotExistsException
+     * @throws UserNotExistsException A lehetséges kivétel, ha a felhasználó nem
+     * létezik
      */
     @Override
     public User findById(int id) throws UserNotExistsException {
@@ -172,7 +178,8 @@ public class UserServiceImpl implements UserService {
      *
      * @param username A felhasználó felhasználóneve
      * @return A felhasználó ha létezik, null egyébként
-     * @throws RoomReservationSystem.exception.UserNotExistsException
+     * @throws UserNotExistsException A lehetséges kivétel, ha a felhasználó nem
+     * létezik
      */
     @Override
     public User findByUsername(String username) throws UserNotExistsException {
@@ -189,7 +196,8 @@ public class UserServiceImpl implements UserService {
      * függvény
      *
      * @param username A felhasználó felhasználóneve
-     * @throws RoomReservationSystem.exception.UserNotExistsException
+     * @throws UserNotExistsException A lehetséges kivétel, ha a felhasználó nem
+     * létezik
      */
     @Override
     public void deleteByUsername(String username) throws UserNotExistsException {
@@ -247,7 +255,8 @@ public class UserServiceImpl implements UserService {
      *
      * @param username A felhasználónév
      * @return A felhasználónévhez tartozó teljes név
-     * @throws RoomReservationSystem.exception.UserNotExistsException
+     * @throws UserNotExistsException A lehetséges kivétel, ha a felhasználó nem
+     * létezik
      */
     @Override
     public Map<String, String> getName(String username) throws UserNotExistsException {

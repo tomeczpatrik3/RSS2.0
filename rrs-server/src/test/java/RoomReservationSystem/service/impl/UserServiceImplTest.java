@@ -26,6 +26,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  * A felhasználókhoz tartozó szervíz osztály tesztesetei
+ *
  * @author Tomecz Patrik
  */
 @RunWith(MockitoJUnitRunner.class)
@@ -77,30 +78,11 @@ public class UserServiceImplTest {
     }
 
     /**
-     * A regisztrálás tesztelésére szolgáló függvény
-     *
-     * @throws AuthorityNotExistsException A lehetséges kivétel
-     * @throws UserAlredyExistsException A lehetséges kivétel
-     * @throws AuthorityAlredyExistsException A lehetséges kivétel
-     */
-//    @Test
-//    public void testRegister() throws AuthorityNotExistsException, UserAlredyExistsException, AuthorityAlredyExistsException {
-//        Mockito.when(repository.findByUsername(TEST_USER_DTO.getUsername())).thenReturn(null);
-//        Mockito.when(repository.findByEmail(TEST_USER_DTO.getEmail())).thenReturn(null);
-//        Mockito.when(aService.findByName(USER_ROLE.getName())).thenReturn(USER_ROLE);
-//        Mockito.when(repository.save(TEST_USER)).thenReturn(TEST_USER);
-//        User registered = service.register(TEST_USER_DTO);
-//
-//        assertEquals(registered.getUsername(), TEST_USER_DTO.getUsername());
-//        assertEquals(registered.getName(), TEST_USER_DTO.getName());
-//        assertEquals(registered.getEmail(), TEST_USER_DTO.getEmail());
-//    }
-    
-    /**
      * A regisztrálás során már létező felhasználó kivétel kiváltásának
      * tesztelésére szolgáló függvény
      *
-     * @throws UserAlredyExistsException A lehetséges kivétel
+     * @throws UserAlredyExistsException A lehetséges kivétel, ha a felhasználó
+     * már létezik
      */
     @Test(expected = UserAlredyExistsException.class)
     public void testRegisterUserAlredyExistsExceptionOne() throws Exception {
@@ -112,7 +94,8 @@ public class UserServiceImplTest {
      * A regisztrálás során már létező felhasználó kivétel kiváltásának
      * tesztelésére szolgáló függvény
      *
-     * @throws UserAlredyExistsException A lehetséges kivétel
+     * @throws UserAlredyExistsException A lehetséges kivétel, ha a felhasználó
+     * már létezik
      */
     @Test(expected = UserAlredyExistsException.class)
     public void testRegisterUserAlredyExistsExceptionTwo() throws Exception {
@@ -125,7 +108,8 @@ public class UserServiceImplTest {
      * A regisztrálás során nem létező engedély kivétel kiváltásának
      * tesztelésére szolgáló függvény
      *
-     * @throws AuthorityNotExistsException A lehetséges kivétel
+     * @throws AuthorityNotExistsException A lehetséges kivétel, ha az engedély
+     * nem létezik
      */
     @Test(expected = AuthorityNotExistsException.class)
     public void testRegisterAuthorityNotExistsException() throws Exception {
@@ -138,7 +122,8 @@ public class UserServiceImplTest {
     /**
      * A frissítés tesztelésére szolgáló függvény
      *
-     * @throws UserNotExistsException A lehetséges kivétel
+     * @throws UserNotExistsException A lehetséges kivétel, ha a felhasználó nem
+     * létezik
      */
     @Test
     public void testUpdate() throws UserNotExistsException {
@@ -155,7 +140,8 @@ public class UserServiceImplTest {
      * A frissítés nem létező felhasználó kivétel kiváltásának tesztelésére
      * szolgáló függvény
      *
-     * @throws UserNotExistsException A lehetséges kivétel
+     * @throws UserNotExistsException A lehetséges kivétel, ha a felhasználó nem
+     * létezik
      */
     @Test(expected = UserNotExistsException.class)
     public void testUpdateException() throws UserNotExistsException {
@@ -166,7 +152,8 @@ public class UserServiceImplTest {
     /**
      * Az e-mail cím alapján történő keresés tesztelésére szolgáló függvény
      *
-     * @throws UserNotExistsException A lehetséges kivétel
+     * @throws UserNotExistsException A lehetséges kivétel, ha a felhasználó nem
+     * létezik
      */
     @Test
     public void testFindByEmail() throws UserNotExistsException {
@@ -180,7 +167,8 @@ public class UserServiceImplTest {
      * Az e-mail cím alapján történő keresés nem létező felhasználó kivétel
      * kiváltásának tesztelésére szolgáló függvény
      *
-     * @throws UserNotExistsException A lehetséges kivétel
+     * @throws UserNotExistsException A lehetséges kivétel, ha a felhasználó nem
+     * létezik
      */
     @Test(expected = UserNotExistsException.class)
     public void testFindByEmailException() throws UserNotExistsException {
@@ -190,7 +178,8 @@ public class UserServiceImplTest {
     /**
      * Az azonosító alapján történő keresés tesztelésére szolgáló függvény
      *
-     * @throws UserNotExistsException A lehetséges kivétel
+     * @throws UserNotExistsException A lehetséges kivétel, ha a felhasználó nem
+     * létezik
      */
     @Test
     public void testFindById() throws UserNotExistsException {
@@ -203,7 +192,8 @@ public class UserServiceImplTest {
      * Az azonosító alapján történő keresés nem létező felhasználó kivétel
      * kiváltásának tesztelésére szolgáló függvény
      *
-     * @throws UserNotExistsException A lehetséges kivétel
+     * @throws UserNotExistsException A lehetséges kivétel, ha a felhasználó nem
+     * létezik
      */
     @Test(expected = UserNotExistsException.class)
     public void testFindByIdException() throws UserNotExistsException {
@@ -213,7 +203,8 @@ public class UserServiceImplTest {
     /**
      * A felhasználónév alapján történő keresés tesztelésére szolgáló függvény
      *
-     * @throws UserNotExistsException A lehetséges kivétel
+     * @throws UserNotExistsException A lehetséges kivétel, ha a felhasználó nem
+     * létezik
      */
     @Test
     public void testFindByUsername() throws Exception {
@@ -227,7 +218,8 @@ public class UserServiceImplTest {
      * A felhasználónév alapján történő keresés nem létező felhasználó kivétel
      * kiváltásának tesztelésére szolgáló függvény
      *
-     * @throws UserNotExistsException A lehetséges kivétel
+     * @throws UserNotExistsException A lehetséges kivétel, ha a felhasználó nem
+     * létezik
      */
     @Test(expected = UserNotExistsException.class)
     public void testFindByUsernameException() throws Exception {
@@ -237,7 +229,8 @@ public class UserServiceImplTest {
     /**
      * A felhasználónév alapján történő törlés tesztelésére szolgáló függvény
      *
-     * @throws UserNotExistsException A lehetséges kivétel
+     * @throws UserNotExistsException A lehetséges kivétel, ha a felhasználó nem
+     * létezik
      */
     @Test
     public void testDeleteByUsername() throws UserNotExistsException {
@@ -250,7 +243,8 @@ public class UserServiceImplTest {
      * A felhasználónév alapján történő törlés nem létező felhasznéló kivétel
      * kiváltásának tesztelésére szolgáló függvény
      *
-     * @throws UserNotExistsException A lehetséges kivétel
+     * @throws UserNotExistsException A lehetséges kivétel, ha a felhasználó nem
+     * létezik
      */
     @Test(expected = UserNotExistsException.class)
     public void testDeleteByUsernameException() throws UserNotExistsException {
@@ -298,7 +292,8 @@ public class UserServiceImplTest {
      * A felhasználónévhez tartozó személy nevének lekérdezését tesztelő
      * függvény
      *
-     * @throws UserNotExistsException A lehetséges kivétel
+     * @throws UserNotExistsException A lehetséges kivétel, ha a felhasználó nem
+     * létezik
      */
     @Test
     public void testGetName() throws UserNotExistsException {
@@ -311,7 +306,8 @@ public class UserServiceImplTest {
      * A felhasználónévhez tartozó személy nevének nem lekérdezése nem létező
      * felhasználó kivétel kiváltását tesztelő függvény
      *
-     * @throws UserNotExistsException A lehetséges kivétel
+     * @throws UserNotExistsException A lehetséges kivétel, ha a felhasználó nem
+     * létezik
      */
     @Test
     public void testGetNameException() throws UserNotExistsException {

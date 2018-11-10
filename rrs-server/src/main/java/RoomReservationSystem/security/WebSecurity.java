@@ -36,8 +36,9 @@ import static RoomReservationSystem.security.SecurityConstants.HOME_URL;
 import static RoomReservationSystem.security.SecurityConstants.WEB_URL;
 
 /**
+ * WebSecurity
  *
- * @author tomeczp
+ * @author Tomecz Patrik
  */
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -47,9 +48,10 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     /**
+     * Az osztály konstruktora
      *
-     * @param userDetailsService
-     * @param bCryptPasswordEncoder
+     * @param userDetailsService Az UserDetailsService objektum
+     * @param bCryptPasswordEncoder A BCryptPasswordEncoder objektum
      */
     public WebSecurity(
             UserDetailsService userDetailsService,
@@ -59,9 +61,10 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     }
 
     /**
+     * A védelem konfigurációjáért felelős függvény
      *
-     * @param http
-     * @throws Exception
+     * @param http AHttpSecurity objektum
+     * @throws Exception A lehetséges kivétel
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -77,53 +80,45 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers(HOME_URL).permitAll()
                 .antMatchers(ASSETS_URL).permitAll()
                 .antMatchers(WEB_URL).permitAll()
-                
                 .antMatchers(HttpMethod.POST, REGISTER_URL).permitAll()
                 .antMatchers(HttpMethod.GET, CHECK_USERNAME_URL).permitAll()
-                
                 .antMatchers(HttpMethod.GET, GET_USER_NAME_URL).permitAll()
                 .antMatchers(HttpMethod.GET, GET_SUBJECT_NAME_URL).permitAll()
-                
                 .antMatchers(HttpMethod.GET, GET_BUILDING_NAMES_URL).permitAll()
                 .antMatchers(HttpMethod.GET, GET_SUBJECT_NAMES_URL).permitAll()
                 .antMatchers(HttpMethod.GET, GET_USER_NAMES_URL).permitAll()
                 .antMatchers(HttpMethod.GET, GET_SEMESTER_NAMES_URL).permitAll()
                 .antMatchers(HttpMethod.GET, GET_CLASSROOM_NAMES_URL).permitAll()
                 .antMatchers(HttpMethod.GET, GET_EVENT_NAMES_URL).permitAll()
-                
                 .antMatchers(HttpMethod.GET, EVENT_URLS).permitAll()
-                
                 .antMatchers(HttpMethod.GET, CLASS_RESERVATIONS_URL).permitAll()
                 .antMatchers(HttpMethod.GET, CLASS_RESERVATIONS_FIND_BY_ID_URL).permitAll()
                 .antMatchers(HttpMethod.GET, EVENT_RESERVATIONS_URL).permitAll()
                 .antMatchers(HttpMethod.GET, EVENT_RESERVATIONS_FIND_BY_ID_URL).permitAll()
-                
                 //Minden más autentikációt igényel:
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(authenticationFilter)
                 .addFilter(new JWTAuthorizationFilter(authenticationManager()))
-                
                 //Sessionok kikapcsolása:
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
     /**
+     * Az autentikáció konfigurációjáért felelős függvény
      *
-     * @param auth
-     * @throws Exception
+     * @param auth Az AuthenticationManagerBuilder objektum
+     * @throws Exception A lehetséges kivétel
      */
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
     }
 
-    /*
-        CORS config:
-     */
     /**
+     * A CORS konfigurációért felelős függvény
      *
-     * @return
+     * @return A megfelelően konfigurált forrás
      */
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {

@@ -1,7 +1,7 @@
 package RoomReservationSystem.util;
 
-import RoomReservationSystem.model.reservation.ClassReservation;
-import RoomReservationSystem.model.reservation.ReservationDate;
+import RoomReservationSystem.model.ClassReservation;
+import RoomReservationSystem.model.ReservationDate;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -1,7 +1,6 @@
 package RoomReservationSystem.model;
 
 import RoomReservationSystem.dto.SubjectDTO;
-import RoomReservationSystem.model.reservation.ClassReservation;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

@@ -9,13 +9,12 @@ import RoomReservationSystem.model.Building;
 import RoomReservationSystem.model.Classroom;
 import RoomReservationSystem.model.Status;
 import RoomReservationSystem.model.User;
-import RoomReservationSystem.model.reservation.EventReservation;
-import RoomReservationSystem.repository.reservation.EventReservationRepository;
+import RoomReservationSystem.model.EventReservation;
+import RoomReservationSystem.repository.EventReservationRepository;
 import RoomReservationSystem.service.ClassroomService;
 import RoomReservationSystem.service.StatusService;
 import RoomReservationSystem.service.UserService;
-import RoomReservationSystem.service.impl.reservation.EventReservationServiceImpl;
-import RoomReservationSystem.service.reservation.ReservationDateService;
+import RoomReservationSystem.service.ReservationDateService;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -125,7 +124,8 @@ public class EventReservationServiceImplTest {
     /**
      * Az azonosító alapján történő keresés tesztelésére szolgáló függvény
      *
-     * @throws EventReservationNotExistsException A lehetséges kivétel
+     * @throws EventReservationNotExistsException A lehetséges kivétel, ha a
+     * foglalás nem létezik
      */
     @Test
     public void testFindById() throws EventReservationNotExistsException {
@@ -138,7 +138,7 @@ public class EventReservationServiceImplTest {
      * Az azonosító alapján történő keresés nem létező esemény foglalás kivétel
      * kiváltásának tesztelésére szolgáló függvény
      *
-     * @throws EventReservationNotExistsException A lehetséges kivétel
+     * @throws EventReservationNotExistsException A lehetséges kivétel, ha a foglalás nem létezik
      */
     @Test(expected = EventReservationNotExistsException.class)
     public void testFindByIdException() throws EventReservationNotExistsException {
@@ -161,7 +161,7 @@ public class EventReservationServiceImplTest {
     /**
      * A felhasználónév alapján történő keresés tesztelésére szolgáló függvény
      *
-     * @throws UserNotExistsException A lehetséges kivétel
+     * @throws UserNotExistsException A lehetséges kivétel, ha a felhasználó nem létezik
      */
     @Test
     public void testFindByUsername() throws UserNotExistsException {
@@ -177,7 +177,7 @@ public class EventReservationServiceImplTest {
      * A felhasználónév alapján történő keresés nem létező felhasználó kivétel
      * kiváltásának tesztelésére szolgáló függvény
      *
-     * @throws UserNotExistsException A lehetséges kivétel
+     * @throws UserNotExistsException A lehetséges kivétel, ha a felhasználó nem létezik
      */
     @Test(expected = UserNotExistsException.class)
     public void testFindByUsernameException() throws UserNotExistsException {
@@ -188,7 +188,7 @@ public class EventReservationServiceImplTest {
     /**
      * A státusz alapján történő keresés tesztelésére szolgáló függvény
      *
-     * @throws StatusNotExistsException A lehetséges kivétel
+     * @throws StatusNotExistsException A lehetséges kivétel, ha a státusz nem létezik
      */
     @Test
     public void testFindByStatus() throws StatusNotExistsException {
@@ -204,7 +204,7 @@ public class EventReservationServiceImplTest {
      * A státusz alapján történő keresés nem létező státusz kivétel kiváltásának
      * tesztelésére szolgáló függvény
      *
-     * @throws StatusNotExistsException A lehetséges kivétel
+     * @throws StatusNotExistsException A lehetséges kivétel, ha a státusz nem létezik
      */
     @Test(expected = StatusNotExistsException.class)
     public void testFindByStatusException() throws StatusNotExistsException {
@@ -215,8 +215,8 @@ public class EventReservationServiceImplTest {
     /**
      * A státusz módosításának tesztelésére szolgáló függvény
      *
-     * @throws StatusNotExistsException A lehetséges kivétel
-     * @throws EventReservationNotExistsException A lehetséges kivétel
+     * @throws StatusNotExistsException A lehetséges kivétel, ha a státusz nem létezik
+     * @throws EventReservationNotExistsException A lehetséges kivétel, ha a foglalás nem létezik
      */
     @Test
     public void testSetStatus() throws StatusNotExistsException, EventReservationNotExistsException {
@@ -233,8 +233,8 @@ public class EventReservationServiceImplTest {
      * A státusz módosításának nem létező esemény foglalás kivétel kiváltásának
      * tesztelésére szolgáló függvény
      *
-     * @throws StatusNotExistsException A lehetséges kivétel
-     * @throws EventReservationNotExistsException A lehetséges kivétel
+     * @throws StatusNotExistsException A lehetséges kivétel, ha a státusz nem létezik
+     * @throws EventReservationNotExistsException A lehetséges kivétel, ha a foglalás nem létezik
      */
     @Test(expected = EventReservationNotExistsException.class)
     public void testSetStatusExceptionOne() throws StatusNotExistsException, EventReservationNotExistsException {
@@ -246,8 +246,8 @@ public class EventReservationServiceImplTest {
      * A státusz módosításának nem létező státusz kivétel kiváltásának
      * tesztelésére szolgáló függvény
      *
-     * @throws StatusNotExistsException A lehetséges kivétel
-     * @throws EventReservationNotExistsException A lehetséges kivétel
+     * @throws StatusNotExistsException A lehetséges kivétel, ha a státusz nem létezik
+     * @throws EventReservationNotExistsException A lehetséges kivétel, ha a foglalás nem létezik
      */
     @Test(expected = StatusNotExistsException.class)
     public void testSetStatusExceptionTwo() throws StatusNotExistsException, EventReservationNotExistsException {
@@ -260,8 +260,10 @@ public class EventReservationServiceImplTest {
      * Az épület és tanterem alapján történő keresés tesztelésére szolgáló
      * függvény
      *
-     * @throws ClassroomNotExistsException A lehetséges kivétel
-     * @throws BuildingNotExistsException A lehetséges kivétel
+     * @throws ClassroomNotExistsException A lehetséges kivétel, ha a tanterem
+     * nem létezik
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem
+     * létezik
      */
     @Test
     public void testFindByBuildingAndClassroom() throws ClassroomNotExistsException, BuildingNotExistsException {
@@ -284,8 +286,10 @@ public class EventReservationServiceImplTest {
      * Az épület és tanterem alapján történő keresés nem létező épület kivétel
      * kiváltásának tesztelésére szolgáló függvény
      *
-     * @throws ClassroomNotExistsException A lehetséges kivétel
-     * @throws BuildingNotExistsException A lehetséges kivétel
+     * @throws ClassroomNotExistsException A lehetséges kivétel, ha a tanterem
+     * nem létezik
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem
+     * létezik
      */
     @Test(expected = BuildingNotExistsException.class)
     public void testFindByBuildingAndClassroomExceptionOne() throws ClassroomNotExistsException, BuildingNotExistsException {
@@ -304,8 +308,10 @@ public class EventReservationServiceImplTest {
      * Az épület és tanterem alapján történő keresés nem létező tanterem kivétel
      * kiváltásának tesztelésére szolgáló függvény
      *
-     * @throws ClassroomNotExistsException A lehetséges kivétel
-     * @throws BuildingNotExistsException A lehetséges kivétel
+     * @throws ClassroomNotExistsException A lehetséges kivétel, ha a tanterem
+     * nem létezik
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem
+     * létezik
      */
     @Test(expected = ClassroomNotExistsException.class)
     public void testFindByBuildingAndClassroomExceptionTwo() throws ClassroomNotExistsException, BuildingNotExistsException {
@@ -323,7 +329,7 @@ public class EventReservationServiceImplTest {
     /**
      * A név alapján történő keresés tesztelésére szolgáló függvény
      *
-     * @throws EventReservationNotExistsException A lehetséges kivétel
+     * @throws EventReservationNotExistsException A lehetséges kivétel, ha a foglalás nem létezik
      */
     @Test
     public void testFindByName() throws EventReservationNotExistsException {
@@ -336,7 +342,7 @@ public class EventReservationServiceImplTest {
      * A név alapján történő keresés nem létező esemény foglalás kivétel
      * kiváltásának tesztelésére szolgáló függvény
      *
-     * @throws EventReservationNotExistsException A lehetséges kivétel
+     * @throws EventReservationNotExistsException A lehetséges kivétel, ha a foglalás nem létezik
      */
     @Test(expected = EventReservationNotExistsException.class)
     public void testFindByNameException() throws EventReservationNotExistsException {
@@ -346,7 +352,7 @@ public class EventReservationServiceImplTest {
     /**
      * Az azonosító alapján történő törlés tesztelésére szolgáló függvény
      *
-     * @throws EventReservationNotExistsException A lehetséges kivétel
+     * @throws EventReservationNotExistsException A lehetséges kivétel, ha a foglalás nem létezik
      */
     @Test
     public void testDeleteById() throws EventReservationNotExistsException {
@@ -359,7 +365,7 @@ public class EventReservationServiceImplTest {
      * Az azonosító alapján történő törlés nem létező esemény foglalás kivétel
      * kiváltásának tesztelésére szolgáló függvény
      *
-     * @throws EventReservationNotExistsException A lehetséges kivétel
+     * @throws EventReservationNotExistsException A lehetséges kivétel, ha a foglalás nem létezik
      */
     @Test(expected = EventReservationNotExistsException.class)
     public void testDeleteByIdException() throws EventReservationNotExistsException {
@@ -369,7 +375,7 @@ public class EventReservationServiceImplTest {
     /**
      * A felhasználónév alapján történő törlés tesztelésére szolgáló függvény
      *
-     * @throws UserNotExistsException A lehetséges kivétel
+     * @throws UserNotExistsException A lehetséges kivétel, ha a felhasználó nem létezik
      */
     @Test
     public void testDeleteByUsername() throws UserNotExistsException {
@@ -382,7 +388,7 @@ public class EventReservationServiceImplTest {
      * A felhasználónév alapján történő törlés nem létező esemény foglalás
      * kivétel kiváltásának tesztelésére szolgáló függvény
      *
-     * @throws UserNotExistsException A lehetséges kivétel
+     * @throws UserNotExistsException A lehetséges kivétel, ha a felhasználó nem létezik
      */
     @Test(expected = UserNotExistsException.class)
     public void testDeleteByUsernameException() throws UserNotExistsException {
@@ -394,8 +400,10 @@ public class EventReservationServiceImplTest {
      * Az épület és tanterem alapján történő törlés tesztelésére szolgáló
      * függvény
      *
-     * @throws ClassroomNotExistsException A lehetséges kivétel
-     * @throws BuildingNotExistsException A lehetséges kivétel
+     * @throws ClassroomNotExistsException A lehetséges kivétel, ha a tanterem
+     * nem létezik
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem
+     * létezik
      */
     @Test
     public void testDeleteByBuildingAndClassroom() throws ClassroomNotExistsException, BuildingNotExistsException {
@@ -417,8 +425,10 @@ public class EventReservationServiceImplTest {
      * Az épület és tanterem alapján történő törlés nem létező épület kivétel
      * kiváltásának tesztelésére szolgáló függvény
      *
-     * @throws ClassroomNotExistsException A lehetséges kivétel
-     * @throws BuildingNotExistsException A lehetséges kivétel
+     * @throws ClassroomNotExistsException A lehetséges kivétel, ha a tanterem
+     * nem létezik
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem
+     * létezik
      */
     @Test(expected = BuildingNotExistsException.class)
     public void testDeleteByBuildingAndClassroomExceptionOne() throws ClassroomNotExistsException, BuildingNotExistsException {
@@ -438,8 +448,10 @@ public class EventReservationServiceImplTest {
      * Az épület és tanterem alapján történő törlés nem létező tanterem kivétel
      * kiváltásának tesztelésére szolgáló függvény
      *
-     * @throws ClassroomNotExistsException A lehetséges kivétel
-     * @throws BuildingNotExistsException A lehetséges kivétel
+     * @throws ClassroomNotExistsException A lehetséges kivétel, ha a tanterem
+     * nem létezik
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem
+     * létezik
      */
     @Test(expected = ClassroomNotExistsException.class)
     public void testDeleteByBuildingAndClassroomExceptionTwo() throws ClassroomNotExistsException, BuildingNotExistsException {
@@ -458,7 +470,7 @@ public class EventReservationServiceImplTest {
     /**
      * A státusz alapján történő törlés tesztelésére szolgáló függvény
      *
-     * @throws StatusNotExistsException A lehetséges kivétel
+     * @throws StatusNotExistsException A lehetséges kivétel, ha a státusz nem létezik
      */
     @Test
     public void testDeleteByStatus() throws StatusNotExistsException {
@@ -471,7 +483,7 @@ public class EventReservationServiceImplTest {
      * A státusz alapján történő törlés nem létező státusz kivétel kiváltásának
      * tesztelésére szolgáló függvény
      *
-     * @throws StatusNotExistsException A lehetséges kivétel
+     * @throws StatusNotExistsException A lehetséges kivétel, ha a státusz nem létezik
      */
     @Test(expected = StatusNotExistsException.class)
     public void testDeleteByStatusException() throws StatusNotExistsException {
@@ -482,7 +494,7 @@ public class EventReservationServiceImplTest {
     /**
      * A név alapján történő törlés tesztelésére szolgáló függvény
      *
-     * @throws EventReservationNotExistsException A lehetséges kivétel
+     * @throws EventReservationNotExistsException A lehetséges kivétel, ha a foglalás nem létezik
      */
     @Test
     public void testDeleteByName() throws EventReservationNotExistsException {
@@ -495,7 +507,7 @@ public class EventReservationServiceImplTest {
      * A név alapján történő törlés nem létező esemény foglalás kivétel
      * kiváltásának tesztelésére szolgáló függvény
      *
-     * @throws EventReservationNotExistsException A lehetséges kivétel
+     * @throws EventReservationNotExistsException A lehetséges kivétel, ha a foglalás nem létezik
      */
     @Test(expected = EventReservationNotExistsException.class)
     public void testDeleteByNameException() throws EventReservationNotExistsException {

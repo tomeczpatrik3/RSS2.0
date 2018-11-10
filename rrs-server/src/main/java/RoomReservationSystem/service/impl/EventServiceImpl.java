@@ -1,15 +1,15 @@
 package RoomReservationSystem.service.impl;
 
 import RoomReservationSystem.dto.EventDTO;
-import RoomReservationSystem.dto.reservation.ReservationInfoDTO;
+import RoomReservationSystem.dto.ReservationInfoDTO;
 import RoomReservationSystem.enums.ReservationType;
 import RoomReservationSystem.exception.StatusNotExistsException;
-import RoomReservationSystem.model.reservation.ClassReservation;
-import RoomReservationSystem.model.reservation.EventReservation;
-import RoomReservationSystem.model.reservation.Reservation;
-import RoomReservationSystem.model.reservation.ReservationDate;
-import RoomReservationSystem.service.reservation.ClassReservationService;
-import RoomReservationSystem.service.reservation.EventReservationService;
+import RoomReservationSystem.model.ClassReservation;
+import RoomReservationSystem.model.EventReservation;
+import RoomReservationSystem.model.Reservation;
+import RoomReservationSystem.model.ReservationDate;
+import RoomReservationSystem.service.ClassReservationService;
+import RoomReservationSystem.service.EventReservationService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
