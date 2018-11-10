@@ -25,8 +25,8 @@ describe("SemesterApiService", () => {
     httpMock = injector.get(HttpTestingController);
 
     testSemesters = [
-      new Semester("2011-2012/1", "2011.09.03", "2012.02.03", 1),
-      new Semester("2011-2012/2", "2012.02.03", "2012.09.03", 2)
+      new Semester("2011-2012/1", "2011.09.03", "2012.02.03", false, 1),
+      new Semester("2011-2012/2", "2012.02.03", "2012.09.03", true, 2)
     ];
   });
 
@@ -49,17 +49,32 @@ describe("SemesterApiService", () => {
     });
   });
 
-  describe("#getSemesterNames", () => {
-    it("a visszatérési érték: Observable<string[]>", () => {
-      const testNames: string[] = ["2011-2012/1", "2011-2012/2"];
+  describe("#getOpened", () => {
+    it("a visszatérési érték: Observable<Semester[]>", () => {
+      service.getOpened().subscribe(semesters => {
+        expect(semesters.length).toBe(1);
+        expect(semesters).toEqual([testSemesters[1]]);
+      });
 
-      service.getSemesterNames().subscribe(names => {
-        expect(names.length).toBe(2);
+      const req = httpMock.expectOne(
+        ApiEndpoints.getUrl(ApiEndpoints.SEMESTER_GET_OPENED)
+      );
+      expect(req.request.method).toBe("GET");
+      req.flush([testSemesters[1]]);
+    });
+  });
+
+  describe("#getOpenedSemesterNames", () => {
+    it("a visszatérési érték: Observable<string[]>", () => {
+      const testNames: string[] = ["2011-2012/2"];
+
+      service.getOpenedSemesterNames().subscribe(names => {
+        expect(names.length).toBe(1);
         expect(names).toEqual(testNames);
       });
 
       const req = httpMock.expectOne(
-        ApiEndpoints.getUrl(ApiEndpoints.SEMESTER_GET_NAMES)
+        ApiEndpoints.getUrl(ApiEndpoints.SEMESTER_GET_OPENED_NAMES)
       );
       expect(req.request.method).toBe("GET");
       req.flush(testNames);

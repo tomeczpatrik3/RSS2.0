@@ -5,6 +5,7 @@
       <th scope="col">Szemeszter "neve"</th>
       <th scope="col">Kezdete</th>
       <th scope="col">Vége</th>
+      <th scope="col">Státusza</th>
     </tr>
   </thead>
   <tbody>
@@ -13,6 +14,7 @@
       <td>{{semester.name}}</td>
       <td>{{semester.startDate}}</td>
       <td>{{semester.endDate}}</td>
+      <td>{{semester.opened | semesterStatusConvert}}</td>
     </tr>
   </tbody>
 </table>

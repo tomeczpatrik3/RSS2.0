@@ -46,7 +46,7 @@ export abstract class AddReservation implements OnInit {
   ) {
     this.getSubjects();
     this.getBuildings();
-    this.getSemesters();
+    this.getOpenedSemesters();
   }
 
   ngOnInit() {}
@@ -78,8 +78,8 @@ export abstract class AddReservation implements OnInit {
   /**
    * A félévek lekérdezése:
    */
-  getSemesters() {
-    this.semesterService.getAll().subscribe(res => (this.semesters = res));
+  getOpenedSemesters() {
+    this.semesterService.getOpened().subscribe(res => (this.semesters = res));
   }
 
   /**

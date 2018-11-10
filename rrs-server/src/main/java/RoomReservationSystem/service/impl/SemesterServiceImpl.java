@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SemesterServiceImpl implements SemesterService {
-
+    
     @Autowired
     private SemesterRepository semesterRepository;
 
@@ -32,6 +32,16 @@ public class SemesterServiceImpl implements SemesterService {
     @Override
     public List<Semester> getAll() {
         return semesterRepository.findAll();
+    }
+
+    /**
+     * A nyitott félévek lekérdezését megvalósító függvény
+     *
+     * @return A félévek egy listában
+     */
+    @Override
+    public List<Semester> getOpened() {
+        return semesterRepository.findAll().stream().filter(semester -> semester.isOpened() == true).collect(Collectors.toList());
     }
 
     /**
@@ -49,7 +59,7 @@ public class SemesterServiceImpl implements SemesterService {
         } else {
             throw new SemesterAlredyExistsException(semester.getName());
         }
-
+        
     }
 
     /**
@@ -72,17 +82,14 @@ public class SemesterServiceImpl implements SemesterService {
     }
 
     /**
-     * A szemeszterek neveinek lekérdezését megvalósító függvény
+     * A nyitott szemeszterek neveinek lekérdezését megvalósító függvény
      *
-     * @return A szemeszterek nevei egy listában
+     * @return A megfelelő nevek egy listában
      */
     @Override
-    public List<String> getNames() {
-        List<String> names = new ArrayList<>();
-        semesterRepository.findAll().forEach((semester) -> {
-            names.add(semester.getName());
-        });
-        return names;
+    public List<String> getOpenedNames() {
+        List<Semester> openedSemesters = semesterRepository.findAll().stream().filter(semester -> semester.isOpened() == true).collect(Collectors.toList());
+        return openedSemesters.stream().map(opened -> opened.getName()).collect(Collectors.toList());
     }
 
     /**

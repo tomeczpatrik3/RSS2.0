@@ -21,11 +21,20 @@ export class SemesterApiService {
   }
 
   /**
+   * A nyitott szemeszterek lekérdezéséért felelős függvény
+   */
+  getOpened(): Observable<Semester[]> {
+    return <Observable<Semester[]>>(
+      this.http.get(ApiEndpoints.getUrl(ApiEndpoints.SEMESTER_GET_OPENED))
+    );
+  }
+
+  /**
    * A szemeszterek "neveinek" lekérdezéséért felelős függvény
    */
-  getSemesterNames(): Observable<string[]> {
+  getOpenedSemesterNames(): Observable<string[]> {
     return <Observable<string[]>>(
-      this.http.get(ApiEndpoints.getUrl(ApiEndpoints.SEMESTER_GET_NAMES))
+      this.http.get(ApiEndpoints.getUrl(ApiEndpoints.SEMESTER_GET_OPENED_NAMES))
     );
   }
 

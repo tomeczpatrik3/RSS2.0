@@ -55,6 +55,12 @@ public class Semester extends BaseEntity {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date endDate;
 
+    /*A szemeszter státusza*/
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "OPENED")
+    private boolean opened;
+
     /*Az adott szemeszterhez tartozó foglalások egy listában*/
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "semester", targetEntity = ClassReservation.class)
@@ -72,15 +78,17 @@ public class Semester extends BaseEntity {
      * @param name A szemeszter "neve"
      * @param startDate A szemeszter kezdetének dátuma
      * @param endDate A szemeszter végének dátuma
+     * @param opened A szemeszter státusza
      * @param reservationList A foglalások, amelyek erre a szemeszterre
      * vonatkoznak
      * @param id Az azonosító
      */
-    public Semester(String name, Date startDate, Date endDate, List<ClassReservation> reservationList, Integer id) {
+    public Semester(String name, Date startDate, Date endDate, boolean opened, List<ClassReservation> reservationList, Integer id) {
         super(id);
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.opened = opened;
         this.reservationList = reservationList;
     }
 
@@ -96,6 +104,7 @@ public class Semester extends BaseEntity {
                 semesterDTO.getName(),
                 DateUtils.getDate(semesterDTO.getStartDate()),
                 DateUtils.getDate(semesterDTO.getEndDate()),
+                semesterDTO.isOpened(),
                 Collections.emptyList()
         );
     }

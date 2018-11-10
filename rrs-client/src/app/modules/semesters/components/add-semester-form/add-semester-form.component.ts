@@ -35,11 +35,15 @@ export class AddSemesterFormComponent implements OnInit {
     ),
     updateOn: "blur"
   });
+  /*A szemeszter státusza*/
+  opened = new FormControl(false);
+
   /*Az űrlap*/
   semesterForm: FormGroup = this.builder.group({
     semesterName: this.semesterName,
     startDate: this.startDate,
-    endDate: this.endDate
+    endDate: this.endDate,
+    opened: this.opened
   });
 
   constructor(
@@ -58,7 +62,8 @@ export class AddSemesterFormComponent implements OnInit {
     return new Semester(
       this.semesterForm.value.semesterName,
       this.semesterForm.value.startDate,
-      this.semesterForm.value.endDate
+      this.semesterForm.value.endDate,
+      this.semesterForm.value.opened
     );
   }
 

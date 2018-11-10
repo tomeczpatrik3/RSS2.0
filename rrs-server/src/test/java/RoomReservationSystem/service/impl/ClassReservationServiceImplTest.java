@@ -128,6 +128,7 @@ public class ClassReservationServiceImplTest {
             "2011-2012/1",
             new GregorianCalendar(2011, Calendar.SEPTEMBER, 3).getTime(),
             new GregorianCalendar(2012, Calendar.FEBRUARY, 2).getTime(),
+            false,
             Collections.EMPTY_LIST,
             1
     );
@@ -136,6 +137,7 @@ public class ClassReservationServiceImplTest {
             "2011-2012/2",
             new GregorianCalendar(2012, Calendar.FEBRUARY, 3).getTime(),
             new GregorianCalendar(2012, Calendar.SEPTEMBER, 2).getTime(),
+            true,
             Collections.EMPTY_LIST,
             2
     );

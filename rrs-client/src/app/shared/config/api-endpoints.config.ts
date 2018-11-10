@@ -132,7 +132,8 @@ export class ApiEndpoints {
 
   /*Szemeszterek*/
   static SEMESTER_GET_ALL: string = "semester/getAll";
-  static SEMESTER_GET_NAMES: string = "semester/getSemesterNames";
+  static SEMESTER_GET_OPENED: string = "semester/getOpened";
+  static SEMESTER_GET_OPENED_NAMES: string = "semester/getOpenedSemesterNames";
   static SEMESTER_FIND_BY_ID: string = "semester/findById";
   static SEMESTER_FIND_BY_NAME: string = "semester/findByName";
   static SEMESTER_CREATE_SEMESTER: string = "semester/createSemester";

@@ -54,13 +54,24 @@ public class SemesterApiController {
     }
 
     /**
-     * A függvény ami visszaadja egy listában az szemeszterek neveit
+     * A függvény ami visszaadja egy listában az összes nyitott szemesztert
+     *
+     * @return A szemeszterek egy listában
+     */
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @GetMapping("/getOpened")
+    public ResponseEntity getOpened() {
+        return ResponseEntity.ok(toSemesterDTOList(semesterService.getOpened()));
+    }
+
+    /**
+     * A függvény ami visszaadja egy listában a nyitott szemeszterek neveit
      *
      * @return A szemeszterek nevei egy listában
      */
-    @GetMapping("/getSemesterNames")
-    public ResponseEntity getSemesterNames() {
-        return ResponseEntity.ok(semesterService.getNames());
+    @GetMapping("/getOpenedSemesterNames")
+    public ResponseEntity getOpenedSemesterNames() {
+        return ResponseEntity.ok(semesterService.getOpenedNames());
     }
 
     /**

@@ -67,7 +67,7 @@ export class CalendarFullComponent implements OnInit {
   /**
    * Speciális hosszúságú hét:
    */
-  excludeDays: number[] = [0, 6];
+  //excludeDays: number[] = [0, 6];
 
   /*Az események*/
   events$: Observable<Array<CalendarEvent<{ info: ReservationInfo }>>>;
@@ -75,6 +75,7 @@ export class CalendarFullComponent implements OnInit {
   viewDate: Date = new Date();
   activeDayIsOpen: boolean = false;
   isAdmin: boolean = false;
+  isVisible: boolean = false;
 
   constructor(
     private eventsService: EventsDataService,
@@ -160,6 +161,14 @@ export class CalendarFullComponent implements OnInit {
   }
 
   /**
+   * A szűrésért felelős függvény:
+   */
+  onFilter(observable$: Observable<Event[]>): void {
+    this.loadEvents(observable$);
+    this.isVisible = true;
+  }
+
+  /**
    * Az (összes) esemény betöltéséért felelős függvény:
    */
   fetchEvents(): void {
@@ -215,7 +224,7 @@ export class CalendarFullComponent implements OnInit {
 
   /**
    * A függvény ami akkor fut le, ha egy foglalásra rákattintunk:
-   * @param event
+   * @param event Az esemény
    */
   //TODO: add (eventClicked)="eventClicked($event.event)" to the views.
   eventClicked(event: CalendarEvent<{}>): void {
@@ -238,8 +247,9 @@ export class CalendarFullComponent implements OnInit {
 
   /**
    * Napi nézetben a hétvégi napok kihagyása:
-   * @param direction
+   * @param direction A lapozási irány 
    */
+  /*   
   skipWeekends(direction: "back" | "forward"): void {
     if (this.view === "day") {
       if (direction === "back") {
@@ -252,5 +262,6 @@ export class CalendarFullComponent implements OnInit {
         }
       }
     }
-  }
+  } 
+  */
 }

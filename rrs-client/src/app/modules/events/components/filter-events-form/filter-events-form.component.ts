@@ -93,7 +93,7 @@ export class FilterEventsFormComponent implements OnInit {
         break;
       }
       case Filter.SEMESTER_NAME: {
-        this.semesterService.getSemesterNames().subscribe(res => {
+        this.semesterService.getOpenedSemesterNames().subscribe(res => {
           res.map(name => {
             this.loadedValues.push(name);
           });

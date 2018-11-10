@@ -16,8 +16,10 @@ import java.util.List;
 public interface SemesterService {
 
     List<Semester> getAll();
+    
+    List<Semester> getOpened();
 
-    List<String> getNames();
+    List<String> getOpenedNames();
 
     Semester save(Semester semester) throws SemesterAlredyExistsException;
 

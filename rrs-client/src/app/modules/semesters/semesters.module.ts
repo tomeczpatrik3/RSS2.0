@@ -8,13 +8,15 @@ import { SemesterDataService } from "./semesters.data.service";
 import { AddSemesterPageComponent } from "./pages/add-semester-page/add-semester-page.component";
 import { SemesterPageComponent } from "./pages/semester-page/semester-page.component";
 import { EditSemesterFormComponent } from "./components/edit-semester-form/edit-semester-form.component";
+import { PipeModule } from "../../shared/modules/pipe.module";
 
 @NgModule({
   imports: [
     CommonModule,
     SemestersRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PipeModule.forRoot()
   ],
   declarations: [
     AddSemesterFormComponent,

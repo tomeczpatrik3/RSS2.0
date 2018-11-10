@@ -18,10 +18,17 @@ export class SemesterDataService {
   }
 
   /**
+   * A nyitott szemeszterek lekérdezéséért felelős függvény
+   */
+  getOpened(): Observable<Semester[]> {
+    return this.api.getOpened();
+  }
+
+  /**
    * A szemeszterek "neveinek" lekérdezéséért felelős függvény
    */
-  getSemesterNames(): Observable<string[]> {
-    return this.api.getSemesterNames();
+  getOpenedSemesterNames(): Observable<string[]> {
+    return this.api.getOpenedSemesterNames();
   }
 
   /**

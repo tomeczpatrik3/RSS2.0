@@ -23,6 +23,8 @@ public class SemesterDTO extends BaseDTO {
     private String startDate;
     /*A félév végének dátuma*/
     private String endDate;
+    /*A félév státusza*/
+    private boolean opened;
 
     /**
      * Az osztály konstrukra
@@ -31,17 +33,20 @@ public class SemesterDTO extends BaseDTO {
      * @param name A szemeszter neve
      * @param startDate A szemeszter kezdete
      * @param endDate A szemeszter vége
+     * @param opened A szemeszter státusza
      */
     public SemesterDTO(
             long id,
             String name,
             String startDate,
-            String endDate
+            String endDate,
+            boolean opened
     ) {
         super(id);
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.opened = opened;
     }
 
     /**
@@ -62,7 +67,8 @@ public class SemesterDTO extends BaseDTO {
                 semester.getId(),
                 semester.getName(),
                 semester.getStartDate().toString(),
-                semester.getEndDate().toString()
+                semester.getEndDate().toString(),
+                semester.isOpened()
         );
     }
 

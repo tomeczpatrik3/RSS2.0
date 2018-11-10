@@ -62,11 +62,15 @@ INSERT INTO `roomreservationdb`.`classrooms` (`id`, `chairs`, `has_pc`, `has_pro
 INSERT INTO `roomreservationdb`.`classrooms` (`id`, `chairs`, `has_pc`, `has_projector`, `name`, `building`) VALUES ('33', '25', 1, 1, '00-803/2 Programozási Nyelvi Labor/2', 2);
 INSERT INTO `roomreservationdb`.`classrooms` (`id`, `chairs`, `has_pc`, `has_projector`, `name`, `building`) VALUES ('34', '100', 1, 1, '00-807 Adatbázis labor', 2);
 
-INSERT INTO `roomreservationdb`.`semesters` (`id`, `start_date`, `name`, `end_date`) VALUES ('1', '2017-09-03', '2017-2018/1', '2018-02-02');
-INSERT INTO `roomreservationdb`.`semesters` (`id`, `start_date`, `name`, `end_date`) VALUES ('2', '2018-02-03', '2017-2018/2', '2018-09-02');
-INSERT INTO `roomreservationdb`.`semesters` (`id`, `start_date`, `name`, `end_date`) VALUES ('3', '2017-02-03', '2016-2017/2', '2017-09-02');
-INSERT INTO `roomreservationdb`.`semesters` (`id`, `start_date`, `name`, `end_date`) VALUES ('4', '2016-09-03', '2016-2017/1', '2017-02-02');
-INSERT INTO `roomreservationdb`.`semesters` (`id`, `start_date`, `name`, `end_date`) VALUES ('5', '2016-02-03', '2015-2016/2', '2016-09-02');
+INSERT INTO `roomreservationdb`.`semesters` (`id`, `start_date`, `name`, `end_date`, `opened`) VALUES ('1', '2020-02-03', '2019-2020/2', '2020-09-02', false);
+INSERT INTO `roomreservationdb`.`semesters` (`id`, `start_date`, `name`, `end_date`, `opened`) VALUES ('2', '2019-09-03', '2019-2020/1', '2020-02-02', true);
+INSERT INTO `roomreservationdb`.`semesters` (`id`, `start_date`, `name`, `end_date`, `opened`) VALUES ('3', '2019-02-03', '2018-2019/2', '2019-09-02', true);
+INSERT INTO `roomreservationdb`.`semesters` (`id`, `start_date`, `name`, `end_date`, `opened`) VALUES ('4', '2018-09-03', '2018-2019/1', '2019-02-02', true);
+INSERT INTO `roomreservationdb`.`semesters` (`id`, `start_date`, `name`, `end_date`, `opened`) VALUES ('5', '2018-02-03', '2017-2018/2', '2018-09-02', false);
+INSERT INTO `roomreservationdb`.`semesters` (`id`, `start_date`, `name`, `end_date`, `opened`) VALUES ('6', '2017-09-03', '2017-2018/1', '2018-02-02', false);
+INSERT INTO `roomreservationdb`.`semesters` (`id`, `start_date`, `name`, `end_date`, `opened`) VALUES ('7', '2017-02-03', '2016-2017/2', '2017-09-02', false);
+INSERT INTO `roomreservationdb`.`semesters` (`id`, `start_date`, `name`, `end_date`, `opened`) VALUES ('8', '2016-09-03', '2016-2017/1', '2017-02-02', false);
+INSERT INTO `roomreservationdb`.`semesters` (`id`, `start_date`, `name`, `end_date`, `opened`) VALUES ('9', '2016-02-03', '2015-2016/2', '2016-09-02', false);
 
 INSERT INTO `roomreservationdb`.`subjects` (`id`, `code`, `name`) VALUES ('1', 'IP-08cAN1E', 'Analízis 1 EA');
 INSERT INTO `roomreservationdb`.`subjects` (`id`, `code`, `name`) VALUES ('2', 'IP-08cAN1G', 'Analízis 1 Gyakorlat');
