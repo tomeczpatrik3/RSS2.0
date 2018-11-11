@@ -1,5 +1,4 @@
 import { Pipe, PipeTransform } from "@angular/core";
-import { Statuses } from "../config/statuses.config";
 
 /**
  * Boolean converter pipe

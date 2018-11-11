@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from "@angular/core";
 
 /**
- * Status converter pipe
+ * Semester status converter pipe
  * Használata: {{ érték | semesterStatusConvert }}
  */
 @Pipe({ name: "semesterStatusConvert" })

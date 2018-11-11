@@ -1,5 +1,5 @@
 <div class="container">
-  <p class="table-name">Foglalások:</p>
+  <!-- <p class="table-name">Foglalások:</p> -->
   <table class="table table-striped">
     <thead class="thead-dark">
       <tr>
@@ -10,6 +10,7 @@
         <th scope="col">Szemeszter</th>
         <th scope="col">Tantárgy</th>
         <th scope="col">Név</th>
+        <th scope="col">Időpont</th>
         <th scope="col">Megjegyzés</th>
         <th scope="col">Műveletek</th>
       </tr>
@@ -23,6 +24,10 @@
         <td>{{ event.info.semester | empty }}</td>
         <td>{{ event.info.subject | empty }}</td>
         <td>{{ event.info.eventName | empty }}</td>
+        <td>
+          {{ event.start | dateConvert: "yyyy-MM-dd HH:mm" }} -
+          {{ event.end | dateConvert: "HH:mm" }}
+        </td>
         <td>{{ event.info.note | empty }}</td>
         <td>
           <i
