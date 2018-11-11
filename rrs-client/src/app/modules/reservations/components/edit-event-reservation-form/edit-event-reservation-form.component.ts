@@ -4,6 +4,8 @@ import { EventReservationsDataService } from "../../event-reservations.data.serv
 import { TextUtils } from "../../../../shared/utils/text-utils";
 import { DialogService } from "../../../../shared/services/dialog.service";
 import { ErrorDialogComponent } from "../../../../shared/components/dialogs/error-dialog/error-dialog.component";
+import { AuthService } from "../../../../shared/services/auth.service";
+import { Authorities } from "../../../../shared/config/authoritites.config";
 
 @Component({
   selector: "app-edit-event-reservation-form",
@@ -15,6 +17,9 @@ export class EditEventReservationFormComponent implements OnInit {
   @Input()
   reservationID: number;
 
+  /*Ha admin szerkeszt*/
+  isAdmin: boolean;
+
   @Output()
   submitEvent = new EventEmitter<boolean>();
 
@@ -23,7 +28,8 @@ export class EditEventReservationFormComponent implements OnInit {
 
   constructor(
     private eventReservationService: EventReservationsDataService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private authService: AuthService
   ) {}
 
   /**
@@ -37,23 +43,39 @@ export class EditEventReservationFormComponent implements OnInit {
       this.model.startDate = this.model.startDate.substring(0, 16);
       this.model.endDate = this.model.endDate.substring(0, 16);
     });
+
+    this.isAdmin = this.authService.hasAuthority(Authorities.ROLE_ADMIN);
   }
 
   /**
    * A módosításért felelős függvény
    */
   onSubmit() {
-    this.eventReservationService
-      .update(this.reservationID, this.model)
-      .subscribe(
-        () => this.submitEvent.next(true),
-        error =>
-          this.dialogService.openDialog(
-            "Foglalás szerkesztése:",
-            TextUtils.addBreaks(error.error),
-            ErrorDialogComponent
-          )
-      );
+    if (this.isAdmin) {
+      this.eventReservationService
+        .update(this.reservationID, this.model)
+        .subscribe(
+          () => this.submitEvent.next(true),
+          error =>
+            this.dialogService.openDialog(
+              "Foglalás szerkesztése:",
+              TextUtils.addBreaks(error.error),
+              ErrorDialogComponent
+            )
+        );
+    } else {
+      this.eventReservationService
+        .updateOwnById(this.reservationID, this.model)
+        .subscribe(
+          () => this.submitEvent.next(true),
+          error =>
+            this.dialogService.openDialog(
+              "Foglalás szerkesztése:",
+              TextUtils.addBreaks(error.error),
+              ErrorDialogComponent
+            )
+        );
+    }
   }
 
   /**
@@ -69,6 +91,6 @@ export class EditEventReservationFormComponent implements OnInit {
   onDelete() {
     this.eventReservationService
       .deleteById(this.reservationID)
-      .subscribe(result => this.submitEvent.next(true));
+      .subscribe(() => this.submitEvent.next(true));
   }
 }

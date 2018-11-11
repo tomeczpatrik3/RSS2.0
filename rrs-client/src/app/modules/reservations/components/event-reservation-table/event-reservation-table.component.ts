@@ -2,8 +2,6 @@ import { Component, OnInit, Input } from "@angular/core";
 import { EventReservation } from "../../../../shared/models/EventReservation";
 import { EventReservationsDataService } from "../../event-reservations.data.service";
 import { DialogService } from "../../../../shared/services/dialog.service";
-import { AuthService } from "../../../../shared/services/auth.service";
-import { Authorities } from "../../../../shared/config/authoritites.config";
 import { FormType } from "../../../../shared/enums/FormType";
 import { FormDialogComponent } from "../../../../shared/components/dialogs/form-dialog/form-dialog.component";
 import { Statuses } from "../../../../shared/config/statuses.config";
@@ -36,7 +34,6 @@ export class EventReservationTableComponent implements OnInit {
     private eventReservationService: EventReservationsDataService,
     private messageService: MessageApiService,
     private dialogService: DialogService,
-    private authService: AuthService
   ) {}
 
   /**
@@ -47,21 +44,27 @@ export class EventReservationTableComponent implements OnInit {
   }
 
   /**
-   * A megfelelő dialógus megjlenítéséért felelős függvény
+   * A foglalás részleteinek megjlenítéséért felelős függvény
    * @param id A foglalás azonosítója
    */
   openDetails(id: number) {
-    let formType: string;
-    if (this.authService.hasAuthority(Authorities.ROLE_ADMIN)) {
-      formType = FormType.EDIT_EVENT_RESERVATION_FORM;
-    } else {
-      formType = FormType.OBSERVE_EVENT_RESERVATION_FORM;
-    }
+    this.dialogService.openFormDialog(
+      "Foglalás megtekintése:",
+      FormType.OBSERVE_EVENT_RESERVATION_FORM,
+      id,
+      FormDialogComponent
+    );
+  }
 
+  /**
+   * A foglalás szerkesztéséért felelős függvény
+   * @param id A foglalás azonosítója
+   */  
+  openEdit(id: number) {
     this.dialogService
       .openFormDialog(
         "Foglalás szerkesztése:",
-        formType,
+        FormType.EDIT_EVENT_RESERVATION_FORM,
         id,
         FormDialogComponent
       )

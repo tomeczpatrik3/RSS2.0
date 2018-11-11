@@ -65,13 +65,20 @@ public class ClassReservationServiceImpl implements ClassReservationService {
      *
      * @param classReservationDTO A foglalás
      * @return A mentett foglalás
-     * @throws UserNotExistsException A lehetséges kivétel, ha a felhasználó nem létezik
-     * @throws SubjectNotExistsException A lehetséges kivétel, ha a tantárgy nem létezik
-     * @throws ClassroomNotExistsException A lehetséges kivétel, ha a tanterem nem létezik
-     * @throws StatusNotExistsException A lehetséges kivétel, ha a státusz nem létezik
-     * @throws SemesterNotExistsException A lehetséges kivétel, ha a szemeszter nem létezik
-     * @throws SemesterNotOpenedException A lehetséges kivétel, ha a szemeszter nem nyitott
-     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem létezik
+     * @throws UserNotExistsException A lehetséges kivétel, ha a felhasználó nem
+     * létezik
+     * @throws SubjectNotExistsException A lehetséges kivétel, ha a tantárgy nem
+     * létezik
+     * @throws ClassroomNotExistsException A lehetséges kivétel, ha a tanterem
+     * nem létezik
+     * @throws StatusNotExistsException A lehetséges kivétel, ha a státusz nem
+     * létezik
+     * @throws SemesterNotExistsException A lehetséges kivétel, ha a szemeszter
+     * nem létezik
+     * @throws SemesterNotOpenedException A lehetséges kivétel, ha a szemeszter
+     * nem nyitott
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem
+     * létezik
      */
     @Override
     public ClassReservation save(ClassReservationDTO classReservationDTO)
@@ -119,14 +126,22 @@ public class ClassReservationServiceImpl implements ClassReservationService {
      * @param id Az azonosító
      * @param classReservationDTO A foglalás
      * @return A frissített foglalás
-     * @throws ClassReservationNotExistsException A lehetséges kivétel, ha a foglalás nem létezik
-     * @throws UserNotExistsException A lehetséges kivétel, ha a felhasználó nem létezik
-     * @throws SubjectNotExistsException A lehetséges kivétel, ha a tantárgy nem létezik
-     * @throws ClassroomNotExistsException A lehetséges kivétel, ha a tanterem nem létezik
-     * @throws StatusNotExistsException A lehetséges kivétel, ha a státusz nem létezik
-     * @throws SemesterNotExistsException A lehetséges kivétel, ha a szemeszter nem létezik
-     * @throws SemesterNotOpenedException A lehetséges kivétel, ha a szemeszter nem nyitott
-     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem létezik
+     * @throws ClassReservationNotExistsException A lehetséges kivétel, ha a
+     * foglalás nem létezik
+     * @throws UserNotExistsException A lehetséges kivétel, ha a felhasználó nem
+     * létezik
+     * @throws SubjectNotExistsException A lehetséges kivétel, ha a tantárgy nem
+     * létezik
+     * @throws ClassroomNotExistsException A lehetséges kivétel, ha a tanterem
+     * nem létezik
+     * @throws StatusNotExistsException A lehetséges kivétel, ha a státusz nem
+     * létezik
+     * @throws SemesterNotExistsException A lehetséges kivétel, ha a szemeszter
+     * nem létezik
+     * @throws SemesterNotOpenedException A lehetséges kivétel, ha a szemeszter
+     * nem nyitott
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem
+     * létezik
      */
     @Override
     public ClassReservation update(int id, ClassReservationDTO classReservationDTO) throws ClassReservationNotExistsException,
@@ -176,11 +191,81 @@ public class ClassReservationServiceImpl implements ClassReservationService {
     }
 
     /**
+     * A saját foglalás azonosító alapján történő frissítését megvalósító
+     * függvény
+     *
+     * @param id Az azonosító
+     * @param classReservationDTO A foglalás
+     * @return A frissített foglalás
+     * @throws ClassReservationNotExistsException A lehetséges kivétel, ha a
+     * foglalás nem létezik
+     * @throws SubjectNotExistsException A lehetséges kivétel, ha a tantárgy nem
+     * létezik
+     * @throws ClassroomNotExistsException A lehetséges kivétel, ha a tanterem
+     * nem létezik
+     * @throws StatusNotExistsException A lehetséges kivétel, ha a státusz nem
+     * létezik
+     * @throws SemesterNotExistsException A lehetséges kivétel, ha a szemeszter
+     * nem létezik
+     * @throws SemesterNotOpenedException A lehetséges kivétel, ha a szemeszter
+     * nem nyitott
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem
+     * létezik
+     */
+    @Override
+    public ClassReservation updateOwnById(int id, ClassReservationDTO classReservationDTO) throws ClassReservationNotExistsException,
+            SubjectNotExistsException, ClassroomNotExistsException, StatusNotExistsException, SemesterNotExistsException, BuildingNotExistsException, SemesterNotOpenedException {
+        if (repository.findById(id) == null || !repository.findById(id).getUser().getUsername().equals(userService.getAuthenticatedUser().getUsername())) {
+            throw new ClassReservationNotExistsException(id);
+        } else {
+            Semester semester;
+            if (classReservationDTO.getStartDates().length == 1 && classReservationDTO.getEndDates().length == 1) {
+                /*Ha egyszerű foglalásról van szó*/
+                semester = semesterService.findOpenByDate(new Date(
+                        getTimestamp(classReservationDTO.getStartDates()[0]).getTime()
+                ));
+            } else {
+                /*Ha az adott szemeszterre vonatkozó foglalásról van szó*/
+                semester = semesterService.findOpenedByName(classReservationDTO.getSemester());
+            }
+
+            ClassReservation converted = toClassReservation(
+                    userService.getAuthenticatedUser(), /*A foglaláshoz tartozó felhasználó*/
+                    subjectService.findByCode(classReservationDTO.getSubjectCode()), /*A foglaláshoz tartozó tantárgy*/
+                    classroomService.findByNameAndBuildingName( /*A foglaláshoz tartozó tanterem*/
+                            classReservationDTO.getClassroom(),
+                            classReservationDTO.getBuilding()),
+                    statusService.findByName("PENDING"), /*A foglalás státusza*/
+                    semester,
+                    Collections.emptyList(),
+                    classReservationDTO.getNote() /*A foglaláshoz tartozó megjegyzés*/
+            );
+            converted.setId(id);
+
+            //Az entitás mentése:
+            ClassReservation saved = repository.save(converted);
+            //A régi dátum(ok) törlése:
+            reservationDateService.deleteByReservation(saved);
+            //Az új dátumok előállítása:
+            List<ReservationDate> reservationDates = getReservationDates(saved, classReservationDTO.getStartDates(), classReservationDTO.getEndDates());
+            //Az új dátumok mentése:
+            reservationDates.forEach((date) -> {
+                reservationDateService.save(date);
+            });
+            //Az új dátumok beállítása a foglalás számára:
+            saved.setDateList(reservationDates);
+
+            return saved;
+        }
+    }
+
+    /**
      * A foglalás id alapján történő keresését megvalósító függvény
      *
      * @param id A foglalás id-je
      * @return A foglalás ha létezik, null egyébként
-     * @throws ClassReservationNotExistsException A lehetséges kivétel, ha a foglalás nem létezik
+     * @throws ClassReservationNotExistsException A lehetséges kivétel, ha a
+     * foglalás nem létezik
      */
     @Override
     public ClassReservation findById(int id) throws ClassReservationNotExistsException {
@@ -208,7 +293,8 @@ public class ClassReservationServiceImpl implements ClassReservationService {
      *
      * @param username A felhasználónév
      * @return Az adott felhasználó által történt foglalások egy listában
-     * @throws UserNotExistsException A lehetséges kivétel, ha a felhasználó nem létezik
+     * @throws UserNotExistsException A lehetséges kivétel, ha a felhasználó nem
+     * létezik
      */
     @Override
     public List<ClassReservation> findByUsername(String username) throws UserNotExistsException {
@@ -225,7 +311,8 @@ public class ClassReservationServiceImpl implements ClassReservationService {
      *
      * @param statusName A keresendő státusz
      * @return Az adott státusszal rendelkező foglalások
-     * @throws StatusNotExistsException A lehetséges kivétel, ha a státusz nem létezik
+     * @throws StatusNotExistsException A lehetséges kivétel, ha a státusz nem
+     * létezik
      */
     @Override
     public List<ClassReservation> findByStatus(String statusName) throws StatusNotExistsException {
@@ -243,8 +330,10 @@ public class ClassReservationServiceImpl implements ClassReservationService {
      * @param id A foglalás id-ja
      * @param statusName Az új státusz
      * @return A megváltoztatott státusszal rendelkező foglalás
-     * @throws StatusNotExistsException A lehetséges kivétel, ha a státusz nem létezik
-     * @throws ClassReservationNotExistsException A lehetséges kivétel, ha a foglalás nem létezik
+     * @throws StatusNotExistsException A lehetséges kivétel, ha a státusz nem
+     * létezik
+     * @throws ClassReservationNotExistsException A lehetséges kivétel, ha a
+     * foglalás nem létezik
      */
     @Override
     public ClassReservation setStatus(int id, String statusName) throws StatusNotExistsException, ClassReservationNotExistsException {
@@ -268,8 +357,10 @@ public class ClassReservationServiceImpl implements ClassReservationService {
      * @param building Az épület
      * @param classroom A tanterem
      * @return A foglalások egy listában
-     * @throws ClassroomNotExistsException A lehetséges kivétel, ha a tanterem nem létezik
-     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem létezik
+     * @throws ClassroomNotExistsException A lehetséges kivétel, ha a tanterem
+     * nem létezik
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem
+     * létezik
      */
     @Override
     public List<ClassReservation> findByBuildingAndClassroom(String building, String classroom) throws ClassroomNotExistsException, BuildingNotExistsException {
@@ -281,7 +372,8 @@ public class ClassReservationServiceImpl implements ClassReservationService {
      *
      * @param subjectCode A tárgykód
      * @return A foglalások egy listában
-     * @throws SubjectNotExistsException A lehetséges kivétel, ha a tantárgy nem létezik
+     * @throws SubjectNotExistsException A lehetséges kivétel, ha a tantárgy nem
+     * létezik
      */
     @Override
     public List<ClassReservation> findBySubjectCode(String subjectCode) throws SubjectNotExistsException {
@@ -294,7 +386,8 @@ public class ClassReservationServiceImpl implements ClassReservationService {
      *
      * @param semester A szemeszter
      * @return A foglalások egy listában
-     * @throws SemesterNotExistsException A lehetséges kivétel, ha a szemeszter nem létezik
+     * @throws SemesterNotExistsException A lehetséges kivétel, ha a szemeszter
+     * nem létezik
      */
     @Override
     public List<ClassReservation> findBySemester(String semester) throws SemesterNotExistsException {
@@ -305,7 +398,8 @@ public class ClassReservationServiceImpl implements ClassReservationService {
      * Egy adott azonosítóhoz tartozó foglalás törlése
      *
      * @param id Az azonosító
-     * @throws ClassReservationNotExistsException A lehetséges kivétel, ha a foglalás nem létezik
+     * @throws ClassReservationNotExistsException A lehetséges kivétel, ha a
+     * foglalás nem létezik
      */
     @Override
     public void deleteById(int id) throws ClassReservationNotExistsException {
@@ -320,7 +414,8 @@ public class ClassReservationServiceImpl implements ClassReservationService {
      * Egy adott felhasználóhoz tartozó foglalások törlése
      *
      * @param username A felhasználónév
-     * @throws UserNotExistsException A lehetséges kivétel, ha a felhasználó nem létezik
+     * @throws UserNotExistsException A lehetséges kivétel, ha a felhasználó nem
+     * létezik
      */
     @Override
     public void deleteByUsername(String username) throws UserNotExistsException {
@@ -332,8 +427,10 @@ public class ClassReservationServiceImpl implements ClassReservationService {
      *
      * @param building Az épület
      * @param classroom A tanterem
-     * @throws ClassroomNotExistsException A lehetséges kivétel, ha a tanterem nem létezik
-     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem létezik
+     * @throws ClassroomNotExistsException A lehetséges kivétel, ha a tanterem
+     * nem létezik
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem
+     * létezik
      */
     @Override
     public void deleteByBuildingAndClassroom(String building, String classroom) throws ClassroomNotExistsException, BuildingNotExistsException {
@@ -344,7 +441,8 @@ public class ClassReservationServiceImpl implements ClassReservationService {
      * Egy adott tantárgyhoz tartozó foglalások törlése
      *
      * @param subjectCode A tárgykód
-     * @throws SubjectNotExistsException A lehetséges kivétel, ha a tantárgy nem létezik
+     * @throws SubjectNotExistsException A lehetséges kivétel, ha a tantárgy nem
+     * létezik
      */
     @Override
     public void deleteBySubjectCode(String subjectCode) throws SubjectNotExistsException {
@@ -355,7 +453,8 @@ public class ClassReservationServiceImpl implements ClassReservationService {
      * Egy adott szemeszterhez tartozó foglalások törlése
      *
      * @param semester A szemeszter
-     * @throws SemesterNotExistsException A lehetséges kivétel, ha a szemeszter nem létezik
+     * @throws SemesterNotExistsException A lehetséges kivétel, ha a szemeszter
+     * nem létezik
      */
     @Override
     public void deleteBySemester(String semester) throws SemesterNotExistsException {
@@ -366,7 +465,8 @@ public class ClassReservationServiceImpl implements ClassReservationService {
      * Egy adott státuszhoz tartozó foglalások törlése
      *
      * @param status A státusz
-     * @throws StatusNotExistsException A lehetséges kivétel, ha a státusz nem létezik
+     * @throws StatusNotExistsException A lehetséges kivétel, ha a státusz nem
+     * létezik
      */
     @Override
     public void deleteByStatus(String status) throws StatusNotExistsException {

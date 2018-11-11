@@ -149,7 +149,7 @@ export class ClassReservationApiService {
   }
 
   /**
-   * Az foglalás frissítéséért felelős függvény
+   * A foglalás frissítéséért felelős függvény
    * @param id Az azonosító
    * @param reservation A foglalás
    */
@@ -160,6 +160,24 @@ export class ClassReservationApiService {
     return <Observable<ClassReservation>>(
       this.http.put(
         ApiEndpoints.getUrl(ApiEndpoints.CLASS_RESERVATION_UPDATE) + `/${id}`,
+        reservation
+      )
+    );
+  }
+
+  /**
+   * A saját foglalás frissítéséért felelős függvény
+   * @param id Az azonosító
+   * @param reservation A foglalás
+   */
+  updateOwnById(
+    id: number,
+    reservation: ClassReservation
+  ): Observable<ClassReservation> {
+    return <Observable<ClassReservation>>(
+      this.http.put(
+        ApiEndpoints.getUrl(ApiEndpoints.CLASS_RESERVATION_UPDATE_OWN_BY_ID) +
+          `/${id}`,
         reservation
       )
     );

@@ -61,6 +61,7 @@ export class ApiEndpoints {
     "classReservation/deleteByStatus";
   static CLASS_RESERVATION_EXISTS_BY_ID: string = "classReservation/existsById";
   static CLASS_RESERVATION_UPDATE: string = "classReservation/update";
+  static CLASS_RESERVATION_UPDATE_OWN_BY_ID: string = "classReservation/updateOwnById";
 
   /*Eseményre vonatkozó foglalások*/
   static EVENT_RESERVATION_GET_ACCEPTED: string =
@@ -91,6 +92,7 @@ export class ApiEndpoints {
   static EVENT_RESERVATION_EXISTS_BY_NAME: string =
     "eventReservation/existsByName";
   static EVENT_RESERVATION_UPDATE: string = "eventReservation/update";
+  static EVENT_RESERVATION_UPDATE_OWN_BY_ID: string = "eventReservation/updateOwnById";
 
   /*Tantermek:*/
   static CLASSROOM_GET_ALL: string = "classroom/getAll";

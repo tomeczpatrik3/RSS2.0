@@ -151,10 +151,9 @@ public class EventServiceImpl implements EventService {
             ReservationType type;
             ReservationInfoDTO info;
             if (reservation instanceof ClassReservation) {
-                type = ReservationType.CLASS;
                 info = new ReservationInfoDTO(
                         reservation.getId(),
-                        type,
+                        ReservationType.CLASS,
                         reservation.getUser().getName(),
                         reservation.getClassroom().getBuilding().getName(),
                         reservation.getClassroom().getName(),
@@ -163,10 +162,9 @@ public class EventServiceImpl implements EventService {
                         ((ClassReservation) reservation).getSemester().getName()
                 );
             } else {
-                type = ReservationType.EVENT;
                 info = new ReservationInfoDTO(
                         reservation.getId(),
-                        type,
+                        ReservationType.EVENT,
                         reservation.getUser().getName(),
                         reservation.getClassroom().getBuilding().getName(),
                         reservation.getClassroom().getName(),
@@ -196,18 +194,18 @@ public class EventServiceImpl implements EventService {
      * @return A generált név
      */
     private <T extends Reservation> String generateTitle(T reservation) {
-        String title;
+        String postfix;
         if (reservation instanceof ClassReservation) {
-            title = ((ClassReservation) reservation).getSubject().getName();
+            postfix = ((ClassReservation) reservation).getSubject().getName();
         } else //else if (reservation instanceof EventReservation) 
         {
-            title = ((EventReservation) reservation).getName();
+            postfix = ((EventReservation) reservation).getName();
         }
         return String.format(
                 "%s - %s: %s",
                 reservation.getClassroom().getBuilding().getName(),
                 reservation.getClassroom().getName(),
-                title
+                postfix
         );
     }
 }

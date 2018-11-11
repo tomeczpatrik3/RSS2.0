@@ -20,11 +20,11 @@ import java.util.List;
  */
 public interface ClassReservationService {
 
-    ClassReservation save(ClassReservationDTO reservation) throws 
-            UserNotExistsException, 
-            SubjectNotExistsException, 
-            ClassroomNotExistsException, 
-            StatusNotExistsException, 
+    ClassReservation save(ClassReservationDTO reservation) throws
+            UserNotExistsException,
+            SubjectNotExistsException,
+            ClassroomNotExistsException,
+            StatusNotExistsException,
             SemesterNotExistsException,
             SemesterNotOpenedException,
             BuildingNotExistsException;
@@ -33,15 +33,24 @@ public interface ClassReservationService {
 
     ClassReservation setStatus(int id, String status) throws StatusNotExistsException, ClassReservationNotExistsException;
 
-    ClassReservation update(int id, ClassReservationDTO classReservationDTO) throws 
-            ClassReservationNotExistsException, 
-            UserNotExistsException, 
-            SubjectNotExistsException, 
-            ClassroomNotExistsException, 
-            StatusNotExistsException, 
+    ClassReservation update(int id, ClassReservationDTO classReservationDTO) throws
+            ClassReservationNotExistsException,
+            UserNotExistsException,
+            SubjectNotExistsException,
+            ClassroomNotExistsException,
+            StatusNotExistsException,
             SemesterNotExistsException,
             SemesterNotOpenedException,
             BuildingNotExistsException;
+
+    ClassReservation updateOwnById(int id, ClassReservationDTO classReservationDTO) throws
+            ClassReservationNotExistsException,
+            SubjectNotExistsException,
+            ClassroomNotExistsException,
+            StatusNotExistsException,
+            SemesterNotExistsException,
+            BuildingNotExistsException,
+            SemesterNotOpenedException;
 
     List<ClassReservation> getAll();
 
@@ -56,7 +65,7 @@ public interface ClassReservationService {
     List<ClassReservation> findBySemester(String semester) throws SemesterNotExistsException;
 
     boolean existsById(int id);
-    
+
     void deleteById(int id) throws ClassReservationNotExistsException;
 
     void deleteByUsername(String username) throws UserNotExistsException;

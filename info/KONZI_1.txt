@@ -6,7 +6,8 @@
 több mintaadat
 	-->fake hírek hozzáadása a főoldalhoz
 	-->új foglalásnál a szemeszter zártságának ellenőrzése
-saját foglalás szerkesztése CSAK SAJÁT
+	-->saját foglalás szerkesztése CSAK SAJÁT
+	-->minden szerviz osztály tesztelése
 
 másfeles térköz, bekezdések behúzása
 működési ábra

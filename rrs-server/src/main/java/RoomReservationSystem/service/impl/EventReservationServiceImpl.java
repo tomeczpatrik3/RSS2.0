@@ -157,6 +157,61 @@ public class EventReservationServiceImpl implements EventReservationService {
             return saved;
         }
     }
+    
+    /**
+     * A saját foglalás azonosító alapján történő frissítését megvalósító függvény
+     *
+     * @param id Az azonosító
+     * @param eventReservationDTO A foglalás
+     * @return A frissített foglalás
+     * @throws EventReservationNotExistsException A lehetséges kivétel, ha a
+     * foglalás nem létezik
+     * @throws ClassroomNotExistsException A lehetséges kivétel, ha a tanterem
+     * nem létezik
+     * @throws StatusNotExistsException A lehetséges kivétel, ha a státusz nem
+     * létezik
+     * @throws SemesterNotExistsException A lehetséges kivétel, ha a szemeszter
+     * nem létezik
+     * @throws BuildingNotExistsException A lehetséges kivétel, ha az épület nem
+     * létezik
+     */
+    @Override
+    public EventReservation updateOwnById(int id, EventReservationDTO eventReservationDTO)
+            throws EventReservationNotExistsException, ClassroomNotExistsException, StatusNotExistsException, SemesterNotExistsException, BuildingNotExistsException {
+        if (repository.findById(id) == null || !repository.findById(id).getUser().getUsername().equals(userService.getAuthenticatedUser().getUsername())) {
+            throw new EventReservationNotExistsException(id);
+        } else {
+            EventReservation converted = toEventReservation(
+                    userService.getAuthenticatedUser(), /*A foglaláshoz tartozó felhasználó*/
+                    classroomService.findByNameAndBuildingName( /*A foglaláshoz tartozó tanterem*/
+                            eventReservationDTO.getClassroom(),
+                            eventReservationDTO.getBuilding()),
+                    statusService.findByName("PENDING"), /*A foglalás státusza*/
+                    Collections.emptyList(),
+                    eventReservationDTO.getName(), /*A foglalás neve*/
+                    eventReservationDTO.getNote() /*A foglaláshoz tartozó megjegyzés*/
+            );
+            converted.setId(id);
+
+            //Az entitás mentése:
+            EventReservation saved = repository.save(converted);
+            //A régi dátum(ok) törlése:
+            reservationDateService.deleteByReservation(saved);
+            //Az új dátumok előállítása:
+            ReservationDate rDate = new ReservationDate(
+                    saved,
+                    getTimestamp(eventReservationDTO.getStartDate()),
+                    getTimestamp(eventReservationDTO.getEndDate())
+            );
+            //Az új dátumok mentése:
+            ReservationDate savedRDate = reservationDateService.save(rDate);
+            //Az új dátumok beállítása a foglalás számára:
+            saved.setDateList(Arrays.asList(savedRDate));
+
+            return saved;
+        }
+    }
+
 
     /**
      * A foglalás id alapján történő keresését megvalósító függvény

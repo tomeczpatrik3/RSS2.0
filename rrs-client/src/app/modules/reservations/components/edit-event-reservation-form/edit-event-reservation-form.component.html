@@ -1,7 +1,7 @@
 <div class="container" *ngIf="model">
   <form (ngSubmit)="onSubmit()" #editEventReservationForm="ngForm">
 
-    <div class="form-group row">
+    <div class="form-group row" *ngIf="isAdmin">
       <label for="username" class="col-sm-4 col-form-label">A felhasználónév:</label>
       <div class="col-sm-8">
         <input class="form-control" id="username" required minlength="3" maxlength="30" [(ngModel)]="model.username"
@@ -29,7 +29,7 @@
       <label for="eventName" class="col-sm-4 col-form-label">Az esemény neve:</label>
       <div class="col-sm-8">
         <input class="form-control" type="text" id="eventName" required minlength="3" maxlength="30" [(ngModel)]="model.name"
-          name="eventName" #eventName="ngModel">
+          name="eventName" #eventName="ngModel" disabled>
         <div *ngIf="eventName.invalid && (eventName.dirty || eventName.touched)" class="alert alert-danger">
 
           <div *ngIf="eventName.errors.required">
@@ -130,7 +130,7 @@
 
     <div class="btn-padding">
       <button type="submit" class="btn btn-success btn-space" [disabled]="!editEventReservationForm.form.valid">Módosítás</button>
-      <button type="button" class="btn btn-secondary btn-space" (click)="onDelete()">Törlés</button>
+      <button type="button" class="btn btn-secondary btn-space" (click)="onDelete()" *ngIf="isAdmin">Törlés</button>
       <button type="button" class="btn btn-danger btn-space" (click)="onExit()">Kilépés</button>
     </div>
 

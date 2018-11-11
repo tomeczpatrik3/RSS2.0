@@ -19,7 +19,13 @@ import java.util.List;
  */
 public interface EventReservationService {
 
-    EventReservation save(EventReservationDTO reservation) throws UserNotExistsException, ClassroomNotExistsException, StatusNotExistsException, SemesterNotExistsException, BuildingNotExistsException, EventReservationAlredyExistsException;
+    EventReservation save(EventReservationDTO reservation) throws 
+            UserNotExistsException, 
+            ClassroomNotExistsException, 
+            StatusNotExistsException, 
+            SemesterNotExistsException, 
+            BuildingNotExistsException, 
+            EventReservationAlredyExistsException;
 
     EventReservation findById(int id) throws EventReservationNotExistsException;
 
@@ -27,7 +33,20 @@ public interface EventReservationService {
 
     EventReservation findByName(String name) throws EventReservationNotExistsException;
 
-    EventReservation update(int id, EventReservationDTO eventReservationDTO) throws EventReservationNotExistsException, UserNotExistsException, ClassroomNotExistsException, StatusNotExistsException, SemesterNotExistsException, BuildingNotExistsException;
+    EventReservation update(int id, EventReservationDTO eventReservationDTO) throws 
+            EventReservationNotExistsException, 
+            UserNotExistsException, 
+            ClassroomNotExistsException, 
+            StatusNotExistsException, 
+            SemesterNotExistsException, 
+            BuildingNotExistsException;
+    
+    EventReservation updateOwnById(int id, EventReservationDTO eventReservationDTO) throws 
+            EventReservationNotExistsException,
+            ClassroomNotExistsException, 
+            StatusNotExistsException, 
+            SemesterNotExistsException, 
+            BuildingNotExistsException;
 
     List<EventReservation> getAll();
 

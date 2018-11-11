@@ -250,6 +250,31 @@ public class EventReservationApiController extends ReservationApiController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
         }
     }
+    
+    /**
+     * A saját foglalások frissítéséért felelős függvény
+     *
+     * @param id Az azonosító
+     * @param eventReservationDTO A foglalás
+     * @param bindingResult A BindingResult objektum
+     * @return A megfelelő válasz entitás
+     */
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @PutMapping("/updateOwnById/{id}")
+    public ResponseEntity updateOwnById(@PathVariable int id, @RequestBody EventReservationDTO eventReservationDTO, BindingResult bindingResult) {
+        baseRValidator.validate(eventReservationDTO, bindingResult);
+        eventRValidator.validate(eventReservationDTO, bindingResult);
+        if (!bindingResult.hasErrors()) {
+            try {
+                EventReservation updated = eventService.updateOwnById(id, eventReservationDTO);
+                return ResponseEntity.status(HttpStatus.CREATED).body(toEventReservationDTO(updated));
+            } catch (EventReservationNotExistsException | ClassroomNotExistsException | StatusNotExistsException | SemesterNotExistsException | BuildingNotExistsException | NullPointerException ex) {
+                return handleException(ex);
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
+        }
+    }
 
     /**
      * A függvény ami törli az adott azonosítóhoz tartozó foglalásokat

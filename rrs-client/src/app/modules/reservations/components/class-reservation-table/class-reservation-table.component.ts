@@ -2,8 +2,6 @@ import { Component, OnInit, Input } from "@angular/core";
 import { ClassReservation } from "../../../../shared/models/ClassReservation";
 import { ClassReservationsDataService } from "../../class-reservations.data.service";
 import { DialogService } from "../../../../shared/services/dialog.service";
-import { AuthService } from "../../../../shared/services/auth.service";
-import { Authorities } from "../../../../shared/config/authoritites.config";
 import { FormType } from "../../../../shared/enums/FormType";
 import { FormDialogComponent } from "../../../../shared/components/dialogs/form-dialog/form-dialog.component";
 import { Statuses } from "../../../../shared/config/statuses.config";
@@ -32,8 +30,7 @@ export class ClassReservationTableComponent implements OnInit {
   constructor(
     private classReservationService: ClassReservationsDataService,
     private messageService: MessageApiService,
-    private dialogService: DialogService,
-    private authService: AuthService
+    private dialogService: DialogService
   ) {}
 
   /**
@@ -44,21 +41,27 @@ export class ClassReservationTableComponent implements OnInit {
   }
 
   /**
-   * A megfelelő dialógus megjlenítéséért felelős függvény
+   * A foglalás részleteinek megjlenítéséért felelős függvény
    * @param id A foglalás azonosítója
    */
   openDetails(id: number) {
-    let formType: string;
-    if (this.authService.hasAuthority(Authorities.ROLE_ADMIN)) {
-      formType = FormType.EDIT_CLASS_RESERVATION_FORM;
-    } else {
-      formType = FormType.OBSERVE_CLASS_RESERVATION_FORM;
-    }
+    this.dialogService.openFormDialog(
+      "Foglalás megtekintése:",
+      FormType.OBSERVE_CLASS_RESERVATION_FORM,
+      id,
+      FormDialogComponent
+    );
+  }
 
+  /**
+   * A foglalás szerkesztéséért felelős függvény
+   * @param id A foglalás azonosítója
+   */  
+  openEdit(id: number) {
     this.dialogService
       .openFormDialog(
         "Foglalás szerkesztése:",
-        formType,
+        FormType.EDIT_CLASS_RESERVATION_FORM,
         id,
         FormDialogComponent
       )

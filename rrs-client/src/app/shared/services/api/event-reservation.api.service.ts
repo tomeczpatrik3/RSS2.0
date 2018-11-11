@@ -147,7 +147,7 @@ export class EventReservationApiService {
   }
 
   /**
-   * Az foglalás frissítéséért felelős függvény
+   * A foglalás frissítéséért felelős függvény
    * @param id Az azonosító
    * @param reservation A foglalás
    */
@@ -158,6 +158,24 @@ export class EventReservationApiService {
     return <Observable<EventReservation>>(
       this.http.put(
         ApiEndpoints.getUrl(ApiEndpoints.EVENT_RESERVATION_UPDATE) + `/${id}`,
+        reservation
+      )
+    );
+  }
+
+  /**
+   * A saját foglalás frissítéséért felelős függvény
+   * @param id Az azonosító
+   * @param reservation A foglalás
+   */
+  updateOwnById(
+    id: number,
+    reservation: EventReservation
+  ): Observable<EventReservation> {
+    return <Observable<EventReservation>>(
+      this.http.put(
+        ApiEndpoints.getUrl(ApiEndpoints.EVENT_RESERVATION_UPDATE_OWN_BY_ID) +
+          `/${id}`,
         reservation
       )
     );

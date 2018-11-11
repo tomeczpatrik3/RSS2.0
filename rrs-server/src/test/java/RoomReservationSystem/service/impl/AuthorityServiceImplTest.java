@@ -1,13 +1,10 @@
 package RoomReservationSystem.service.impl;
 
-import RoomReservationSystem.exception.AuthorityAlredyExistsException;
 import RoomReservationSystem.exception.AuthorityNotExistsException;
 import RoomReservationSystem.model.Authority;
 import RoomReservationSystem.repository.AuthorityRepository;
 import java.util.Collections;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
@@ -32,13 +29,6 @@ public class AuthorityServiceImplTest {
 
     private final Authority TEST_AUTHORITY = new Authority("TEST_AUTH", Collections.EMPTY_LIST, 999);
 
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }
 
     /**
      * A mentés tesztelésére szolgáló függvény

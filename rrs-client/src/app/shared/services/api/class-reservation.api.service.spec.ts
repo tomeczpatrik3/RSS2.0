@@ -351,6 +351,46 @@ describe("ClassReservationApiService", () => {
     req.flush(errorMsg, { status: 404, statusText: "Not found" });
   });
 
+  describe("#updateOwnById", () => {
+    it("a visszatérési érték: Observable<ClassReservation>", () => {
+      service
+        .updateOwnById(testReservations[0].id, testReservations[0])
+        .subscribe(reservation => {
+          expect(reservation).toEqual(testReservations[0]);
+        });
+
+      const req = httpMock.expectOne(
+        ApiEndpoints.getUrl(ApiEndpoints.CLASS_RESERVATION_UPDATE_OWN_BY_ID) +
+          `/${testReservations[0].id}`
+      );
+      expect(req.request.method).toBe("PUT");
+      req.flush(testReservations[0]);
+    });
+  });
+
+  it("ClassReservationNotExistsException", () => {
+    const errorMsg = "Nem létezik ilyen foglalás";
+
+    service
+      .updateOwnById(testReservations[0].id, testReservations[0])
+      .subscribe(
+        reservation =>
+          fail(
+            "ClassReservationNotExistsException kellett volna hogy történjen!"
+          ),
+        (error: HttpErrorResponse) => {
+          expect(error.status).toEqual(404, "status");
+          expect(error.error).toEqual(errorMsg, "message");
+        }
+      );
+
+    const req = httpMock.expectOne(
+      ApiEndpoints.getUrl(ApiEndpoints.CLASS_RESERVATION_UPDATE_OWN_BY_ID) +
+        `/${testReservations[0].id}`
+    );
+    req.flush(errorMsg, { status: 404, statusText: "Not found" });
+  });
+
   describe("#existsById", () => {
     it("a visszatérési érték: Observable<boolean> (true)", () => {
       service.existsById(testReservations[0].id).subscribe(result => {

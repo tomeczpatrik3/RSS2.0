@@ -6,7 +6,12 @@ export class TextUtils {
    * Sortörések hozzáadása a szöveghez:
    * @param text A szöveg
    */
-  public static addBreaks(text: string): string {
-    return text.replace(new RegExp("\n", "g"), "<br />");
+  public static addBreaks(text: any): any {
+    if (typeof text === "string" || text instanceof String) {
+      return text.replace(new RegExp("\n", "g"), "<br />");
+    } else {
+      console.log(text);
+      return "Hiba történt!";
+    }
   }
 }

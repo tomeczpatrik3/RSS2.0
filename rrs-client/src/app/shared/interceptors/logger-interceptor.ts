@@ -15,14 +15,14 @@ export class LoggerInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-/*     if (req instanceof HttpResponse) {
+    /*     if (req instanceof HttpResponse) {
       console.log(`Státusz kód: ${req.status}`);
       console.log(`A válasz: ${req.body}`);
     } */
-    if (req.body) {
+    /*     if (req.body) {
         console.log('A válasz:');
         console.log(req.body);
-    }
+    } */
 
     return next.handle(req);
   }

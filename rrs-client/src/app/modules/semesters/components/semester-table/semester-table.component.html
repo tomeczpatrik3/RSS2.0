@@ -6,15 +6,23 @@
       <th scope="col">Kezdete</th>
       <th scope="col">Vége</th>
       <th scope="col">Státusza</th>
+      <th scope="col">Műveletek</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let semester of semesters; let i = index"  (click)="openPopup(semester.id)">
+    <tr *ngFor="let semester of semesters; let i = index">
       <th scope="row">{{i+1}}</th>
       <td>{{semester.name}}</td>
       <td>{{semester.startDate}}</td>
       <td>{{semester.endDate}}</td>
       <td>{{semester.opened | semesterStatusConvert}}</td>
+      <td>
+        <i
+          class="fa fa-pencil-square-o fa-lg"
+          title="Szerkesztés"
+          (click)="openPopup(semester.id)"
+        ></i>
+      </td>
     </tr>
   </tbody>
 </table>

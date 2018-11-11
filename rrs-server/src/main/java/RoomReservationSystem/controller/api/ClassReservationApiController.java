@@ -257,6 +257,31 @@ public class ClassReservationApiController extends ReservationApiController {
     }
     
     /**
+     * A saját foglalások frissítéséért felelős függvény
+     *
+     * @param id Az azonosító
+     * @param classReservationDTO A foglalás
+     * @param bindingResult A BindingResult objektum
+     * @return A megfelelő válasz entitás
+     */
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @PutMapping("/updateOwnById/{id}")
+    public ResponseEntity updateOwnById(@PathVariable int id, @RequestBody ClassReservationDTO classReservationDTO, BindingResult bindingResult) {
+        baseRValidator.validate(classReservationDTO, bindingResult);
+        classRValidator.validate(classReservationDTO, bindingResult);
+        if (!bindingResult.hasErrors()) {
+            try {
+                ClassReservation updated = classService.updateOwnById(id, classReservationDTO);
+                return ResponseEntity.status(HttpStatus.CREATED).body(toClassReservationDTO(updated));
+            } catch (ClassReservationNotExistsException | SubjectNotExistsException | ClassroomNotExistsException | StatusNotExistsException | SemesterNotExistsException | SemesterNotOpenedException | BuildingNotExistsException ex) {
+                return handleException(ex);
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(concatErrors(bindingResult));
+        }
+    }
+    
+    /**
      * A függvény ami törli az adott azonosítóhoz tartozó foglalásokat
      *
      * @param id Az azonosító
