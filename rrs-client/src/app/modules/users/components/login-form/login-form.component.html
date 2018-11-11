@@ -2,46 +2,82 @@
   <div class="form-group">
     <label for="username">Felhasználónév:</label>
 
-    <input type="text" class="form-control" id="username" required [formControl]="username">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="usernamePrepend"
+          ><i class="fa fa-user fa-lg"></i
+        ></span>
+      </div>
 
-    <div [hidden]="username.valid || username.untouched" class="alert alert-danger">
-      <div>
-        Probléma a felhasználónévvel:
-      </div>
-      <div [hidden]="!username.hasError('required')">
-        A felhasználónevet meg kell adni.
-      </div>
-      <div [hidden]="!username.hasError('minlength')">
-        A felhasználónévnek legalább 5 karakterből kell állnia.
-      </div>
-      <div [hidden]="!username.hasError('maxlength')">
-        A felhasználónév legfeljebb 30 karakterből állhat.
-      </div>
+      <input
+        type="text"
+        class="form-control"
+        id="username"
+        required
+        aria-describedby="usernamePrepend"
+        [formControl]="username"
+      />
     </div>
 
+    <!--
+      <div
+        [hidden]="username.valid || username.untouched"
+        class="alert alert-danger"
+      >
+        <div>Probléma a felhasználónévvel:</div>
+        <div [hidden]="!username.hasError('required')">
+          A felhasználónevet meg kell adni.
+        </div>
+        <div [hidden]="!username.hasError('minlength')">
+          A felhasználónévnek legalább 5 karakterből kell állnia.
+        </div>
+        <div [hidden]="!username.hasError('maxlength')">
+          A felhasználónév legfeljebb 30 karakterből állhat.
+        </div>
+      </div>
+    -->
   </div>
   <div class="form-group">
     <label for="password">Jelszó:</label>
 
-    <input type="password" class="form-control" id="password" required [formControl]="password">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="passwordPrepend"
+          ><i class="fa fa-key fa-lg"></i
+        ></span>
+      </div>
 
-    <div [hidden]="password.valid || password.untouched" class="alert alert-danger">
-      <div>
-        Probléma a jelszóval:
-      </div>
-      <div [hidden]="!password.hasError('required')">
-        A jelszót meg kell adni.
-      </div>
-      <div [hidden]="!password.hasError('minlength')">
-        A jelszónak legalább 5 karakterből kell állnia.
-      </div>
-      <div [hidden]="!password.hasError('maxlength')">
-        A jelszó legfeljebb 30 karakterből állhat.
-      </div>
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        required
+        aria-describedby="passwordPrepend"
+        [formControl]="password"
+      />
     </div>
 
+    <!--
+      <div
+        [hidden]="password.valid || password.untouched"
+        class="alert alert-danger"
+      >
+        <div>Probléma a jelszóval:</div>
+        <div [hidden]="!password.hasError('required')">
+          A jelszót meg kell adni.
+        </div>
+        <div [hidden]="!password.hasError('minlength')">
+          A jelszónak legalább 5 karakterből kell állnia.
+        </div>
+        <div [hidden]="!password.hasError('maxlength')">
+          A jelszó legfeljebb 30 karakterből állhat.
+        </div>
+      </div>
+    -->
   </div>
   <div class="btn-padding">
-    <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">Belépés</button>
+    <button type="submit" class="btn btn-success" [disabled]="!loginForm.valid">
+      Belépés <i class="fa fa-unlock fa-lg"></i>
+    </button>
   </div>
 </form>
