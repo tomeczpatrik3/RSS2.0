@@ -3,7 +3,7 @@ package RoomReservationSystem.validation;
 import RoomReservationSystem.dto.SubjectDTO;
 import RoomReservationSystem.service.SubjectService;
 
-import static RoomReservationSystem.config.ErrorMessageConstants.*;
+import static RoomReservationSystem.constants.ErrorMessageConstants.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

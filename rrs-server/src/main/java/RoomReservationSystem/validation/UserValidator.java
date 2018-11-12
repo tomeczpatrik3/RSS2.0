@@ -2,7 +2,7 @@ package RoomReservationSystem.validation;
 
 import RoomReservationSystem.dto.UserDTO;
 import RoomReservationSystem.service.UserService;
-import static RoomReservationSystem.config.ErrorMessageConstants.*;
+import static RoomReservationSystem.constants.ErrorMessageConstants.*;
 
 import static RoomReservationSystem.util.RegexUtils.isValidEmail;
 

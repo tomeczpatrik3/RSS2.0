@@ -1,6 +1,6 @@
 package RoomReservationSystem.validation;
 
-import static RoomReservationSystem.config.ErrorMessageConstants.*;
+import static RoomReservationSystem.constants.ErrorMessageConstants.*;
 import RoomReservationSystem.dto.EventReservationDTO;
 import static RoomReservationSystem.util.DateUtils.isBefore;
 
