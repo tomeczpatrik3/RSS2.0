@@ -1,10 +1,6 @@
 package RoomReservationSystem.model;
 
-import RoomReservationSystem.model.Classroom;
-import RoomReservationSystem.model.Status;
-import RoomReservationSystem.model.User;
 import java.util.List;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;

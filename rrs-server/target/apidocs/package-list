@@ -1,5 +1,5 @@
 RoomReservationSystem
-RoomReservationSystem.config
+RoomReservationSystem.constants
 RoomReservationSystem.controller
 RoomReservationSystem.controller.api
 RoomReservationSystem.dto

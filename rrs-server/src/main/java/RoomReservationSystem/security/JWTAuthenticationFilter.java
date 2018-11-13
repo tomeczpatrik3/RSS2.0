@@ -1,6 +1,6 @@
 package RoomReservationSystem.security;
 
-import RoomReservationSystem.model.AccountCredentials;
+import RoomReservationSystem.dto.AccountCredentialsDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -60,8 +60,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest req,
             HttpServletResponse res) throws AuthenticationException {
         try {
-            AccountCredentials creds = new ObjectMapper()
-                    .readValue(req.getInputStream(), AccountCredentials.class);
+            AccountCredentialsDTO creds = new ObjectMapper()
+                    .readValue(req.getInputStream(), AccountCredentialsDTO.class);
 
             /*
                 Ha a userService még nincs inicalizálva:

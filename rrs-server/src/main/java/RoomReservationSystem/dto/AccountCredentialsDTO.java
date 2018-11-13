@@ -1,4 +1,4 @@
-package RoomReservationSystem.model;
+package RoomReservationSystem.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AccountCredentials {
+public class AccountCredentialsDTO {
 
     /*A felhasználónév*/
     private String username;

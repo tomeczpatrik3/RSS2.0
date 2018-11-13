@@ -15,13 +15,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 /**
  * Osztályterem entitás
@@ -32,7 +32,11 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @Entity
-@Table(name = "CLASSROOMS")
+@Table(
+        name = "CLASSROOMS",
+        uniqueConstraints = {
+            @UniqueConstraint(columnNames = {"name", "building"})
+        })
 public class Classroom extends BaseEntity {
 
     /*Az osztályterem neve*/

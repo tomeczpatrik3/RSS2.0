@@ -1,10 +1,5 @@
 package RoomReservationSystem.model;
 
-import RoomReservationSystem.model.Classroom;
-import RoomReservationSystem.model.Semester;
-import RoomReservationSystem.model.Status;
-import RoomReservationSystem.model.Subject;
-import RoomReservationSystem.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 import javax.persistence.DiscriminatorValue;

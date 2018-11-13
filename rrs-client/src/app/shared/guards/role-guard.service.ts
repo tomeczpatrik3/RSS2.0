@@ -11,19 +11,18 @@ export class RoleGuard implements CanActivate {
 
   /**
    * canActivate() függvény
-   * -- igaz, ha a felhasználó rendelkezik a megfelelő engedéllyel
-   * -- hamis egyébként --> ilyenkor átnavigálunk a login oldalra
    */
   canActivate(route: ActivatedRouteSnapshot): boolean {
     const authority = route.data.authority;
 
-    if (
-      !this.authService.isLoggedIn() ||
-      this.authService.getAuthorities().indexOf(authority) == -1
-    ) {
+    if (!this.authService.isLoggedIn()) {
       this.router.navigate(["login"]);
       return false;
+    } else if (this.authService.getAuthorities().indexOf(authority) == -1) {
+      this.router.navigate(["dashboard"]);
+      return false;
+    } else {
+      return true;
     }
-    return true;
   }
 }

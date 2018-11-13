@@ -15,6 +15,7 @@ RoomReservationSystem\exception\AuthorityAlredyExistsException.class
 RoomReservationSystem\repository\StatusRepository.class
 RoomReservationSystem\controller\api\UserApiController.class
 RoomReservationSystem\exception\SemesterNotOpenedException.class
+RoomReservationSystem\constants\ErrorMessageConstants.class
 RoomReservationSystem\controller\api\EventReservationApiController.class
 RoomReservationSystem\exception\AuthorityNotExistsException.class
 RoomReservationSystem\service\impl\SemesterServiceImpl.class
@@ -29,7 +30,6 @@ RoomReservationSystem\repository\MessageRepository.class
 RoomReservationSystem\validation\UserValidator.class
 RoomReservationSystem\util\ExceptionUtils.class
 RoomReservationSystem\util\RegexUtils.class
-RoomReservationSystem\model\AccountCredentials.class
 RoomReservationSystem\security\WebSecurity.class
 RoomReservationSystem\dto\BuildingDTO.class
 RoomReservationSystem\service\impl\AuthorityServiceImpl.class
@@ -40,6 +40,7 @@ RoomReservationSystem\dto\UserDTO.class
 RoomReservationSystem\service\impl\EventServiceImpl.class
 RoomReservationSystem\model\Message.class
 RoomReservationSystem\dto\SemesterDTO.class
+RoomReservationSystem\dto\AccountCredentialsDTO.class
 RoomReservationSystem\controller\api\MessageApiController.class
 RoomReservationSystem\model\User.class
 RoomReservationSystem\service\impl\ClassReservationServiceImpl.class
@@ -102,7 +103,6 @@ RoomReservationSystem\repository\ReservationDateRepository.class
 RoomReservationSystem\exception\ClassReservationAlredyExistsException.class
 RoomReservationSystem\validation\BuildingValidator.class
 RoomReservationSystem\exception\ClassroomAlredyExistsException.class
-RoomReservationSystem\config\ErrorMessageConstants.class
 RoomReservationSystem\model\Semester.class
 RoomReservationSystem\enums\ReservationType.class
 RoomReservationSystem\model\EventReservation.class

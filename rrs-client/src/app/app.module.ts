@@ -13,7 +13,6 @@ import { ValidatorService } from "./shared/services/validator.service";
 import { AuthService } from "./shared/services/auth.service";
 import { DialogService } from "./shared/services/dialog.service";
 
-import { AuthGuard } from "./shared/guards/auth-guard.service";
 import { RoleGuard } from "./shared/guards/role-guard.service";
 import { CanDeactivateGuard } from "./shared/guards/can-deactivate-guard.service";
 
@@ -133,7 +132,6 @@ export function jwtTokenGetter() {
     AuthService,
 
     //Guards:
-    AuthGuard,
     RoleGuard,
     CanDeactivateGuard,
 
