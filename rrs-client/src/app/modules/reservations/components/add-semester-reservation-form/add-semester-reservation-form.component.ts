@@ -93,7 +93,7 @@ export class AddSemesterReservationFormComponent extends AddReservation {
           updateOn: "blur"
         }),
         room: new FormControl("", [Validators.required]),
-        day: new FormControl("", [Validators.required]),
+        day: new FormControl(this.days[0], [Validators.required]),
         startTime: new FormControl("", [
           Validators.required,
           this.validatorService.isTime,

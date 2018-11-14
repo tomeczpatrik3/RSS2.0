@@ -1,0 +1,27 @@
+Invoking Maven for the goals: [org.apache.maven.plugins:maven-javadoc-plugin:3.0.1:javadoc] with no properties
+
+M2_HOME=C:\JAVA\apache-maven-3.2.1
+MAVEN_OPTS=null
+JAVA_HOME=C:\Program Files\Java\jdk1.8.0_161
+JAVA_OPTS=null
+
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] Using the builder org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder with a thread count of 1
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building rrs-client 0.0.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] >>> maven-javadoc-plugin:3.0.1:javadoc (default-cli) @ rrs-client >>>
+[INFO] 
+[INFO] <<< maven-javadoc-plugin:3.0.1:javadoc (default-cli) @ rrs-client <<<
+[INFO] 
+[INFO] --- maven-javadoc-plugin:3.0.1:javadoc (default-cli) @ rrs-client ---
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 3.386 s
+[INFO] Finished at: 2018-11-14T11:14:37+01:00
+[INFO] Final Memory: 21M/226M
+[INFO] ------------------------------------------------------------------------

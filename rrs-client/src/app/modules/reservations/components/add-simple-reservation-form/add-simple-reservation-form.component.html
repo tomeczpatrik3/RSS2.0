@@ -8,7 +8,7 @@
         required
         [formControl]="subject"
       >
-        <option> --- </option>
+        <option> -- Kérlek válassz egy tantárgyat -- </option>
         <option *ngFor="let subject of subjects">
           {{ subject.code }} | {{ subject.name }}
         </option>
@@ -34,7 +34,7 @@
         [formControl]="building"
         (change)="getRoomsByBuildingName($event.target.value)"
       >
-        <option> --- </option>
+        <option> -- Kérlek válassz egy épületet -- </option>
         <option *ngFor="let building of buildings">
           {{ building.name }}
         </option>
@@ -58,7 +58,7 @@
     <label for="room" class="col-sm-4 col-form-label">Terem neve*</label>
     <div class="col-sm-8">
       <select class="form-control" id="room" required [formControl]="room">
-        <option> --- </option>
+        <option> -- Kérlek válassz egy tantermet -- </option>
         <option *ngFor="let room of rooms"> {{ room.name }} </option>
       </select>
 
