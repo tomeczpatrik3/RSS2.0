@@ -25,8 +25,6 @@ import { ErrorDialogComponent } from "./shared/components/dialogs/error-dialog/e
 import { InfoDialogComponent } from "./shared/components/dialogs/info-dialog/info-dialog.component";
 import { FormDialogComponent } from "./shared/components/dialogs/form-dialog/form-dialog.component";
 
-import { httpInterceptorProviders } from "./shared/interceptors/providers";
-
 import { MaterialModule } from "./shared/modules/material.module";
 import { ReservationsModule } from "./modules/reservations/reservations.module";
 import { UserApiService } from "./shared/services/api/user.api.service";
@@ -58,8 +56,6 @@ import { NumberValidatorDirective } from "./shared/directives/number.directive";
 import { SemestersModule } from "./modules/semesters/semesters.module";
 import { SubjectsModule } from "./modules/subjects/subjects.module";
 import { UsersModule } from "./modules/users/users.module";
-
-
 
 export function jwtTokenGetter() {
   return localStorage.getItem("token");
@@ -103,7 +99,7 @@ export function jwtTokenGetter() {
     MaterialModule,
 
     /**
-     * Minden get esetén csatolja a tokent:
+     * Mindig csatolja a tokent:
      */
     JwtModule.forRoot({
       config: {
@@ -126,7 +122,6 @@ export function jwtTokenGetter() {
     ValidatorService,
     DialogService,
     JwtHelperService,
-    httpInterceptorProviders,
 
     //Authentication:
     AuthService,
