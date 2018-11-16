@@ -1,13 +1,26 @@
 <div class="container" *ngIf="model">
   <form (ngSubmit)="onSubmit()" #editEventReservationForm="ngForm">
-
     <div class="form-group row" *ngIf="isAdmin">
-      <label for="username" class="col-sm-4 col-form-label">A felhasználónév:</label>
+      <label for="username" class="col-sm-4 col-form-label"
+        >A felhasználónév:</label
+      >
       <div class="col-sm-8">
-        <input class="form-control" id="username" required minlength="3" maxlength="30" [(ngModel)]="model.username"
-          name="username" #username="ngModel" [ngModelOptions]="{ updateOn: 'blur' }" takenUsername>
-        <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-danger username-errors">
-
+        <input
+          class="form-control"
+          id="username"
+          required
+          minlength="3"
+          maxlength="30"
+          [(ngModel)]="model.username"
+          name="username"
+          #username="ngModel"
+          [ngModelOptions]="{ updateOn: 'blur' }"
+          takenUsername
+        />
+        <div
+          *ngIf="username.invalid && (username.dirty || username.touched)"
+          class="alert alert-danger username-errors"
+        >
           <div *ngIf="username.errors.required">
             A felhasználónevet meg kell adni.
           </div>
@@ -20,18 +33,31 @@
           <div *ngIf="username.errors.isUnique">
             A felhasználónév nem létezik.
           </div>
-
         </div>
       </div>
     </div>
 
     <div class="form-group row">
-      <label for="eventName" class="col-sm-4 col-form-label">Az esemény neve:</label>
+      <label for="eventName" class="col-sm-4 col-form-label"
+        >Az esemény neve:</label
+      >
       <div class="col-sm-8">
-        <input class="form-control" type="text" id="eventName" required minlength="3" maxlength="30" [(ngModel)]="model.name"
-          name="eventName" #eventName="ngModel" disabled>
-        <div *ngIf="eventName.invalid && (eventName.dirty || eventName.touched)" class="alert alert-danger">
-
+        <input
+          class="form-control"
+          type="text"
+          id="eventName"
+          required
+          minlength="3"
+          maxlength="30"
+          [(ngModel)]="model.name"
+          name="eventName"
+          #eventName="ngModel"
+          disabled
+        />
+        <div
+          *ngIf="eventName.invalid && (eventName.dirty || eventName.touched)"
+          class="alert alert-danger"
+        >
           <div *ngIf="eventName.errors.required">
             Az esemény nevét meg kell adni.
           </div>
@@ -41,18 +67,32 @@
           <div *ngIf="eventName.errors.maxlength">
             Az esemény neve legfeljebb 30 karakter hoszzú lehet.
           </div>
-
         </div>
       </div>
     </div>
 
     <div class="form-group row">
-      <label for="building" class="col-sm-4 col-form-label">Az épület neve:</label>
+      <label for="building" class="col-sm-4 col-form-label"
+        >Az épület neve:</label
+      >
       <div class="col-sm-8">
-        <input class="form-control" type="text" id="building" required minlength="3" maxlength="30" [(ngModel)]="model.building"
-          name="building" #building="ngModel" [ngModelOptions]="{ updateOn: 'blur' }" takenBuildingName>
-        <div *ngIf="building.invalid && (building.dirty || building.touched)" class="alert alert-danger">
-
+        <input
+          class="form-control"
+          type="text"
+          id="building"
+          required
+          minlength="3"
+          maxlength="30"
+          [(ngModel)]="model.building"
+          name="building"
+          #building="ngModel"
+          [ngModelOptions]="{ updateOn: 'blur' }"
+          takenBuildingName
+        />
+        <div
+          *ngIf="building.invalid && (building.dirty || building.touched)"
+          class="alert alert-danger"
+        >
           <div *ngIf="building.errors.required">
             Az épület nevét meg kell adni.
           </div>
@@ -62,21 +102,31 @@
           <div *ngIf="building.errors.maxlength">
             Az épület neve legfeljebb 30 karakter hoszzú lehet.
           </div>
-          <div *ngIf="building.errors.isUnique">
-            Az épület nem létezik.
-          </div>
-
+          <div *ngIf="building.errors.isUnique">Az épület nem létezik.</div>
         </div>
       </div>
     </div>
 
     <div class="form-group row">
-      <label for="classroom" class="col-sm-4 col-form-label">A tanterem neve:</label>
+      <label for="classroom" class="col-sm-4 col-form-label"
+        >A tanterem neve:</label
+      >
       <div class="col-sm-8">
-        <input class="form-control" type="text" id="classroom" required minlength="3" maxlength="30" [(ngModel)]="model.classroom"
-          name="classroom" #classroom="ngModel">
-        <div *ngIf="classroom.invalid && (classroom.dirty || classroom.touched)" class="alert alert-danger">
-
+        <input
+          class="form-control"
+          type="text"
+          id="classroom"
+          required
+          minlength="3"
+          maxlength="30"
+          [(ngModel)]="model.classroom"
+          name="classroom"
+          #classroom="ngModel"
+        />
+        <div
+          *ngIf="classroom.invalid && (classroom.dirty || classroom.touched)"
+          class="alert alert-danger"
+        >
           <div *ngIf="classroom.errors.required">
             A tanterem nevét meg kell adni.
           </div>
@@ -86,38 +136,79 @@
           <div *ngIf="classroom.errors.maxlength">
             A tanterem neve legfeljebb 30 karakter hoszzú lehet.
           </div>
-
         </div>
       </div>
     </div>
 
     <div class="form-group row">
-      <label for="startDate" class="col-sm-4 col-form-label">A kezdési idő:</label>
+      <label for="startDate" class="col-sm-4 col-form-label"
+        >A kezdési idő:</label
+      >
       <div class="col-sm-8">
-        <input class="form-control" type="text" id="startDate" required minlength="16" maxlength="16" [(ngModel)]="model.startDate"
-          name="startDate" #startDate="ngModel">
-        <div *ngIf="startDate.invalid && (startDate.dirty || startDate.touched)" class="alert alert-danger">
+        <input
+          class="form-control"
+          type="text"
+          id="startDate"
+          required
+          minlength="16"
+          maxlength="16"
+          [pattern]="dateTimePattern"
+          [(ngModel)]="model.startDate"
+          name="startDate"
+          #startDate="ngModel"
+        />
+        <div
+          *ngIf="startDate.invalid && (startDate.dirty || startDate.touched)"
+          class="alert alert-danger"
+        >
           <div *ngIf="startDate.errors.required">
             A kezdési időt meg kell adni.
           </div>
-          <div *ngIf="startDate.errors.minlength || startDate.errors.maxlength">
-            A kezdési időnek pontosan 16 karakter hosszúnak kell lennie (ÉÉÉÉ-MM-HH ÓÓ:PP).
+          <!--
+            <div *ngIf="startDate.errors.minlength || startDate.errors.maxlength">
+              A kezdési időnek pontosan 16 karakter hosszúnak kell lennie
+              (ÉÉÉÉ-MM-HH ÓÓ:PP).
+            </div>
+          -->
+          <div *ngIf="startDate.errors.pattern">
+            A kezdési idő nem megfelelő formátumú (ÉÉÉÉ-MM-HH ÓÓ:PP).
           </div>
         </div>
       </div>
     </div>
 
     <div class="form-group row">
-      <label for="endDate" class="col-sm-4 col-form-label">A befejezési idő:</label>
+      <label for="endDate" class="col-sm-4 col-form-label"
+        >A befejezési idő:</label
+      >
       <div class="col-sm-8">
-        <input class="form-control" type="text" id="endDate" required minlength="16" maxlength="16" [(ngModel)]="model.endDate"
-          name="endDate" #endDate="ngModel">
-        <div *ngIf="endDate.invalid && (endDate.dirty || endDate.touched)" class="alert alert-danger">
+        <input
+          class="form-control"
+          type="text"
+          id="endDate"
+          required
+          minlength="16"
+          maxlength="16"
+          [pattern]="dateTimePattern"
+          [(ngModel)]="model.endDate"
+          name="endDate"
+          #endDate="ngModel"
+        />
+        <div
+          *ngIf="endDate.invalid && (endDate.dirty || endDate.touched)"
+          class="alert alert-danger"
+        >
           <div *ngIf="endDate.errors.required">
             A befejezési időt meg kell adni.
           </div>
-          <div *ngIf="endDate.errors.minlength || endDate.errors.maxlength">
-            A befejezési időnek pontosan 16 karakter hosszúnak kell lennie (ÉÉÉÉ-MM-HH ÓÓ:PP).
+          <!--
+            <div *ngIf="endDate.errors.minlength || endDate.errors.maxlength">
+              A befejezési időnek pontosan 16 karakter hosszúnak kell lennie
+              (ÉÉÉÉ-MM-HH ÓÓ:PP).
+            </div>
+          -->
+          <div *ngIf="endDate.errors.pattern">
+            A befejezési idő nem megfelelő formátumú (ÉÉÉÉ-MM-HH ÓÓ:PP).
           </div>
         </div>
       </div>
@@ -125,14 +216,35 @@
 
     <div class="form-group">
       <label for="note">Megjegyzés:</label>
-      <textarea class="form-control" rows="5" id="note" [(ngModel)]="model.note" name="note" #name="ngModel"></textarea>
+      <textarea
+        class="form-control"
+        rows="5"
+        id="note"
+        [(ngModel)]="model.note"
+        name="note"
+        #name="ngModel"
+      ></textarea>
     </div>
 
     <div class="btn-padding">
-      <button type="submit" class="btn btn-success btn-space" [disabled]="!editEventReservationForm.form.valid">Módosítás</button>
-      <button type="button" class="btn btn-secondary btn-space" (click)="onDelete()" *ngIf="isAdmin">Törlés</button>
-      <button type="button" class="btn btn-danger btn-space" (click)="onExit()">Kilépés</button>
+      <button
+        type="submit"
+        class="btn btn-success btn-space"
+        [disabled]="!editEventReservationForm.form.valid"
+      >
+        Módosítás
+      </button>
+      <button
+        type="button"
+        class="btn btn-secondary btn-space"
+        (click)="onDelete()"
+        *ngIf="isAdmin"
+      >
+        Törlés
+      </button>
+      <button type="button" class="btn btn-danger btn-space" (click)="onExit()">
+        Kilépés
+      </button>
     </div>
-
   </form>
 </div>

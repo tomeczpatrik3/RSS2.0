@@ -6,6 +6,7 @@ import { DialogService } from "../../../../shared/services/dialog.service";
 import { ErrorDialogComponent } from "../../../../shared/components/dialogs/error-dialog/error-dialog.component";
 import { AuthService } from "../../../../shared/services/auth.service";
 import { Authorities } from "../../../../shared/config/authoritites.config";
+import { patterns } from "../../../../shared/utils/patterns";
 
 @Component({
   selector: "app-edit-event-reservation-form",
@@ -25,6 +26,9 @@ export class EditEventReservationFormComponent implements OnInit {
 
   /*A foglalás*/
   model: EventReservation;
+
+  /*DateTime pattern */
+  dateTimePattern: string = patterns.dateTime;
 
   constructor(
     private eventReservationService: EventReservationsDataService,

@@ -1,0 +1,103 @@
+newman
+
+SemesterTest
+
+→ getAll()
+  GET http://localhost:8080/api/semester/getAll [200 OK, 703B, 38ms]
+  √  A státusz kód 200
+  √  A tartalom típusa
+  √  A szemeszterek száma
+  √  A lista tartalmazza a 2017-2018/1-t
+  √  A lista tartalmazza a 2017-2018/2-t
+  √  A lista tartalmazza a 2016-2017/2-t
+  √  A lista tartalmazza a 2015-2016/2-t
+
+→ getSemesterNames()
+  GET http://localhost:8080/api/semester/getSemesterNames/ [200 OK, 383B, 15ms]
+  √  A státusz kód 200
+  √  A tartalom típusa
+  √  A szemeszterek neveinek száma
+  √  A lista tartalmazza a 2017-2018/1-t
+  √  A lista tartalmazza a 2017-2018/2-t
+  √  A lista tartalmazza a 2016-2017/2-t
+  √  A lista tartalmazza a 2015-2016/2-t
+
+→ findByName()
+  GET http://localhost:8080/api/semester/findByName?name=2016-2017/1 [200 OK, 389B, 18ms]
+  √  A státusz kód 200
+  √  A tartalom típusa
+  √  Az szemeszter neve
+  √  Az szemeszter kezdete
+  √  Az szemeszter vége
+
+→ findById()
+  GET http://localhost:8080/api/semester/findById/1 [200 OK, 389B, 17ms]
+  √  A státusz kód 200
+  √  A tartalom típusa
+  √  Az szemeszter neve
+  √  Az szemeszter kezdete
+  √  Az szemeszter vége
+
+→ existsById (TRUE)
+  GET http://localhost:8080/api/semester/existsById?id=1 [200 OK, 316B, 16ms]
+  √  A státusz kód 200
+  √  A tartalom típusa
+  √  A visszatérési érték
+
+→ existsById (FALSE)
+  GET http://localhost:8080/api/semester/existsById?id=9999 [200 OK, 317B, 11ms]
+  √  A státusz kód 200
+  √  A tartalom típusa
+  √  A visszatérési érték
+
+→ existsByName (TRUE)
+  GET http://localhost:8080/api/semester/existsByName?name=2017-2018/2 [200 OK, 316B, 15ms]
+  √  A státusz kód 200
+  √  A tartalom típusa
+  √  A visszatérési érték
+
+→ existsByName (FALSE)
+  GET http://localhost:8080/api/semester/existsByName?name=NEM LETEZIK [200 OK, 317B, 11ms]
+  √  A státusz kód 200
+  √  A tartalom típusa
+  √  A visszatérési érték
+
+→ createSemester()
+  POST http://localhost:8080/api/semester/createSemester/ [201 Created, 431B, 44ms]
+  √  A státusz kód 201
+  √  A tartalom típusa
+  √  A létrehozott szemeszter neve
+  √  A létrehozott szemeszter kezdeti dátuma
+  √  A létrehozott szemeszter befejezési dátuma
+
+→ update()
+  PUT http://localhost:8080/api/semester/update/6 [201 Created, 431B, 36ms]
+  √  A státusz kód 200
+  √  A tartalom típusa
+  √  A szemeszter neve
+  √  A szemeszter kezdeti dátuma
+  √  A szemeszter befejezési dátuma
+
+→ deleteByName()
+  DELETE http://localhost:8080/api/semester/deleteByName?name=2012-2013/1 [200 OK, 257B, 31ms]
+  √  A státusz kód 200
+
+┌─────────────────────────┬──────────┬──────────┐
+│                         │ executed │   failed │
+├─────────────────────────┼──────────┼──────────┤
+│              iterations │        1 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│                requests │       11 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│            test-scripts │       11 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│      prerequest-scripts │        0 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│              assertions │       47 │        0 │
+├─────────────────────────┴──────────┴──────────┤
+│ total run duration: 524ms                     │
+├───────────────────────────────────────────────┤
+│ total data received: 862B (approx)            │
+├───────────────────────────────────────────────┤
+│ average response time: 22ms                   │
+└───────────────────────────────────────────────┘
