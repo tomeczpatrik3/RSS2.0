@@ -225,8 +225,7 @@ describe("EventReservationApiService", () => {
 
       const req = httpMock.expectOne(
         ApiEndpoints.getUrl(ApiEndpoints.EVENT_RESERVATION_FIND_BY_NAME) +
-          "/" +
-          testReservations[0].name
+          `?name=${testReservations[0].name}`
       );
       expect(req.request.method).toBe("GET");
       req.flush(testReservations[0]);
@@ -248,8 +247,7 @@ describe("EventReservationApiService", () => {
 
       const req = httpMock.expectOne(
         ApiEndpoints.getUrl(ApiEndpoints.EVENT_RESERVATION_FIND_BY_NAME) +
-          "/" +
-          testReservations[0].name
+          `?name=${testReservations[0].name}`
       );
       req.flush(errorMsg, { status: 404, statusText: "Not found" });
     });

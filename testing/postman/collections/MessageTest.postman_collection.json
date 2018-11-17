@@ -1,0 +1,567 @@
+{
+	"info": {
+		"_postman_id": "6278f3ba-df47-4e23-8b78-af5fe6544697",
+		"name": "MessageTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ad65cd3b-c763-4a62-a3c9-232235538dad",
+						"exec": [
+							"/*A token beállítása*/",
+							"postman.setEnvironmentVariable(\"token\", postman.getResponseHeader(\"Authorization\").split(\" \")[1]);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"admin\",\n\t\"password\": \"admin\"\n}"
+				},
+				"url": {
+					"raw": "{{api}}/user/login",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findOwnById()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2f417f87-faa1-4372-a245-8ae7f6c080e8",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A feladó\"] = data.sender === \"tesztJani\";",
+							"tests[\"A címzett\"] = data.recipient === \"admin\";",
+							"tests[\"Az üzenet\"] = data.message === \"Ez egy teszt üzenet Jánostól az adminisztrátor számára\";",
+							"tests[\"A státusz\"] = data.unread == false;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/message/findOwnById?id=4",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"message",
+						"findOwnById"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findBySender()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2f417f87-faa1-4372-a245-8ae7f6c080e8",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"Az üzenetek száma\"] = data.length == 2;",
+							"tests[\"A lista tartalmazza a 'Ez egy teszt üzenet Gábortól Jánosnak' szöveget\"] = (responseBody.has(\"Ez egy teszt üzenet Gábortól Jánosnak\"));",
+							"tests[\"A lista tartalmazza a 'Ez egy teszt üzenet Jánostól az adminisztrátor számára' szöveget\"] = (responseBody.has(\"Ez egy teszt üzenet Jánostól az adminisztrátor számára\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/message/findBySender?sender=tesztJani",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"message",
+						"findBySender"
+					],
+					"query": [
+						{
+							"key": "sender",
+							"value": "tesztJani"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findByRecipient()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2f417f87-faa1-4372-a245-8ae7f6c080e8",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"Az üzenetek száma\"] = data.length == 1;",
+							"tests[\"A lista tartalmazza a 'Ez egy teszt üzenet Jánostól Gábornak' szöveget\"] = (responseBody.has(\"Ez egy teszt üzenet Jánostól Gábornak\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/message/findByRecipient?recipient=tesztJani",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"message",
+						"findByRecipient"
+					],
+					"query": [
+						{
+							"key": "recipient",
+							"value": "tesztJani"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findOwnMessages()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2f417f87-faa1-4372-a245-8ae7f6c080e8",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"Az üzenetek száma\"] = data.length == 1;",
+							"tests[\"A lista tartalmazza a 'Ez egy teszt üzenet Jánostól az adminisztrátor számára' szöveget\"] = (responseBody.has(\"Ez egy teszt üzenet Jánostól az adminisztrátor számára\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/message/findOwnMessages",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"message",
+						"findOwnMessages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "generateSystemMessage(ACCEPT_MSG)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2f417f87-faa1-4372-a245-8ae7f6c080e8",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 201\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A létrehozott üzenet feladója\"] = data.sender === \"RENDSZERÜZENET\";",
+							"tests[\"A létrehozott üzenet címzettje\"] = data.recipient === \"admin\";",
+							"tests[\"A létrehozott üzenet tartalma\"] = data.message === \"Az alábbi azonosítóval rendelkező foglalás ELFOGADÁSRA került: 1\";",
+							"tests[\"A létrehozott üzenet státusza\"] = data.unread == true;",
+							"",
+							"postman.setEnvironmentVariable(\"id\", data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/message/generateSystemMessage?recipient=admin&reservationId=1&messageType=ACCEPT_MSG",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"message",
+						"generateSystemMessage"
+					],
+					"query": [
+						{
+							"key": "recipient",
+							"value": "admin"
+						},
+						{
+							"key": "reservationId",
+							"value": "1"
+						},
+						{
+							"key": "messageType",
+							"value": "ACCEPT_MSG"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "markOwnAsRead()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2f417f87-faa1-4372-a245-8ae7f6c080e8",
+						"exec": [
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/message/markOwnAsRead?id={{id}}",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"message",
+						"markOwnAsRead"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "markOwnAsUnread()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2f417f87-faa1-4372-a245-8ae7f6c080e8",
+						"exec": [
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/message/markOwnAsUnread?id={{id}}",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"message",
+						"markOwnAsUnread"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteOwnById",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0c1f5aba-b243-4a34-8f89-25fe7a7b0ff8",
+						"exec": [
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/message/deleteOwnById?id={{id}}",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"message",
+						"deleteOwnById"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sendMessage()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2f417f87-faa1-4372-a245-8ae7f6c080e8",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 201\"] = responseCode.code === 201;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A létrehozott üzenet feladója\"] = data.sender === \"admin\";",
+							"tests[\"A létrehozott üzenet címzettje\"] = data.recipient === \"admin\";",
+							"tests[\"A létrehozott üzenet tartalma\"] = data.message === \"teszt üzenet\";",
+							"tests[\"A létrehozott üzenet státusza\"] = data.unread == true;",
+							"",
+							"postman.setEnvironmentVariable(\"id\", data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"sender\": \"admin\",\n\t\"recipient\": \"admin\",\n\t\"message\": \"teszt üzenet\",\n\t\"unread\": true\n}"
+				},
+				"url": {
+					"raw": "{{api}}/message/sendMessage",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"message",
+						"sendMessage"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteOwnById",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0c1f5aba-b243-4a34-8f89-25fe7a7b0ff8",
+						"exec": [
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/message/deleteOwnById?id={{id}}",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"message",
+						"deleteOwnById"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

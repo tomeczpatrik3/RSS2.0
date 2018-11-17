@@ -1,11 +1,4 @@
-﻿/*
-A teszt inditása előtt:
-1: admin regisztrálása
-2: jogosultság kiosztása az adatbázisban
-3: tesztkörnyzete frissítése
-*/
-
-SET FOREIGN_KEY_CHECKS = 0; 
+﻿SET FOREIGN_KEY_CHECKS = 0; 
 
 TRUNCATE TABLE `roomreservationdb`.`users_authorities`;
 TRUNCATE TABLE `roomreservationdb`.`users`;
@@ -15,6 +8,9 @@ TRUNCATE TABLE `roomreservationdb`.`buildings`;
 TRUNCATE TABLE `roomreservationdb`.`semesters`;
 TRUNCATE TABLE `roomreservationdb`.`subjects`;
 TRUNCATE TABLE `roomreservationdb`.`statuses`;
+TRUNCATE TABLE `roomreservationdb`.`messages`;
+TRUNCATE TABLE `roomreservationdb`.`reservation_dates`;
+TRUNCATE TABLE `roomreservationdb`.`reservations`;
 
 INSERT INTO `roomreservationdb`.`statuses` (`id`, `message`, `name`) VALUES ('1', 'A foglalás elfogadva', 'ACCEPTED');
 INSERT INTO `roomreservationdb`.`statuses` (`id`, `message`, `name`) VALUES ('2', 'A foglalás ellenőrzés alatt', 'PENDING');
@@ -99,14 +95,23 @@ INSERT INTO `roomreservationdb`.`subjects` (`id`, `code`, `name`) VALUES ('24', 
 
 INSERT INTO `roomreservationdb`.`users` (`id`, `email`, `name`, `password`, `username`) VALUES ('1', 'testing1@testing.com',	'Teszt Gábor', 'itsOnlyATest', 'tesztGabi');
 INSERT INTO `roomreservationdb`.`users` (`id`, `email`, `name`, `password`, `username`) VALUES ('2', 'testing2@testing.com',	'Teszt János', 'itsOnlyATest', 'tesztJani');
+INSERT INTO `roomreservationdb`.`users` (`id`, `email`, `name`, `password`, `username`) VALUES ('3', 'admin@admin.com',	'admin', '$2a$10$FDir/QmrywMY6j1pvbKxau4rph7zWYkviwqvoRI4S1aja3ktxjiau', 'admin');
 
-INSERT INTO `roomreservationdb`.`reservations` (`reservation_type`, `id`, `note`, `name`, `classroom`, `status`, `user`, `semester`, `subject`) VALUES ('CLASS',1,'Analízis 1 EA foglalás','',13,1,1,1,1);
-INSERT INTO `roomreservationdb`.`reservations` (`reservation_type`, `id`, `note`, `name`, `classroom`, `status`, `user`, `semester`, `subject`) VALUES ('CLASS',2,'Analízis 2 Gyakorlat','',17,2,2,2,4);
-INSERT INTO `roomreservationdb`.`reservations` (`reservation_type`, `id`, `note`, `name`, `classroom`, `status`, `user`, `semester`, `subject`) VALUES ('CLASS',3,'Kémbiz','',7,3,2,2,10);
-INSERT INTO `roomreservationdb`.`reservations` (`reservation_type`, `id`, `note`, `name`, `classroom`, `status`, `user`, `semester`, `subject`) VALUES ('EVENT',4,'Ez egy teszt','Teszt esemény',11,1,1,null, null);
+INSERT INTO `roomreservationdb`.`users_authorities` (`user_id`, `authority_id`) VALUES (1, 1);
+INSERT INTO `roomreservationdb`.`users_authorities` (`user_id`, `authority_id`) VALUES (2, 1);
+INSERT INTO `roomreservationdb`.`users_authorities` (`user_id`, `authority_id`) VALUES (3, 1);
+INSERT INTO `roomreservationdb`.`users_authorities` (`user_id`, `authority_id`) VALUES (3, 2);
+
+INSERT INTO `roomreservationdb`.`reservations` (`reservation_type`, `id`, `note`, `name`, `classroom`, `status`, `user`, `semester`, `subject`) VALUES ('CLASS',1,'Analízis 1 EA foglalás','',13,1,1,4,1);
+INSERT INTO `roomreservationdb`.`reservations` (`reservation_type`, `id`, `note`, `name`, `classroom`, `status`, `user`, `semester`, `subject`) VALUES ('CLASS',2,'Analízis 2 Gyakorlat','',17,2,2,4,4);
+INSERT INTO `roomreservationdb`.`reservations` (`reservation_type`, `id`, `note`, `name`, `classroom`, `status`, `user`, `semester`, `subject`) VALUES ('CLASS',3,'Kémbiz','',7,3,2,3,10);
+INSERT INTO `roomreservationdb`.`reservations` (`reservation_type`, `id`, `note`, `name`, `classroom`, `status`, `user`, `semester`, `subject`) VALUES ('EVENT',4,'Ez egy teszt esemény','BSc Záróvizsga',2,1,1,null, null);
+INSERT INTO `roomreservationdb`.`reservations` (`reservation_type`, `id`, `note`, `name`, `classroom`, `status`, `user`, `semester`, `subject`) VALUES ('EVENT',5,'Ez egy teszt esemény','Diplomaosztó',5,2,2,null, null);
+INSERT INTO `roomreservationdb`.`reservations` (`reservation_type`, `id`, `note`, `name`, `classroom`, `status`, `user`, `semester`, `subject`) VALUES ('EVENT',6,'Ez egy teszt esemény','Vendégelőadás',14,3,1,null, null);
 
 INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (1,'2018-10-01 11:45:00','2018-10-01 10:15:00',1);
 INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (2,'2018-10-02 21:00:00','2018-10-02 19:45:00',2);
+
 INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (3,'2018-02-09 14:00:00','2018-02-09 10:15:00',3);
 INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (4,'2018-02-16 14:00:00','2018-02-16 10:15:00',3);
 INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (5,'2018-02-23 14:00:00','2018-02-23 10:15:00',3);
@@ -137,6 +142,14 @@ INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `rese
 INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (30,'2018-08-17 14:00:00','2018-08-17 10:15:00',3);
 INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (31,'2018-08-24 14:00:00','2018-08-24 10:15:00',3);
 INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (32,'2018-08-31 14:00:00','2018-08-31 10:15:00',3);
-INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (33,'2018-10-04 19:00:00','2018-10-04 17:45:00',4);
+
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (33,'2019-01-04 08:30:00','2019-01-04 16:30:00',4);
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (34,'2019-01-25 12:00:00','2019-01-25 14:00:00',5);
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (35,'2019-01-25 12:00:00','2019-01-25 13:00:00',6);
+
+INSERT INTO `roomreservationdb`.`messages` (`id`, `message`, `unread`, `recipient`, `sender`) VALUES (1,'Ez egy teszt üzenet Gábortól Jánosnak',true,1,2);
+INSERT INTO `roomreservationdb`.`messages` (`id`, `message`, `unread`, `recipient`, `sender`) VALUES (2,'Ez egy teszt üzenet Jánostól Gábornak',false,2,1);
+INSERT INTO `roomreservationdb`.`messages` (`id`, `message`, `unread`, `recipient`, `sender`) VALUES (3,'Ez egy teszt rendszerüzenet',false,1,null);
+INSERT INTO `roomreservationdb`.`messages` (`id`, `message`, `unread`, `recipient`, `sender`) VALUES (4,'Ez egy teszt üzenet Jánostól az adminisztrátor számára',false,3,2);
 
 SET FOREIGN_KEY_CHECKS = 1; 

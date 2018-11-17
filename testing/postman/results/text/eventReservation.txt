@@ -2,30 +2,38 @@ newman
 
 EventReservationTest
 
+→ login()
+  POST http://localhost:8080/api/user/login [200 OK, 487B, 109ms]
+
 → getAccepted()
-  GET http://localhost:8080/api/eventReservation/getAccepted [200 OK, 533B, 38ms]
+  GET http://localhost:8080/api/eventReservation/getAccepted [200 OK, 553B, 74ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A foglalások száma
   √  A lista tartalmazza a 'tesztGabi'-t
   √  A lista tartalmazza az 'DÉLI'-t
-  √  A lista tartalmazza a 'Gallai Tibor terem'-t
+  √  A lista tartalmazza a 'Mogyoródi József előadó'-t
 
 → getPending()
-  GET http://localhost:8080/api/eventReservation/getPending [200 OK, 314B, 10ms]
+  GET http://localhost:8080/api/eventReservation/getPending [200 OK, 543B, 2ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A foglalások száma
+  √  A lista tartalmazza a 'tesztJani'-t
+  √  A lista tartalmazza az 'DÉLI'-t
+  √  A lista tartalmazza a 'Lóczy Lajos előadó'-t
 
 → getNames()
-  GET http://localhost:8080/api/eventReservation/getNames [200 OK, 330B, 13ms]
+  GET http://localhost:8080/api/eventReservation/getNames [200 OK, 367B, 15ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A foglalások száma
-  √  Az egyetlen foglalás neve
+  √  Van 'BSc Záróvizsga' nevű foglalás
+  √  Van 'Diplomaosztó' nevű foglalás
+  √  Van 'Vendégelőadás' nevű foglalás
 
 → findById()
-  GET http://localhost:8080/api/eventReservation/findById?id=4 [200 OK, 531B, 15ms]
+  GET http://localhost:8080/api/eventReservation/findById?id=4 [200 OK, 551B, 21ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A foglalás azonosítója
@@ -34,28 +42,28 @@ EventReservationTest
   √  A tanterem
 
 → findByUsername()
-  GET http://localhost:8080/api/eventReservation/findByUsername/tesztGabi [200 OK, 533B, 18ms]
+  GET http://localhost:8080/api/eventReservation/findByUsername/tesztGabi [200 OK, 780B, 0ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A foglalások száma
-  √  A lista tartalmazza a 'tesztJani'-t
+  √  A lista tartalmazza a 'tesztGabi'-t
 
 → findByStatus()
-  GET http://localhost:8080/api/eventReservation/findByStatus/DECLINED [200 OK, 314B, 12ms]
+  GET http://localhost:8080/api/eventReservation/findByStatus/DECLINED [200 OK, 540B, 30ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A foglalások száma
 
 → findByBuildingAndClassroom()
-  GET http://localhost:8080/api/eventReservation/findByBuildingAndClassroom?building=DÉLI&classroom=Gallai Tibor terem [200 OK, 533B, 17ms]
+  GET http://localhost:8080/api/eventReservation/findByBuildingAndClassroom?building=DÉLI&classroom=Mogyoródi József előadó [200 OK, 553B, 31ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A foglalások száma
   √  A lista tartalmazza a 'DÉLI'-t
-  √  A lista tartalmazza a 'Gallai Tibor terem'-t
+  √  A lista tartalmazza a 'Mogyoródi József előadó'-t
 
 → findByName()
-  GET http://localhost:8080/api/eventReservation/findByName/Teszt esemeny [200 OK, 531B, 14ms]
+  GET http://localhost:8080/api/eventReservation/findByName?name=Diplomaosztó [200 OK, 541B, 15ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  Az esemény neve
@@ -63,46 +71,41 @@ EventReservationTest
   √  Az épület
   √  A tanterem
 
-→ setStatus(ACCEPTED)
-  GET http://localhost:8080/api/eventReservation/setStatus?id=4&status=DECLINED [200 OK, 531B, 15ms]
+→ setStatus(DECLINED)
+  GET http://localhost:8080/api/eventReservation/setStatus?id=4&status=DECLINED [200 OK, 551B, 125ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A foglalás azonosítója
   √  A foglalás státusza
 
 → setStatus(PENDING)
-  GET http://localhost:8080/api/eventReservation/setStatus?id=4&status=PENDING [200 OK, 530B, 13ms]
+  GET http://localhost:8080/api/eventReservation/setStatus?id=4&status=PENDING [200 OK, 550B, 96ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A foglalás azonosítója
   √  A foglalás státusza
 
-→ existsById (TRUE)
-  GET http://localhost:8080/api/eventReservation/existsById?id=4 [200 OK, 316B, 11ms]
+→ setStatus(ACCEPTED)
+  GET http://localhost:8080/api/eventReservation/setStatus?id=4&status=ACCEPTED [200 OK, 551B, 73ms]
   √  A státusz kód 200
   √  A tartalom típusa
-  √  A visszatérési érték
+  √  A foglalás azonosítója
+  √  A foglalás státusza
 
 → existsById (FALSE)
-  GET http://localhost:8080/api/eventReservation/existsById?id=9999 [200 OK, 317B, 9ms]
-  √  A státusz kód 200
-  √  A tartalom típusa
-  √  A visszatérési érték
-
-→ existsByName (TRUE)
-  GET http://localhost:8080/api/eventReservation/existsByName?name=Teszt esemény [200 OK, 316B, 9ms]
+  GET http://localhost:8080/api/eventReservation/existsById?id=9999 [200 OK, 317B, 0ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A visszatérési érték
 
 → existsByName (FALSE)
-  GET http://localhost:8080/api/eventReservation/existsByName?name=teszt [200 OK, 317B, 10ms]
+  GET http://localhost:8080/api/eventReservation/existsByName?name=teszt [200 OK, 317B, 36ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A visszatérési érték
 
 → createReservation()
-  POST http://localhost:8080/api/eventReservation/createReservation [201 Created, 540B, 72ms]
+  POST http://localhost:8080/api/eventReservation/createReservation [201 Created, 536B, 203ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A foglaló személy
@@ -114,8 +117,20 @@ EventReservationTest
   √  A befejezési dátum
   √  Az esemény neve
 
+→ existsById (TRUE)
+  GET http://localhost:8080/api/eventReservation/existsById?id=8 [200 OK, 316B, 0ms]
+  √  A státusz kód 200
+  √  A tartalom típusa
+  √  A visszatérési érték
+
+→ existsByName (TRUE)
+  GET http://localhost:8080/api/eventReservation/existsByName?name=Egy foglalás Janinak [200 OK, 316B, 15ms]
+  √  A státusz kód 200
+  √  A tartalom típusa
+  √  A visszatérési érték
+
 → update()
-  PUT http://localhost:8080/api/eventReservation/update/6 [201 Created, 544B, 89ms]
+  PUT http://localhost:8080/api/eventReservation/update/8 [201 Created, 544B, 266ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A foglaló személy
@@ -128,23 +143,7 @@ EventReservationTest
   √  Az esemény neve
 
 → deleteById()
-  DELETE http://localhost:8080/api/eventReservation/deleteById?id=6 [200 OK, 257B, 48ms]
-  √  A státusz kód 200
-
-→ deleteByUsername()
-  DELETE http://localhost:8080/api/eventReservation/deleteByUsername?username=tesztJani [200 OK, 257B, 16ms]
-  √  A státusz kód 200
-
-→ deleteByBuildingAndClassroom()
-  DELETE http://localhost:8080/api/classReservation/deleteByBuildingAndClassroom?building=ÉSZAKI&classroom=7.33 [200 OK, 257B, 15ms]
-  √  A státusz kód 200
-
-→ deleteByName()
-  DELETE http://localhost:8080/api/eventReservation/deleteByName?name=Teszt esemény [200 OK, 257B, 65ms]
-  √  A státusz kód 200
-
-→ deleteByStatus()
-  DELETE http://localhost:8080/api/eventReservation/deleteByStatus?status=DECLINED [200 OK, 257B, 17ms]
+  DELETE http://localhost:8080/api/eventReservation/deleteById?id=8 [200 OK, 257B, 67ms]
   √  A státusz kód 200
 
 ┌─────────────────────────┬──────────┬──────────┐
@@ -152,17 +151,17 @@ EventReservationTest
 ├─────────────────────────┼──────────┼──────────┤
 │              iterations │        1 │        0 │
 ├─────────────────────────┼──────────┼──────────┤
-│                requests │       21 │        0 │
+│                requests │       19 │        0 │
 ├─────────────────────────┼──────────┼──────────┤
-│            test-scripts │       21 │        0 │
+│            test-scripts │       19 │        0 │
 ├─────────────────────────┼──────────┼──────────┤
-│      prerequest-scripts │        0 │        0 │
+│      prerequest-scripts │        1 │        0 │
 ├─────────────────────────┼──────────┼──────────┤
-│              assertions │       82 │        0 │
+│              assertions │       87 │        0 │
 ├─────────────────────────┴──────────┴──────────┤
-│ total run duration: 1005ms                    │
+│ total run duration: 2.8s                      │
 ├───────────────────────────────────────────────┤
-│ total data received: 1.98KB (approx)          │
+│ total data received: 3.04KB (approx)          │
 ├───────────────────────────────────────────────┤
-│ average response time: 25ms                   │
+│ average response time: 70ms                   │
 └───────────────────────────────────────────────┘

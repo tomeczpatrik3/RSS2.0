@@ -1,10 +1,55 @@
 {
 	"info": {
-		"_postman_id": "a8ef2d83-4e2c-47ac-b4b0-c05c39f35087",
+		"_postman_id": "33cdb50e-f21d-4df8-b93e-253382143eff",
 		"name": "ClassroomTest",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
+		{
+			"name": "login()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ad65cd3b-c763-4a62-a3c9-232235538dad",
+						"exec": [
+							"/*A token beállítása*/",
+							"postman.setEnvironmentVariable(\"token\", postman.getResponseHeader(\"Authorization\").split(\" \")[1]);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"admin\",\n\t\"password\": \"admin\"\n}"
+				},
+				"url": {
+					"raw": "{{api}}/user/login",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
 		{
 			"name": "getAll()",
 			"event": [
@@ -840,7 +885,6 @@
 					"listen": "test",
 					"script": {
 						"id": "2c69df80-08d1-42a2-81dd-4eb364b8b3da",
-						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
 							"",
@@ -851,8 +895,11 @@
 							"tests[\"A létrehozott tanteremben van-e PC\"] = data.hasPC === true;",
 							"tests[\"A létrehozott tanteremben van-e projektor\"] = data.hasProjector === false;",
 							"tests[\"A létrehozott tanteremben lévő székek száma\"] = data.chairs === 99;",
-							"tests[\"Az épület amiben a létrehozott tanterem található\"] = data.building === \"DÉLI\";"
-						]
+							"tests[\"Az épület amiben a létrehozott tanterem található\"] = data.building === \"DÉLI\";",
+							"",
+							"postman.setEnvironmentVariable(\"id\", data.id);"
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -928,14 +975,14 @@
 					"raw": "{\n    \"name\": \"Teszt terem\",\n    \"hasPC\": false,\n    \"hasProjector\": true,\n    \"chairs\": 50,\n    \"building\": \"DÉLI\"\n}"
 				},
 				"url": {
-					"raw": "{{api}}/classroom/update/35",
+					"raw": "{{api}}/classroom/update/{{id}}",
 					"host": [
 						"{{api}}"
 					],
 					"path": [
 						"classroom",
 						"update",
-						"35"
+						"{{id}}"
 					]
 				}
 			},

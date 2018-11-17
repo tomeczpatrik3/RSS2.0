@@ -142,7 +142,7 @@ public class MessageServiceImplTest {
      */
     @Test
     public void testSendMessage() throws UserNotExistsException {
-        Mockito.when(uService.findByUsername(TEST_MESSAGE_DTO.getSender())).thenReturn(TEST_USER_1);
+        Mockito.when(uService.getAuthenticatedUser()).thenReturn(TEST_USER_1);
         Mockito.when(uService.findByUsername(TEST_MESSAGE_DTO.getRecipient())).thenReturn(TEST_USER_2);
         Mockito.when(repository.save(
                 new Message(TEST_USER_1, TEST_USER_2, TEST_MESSAGE_DTO.getMessage()))
@@ -163,21 +163,8 @@ public class MessageServiceImplTest {
      * létezik
      */
     @Test(expected = UserNotExistsException.class)
-    public void testSendMessageExceptionOne() throws UserNotExistsException {
-        Mockito.when(uService.findByUsername(TEST_MESSAGE_DTO.getSender())).thenThrow(new UserNotExistsException("EX"));
-        service.sendMessage(TEST_MESSAGE_DTO);
-    }
-
-    /**
-     * Az üzenetek küldésé közben nem létező felhasználó kivétel kiváltásának
-     * tesztelésére szolgáló függvény
-     *
-     * @throws UserNotExistsException A lehetséges kivétel, ha a felhasználó nem
-     * létezik
-     */
-    @Test(expected = UserNotExistsException.class)
-    public void testSendMessageExceptionTwo() throws UserNotExistsException {
-        Mockito.when(uService.findByUsername(TEST_MESSAGE_DTO.getSender())).thenReturn(TEST_USER_1);
+    public void testSendMessageException() throws UserNotExistsException {
+        Mockito.when(uService.getAuthenticatedUser()).thenReturn(TEST_USER_1);
         Mockito.when(uService.findByUsername(TEST_MESSAGE_DTO.getRecipient())).thenThrow(new UserNotExistsException("EX"));
         service.sendMessage(TEST_MESSAGE_DTO);
     }

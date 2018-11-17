@@ -111,8 +111,7 @@ export class EventReservationApiService {
     return <Observable<EventReservation>>(
       this.http.get(
         ApiEndpoints.getUrl(ApiEndpoints.EVENT_RESERVATION_FIND_BY_NAME) +
-          "/" +
-          name
+         `?name=${name}`
       )
     );
   }

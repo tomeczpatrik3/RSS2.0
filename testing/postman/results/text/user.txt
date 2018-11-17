@@ -2,8 +2,11 @@ newman
 
 UserTest
 
+→ login()
+  POST http://localhost:8080/api/user/login [200 OK, 487B, 78ms]
+
 → getAll()
-  GET http://localhost:8080/api/user/getAll [200 OK, 616B, 29ms]
+  GET http://localhost:8080/api/user/getAll [200 OK, 612B, 31ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A felhasználók száma
@@ -11,7 +14,7 @@ UserTest
   √  A lista tartalmazza a Teszt János-t
 
 → getNames()
-  GET http://localhost:8080/api/user/getNames [200 OK, 353B, 15ms]
+  GET http://localhost:8080/api/user/getNames [200 OK, 351B, 15ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A felhasználók neveinek száma
@@ -19,13 +22,13 @@ UserTest
   √  A lista tartalmazza a Teszt János-t
 
 → getName()
-  GET http://localhost:8080/api/user/getName?username=tesztJani [200 OK, 335B, 13ms]
+  GET http://localhost:8080/api/user/getName?username=tesztJani [200 OK, 335B, 0ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A felhasználó teljes neve
 
 → findById()
-  GET http://localhost:8080/api/user/findById/1 [200 OK, 416B, 15ms]
+  GET http://localhost:8080/api/user/findById/1 [200 OK, 416B, 16ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A felhasználó felhasználóneve
@@ -33,7 +36,7 @@ UserTest
   √  A felhasználó e-mail címe
 
 → findByUsername()
-  GET http://localhost:8080/api/user/findByUsername?username=tesztGabi [200 OK, 416B, 15ms]
+  GET http://localhost:8080/api/user/findByUsername?username=tesztGabi [200 OK, 416B, 16ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A felhasználó felhasználóneve
@@ -41,7 +44,7 @@ UserTest
   √  A felhasználó e-mail címe
 
 → findByName()
-  GET http://localhost:8080/api/user/findByName?name=Teszt János [200 OK, 418B, 16ms]
+  GET http://localhost:8080/api/user/findByName?name=Teszt János [200 OK, 418B, 10ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A felhasználók száma
@@ -56,37 +59,37 @@ UserTest
   √  A visszatérési érték
 
 → existsById (FALSE)
-  GET http://localhost:8080/api/user/existsById?id=9999 [200 OK, 317B, 13ms]
+  GET http://localhost:8080/api/user/existsById?id=9999 [200 OK, 317B, 16ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A visszatérési érték
 
 → existsByUsername (TRUE)
-  GET http://localhost:8080/api/user/existsByUsername?username=tesztJani [200 OK, 316B, 12ms]
+  GET http://localhost:8080/api/user/existsByUsername?username=tesztJani [200 OK, 316B, 16ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A visszatérési érték
 
 → existsByUsername (FALSE)
-  GET http://localhost:8080/api/user/existsByUsername?username=ilyen nem létezik [200 OK, 317B, 11ms]
+  GET http://localhost:8080/api/user/existsByUsername?username=ilyen nem létezik [200 OK, 317B, 0ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A visszatérési érték
 
 → existsByEmail (TRUE)
-  GET http://localhost:8080/api/user/existsByEmail?email=testing1@testing.com [200 OK, 316B, 13ms]
+  GET http://localhost:8080/api/user/existsByEmail?email=testing1@testing.com [200 OK, 316B, 15ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A visszatérési érték
 
 → existsByEmail (FALSE)
-  GET http://localhost:8080/api/user/existsByEmail?email=nincsilyen@test.hu [200 OK, 317B, 12ms]
+  GET http://localhost:8080/api/user/existsByEmail?email=nincsilyen@test.hu [200 OK, 317B, 15ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A visszatérési érték
 
 → createUser()
-  POST http://localhost:8080/api/user/createUser [201 Created, 410B, 181ms]
+  POST http://localhost:8080/api/user/createUser [201 Created, 411B, 313ms]
   √  A státusz kód 201
   √  A tartalom típusa
   √  A létrehozott felhasználó felhasználóneve
@@ -94,7 +97,7 @@ UserTest
   √  A létrehozott felhasználó e-mail címe
 
 → update()
-  PUT http://localhost:8080/api/user/update/4 [201 Created, 417B, 45ms]
+  PUT http://localhost:8080/api/user/update/9 [201 Created, 417B, 235ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A felhasználó felhasználóneve
@@ -102,7 +105,7 @@ UserTest
   √  A felhasználó e-mail címe
 
 → deleteByUsername()
-  DELETE http://localhost:8080/api/user/deleteByUsername?username=testuser [200 OK, 257B, 80ms]
+  DELETE http://localhost:8080/api/user/deleteByUsername?username=testuser [200 OK, 257B, 94ms]
   √  A státusz kód 200
 
 ┌─────────────────────────┬──────────┬──────────┐
@@ -110,17 +113,17 @@ UserTest
 ├─────────────────────────┼──────────┼──────────┤
 │              iterations │        1 │        0 │
 ├─────────────────────────┼──────────┼──────────┤
-│                requests │       15 │        0 │
+│                requests │       16 │        0 │
 ├─────────────────────────┼──────────┼──────────┤
-│            test-scripts │       15 │        0 │
+│            test-scripts │       16 │        0 │
 ├─────────────────────────┼──────────┼──────────┤
 │      prerequest-scripts │        0 │        0 │
 ├─────────────────────────┼──────────┼──────────┤
 │              assertions │       58 │        0 │
 ├─────────────────────────┴──────────┴──────────┤
-│ total run duration: 833ms                     │
+│ total run duration: 2.5s                      │
 ├───────────────────────────────────────────────┤
-│ total data received: 902B (approx)            │
+│ total data received: 897B (approx)            │
 ├───────────────────────────────────────────────┤
-│ average response time: 32ms                   │
+│ average response time: 59ms                   │
 └───────────────────────────────────────────────┘

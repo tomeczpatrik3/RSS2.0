@@ -56,6 +56,7 @@ public class ReservationInfoDTO {
         this.name = name;
         this.building = building;
         this.classroom = classroom;
+        this.note = note;
     }
 
     /**

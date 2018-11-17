@@ -68,11 +68,11 @@ public class MessageServiceImpl implements MessageService {
      */
     @Override
     public Message sendMessage(MessageDTO messageDTO) throws UserNotExistsException {
-        if (messageDTO.getRecipient() == null || messageDTO.getSender() == null) {
+        if (messageDTO.getRecipient() == null || userService.getAuthenticatedUser() == null) {
             throw new UserNotExistsException("-");
         } else {
             return messageRepository.save(new Message(
-                    userService.findByUsername(messageDTO.getSender()),
+                    userService.getAuthenticatedUser(),
                     userService.findByUsername(messageDTO.getRecipient()),
                     messageDTO.getMessage())
             );

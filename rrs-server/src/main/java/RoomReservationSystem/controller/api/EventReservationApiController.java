@@ -174,8 +174,8 @@ public class EventReservationApiController extends ReservationApiController {
      * @return A megfelelő foglalás
      */
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    @GetMapping("/findByName/{name}")
-    public ResponseEntity findByName(@PathVariable String name) {
+    @GetMapping("/findByName")
+    public ResponseEntity findByName(@RequestParam(value = "name", required = true) String name) {
         try {
             return ResponseEntity.ok(toEventReservationDTO(eventService.findByName(name)));
         } catch (EventReservationNotExistsException | NullPointerException ex) {

@@ -1,10 +1,55 @@
 {
 	"info": {
-		"_postman_id": "7773defc-3e8a-4b50-b8fa-e966e917edde",
+		"_postman_id": "cc41c663-7876-4eeb-91cc-a0291e95bfa0",
 		"name": "EventReservationTest",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
+		{
+			"name": "login()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ad65cd3b-c763-4a62-a3c9-232235538dad",
+						"exec": [
+							"/*A token beállítása*/",
+							"postman.setEnvironmentVariable(\"token\", postman.getResponseHeader(\"Authorization\").split(\" \")[1]);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"admin\",\n\t\"password\": \"admin\"\n}"
+				},
+				"url": {
+					"raw": "{{api}}/user/login",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
 		{
 			"name": "getAccepted()",
 			"event": [
@@ -21,7 +66,7 @@
 							"tests[\"A foglalások száma\"] = data.length === 1;",
 							"tests[\"A lista tartalmazza a 'tesztGabi'-t\"] = (responseBody.has(\"tesztGabi\"));",
 							"tests[\"A lista tartalmazza az 'DÉLI'-t\"] = (responseBody.has(\"DÉLI\"));",
-							"tests[\"A lista tartalmazza a 'Gallai Tibor terem'-t\"] = (responseBody.has(\"Gallai Tibor terem\"));"
+							"tests[\"A lista tartalmazza a 'Mogyoródi József előadó'-t\"] = (responseBody.has(\"Mogyoródi József előadó\"));"
 						],
 						"type": "text/javascript"
 					}
@@ -66,7 +111,12 @@
 							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
 							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
 							"",
-							"tests[\"A foglalások száma\"] = data.length === 0;"
+							"tests[\"A foglalások száma\"] = data.length === 1;",
+							"",
+							"tests[\"A foglalások száma\"] = data.length === 1;",
+							"tests[\"A lista tartalmazza a 'tesztJani'-t\"] = (responseBody.has(\"tesztJani\"));",
+							"tests[\"A lista tartalmazza az 'DÉLI'-t\"] = (responseBody.has(\"DÉLI\"));",
+							"tests[\"A lista tartalmazza a 'Lóczy Lajos előadó'-t\"] = (responseBody.has(\"Lóczy Lajos előadó\"));"
 						],
 						"type": "text/javascript"
 					}
@@ -111,8 +161,11 @@
 							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
 							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
 							"",
-							"tests[\"A foglalások száma\"] = data.length === 1;",
-							"tests[\"Az egyetlen foglalás neve\"] = data[0] === \"Teszt esemény\";"
+							"tests[\"A foglalások száma\"] = data.length === 3;",
+							"tests[\"Van 'BSc Záróvizsga' nevű foglalás\"] = data.indexOf(\"BSc Záróvizsga\") > -1;",
+							"tests[\"Van 'Diplomaosztó' nevű foglalás\"] = data.indexOf(\"Diplomaosztó\") > -1;",
+							"tests[\"Van 'Vendégelőadás' nevű foglalás\"] = data.indexOf(\"Vendégelőadás\") > -1;",
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -160,7 +213,7 @@
 							"tests[\"A foglalás azonosítója\"] = data.id === 4;",
 							"tests[\"A foglaló személy\"] = data.username === \"tesztGabi\";",
 							"tests[\"Az épület\"] = data.building === \"DÉLI\";",
-							"tests[\"A tanterem\"] = data.classroom === \"Gallai Tibor terem\";"
+							"tests[\"A tanterem\"] = data.classroom === \"Mogyoródi József előadó\";"
 						],
 						"type": "text/javascript"
 					}
@@ -211,8 +264,8 @@
 							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
 							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
 							"",
-							"tests[\"A foglalások száma\"] = data.length === 1;",
-							"tests[\"A lista tartalmazza a 'tesztJani'-t\"] = (responseBody.has(\"tesztGabi\"));"
+							"tests[\"A foglalások száma\"] = data.length === 2;",
+							"tests[\"A lista tartalmazza a 'tesztGabi'-t\"] = (responseBody.has(\"tesztGabi\"));"
 						],
 						"type": "text/javascript"
 					}
@@ -258,7 +311,7 @@
 							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
 							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
 							"",
-							"tests[\"A foglalások száma\"] = data.length === 0;"
+							"tests[\"A foglalások száma\"] = data.length === 1;"
 						],
 						"type": "text/javascript"
 					}
@@ -306,7 +359,7 @@
 							"",
 							"tests[\"A foglalások száma\"] = data.length === 1;",
 							"tests[\"A lista tartalmazza a 'DÉLI'-t\"] = (responseBody.has(\"DÉLI\"));",
-							"tests[\"A lista tartalmazza a 'Gallai Tibor terem'-t\"] = (responseBody.has(\"Gallai Tibor terem\"));"
+							"tests[\"A lista tartalmazza a 'Mogyoródi József előadó'-t\"] = (responseBody.has(\"Mogyoródi József előadó\"));"
 						],
 						"type": "text/javascript"
 					}
@@ -326,7 +379,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{api}}/eventReservation/findByBuildingAndClassroom?building=DÉLI&classroom=Gallai Tibor terem",
+					"raw": "{{api}}/eventReservation/findByBuildingAndClassroom?building=DÉLI&classroom=Mogyoródi József előadó",
 					"host": [
 						"{{api}}"
 					],
@@ -341,7 +394,7 @@
 						},
 						{
 							"key": "classroom",
-							"value": "Gallai Tibor terem"
+							"value": "Mogyoródi József előadó"
 						}
 					]
 				}
@@ -361,10 +414,10 @@
 							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
 							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
 							"",
-							"tests[\"Az esemény neve\"] = data.name === \"Teszt esemény\";",
-							"tests[\"A foglalás személy\"] = data.username === \"tesztGabi\";",
+							"tests[\"Az esemény neve\"] = data.name === \"Diplomaosztó\";",
+							"tests[\"A foglalás személy\"] = data.username === \"tesztJani\";",
 							"tests[\"Az épület\"] = data.building === \"DÉLI\";",
-							"tests[\"A tanterem\"] = data.classroom === \"Gallai Tibor terem\";"
+							"tests[\"A tanterem\"] = data.classroom === \"Lóczy Lajos előadó\";"
 						],
 						"type": "text/javascript"
 					}
@@ -384,21 +437,26 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{api}}/eventReservation/findByName/Teszt esemeny",
+					"raw": "{{api}}/eventReservation/findByName?name=Diplomaosztó",
 					"host": [
 						"{{api}}"
 					],
 					"path": [
 						"eventReservation",
-						"findByName",
-						"Teszt esemeny"
+						"findByName"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Diplomaosztó"
+						}
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "setStatus(ACCEPTED)",
+			"name": "setStatus(DECLINED)",
 			"event": [
 				{
 					"listen": "test",
@@ -510,7 +568,7 @@
 			"response": []
 		},
 		{
-			"name": "existsById (TRUE)",
+			"name": "setStatus(ACCEPTED)",
 			"event": [
 				{
 					"listen": "test",
@@ -522,8 +580,8 @@
 							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
 							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
 							"",
-							"tests[\"A visszatérési érték\"] = data === true;",
-							""
+							"tests[\"A foglalás azonosítója\"] = data.id === 4;",
+							"tests[\"A foglalás státusza\"] = data.status === \"ACCEPTED\";"
 						],
 						"type": "text/javascript"
 					}
@@ -543,18 +601,22 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{api}}/eventReservation/existsById?id=4",
+					"raw": "{{api}}/eventReservation/setStatus?id=4&status=ACCEPTED",
 					"host": [
 						"{{api}}"
 					],
 					"path": [
 						"eventReservation",
-						"existsById"
+						"setStatus"
 					],
 					"query": [
 						{
 							"key": "id",
 							"value": "4"
+						},
+						{
+							"key": "status",
+							"value": "ACCEPTED"
 						}
 					]
 				}
@@ -607,58 +669,6 @@
 						{
 							"key": "id",
 							"value": "9999"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "existsByName (TRUE)",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "a465e9f7-6a54-468e-928f-2f06313e1bd7",
-						"exec": [
-							"var data = JSON.parse(responseBody);",
-							"",
-							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
-							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
-							"",
-							"tests[\"A visszatérési érték\"] = data === true;",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "Bearer {{token}}"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{api}}/eventReservation/existsByName?name=Teszt esemény",
-					"host": [
-						"{{api}}"
-					],
-					"path": [
-						"eventReservation",
-						"existsByName"
-					],
-					"query": [
-						{
-							"key": "name",
-							"value": "Teszt esemény"
 						}
 					]
 				}
@@ -730,7 +740,7 @@
 							"tests[\"A státusz kód 200\"] = responseCode.code === 201;",
 							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
 							"",
-							"tests[\"A foglaló személy\"] = data.username === \"tesztJani\";",
+							"tests[\"A foglaló személy\"] = data.username === \"admin\";",
 							"tests[\"Az épület\"] = data.building === \"DÉLI\";",
 							"tests[\"A tanterem\"] = data.classroom === \"Szabó József előadó\";",
 							"tests[\"A státusz\"] = data.status === \"PENDING\";",
@@ -738,7 +748,9 @@
 							"tests[\"A kezdési dátum\"] = data.startDate === \"2020-03-12 14:00:00.0\";",
 							"tests[\"A befejezési dátum\"] = data.endDate === \"2020-03-12 16:00:00.0\";",
 							"",
-							"tests[\"Az esemény neve\"] = data.name === \"Egy foglalás Janinak\";"
+							"tests[\"Az esemény neve\"] = data.name === \"Egy foglalás Janinak\";",
+							"",
+							"postman.setEnvironmentVariable(\"id\", data.id);"
 						],
 						"type": "text/javascript"
 					}
@@ -771,6 +783,110 @@
 					"path": [
 						"eventReservation",
 						"createReservation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "existsById (TRUE)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a465e9f7-6a54-468e-928f-2f06313e1bd7",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A visszatérési érték\"] = data === true;",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/eventReservation/existsById?id={{id}}",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"eventReservation",
+						"existsById"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "existsByName (TRUE)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a465e9f7-6a54-468e-928f-2f06313e1bd7",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A visszatérési érték\"] = data === true;",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/eventReservation/existsByName?name=Egy foglalás Janinak",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"eventReservation",
+						"existsByName"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Egy foglalás Janinak"
+						}
 					]
 				}
 			},
@@ -824,14 +940,14 @@
 					"raw": "{\n\t\"username\": \"tesztGabi\",\n\t\"building\": \"ÉSZAKI\",\n\t\"classroom\": \"Eötvös terem\",\n\t\"status\": \"PENDING\",\n\t\"note\": \"Második teszt\",\n\t\"name\": \"Második teszt esemény\",\n\t\"startDate\": \"2020-10-12 14:00\",\n\t\"endDate\": \"2020-10-12 16:00\"\n}"
 				},
 				"url": {
-					"raw": "{{api}}/eventReservation/update/6",
+					"raw": "{{api}}/eventReservation/update/{{id}}",
 					"host": [
 						"{{api}}"
 					],
 					"path": [
 						"eventReservation",
 						"update",
-						"6"
+						"{{id}}"
 					]
 				}
 			},
@@ -846,6 +962,18 @@
 						"id": "a465e9f7-6a54-468e-928f-2f06313e1bd7",
 						"exec": [
 							"tests[\"A státusz kód 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "500d5edd-11ac-47f6-97d5-94390f7d840b",
+						"exec": [
+							"if (postman.getEnvironmentVariable(\"executeDeletes\")=='false'){\r",
+							"    postman.setNextRequest(null);\r",
+							"}"
 						],
 						"type": "text/javascript"
 					}
@@ -871,7 +999,7 @@
 					"raw": "{\n\t\"username\": \"tesztGabi\",\n\t\"building\": \"ÉSZAKI\",\n\t\"classroom\": \"Eötvös terem\",\n\t\"status\": \"WHATEVER\",\n\t\"note\": \"Második teszt\",\n\t\"subjectCode\": \"szvetlen1k17ea\",\n\t\"semester\": \"2017-2018/1\",\n\t\"startDates\": [\"2017-10-12 14:00\"],\n\t\"endDates\": [\"2017-10-12 16:00\"]\n}"
 				},
 				"url": {
-					"raw": "{{api}}/eventReservation/deleteById?id=6",
+					"raw": "{{api}}/eventReservation/deleteById?id={{id}}",
 					"host": [
 						"{{api}}"
 					],
@@ -882,7 +1010,7 @@
 					"query": [
 						{
 							"key": "id",
-							"value": "6"
+							"value": "{{id}}"
 						}
 					]
 				}
@@ -898,6 +1026,16 @@
 						"id": "a465e9f7-6a54-468e-928f-2f06313e1bd7",
 						"exec": [
 							"tests[\"A státusz kód 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b609f19d-ebb7-4772-8995-1702045711ab",
+						"exec": [
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -950,6 +1088,16 @@
 						"id": "a465e9f7-6a54-468e-928f-2f06313e1bd7",
 						"exec": [
 							"tests[\"A státusz kód 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "971b2269-8775-42df-b16a-e06e531d251a",
+						"exec": [
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -1009,6 +1157,16 @@
 						],
 						"type": "text/javascript"
 					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "8bf2af0f-124b-4ef8-bf27-74236e6e26ab",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
 				}
 			],
 			"request": {
@@ -1031,7 +1189,7 @@
 					"raw": "{\n\t\"username\": \"tesztGabi\",\n\t\"building\": \"ÉSZAKI\",\n\t\"classroom\": \"Eötvös terem\",\n\t\"status\": \"WHATEVER\",\n\t\"note\": \"Második teszt\",\n\t\"subjectCode\": \"szvetlen1k17ea\",\n\t\"semester\": \"2017-2018/1\",\n\t\"startDates\": [\"2017-10-12 14:00\"],\n\t\"endDates\": [\"2017-10-12 16:00\"]\n}"
 				},
 				"url": {
-					"raw": "{{api}}/eventReservation/deleteByName?name=Teszt esemény",
+					"raw": "{{api}}/eventReservation/deleteByName?name=BSc Záróvizsga",
 					"host": [
 						"{{api}}"
 					],
@@ -1042,7 +1200,7 @@
 					"query": [
 						{
 							"key": "name",
-							"value": "Teszt esemény"
+							"value": "BSc Záróvizsga"
 						}
 					]
 				}
@@ -1058,6 +1216,16 @@
 						"id": "a465e9f7-6a54-468e-928f-2f06313e1bd7",
 						"exec": [
 							"tests[\"A státusz kód 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9463f6fd-b98f-4ee9-a5bf-45b66259eec7",
+						"exec": [
+							""
 						],
 						"type": "text/javascript"
 					}

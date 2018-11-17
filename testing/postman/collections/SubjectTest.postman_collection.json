@@ -1,10 +1,55 @@
 {
 	"info": {
-		"_postman_id": "eaa97744-a2a2-45c0-a1f0-80584ab6f870",
+		"_postman_id": "a9b5002d-e7b8-48d8-a048-ec3822e756e6",
 		"name": "SubjectTest",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
+		{
+			"name": "login()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ad65cd3b-c763-4a62-a3c9-232235538dad",
+						"exec": [
+							"/*A token beállítása*/",
+							"postman.setEnvironmentVariable(\"token\", postman.getResponseHeader(\"Authorization\").split(\" \")[1]);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"admin\",\n\t\"password\": \"admin\"\n}"
+				},
+				"url": {
+					"raw": "{{api}}/user/login",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
 		{
 			"name": "getAll()",
 			"event": [
@@ -396,7 +441,6 @@
 					"listen": "test",
 					"script": {
 						"id": "16685545-9b74-416f-8149-0631727195ab",
-						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
 							"",
@@ -404,8 +448,11 @@
 							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
 							"",
 							"tests[\"A létrehozott tantárgy neve\"] = data.name === \"Teszt tantárgy\";",
-							"tests[\"A létrehozott tantárgy kódja\"] = data.code === \"test01\";"
-						]
+							"tests[\"A létrehozott tantárgy kódja\"] = data.code === \"test01\";",
+							"",
+							"postman.setEnvironmentVariable(\"id\", data.id);"
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -476,14 +523,14 @@
 					"raw": "{\n\t\"name\": \"Teszt módosított tantárgy\",\n\t\"code\": \"test01\"\n}"
 				},
 				"url": {
-					"raw": "{{api}}/subject/update/25",
+					"raw": "{{api}}/subject/update/{{id}}",
 					"host": [
 						"{{api}}"
 					],
 					"path": [
 						"subject",
 						"update",
-						"25"
+						"{{id}}"
 					]
 				}
 			},

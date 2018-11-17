@@ -1,10 +1,55 @@
 {
 	"info": {
-		"_postman_id": "102cc29a-65e4-4512-b293-22ad23310dfb",
+		"_postman_id": "e26c4be2-7afb-4849-b085-7804cdef77ae",
 		"name": "BuildingTest",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
+		{
+			"name": "login()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ad65cd3b-c763-4a62-a3c9-232235538dad",
+						"exec": [
+							"/*A token beállítása*/",
+							"postman.setEnvironmentVariable(\"token\", postman.getResponseHeader(\"Authorization\").split(\" \")[1]);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"admin\",\n\t\"password\": \"admin\"\n}"
+				},
+				"url": {
+					"raw": "{{api}}/user/login",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
 		{
 			"name": "getAll()",
 			"event": [
@@ -394,15 +439,17 @@
 					"listen": "test",
 					"script": {
 						"id": "20061aaa-64a7-4ade-9a8e-8592e4beaa7a",
-						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
 							"",
 							"tests[\"A státusz kód 201\"] = responseCode.code === 201;",
 							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
 							"",
-							"tests[\"A létrehozott épület neve\"] = data.name === \"KELETI\";"
-						]
+							"tests[\"A létrehozott épület neve\"] = data.name === \"KELETI\";",
+							"",
+							"postman.setEnvironmentVariable(\"id\", data.id);"
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -475,14 +522,14 @@
 					"raw": "{\n\t\"name\": \"NYUGATI\"\n}"
 				},
 				"url": {
-					"raw": "{{api}}/building/update/3",
+					"raw": "{{api}}/building/update/{{id}}",
 					"host": [
 						"{{api}}"
 					],
 					"path": [
 						"building",
 						"update",
-						"3"
+						"{{id}}"
 					]
 				}
 			},

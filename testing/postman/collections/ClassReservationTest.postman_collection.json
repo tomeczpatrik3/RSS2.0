@@ -1,10 +1,55 @@
 {
 	"info": {
-		"_postman_id": "7e2d72ca-f500-4cee-944b-f583e78b9108",
+		"_postman_id": "e3ab5f03-14b1-4698-b3ff-8111f86b0d49",
 		"name": "ClassReservationTest",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
+		{
+			"name": "login()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ad65cd3b-c763-4a62-a3c9-232235538dad",
+						"exec": [
+							"/*A token beállítása*/",
+							"postman.setEnvironmentVariable(\"token\", postman.getResponseHeader(\"Authorization\").split(\" \")[1]);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"admin\",\n\t\"password\": \"admin\"\n}"
+				},
+				"url": {
+					"raw": "{{api}}/user/login",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
 		{
 			"name": "getAccepted()",
 			"event": [
@@ -374,7 +419,7 @@
 							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
 							"",
 							"tests[\"A foglalások száma\"] = data.length === 2;",
-							"tests[\"A lista tartalmazza a '2017-2018/2'-t\"] = (responseBody.has(\"2017-2018/2\"));"
+							"tests[\"A lista tartalmazza a '2018-2019/1'-t\"] = (responseBody.has(\"2018-2019/1\"));"
 						],
 						"type": "text/javascript"
 					}
@@ -394,7 +439,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{api}}/classReservation/findBySemester?semester=2017-2018/2",
+					"raw": "{{api}}/classReservation/findBySemester?semester=2018-2019/1",
 					"host": [
 						"{{api}}"
 					],
@@ -405,7 +450,7 @@
 					"query": [
 						{
 							"key": "semester",
-							"value": "2017-2018/2"
+							"value": "2018-2019/1"
 						}
 					]
 				}
@@ -462,6 +507,62 @@
 						{
 							"key": "status",
 							"value": "ACCEPTED"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "setStatus(DECLINED)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a465e9f7-6a54-468e-928f-2f06313e1bd7",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"A státusz kód 200\"] = responseCode.code === 200;",
+							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
+							"",
+							"tests[\"A foglalás azonosítója\"] = data.id === 2;",
+							"tests[\"A foglalás státusza\"] = data.status === \"DECLINED\";"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/classReservation/setStatus?id=2&status=DECLINED",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"classReservation",
+						"setStatus"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "2"
+						},
+						{
+							"key": "status",
+							"value": "DECLINED"
 						}
 					]
 				}
@@ -641,16 +742,18 @@
 							"tests[\"A státusz kód 200\"] = responseCode.code === 201;",
 							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
 							"",
-							"tests[\"A foglaló személy\"] = data.username === \"tesztJani\";",
+							"tests[\"A foglaló személy\"] = data.username === \"admin\";",
 							"tests[\"Az épület\"] = data.building === \"DÉLI\";",
 							"tests[\"A tanterem\"] = data.classroom === \"Szabó József előadó\";",
 							"tests[\"A státusz\"] = data.status === \"PENDING\";",
 							"tests[\"A megjegyzés\"] = data.note === \"Teszt\";",
-							"tests[\"A kezdési dátum\"] = data.startDates[0] === \"2018-03-12 14:00\";",
-							"tests[\"A befejezési dátum\"] = data.endDates[0] === \"2018-03-12 16:00\";",
+							"tests[\"A kezdési dátum\"] = data.startDates[0] === \"2019-01-12 14:00\";",
+							"tests[\"A befejezési dátum\"] = data.endDates[0] === \"2019-01-12 16:00\";",
 							"",
 							"tests[\"A tárgykód\"] = data.subjectCode === \"IP-08DM1G\";",
-							"tests[\"A szemezster\"] = data.semester === \"2017-2018/2\";"
+							"tests[\"A szemezster\"] = data.semester === \"2018-2019/1\";",
+							"",
+							"postman.setEnvironmentVariable(\"id\", data.id);"
 						],
 						"type": "text/javascript"
 					}
@@ -673,7 +776,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"username\": \"tesztJani\",\n\t\"building\": \"DÉLI\",\n\t\"classroom\": \"Szabó József előadó\",\n\t\"status\": \"WHATEVER\",\n\t\"note\": \"Teszt\",\n\t\"subjectCode\": \"IP-08DM1G\",\n\t\"semester\": \"2017-2018/2\",\n\t\"startDates\": [\"2018-03-12 14:00\"],\n\t\"endDates\": [\"2018-03-12 16:00\"]\n}"
+					"raw": "{\n\t\"username\": \"tesztJani\",\n\t\"building\": \"DÉLI\",\n\t\"classroom\": \"Szabó József előadó\",\n\t\"status\": \"WHATEVER\",\n\t\"note\": \"Teszt\",\n\t\"subjectCode\": \"IP-08DM1G\",\n\t\"semester\": \"2017-2018/2\",\n\t\"startDates\": [\"2019-01-12 14:00\"],\n\t\"endDates\": [\"2019-01-12 16:00\"]\n}"
 				},
 				"url": {
 					"raw": "{{api}}/classReservation/createReservation",
@@ -707,11 +810,11 @@
 							"tests[\"A tanterem\"] = data.classroom === \"Eötvös terem\";",
 							"tests[\"A státusz\"] = data.status === \"PENDING\";",
 							"tests[\"A megjegyzés\"] = data.note === \"Második teszt\";",
-							"tests[\"A kezdési dátum\"] = data.startDates[0] === \"2017-10-12 14:00\";",
-							"tests[\"A befejezési dátum\"] = data.endDates[0] === \"2017-10-12 16:00\";",
+							"tests[\"A kezdési dátum\"] = data.startDates[0] === \"2019-01-15 14:00\";",
+							"tests[\"A befejezési dátum\"] = data.endDates[0] === \"2019-01-15 16:00\";",
 							"",
 							"tests[\"A tárgykód\"] = data.subjectCode === \"szvetlen1k17ea\";",
-							"tests[\"A szemezster\"] = data.semester === \"2017-2018/1\";"
+							"tests[\"A szemezster\"] = data.semester === \"2018-2019/1\";"
 						],
 						"type": "text/javascript"
 					}
@@ -734,17 +837,17 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"username\": \"tesztGabi\",\n\t\"building\": \"ÉSZAKI\",\n\t\"classroom\": \"Eötvös terem\",\n\t\"status\": \"PENDING\",\n\t\"note\": \"Második teszt\",\n\t\"subjectCode\": \"szvetlen1k17ea\",\n\t\"semester\": \"2017-2018/1\",\n\t\"startDates\": [\"2017-10-12 14:00\"],\n\t\"endDates\": [\"2017-10-12 16:00\"]\n}"
+					"raw": "{\n\t\"username\": \"tesztGabi\",\n\t\"building\": \"ÉSZAKI\",\n\t\"classroom\": \"Eötvös terem\",\n\t\"status\": \"PENDING\",\n\t\"note\": \"Második teszt\",\n\t\"subjectCode\": \"szvetlen1k17ea\",\n\t\"semester\": \"2017-2018/1\",\n\t\"startDates\": [\"2019-01-15 14:00\"],\n\t\"endDates\": [\"2019-01-15 16:00\"]\n}"
 				},
 				"url": {
-					"raw": "{{api}}/classReservation/update/5",
+					"raw": "{{api}}/classReservation/update/{{id}}",
 					"host": [
 						"{{api}}"
 					],
 					"path": [
 						"classReservation",
 						"update",
-						"5"
+						"{{id}}"
 					]
 				}
 			},
@@ -759,6 +862,18 @@
 						"id": "a465e9f7-6a54-468e-928f-2f06313e1bd7",
 						"exec": [
 							"tests[\"A státusz kód 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "1a259fb6-3aac-46ed-8b06-0397775fb067",
+						"exec": [
+							"if (postman.getEnvironmentVariable(\"executeDeletes\")=='false'){\r",
+							"    postman.setNextRequest(null);\r",
+							"}"
 						],
 						"type": "text/javascript"
 					}
@@ -784,7 +899,7 @@
 					"raw": "{\n\t\"username\": \"tesztGabi\",\n\t\"building\": \"ÉSZAKI\",\n\t\"classroom\": \"Eötvös terem\",\n\t\"status\": \"WHATEVER\",\n\t\"note\": \"Második teszt\",\n\t\"subjectCode\": \"szvetlen1k17ea\",\n\t\"semester\": \"2017-2018/1\",\n\t\"startDates\": [\"2017-10-12 14:00\"],\n\t\"endDates\": [\"2017-10-12 16:00\"]\n}"
 				},
 				"url": {
-					"raw": "{{api}}/classReservation/deleteById?id=5",
+					"raw": "{{api}}/classReservation/deleteById?id={{id}}",
 					"host": [
 						"{{api}}"
 					],
@@ -795,7 +910,7 @@
 					"query": [
 						{
 							"key": "id",
-							"value": "5"
+							"value": "{{id}}"
 						}
 					]
 				}
@@ -811,6 +926,18 @@
 						"id": "a465e9f7-6a54-468e-928f-2f06313e1bd7",
 						"exec": [
 							"tests[\"A státusz kód 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "d6ff4211-daec-48a1-b4c8-e229f3a05891",
+						"exec": [
+							"if (postman.getEnvironmentVariable(\"executeDeletes\")=='false'){\r",
+							"   postman.skipRequest;\r",
+							"}"
 						],
 						"type": "text/javascript"
 					}
@@ -863,6 +990,16 @@
 						"id": "a465e9f7-6a54-468e-928f-2f06313e1bd7",
 						"exec": [
 							"tests[\"A státusz kód 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0db1028a-0e53-4304-bb6b-a20c32231f08",
+						"exec": [
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -922,6 +1059,16 @@
 						],
 						"type": "text/javascript"
 					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "18ee9b7e-6f1b-4325-a7e7-2306b1defc13",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
 				}
 			],
 			"request": {
@@ -974,6 +1121,16 @@
 						],
 						"type": "text/javascript"
 					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "eda6dcfd-d7e6-4632-b22b-564064972453",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
 				}
 			],
 			"request": {
@@ -1023,6 +1180,16 @@
 						"id": "a465e9f7-6a54-468e-928f-2f06313e1bd7",
 						"exec": [
 							"tests[\"A státusz kód 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "09537b7c-cedc-4e2a-9c6d-87cb01a4c99c",
+						"exec": [
+							""
 						],
 						"type": "text/javascript"
 					}

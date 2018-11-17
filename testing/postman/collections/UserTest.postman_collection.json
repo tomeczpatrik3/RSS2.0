@@ -1,10 +1,55 @@
 {
 	"info": {
-		"_postman_id": "bdacd54a-40e4-44e1-83f1-dbd0ff3a7d71",
+		"_postman_id": "a9ab60b4-f1d5-4f55-927c-f13006df306b",
 		"name": "UserTest",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
+		{
+			"name": "login()",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ad65cd3b-c763-4a62-a3c9-232235538dad",
+						"exec": [
+							"/*A token beállítása*/",
+							"postman.setEnvironmentVariable(\"token\", postman.getResponseHeader(\"Authorization\").split(\" \")[1]);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"admin\",\n\t\"password\": \"admin\"\n}"
+				},
+				"url": {
+					"raw": "{{api}}/user/login",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
 		{
 			"name": "getAll()",
 			"event": [
@@ -606,7 +651,6 @@
 					"listen": "test",
 					"script": {
 						"id": "9cc2cd9d-3a72-4dd8-a4fe-ad7231dacdfe",
-						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
 							"",
@@ -615,8 +659,11 @@
 							"",
 							"tests[\"A létrehozott felhasználó felhasználóneve\"] = data.username === \"testuser\";",
 							"tests[\"A létrehozott felhasználó neve\"] = data.name === \"TEST TEST\";",
-							"tests[\"A létrehozott felhasználó e-mail címe\"] = data.email === \"test@test.com\";"
-						]
+							"tests[\"A létrehozott felhasználó e-mail címe\"] = data.email === \"test@test.test\";",
+							"",
+							"postman.setEnvironmentVariable(\"id\", data.id);"
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -634,7 +681,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"username\": \"testuser\",\n\t\"password\": \"testuser\",\n\t\"name\": \"TEST TEST\",\n\t\"email\": \"test@test.com\"\n}"
+					"raw": "{\n\t\"username\": \"testuser\",\n\t\"password\": \"testuser\",\n\t\"name\": \"TEST TEST\",\n\t\"email\": \"test@test.test\"\n}"
 				},
 				"url": {
 					"raw": "{{api}}/user/createUser",
@@ -689,14 +736,14 @@
 					"raw": "{\n\t\"username\": \"testuser\",\n\t\"password\": \"itDoesntMatter\",\n\t\"name\": \"Teszt Károlyka\",\n\t\"email\": \"karoly@test.hu\"\n}"
 				},
 				"url": {
-					"raw": "{{api}}/user/update/4",
+					"raw": "{{api}}/user/update/{{id}}",
 					"host": [
 						"{{api}}"
 					],
 					"path": [
 						"user",
 						"update",
-						"4"
+						"{{id}}"
 					]
 				}
 			},

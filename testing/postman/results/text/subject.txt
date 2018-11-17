@@ -2,70 +2,73 @@ newman
 
 SubjectTest
 
+→ login()
+  POST http://localhost:8080/api/user/login [200 OK, 487B, 125ms]
+
 → getAll()
-  GET http://localhost:8080/api/subject/getAll [200 OK, 1.76KB, 39ms]
+  GET http://localhost:8080/api/subject/getAll [200 OK, 1.76KB, 22ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A tantárgyak száma
 
 → getSubjectNames()
-  GET http://localhost:8080/api/subject/getSubjectNames [200 OK, 901B, 19ms]
+  GET http://localhost:8080/api/subject/getSubjectNames [200 OK, 901B, 32ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A tantárgyak neveinek száma
 
 → getSubjectName()
-  GET http://localhost:8080/api/subject/getSubjectName?subjectCode=vektorf17ea [200 OK, 340B, 14ms]
+  GET http://localhost:8080/api/subject/getSubjectName?subjectCode=vektorf17ea [200 OK, 340B, 15ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A tantárgy neve
 
 → findById()
-  GET http://localhost:8080/api/subject/findById/1 [200 OK, 364B, 16ms]
+  GET http://localhost:8080/api/subject/findById/1 [200 OK, 364B, 15ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A tantárgy neve
   √  A tantárgy kódja
 
 → existsById (TRUE)
-  GET http://localhost:8080/api/subject/existsById?id=1 [200 OK, 316B, 15ms]
+  GET http://localhost:8080/api/subject/existsById?id=1 [200 OK, 316B, 32ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A visszatérési érték
 
 → existsById (FALSE)
-  GET http://localhost:8080/api/subject/existsById?id=9999 [200 OK, 317B, 12ms]
+  GET http://localhost:8080/api/subject/existsById?id=9999 [200 OK, 317B, 16ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A visszatérési érték
 
 → existsByCode (TRUE)
-  GET http://localhost:8080/api/subject/existsByCode?code=mikrobb18ea [200 OK, 316B, 13ms]
+  GET http://localhost:8080/api/subject/existsByCode?code=mikrobb18ea [200 OK, 316B, 16ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A visszatérési érték
 
 → existsByCode (FALSE)
-  GET http://localhost:8080/api/subject/existsByCode?code=nincsilyenkod [200 OK, 317B, 11ms]
+  GET http://localhost:8080/api/subject/existsByCode?code=nincsilyenkod [200 OK, 317B, 16ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A visszatérési érték
 
 → createSubject()
-  POST http://localhost:8080/api/subject/createSubject [201 Created, 367B, 53ms]
+  POST http://localhost:8080/api/subject/createSubject [201 Created, 367B, 123ms]
   √  A státusz kód 201
   √  A tartalom típusa
   √  A létrehozott tantárgy neve
   √  A létrehozott tantárgy kódja
 
 → update()
-  PUT http://localhost:8080/api/subject/update/25 [201 Created, 380B, 35ms]
+  PUT http://localhost:8080/api/subject/update/25 [201 Created, 380B, 58ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A tantárgy neve
 
 → deleteByCode()
-  DELETE http://localhost:8080/api/subject/deleteByCode?subjectCode=test01 [200 OK, 257B, 39ms]
+  DELETE http://localhost:8080/api/subject/deleteByCode?subjectCode=test01 [200 OK, 257B, 47ms]
   √  A státusz kód 200
 
 ┌─────────────────────────┬──────────┬──────────┐
@@ -73,17 +76,17 @@ SubjectTest
 ├─────────────────────────┼──────────┼──────────┤
 │              iterations │        1 │        0 │
 ├─────────────────────────┼──────────┼──────────┤
-│                requests │       11 │        0 │
+│                requests │       12 │        0 │
 ├─────────────────────────┼──────────┼──────────┤
-│            test-scripts │       11 │        0 │
+│            test-scripts │       12 │        0 │
 ├─────────────────────────┼──────────┼──────────┤
 │      prerequest-scripts │        0 │        0 │
 ├─────────────────────────┼──────────┼──────────┤
 │              assertions │       33 │        0 │
 ├─────────────────────────┴──────────┴──────────┤
-│ total run duration: 533ms                     │
+│ total run duration: 1701ms                    │
 ├───────────────────────────────────────────────┤
 │ total data received: 2.24KB (approx)          │
 ├───────────────────────────────────────────────┤
-│ average response time: 24ms                   │
+│ average response time: 43ms                   │
 └───────────────────────────────────────────────┘

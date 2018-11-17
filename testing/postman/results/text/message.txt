@@ -1,0 +1,91 @@
+newman
+
+MessageTest
+
+→ login()
+  POST http://localhost:8080/api/user/login [200 OK, 487B, 94ms]
+
+→ findOwnById()
+  GET http://localhost:8080/api/message/findOwnById?id=4 [200 OK, 449B, 15ms]
+  √  A státusz kód 200
+  √  A tartalom típusa
+  √  A feladó
+  √  A címzett
+  √  Az üzenet
+  √  A státusz
+
+→ findBySender()
+  GET http://localhost:8080/api/message/findBySender?sender=tesztJani [200 OK, 573B, 31ms]
+  √  A státusz kód 200
+  √  A tartalom típusa
+  √  Az üzenetek száma
+  √  A lista tartalmazza a 'Ez egy teszt üzenet Gábortól Jánosnak' szöveget
+  √  A lista tartalmazza a 'Ez egy teszt üzenet Jánostól az adminisztrátor számára' szöveget
+
+→ findByRecipient()
+  GET http://localhost:8080/api/message/findByRecipient?recipient=tesztJani [200 OK, 436B, 32ms]
+  √  A státusz kód 200
+  √  A tartalom típusa
+  √  Az üzenetek száma
+  √  A lista tartalmazza a 'Ez egy teszt üzenet Jánostól Gábornak' szöveget
+
+→ findOwnMessages()
+  GET http://localhost:8080/api/message/findOwnMessages [200 OK, 451B, 0ms]
+  √  A státusz kód 200
+  √  A tartalom típusa
+  √  Az üzenetek száma
+  √  A lista tartalmazza a 'Ez egy teszt üzenet Jánostól az adminisztrátor számára' szöveget
+
+→ generateSystemMessage(ACCEPT_MSG)
+  GET http://localhost:8080/api/message/generateSystemMessage?recipient=admin&reservationId=1&messageType=ACCEPT_MSG [200 OK, 465B, 94ms]
+  √  A státusz kód 201
+  √  A tartalom típusa
+  √  A létrehozott üzenet feladója
+  √  A létrehozott üzenet címzettje
+  √  A létrehozott üzenet tartalma
+  √  A létrehozott üzenet státusza
+
+→ markOwnAsRead()
+  GET http://localhost:8080/api/message/markOwnAsRead?id=5 [200 OK, 257B, 51ms]
+  √  A státusz kód 200
+
+→ markOwnAsUnread()
+  GET http://localhost:8080/api/message/markOwnAsUnread?id=5 [200 OK, 257B, 104ms]
+  √  A státusz kód 200
+
+→ deleteOwnById
+  DELETE http://localhost:8080/api/message/deleteOwnById?id=5 [200 OK, 257B, 94ms]
+  √  A státusz kód 200
+
+→ sendMessage()
+  POST http://localhost:8080/api/message/sendMessage [201 Created, 402B, 109ms]
+  √  A státusz kód 201
+  √  A tartalom típusa
+  √  A létrehozott üzenet feladója
+  √  A létrehozott üzenet címzettje
+  √  A létrehozott üzenet tartalma
+  √  A létrehozott üzenet státusza
+
+→ deleteOwnById
+  DELETE http://localhost:8080/api/message/deleteOwnById?id=6 [200 OK, 257B, 47ms]
+  √  A státusz kód 200
+
+┌─────────────────────────┬──────────┬──────────┐
+│                         │ executed │   failed │
+├─────────────────────────┼──────────┼──────────┤
+│              iterations │        1 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│                requests │       11 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│            test-scripts │       11 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│      prerequest-scripts │        0 │        0 │
+├─────────────────────────┼──────────┼──────────┤
+│              assertions │       35 │        0 │
+├─────────────────────────┴──────────┴──────────┤
+│ total run duration: 1774ms                    │
+├───────────────────────────────────────────────┤
+│ total data received: 899B (approx)            │
+├───────────────────────────────────────────────┤
+│ average response time: 64ms                   │
+└───────────────────────────────────────────────┘

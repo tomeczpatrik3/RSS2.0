@@ -2,8 +2,11 @@ newman
 
 SemesterTest
 
+→ login()
+  POST http://localhost:8080/api/user/login [200 OK, 487B, 94ms]
+
 → getAll()
-  GET http://localhost:8080/api/semester/getAll [200 OK, 703B, 38ms]
+  GET http://localhost:8080/api/semester/getAll [200 OK, 1.12KB, 46ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A szemeszterek száma
@@ -12,18 +15,8 @@ SemesterTest
   √  A lista tartalmazza a 2016-2017/2-t
   √  A lista tartalmazza a 2015-2016/2-t
 
-→ getSemesterNames()
-  GET http://localhost:8080/api/semester/getSemesterNames/ [200 OK, 383B, 15ms]
-  √  A státusz kód 200
-  √  A tartalom típusa
-  √  A szemeszterek neveinek száma
-  √  A lista tartalmazza a 2017-2018/1-t
-  √  A lista tartalmazza a 2017-2018/2-t
-  √  A lista tartalmazza a 2016-2017/2-t
-  √  A lista tartalmazza a 2015-2016/2-t
-
 → findByName()
-  GET http://localhost:8080/api/semester/findByName?name=2016-2017/1 [200 OK, 389B, 18ms]
+  GET http://localhost:8080/api/semester/findByName?name=2016-2017/1 [200 OK, 404B, 31ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  Az szemeszter neve
@@ -31,7 +24,7 @@ SemesterTest
   √  Az szemeszter vége
 
 → findById()
-  GET http://localhost:8080/api/semester/findById/1 [200 OK, 389B, 17ms]
+  GET http://localhost:8080/api/semester/findById/6 [200 OK, 404B, 16ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  Az szemeszter neve
@@ -39,39 +32,40 @@ SemesterTest
   √  Az szemeszter vége
 
 → existsById (TRUE)
-  GET http://localhost:8080/api/semester/existsById?id=1 [200 OK, 316B, 16ms]
+  GET http://localhost:8080/api/semester/existsById?id=1 [200 OK, 316B, 18ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A visszatérési érték
 
 → existsById (FALSE)
-  GET http://localhost:8080/api/semester/existsById?id=9999 [200 OK, 317B, 11ms]
+  GET http://localhost:8080/api/semester/existsById?id=9999 [200 OK, 317B, 27ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A visszatérési érték
 
 → existsByName (TRUE)
-  GET http://localhost:8080/api/semester/existsByName?name=2017-2018/2 [200 OK, 316B, 15ms]
+  GET http://localhost:8080/api/semester/existsByName?name=2017-2018/2 [200 OK, 316B, 27ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A visszatérési érték
 
 → existsByName (FALSE)
-  GET http://localhost:8080/api/semester/existsByName?name=NEM LETEZIK [200 OK, 317B, 11ms]
+  GET http://localhost:8080/api/semester/existsByName?name=NEM LETEZIK [200 OK, 317B, 8ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A visszatérési érték
 
 → createSemester()
-  POST http://localhost:8080/api/semester/createSemester/ [201 Created, 431B, 44ms]
+  POST http://localhost:8080/api/semester/createSemester/ [201 Created, 447B, 122ms]
   √  A státusz kód 201
   √  A tartalom típusa
   √  A létrehozott szemeszter neve
+  √  A létrehozott szemeszter státusza
   √  A létrehozott szemeszter kezdeti dátuma
   √  A létrehozott szemeszter befejezési dátuma
 
 → update()
-  PUT http://localhost:8080/api/semester/update/6 [201 Created, 431B, 36ms]
+  PUT http://localhost:8080/api/semester/update/10 [201 Created, 447B, 94ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A szemeszter neve
@@ -79,7 +73,7 @@ SemesterTest
   √  A szemeszter befejezési dátuma
 
 → deleteByName()
-  DELETE http://localhost:8080/api/semester/deleteByName?name=2012-2013/1 [200 OK, 257B, 31ms]
+  DELETE http://localhost:8080/api/semester/deleteByName?name=2012-2013/1 [200 OK, 257B, 78ms]
   √  A státusz kód 200
 
 ┌─────────────────────────┬──────────┬──────────┐
@@ -93,11 +87,11 @@ SemesterTest
 ├─────────────────────────┼──────────┼──────────┤
 │      prerequest-scripts │        0 │        0 │
 ├─────────────────────────┼──────────┼──────────┤
-│              assertions │       47 │        0 │
+│              assertions │       41 │        0 │
 ├─────────────────────────┴──────────┴──────────┤
-│ total run duration: 524ms                     │
+│ total run duration: 1481ms                    │
 ├───────────────────────────────────────────────┤
-│ total data received: 862B (approx)            │
+│ total data received: 1.27KB (approx)          │
 ├───────────────────────────────────────────────┤
-│ average response time: 22ms                   │
+│ average response time: 51ms                   │
 └───────────────────────────────────────────────┘

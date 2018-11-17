@@ -3,51 +3,51 @@ newman
 EventTest
 
 → getEvents()
-  GET http://localhost:8080/api/event/getEvents [200 OK, 912B, 45ms]
+  GET http://localhost:8080/api/event/getEvents [200 OK, 975B, 16ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  Az események száma
   √  A lista tartalmazza a 'ÉSZAKI - Jánossy Lajos terem: Analízis 1 EA'-t
-  √  A lista tartalmazza a 'DÉLI - Gallai Tibor terem: Teszt esemény'-t
+  √  A lista tartalmazza a 'DÉLI - Mogyoródi József előadó: BSc Záróvizsga'-t
 
 → findByUserName()
-  GET http://localhost:8080/api/event/findByUserName?userName=Teszt Gábor [200 OK, 912B, 23ms]
+  GET http://localhost:8080/api/event/findByUserName?userName=Teszt Gábor [200 OK, 975B, 16ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  Az események száma
   √  A lista tartalmazza a 'ÉSZAKI - Jánossy Lajos terem: Analízis 1 EA'-t
-  √  A lista tartalmazza a 'DÉLI - Gallai Tibor terem: Teszt esemény'-t
+  √  A lista tartalmazza a 'DÉLI - Mogyoródi József előadó: BSc Záróvizsga'-t
 
 → findByBuildingName()
-  GET http://localhost:8080/api/event/findByBuildingName?buildingName=ÉSZAKI [200 OK, 622B, 40ms]
+  GET http://localhost:8080/api/event/findByBuildingName?buildingName=ÉSZAKI [200 OK, 644B, 31ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  Az események száma
   √  A lista tartalmazza a 'ÉSZAKI - Jánossy Lajos terem: Analízis 1 EA'-t
 
 → findByClassroomNameAndBuilding()
-  GET http://localhost:8080/api/event/findByClassroomNameAndBuilding?classroom=Gallai Tibor terem&building=DÉLI [200 OK, 603B, 19ms]
+  GET http://localhost:8080/api/event/findByClassroomNameAndBuilding?classroom=Mogyoródi József előadó&building=DÉLI [200 OK, 644B, 32ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  Az események száma
-  √  A lista tartalmazza a 'DÉLI - Gallai Tibor terem: Teszt esemény'-t
+  √  A lista tartalmazza a 'DÉLI - Mogyoródi József előadó: BSc Záróvizsga'-t
 
 → findByEventName()
-  GET http://localhost:8080/api/event/findByEventName?eventName=Teszt esemény [200 OK, 603B, 18ms]
+  GET http://localhost:8080/api/event/findByEventName?eventName=BSc Záróvizsga [200 OK, 644B, 16ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  Az események száma
-  √  A lista tartalmazza a 'DÉLI - Gallai Tibor terem: Teszt esemény'-t
+  √  A lista tartalmazza a 'DÉLI - Mogyoródi József előadó: BSc Záróvizsga'-t
 
 → findBySubjectName()
-  GET http://localhost:8080/api/event/findBySubjectName?subjectName=Analízis 1 EA [200 OK, 622B, 19ms]
+  GET http://localhost:8080/api/event/findBySubjectName?subjectName=Analízis 1 EA [200 OK, 644B, 9ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  Az események száma
   √  A lista tartalmazza a 'ÉSZAKI - Jánossy Lajos terem: Analízis 1 EA'-t
 
 → findBySemesterName()
-  GET http://localhost:8080/api/event/findBySemesterName?semesterName=2017-2018/1 [200 OK, 622B, 19ms]
+  GET http://localhost:8080/api/event/findBySemesterName?semesterName=2018-2019/1 [200 OK, 644B, 32ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  Az események száma
@@ -66,9 +66,9 @@ EventTest
 ├─────────────────────────┼──────────┼──────────┤
 │              assertions │       30 │        0 │
 ├─────────────────────────┴──────────┴──────────┤
-│ total run duration: 375ms                     │
+│ total run duration: 795ms                     │
 ├───────────────────────────────────────────────┤
-│ total data received: 2.65KB (approx)          │
+│ total data received: 2.92KB (approx)          │
 ├───────────────────────────────────────────────┤
-│ average response time: 26ms                   │
+│ average response time: 21ms                   │
 └───────────────────────────────────────────────┘

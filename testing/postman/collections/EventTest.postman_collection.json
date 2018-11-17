@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "dac1ac9b-06bf-4e1d-828a-3802996c54b7",
+		"_postman_id": "6eeed442-3050-4f9d-9756-2d36bc7fbb8c",
 		"name": "EventTest",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -20,7 +20,7 @@
 							"",
 							"tests[\"Az események száma\"] = data.length === 2;",
 							"tests[\"A lista tartalmazza a 'ÉSZAKI - Jánossy Lajos terem: Analízis 1 EA'-t\"] = (responseBody.has(\"ÉSZAKI - Jánossy Lajos terem: Analízis 1 EA\"));",
-							"tests[\"A lista tartalmazza a 'DÉLI - Gallai Tibor terem: Teszt esemény'-t\"] = (responseBody.has(\"DÉLI - Gallai Tibor terem: Teszt esemény\"));"
+							"tests[\"A lista tartalmazza a 'DÉLI - Mogyoródi József előadó: BSc Záróvizsga'-t\"] = (responseBody.has(\"DÉLI - Mogyoródi József előadó: BSc Záróvizsga\"));"
 						],
 						"type": "text/javascript"
 					}
@@ -66,7 +66,7 @@
 							"",
 							"tests[\"Az események száma\"] = data.length === 2;",
 							"tests[\"A lista tartalmazza a 'ÉSZAKI - Jánossy Lajos terem: Analízis 1 EA'-t\"] = (responseBody.has(\"ÉSZAKI - Jánossy Lajos terem: Analízis 1 EA\"));",
-							"tests[\"A lista tartalmazza a 'DÉLI - Gallai Tibor terem: Teszt esemény'-t\"] = (responseBody.has(\"DÉLI - Gallai Tibor terem: Teszt esemény\"));"
+							"tests[\"A lista tartalmazza a 'DÉLI - Mogyoródi József előadó: BSc Záróvizsga'-t\"] = (responseBody.has(\"DÉLI - Mogyoródi József előadó: BSc Záróvizsga\"));"
 						],
 						"type": "text/javascript"
 					}
@@ -168,7 +168,7 @@
 							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
 							"",
 							"tests[\"Az események száma\"] = data.length === 1;",
-							"tests[\"A lista tartalmazza a 'DÉLI - Gallai Tibor terem: Teszt esemény'-t\"] = (responseBody.has(\"DÉLI - Gallai Tibor terem: Teszt esemény\"));"
+							"tests[\"A lista tartalmazza a 'DÉLI - Mogyoródi József előadó: BSc Záróvizsga'-t\"] = (responseBody.has(\"DÉLI - Mogyoródi József előadó: BSc Záróvizsga\"));"
 						],
 						"type": "text/javascript"
 					}
@@ -187,7 +187,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{api}}/event/findByClassroomNameAndBuilding?classroom=Gallai Tibor terem&building=DÉLI",
+					"raw": "{{api}}/event/findByClassroomNameAndBuilding?classroom=Mogyoródi József előadó&building=DÉLI",
 					"host": [
 						"{{api}}"
 					],
@@ -198,7 +198,7 @@
 					"query": [
 						{
 							"key": "classroom",
-							"value": "Gallai Tibor terem"
+							"value": "Mogyoródi József előadó"
 						},
 						{
 							"key": "building",
@@ -223,7 +223,7 @@
 							"tests[\"A tartalom típusa\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json;charset=UTF-8\";",
 							"",
 							"tests[\"Az események száma\"] = data.length === 1;",
-							"tests[\"A lista tartalmazza a 'DÉLI - Gallai Tibor terem: Teszt esemény'-t\"] = (responseBody.has(\"DÉLI - Gallai Tibor terem: Teszt esemény\"));"
+							"tests[\"A lista tartalmazza a 'DÉLI - Mogyoródi József előadó: BSc Záróvizsga'-t\"] = (responseBody.has(\"DÉLI - Mogyoródi József előadó: BSc Záróvizsga\"));"
 						],
 						"type": "text/javascript"
 					}
@@ -242,7 +242,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{api}}/event/findByEventName?eventName=Teszt esemény",
+					"raw": "{{api}}/event/findByEventName?eventName=BSc Záróvizsga",
 					"host": [
 						"{{api}}"
 					],
@@ -253,7 +253,7 @@
 					"query": [
 						{
 							"key": "eventName",
-							"value": "Teszt esemény"
+							"value": "BSc Záróvizsga"
 						}
 					]
 				}
@@ -344,7 +344,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{api}}/event/findBySemesterName?semesterName=2017-2018/1",
+					"raw": "{{api}}/event/findBySemesterName?semesterName=2018-2019/1",
 					"host": [
 						"{{api}}"
 					],
@@ -355,7 +355,7 @@
 					"query": [
 						{
 							"key": "semesterName",
-							"value": "2017-2018/1"
+							"value": "2018-2019/1"
 						}
 					]
 				}

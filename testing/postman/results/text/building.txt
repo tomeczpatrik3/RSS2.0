@@ -2,8 +2,11 @@ newman
 
 BuildingTest
 
+→ login()
+  POST http://localhost:8080/api/user/login [200 OK, 487B, 94ms]
+
 → getAll()
-  GET http://localhost:8080/api/building/getAll [200 OK, 363B, 60ms]
+  GET http://localhost:8080/api/building/getAll [200 OK, 363B, 16ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  Az épületek száma
@@ -11,7 +14,7 @@ BuildingTest
   √  A lista tartalmazza az ÉSZAKI-t
 
 → getNames()
-  GET http://localhost:8080/api/building/getNames [200 OK, 331B, 18ms]
+  GET http://localhost:8080/api/building/getNames [200 OK, 331B, 0ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  Az nevek mennyisége
@@ -19,55 +22,55 @@ BuildingTest
   √  A lista tartalmazza a ÉSZAKI-t
 
 → findByName()
-  GET http://localhost:8080/api/building/findByName/DELI [200 OK, 335B, 21ms]
+  GET http://localhost:8080/api/building/findByName/DELI [200 OK, 335B, 32ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  Az épület neve
 
 → findById()
-  GET http://localhost:8080/api/building/findById/1 [200 OK, 337B, 16ms]
+  GET http://localhost:8080/api/building/findById/1 [200 OK, 337B, 12ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  Az épület neve
 
 → existsById (TRUE)
-  GET http://localhost:8080/api/building/existsById?id=1 [200 OK, 316B, 17ms]
+  GET http://localhost:8080/api/building/existsById?id=1 [200 OK, 316B, 0ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A visszatérési érték
 
 → existsById (FALSE)
-  GET http://localhost:8080/api/building/existsById?id=9999 [200 OK, 317B, 12ms]
+  GET http://localhost:8080/api/building/existsById?id=9999 [200 OK, 317B, 0ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A visszatérési érték
 
 → existsByName (TRUE)
-  GET http://localhost:8080/api/building/existsByName?name=ÉSZAKI [200 OK, 316B, 14ms]
+  GET http://localhost:8080/api/building/existsByName?name=ÉSZAKI [200 OK, 316B, 16ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A visszatérési érték
 
 → existsByName (FALSE)
-  GET http://localhost:8080/api/building/existsByName?name=NEM LETEZIK [200 OK, 317B, 13ms]
+  GET http://localhost:8080/api/building/existsByName?name=NEM LETEZIK [200 OK, 317B, 15ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  A visszatérési érték
 
 → createBuilding()
-  POST http://localhost:8080/api/building/createBuilding/ [201 Created, 341B, 42ms]
+  POST http://localhost:8080/api/building/createBuilding/ [201 Created, 341B, 140ms]
   √  A státusz kód 201
   √  A tartalom típusa
   √  A létrehozott épület neve
 
 → update()
-  PUT http://localhost:8080/api/building/update/3 [201 Created, 342B, 39ms]
+  PUT http://localhost:8080/api/building/update/3 [201 Created, 342B, 62ms]
   √  A státusz kód 200
   √  A tartalom típusa
   √  Az épület neve
 
 → deleteByName()
-  DELETE http://localhost:8080/api/building/deleteByName/NYUGATI [200 OK, 257B, 43ms]
+  DELETE http://localhost:8080/api/building/deleteByName/NYUGATI [200 OK, 257B, 63ms]
   √  A státusz kód 200
 
 ┌─────────────────────────┬──────────┬──────────┐
@@ -75,17 +78,17 @@ BuildingTest
 ├─────────────────────────┼──────────┼──────────┤
 │              iterations │        1 │        0 │
 ├─────────────────────────┼──────────┼──────────┤
-│                requests │       11 │        0 │
+│                requests │       12 │        0 │
 ├─────────────────────────┼──────────┼──────────┤
-│            test-scripts │       11 │        0 │
+│            test-scripts │       12 │        0 │
 ├─────────────────────────┼──────────┼──────────┤
 │      prerequest-scripts │        0 │        0 │
 ├─────────────────────────┼──────────┼──────────┤
 │              assertions │       35 │        0 │
 ├─────────────────────────┴──────────┴──────────┤
-│ total run duration: 555ms                     │
+│ total run duration: 1542ms                    │
 ├───────────────────────────────────────────────┤
 │ total data received: 185B (approx)            │
 ├───────────────────────────────────────────────┤
-│ average response time: 26ms                   │
+│ average response time: 49ms                   │
 └───────────────────────────────────────────────┘
