@@ -1,8 +1,0 @@
--- temavezeto, keszitette
--- oldalak szamozasa, tartalom ellenorzese
--- 4.2 --> A fejlesztői környezet
--- 4.2 fejlesztés menete Backend: NetBeans környezetre
--- 4.3 elé oldaltörés
--- A táblázatok sora ne törjön szét!!!!
--- nyelvhelyesség
--- irodalomjegyzék dátumok megjegyzéssel (mikor volt elérhető)
