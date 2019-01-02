@@ -143,9 +143,9 @@ INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `rese
 INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (31,'2018-08-24 14:00:00','2018-08-24 10:15:00',3);
 INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (32,'2018-08-31 14:00:00','2018-08-31 10:15:00',3);
 
-INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (33,'2019-01-04 08:30:00','2019-01-04 16:30:00',4);
-INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (34,'2019-01-25 12:00:00','2019-01-25 14:00:00',5);
-INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (35,'2019-01-25 12:00:00','2019-01-25 13:00:00',6);
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (33,'2019-01-04 16:30:00','2019-01-04 08:30:00',4);
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (34,'2019-01-25 14:00:00','2019-01-25 12:00:00',5);
+INSERT INTO `roomreservationdb`.`reservation_dates` (`id`, `end`, `start`, `reservation`) VALUES (35,'2019-01-25 13:00:00','2019-01-25 12:00:00',6);
 
 INSERT INTO `roomreservationdb`.`messages` (`id`, `message`, `unread`, `recipient`, `sender`) VALUES (1,'Ez egy teszt üzenet Gábortól Jánosnak',true,1,2);
 INSERT INTO `roomreservationdb`.`messages` (`id`, `message`, `unread`, `recipient`, `sender`) VALUES (2,'Ez egy teszt üzenet Jánostól Gábornak',false,2,1);
